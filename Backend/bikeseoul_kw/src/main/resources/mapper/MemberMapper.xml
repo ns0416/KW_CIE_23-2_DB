@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bikeseoul.bikeseoul_kw.dao.MemberDao">
+    <select id="getMemberInfo" resultType="com.bikeseoul.bikeseoul_kw.container.Member">
+        SELECT
+        	*
+        FROM
+        	member
+        <if test="uid > 0 or id != null">
+        WHERE
+        </if>
+        <if test="uid > 0">
+        	uid = #{uid}
+        </if>
+        <if test="0 >= uid  and id != null">
+        	id = #{id}
+        </if>
+    </select>
+    <select id="getMemberInfoList" resultType="com.bikeseoul.bikeseoul_kw.container.Member">
+        SELECT
+        	*
+        FROM
+        	member
+        <trim prefix="WHERE" suffixOverrides="AND|OR">
+        	<if test="query_type != null and query != null">
+        		<if test="query_type == 'id'">
+        			id LIKE CONCAT('%',#{query}, '%') AND
+        		</if>
+        	</if>
+        </trim>
+        <if test="p_start >= 0 and p_end >=0">
+        	LIMIT
+        		#{p_start}, #{p_end}
+        </if>
+    </select>
+    <select id="getMemberInfoCount" resultType="Integer">
+        SELECT
+        	COUNT(*)
+        FROM
+        	member
+        <if test="type > 0">
+        WHERE
+        </if>
+        <if test="type == 1">
+        	id LIKE CONCAT('%',#{value}, '%')
+        </if>
+        <if test="type == 2">
+        	email LIKE CONCAT('%',#{value}, '%')
+        </if>
+    </select>
+    
+	<update id="updateMemberInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Member">
+		UPDATE
+			member
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="pw != null">
+				pw = #{pw},
+				<if test="email != null">
+					email = #{email},
+				</if>
+				<if test="age >0">
+					age = #{age},
+				</if>
+				<if test="weight >0">
+					weight = #{weight},
+				</if>
+				<if test="phone != null">
+					phonenumber1 = #{phonenumber1},
+				</if>
+				<if test="is_lost != null">
+					is_lost = #{is_lost},
+				</if>
+				<if test="is_valid != null">
+					is_valid = #{is_valid},
+				</if>
+			</if>
+		</trim>	
+		WHERE
+			uid = #{uid}
+	</update>
+	<insert id="registerMemberInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Member">
+		<![CDATA[
+			INSERT INTO nms_accounts
+				(
+					id,
+					pw,
+					email,
+					phone,
+					sex,
+					age,
+					weight
+				) VALUES (
+					#{id},
+					#{pw},
+					#{email},
+					#{phone},
+					#{sex},
+					#{age},
+					#{weight}
+				)
+		
+		]]>
+		
+		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+			SELECT LAST_INSERT_ID() AS uid
+		</selectKey>
+	</insert>
+</mapper>
