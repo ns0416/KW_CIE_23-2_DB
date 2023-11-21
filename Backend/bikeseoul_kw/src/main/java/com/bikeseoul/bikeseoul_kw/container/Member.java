@@ -1,4 +1,4 @@
-package com.bikeseoul.bikeseoul_kw.containter;
+package com.bikeseoul.bikeseoul_kw.container;
 
 import java.time.LocalDateTime;
 
@@ -14,8 +14,8 @@ public class Member extends User{
 		this.weight = weight;
 	}
 	
-	public Member(String name, String id) {
-			super(name, id);
+	public Member(String id, String email) {
+			super(id, email);
 			// TODO Auto-generated constructor stub
 		}
 	public Member(String id) {

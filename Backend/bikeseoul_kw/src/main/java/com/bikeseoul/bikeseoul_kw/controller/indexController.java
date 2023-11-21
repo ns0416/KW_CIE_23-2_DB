@@ -4,20 +4,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.bikeseoul.bikeseoul_kw.containter.Member;
-import com.bikeseoul.bikeseoul_kw.containter.User;
+import com.bikeseoul.bikeseoul_kw.container.Member;
+import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
 import com.google.gson.JsonObject;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-@Controller
+@RestController
 public class indexController {
 	
 	@Autowired
@@ -68,6 +69,19 @@ public class indexController {
 		hs.invalidate();
 		JsonObject jo = new JsonObject();
 		jo.addProperty("result", "success");
+		return jo.toString();
+	}
+	@GetMapping("/rest/findID")
+	public String findID(HttpServletRequest request, String email) {
+		JsonObject jo = new JsonObject();
+		Member mem = am.findID(new Member(null, email));
+		Member found = am.findID(mem);
+		if(found == null || found.getIs_valid()==false) {
+			jo.addProperty("result", "failed");
+		}else {
+			jo.addProperty("result", "success");
+			jo.addProperty("id", found.getId().substring(0, 3)+"***"+found.getId().substring(found.getId().length()-2));
+		}
 		return jo.toString();
 	}
 }

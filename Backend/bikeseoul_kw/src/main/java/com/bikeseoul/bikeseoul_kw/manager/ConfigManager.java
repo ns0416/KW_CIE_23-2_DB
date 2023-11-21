@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.bikeseoul.bikeseoul_kw.containter.Config;
+import com.bikeseoul.bikeseoul_kw.container.Config;
 import com.bikeseoul.bikeseoul_kw.service.ConfigService;
 
 

@@ -3,8 +3,7 @@ package com.bikeseoul.bikeseoul_kw.interceptor;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.namisnt.ai.container.AdminUser;
-import com.namisnt.ai.container.User;
+import com.bikeseoul.bikeseoul_kw.container.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,7 +17,7 @@ public class AdminInterceptor implements HandlerInterceptor{
 		HttpSession hs = request.getSession(false);
 		if(hs!=null) {
 			User mem = (User) hs.getAttribute("member");
-			if(mem != null && mem instanceof AdminUser) {
+			if(mem != null && mem.getLevel() == 9999) {
 				return true;
 			}else {
 				return false;

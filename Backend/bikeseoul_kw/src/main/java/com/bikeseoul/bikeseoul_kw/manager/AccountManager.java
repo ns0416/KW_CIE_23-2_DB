@@ -23,11 +23,11 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.bikeseoul.bikeseoul_kw.containter.CommonEnum;
-import com.bikeseoul.bikeseoul_kw.containter.Config;
-import com.bikeseoul.bikeseoul_kw.containter.Member;
-import com.bikeseoul.bikeseoul_kw.containter.Pair;
-import com.bikeseoul.bikeseoul_kw.containter.User;
+import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
+import com.bikeseoul.bikeseoul_kw.container.Config;
+import com.bikeseoul.bikeseoul_kw.container.Member;
+import com.bikeseoul.bikeseoul_kw.container.Pair;
+import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.service.MemberService;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

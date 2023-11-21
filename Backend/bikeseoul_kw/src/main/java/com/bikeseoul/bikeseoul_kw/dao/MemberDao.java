@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.bikeseoul.bikeseoul_kw.containter.Member;
+import com.bikeseoul.bikeseoul_kw.container.Member;
 
 
 @Mapper

@@ -1,4 +1,4 @@
-package com.bikeseoul.bikeseoul_kw.containter;
+package com.bikeseoul.bikeseoul_kw.container;
 
 import java.time.LocalDateTime;
 
@@ -21,9 +21,10 @@ public class User extends CommonData {
 		this.is_valid = is_valid;
 		this.is_lost = is_lost;
 	}
-	public User(String name, String id) {
+	public User(String id, String email) {
 		super(0, null);
 		this.id = id;
+		this.email = email;
 	}
 	public String getId() {
 		return id;

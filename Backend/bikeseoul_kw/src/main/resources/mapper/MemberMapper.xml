@@ -107,4 +107,12 @@
 			SELECT LAST_INSERT_ID() AS uid
 		</selectKey>
 	</insert>
+	<select id="findID" resultType="com.bikeseoul.bikeseoul_kw.container.Member">
+        SELECT
+        	mem.*
+        FROM
+        	member AS mem
+        WHERE
+        	email = #{email}
+    </select>
 </mapper>

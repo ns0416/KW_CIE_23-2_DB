@@ -1,4 +1,4 @@
-package com.bikeseoul.bikeseoul_kw.containter;
+package com.bikeseoul.bikeseoul_kw.container;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
