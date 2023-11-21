@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
@@ -81,6 +82,59 @@ public class indexController {
 		}else {
 			jo.addProperty("result", "success");
 			jo.addProperty("id", found.getId().substring(0, 3)+"***"+found.getId().substring(found.getId().length()-2));
+		}
+		return jo.toString();
+	}
+	
+	@PostMapping("/rest/findPW")
+	public String findPW(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession(true);
+		JsonObject jo = new JsonObject();
+		Member mem = am.findID(new Member((String)body.get("id"),(String)body.get("email")));
+		Member found = am.findID(mem);
+		if(found == null || found.getIs_valid()==false) {
+			jo.addProperty("result", "failed");
+		}else {
+			if(found.getId().equals((String)body.get("id"))) {
+				boolean emailcheck = am.sendAuthMail(hs, found.getEmail());
+				if(emailcheck) {
+					if(hs.getAttribute("register_emailauth") != null && (Boolean)hs.getAttribute("register_emailauth") == true) {
+						hs.setAttribute("register_emailauth", null);
+					}
+					hs.setAttribute("findpw_emailauth", true);
+					hs.setAttribute("userinfo", found);
+					jo.addProperty("result", "success");
+					
+				}else {
+					jo.addProperty("result", "email_failed");
+				}
+			}else {
+				jo.addProperty("result", "failed");
+			}
+		}
+		return jo.toString();
+	}
+	@PostMapping("/rest/updatePW")
+	public String updatePW(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession(false);
+		JsonObject jo = new JsonObject();
+		if(hs == null) {
+			jo.addProperty("result", "failed1");
+			return jo.toString();
+		}
+		Member found = (Member)hs.getAttribute("userinfo");
+		if(hs.getAttribute("findpw_email_check") == null  || (Boolean)hs.getAttribute("findpw_email_check") != true || found == null || am.checkResetPWTime(hs)==false) {
+			jo.addProperty("result", "failed2");
+		}else {
+			Member user = new Member(found.getUid(), found.getId(), found.getPw(), found.getEmail());
+			CommonEnum res = am.resetPW(user, (String)body.get("pw"), (String)body.get("pw_cfm"));
+			if(res == CommonEnum.SUCCESS) {
+				jo.addProperty("result", "success");
+			}else if(res == CommonEnum.NOT_PERMITTED){
+				jo.addProperty("result", "same_pw");
+			}else{
+				jo.addProperty("result", "failed3");
+			}
 		}
 		return jo.toString();
 	}

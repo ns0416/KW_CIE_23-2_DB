@@ -42,7 +42,8 @@ import jakarta.servlet.http.HttpSession;
 @Component
 public class AccountManager {
 	
-	
+	@Autowired
+	private ServiceManager serviceManager;
 
 	@Autowired
 	private MemberService memberService;
@@ -404,8 +405,7 @@ public class AccountManager {
 			hs.setAttribute("authAddr", email);
 			hs.setAttribute("authcode", key);
 			hs.setAttribute("authTime", Calendar.getInstance());
-			//serviceManager.sendMail(from, email, subject, content);
-			throw new MessagingException();
+			serviceManager.sendMail(from, email, subject, content);
 			//return true;
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
@@ -462,8 +462,7 @@ public class AccountManager {
 				"</body>\r\n" + 
 				"</html>\r\n"; 
 		try {
-			//serviceManager.sendMail(from, user.getEmail(), subject, content);
-			throw new MessagingException();
+			serviceManager.sendMail(from, user.getEmail(), subject, content);
 			//return true;
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block

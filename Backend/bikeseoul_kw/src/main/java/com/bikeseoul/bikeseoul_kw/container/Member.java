@@ -18,6 +18,10 @@ public class Member extends User{
 			super(id, email);
 			// TODO Auto-generated constructor stub
 		}
+	public Member(int uid, String id, String pw, String email) {
+		super(uid, id, pw, email);
+		// TODO Auto-generated constructor stub
+	}
 	public Member(String id) {
 		super(null, id);
 		// TODO Auto-generated constructor stub

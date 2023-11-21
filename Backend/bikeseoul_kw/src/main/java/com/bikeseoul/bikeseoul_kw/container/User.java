@@ -21,6 +21,12 @@ public class User extends CommonData {
 		this.is_valid = is_valid;
 		this.is_lost = is_lost;
 	}
+	public User(int uid, String id, String pw, String email) {
+		super(uid, null);
+		this.id = id;
+		this.pw = pw;
+		this.email = email;
+	}
 	public User(String id, String email) {
 		super(0, null);
 		this.id = id;
