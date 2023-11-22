@@ -61,12 +61,54 @@ export default function Joinpage()
 			<p>비밀번호 확인</p>
 			<input type="password" id="mmpwok" name="userPwOk" placeholder="비밀번호를 한번 더 입력하여 확인" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);" />
 		</div>
-		<div className={style.id}>
-			<p>이름</p>
-			<input type="text" id="userName" name="userName" maxlength="30" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"/>
+		<div className={style.phoneb}>
+			<div className={style.inline_div}>
+				<p>이름</p>
+				<div class="w40" style={{margin: "20px 0 40px 0", display: "inline-block"}} >
+					<input type="text" id="userName" name="userName" maxlength="30" style={{borderBottom: "1px #222 solid", }}onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"/>
+				</div>
+			</div>
+			<div className={style.inline_div}>
+				<p>생년</p>
+				<div class="w40" style={{margin: "20px 0 40px 0", display: "inline-block"}} >
+				{/* style={{float: "right"}} */}
+					<select id="birthYear" name="birthYear">
+					{/* style={{display: "block"}} */}
+						<option>생년</option>
+						<option></option>
+						<option></option>
+					</select>
+				</div>
+			</div>
+			<div className={style.inline_div}>
+				<p>성별</p>
+					{/* <div class="radio_box" style="float:right;"> */}
+						<span class="radiobox"><input type="radio" name="mmgender" id="male" value="male" /><label for="male"><span></span> 남</label></span>
+						<span class="radiobox ml10"><input type="radio" name="mmgender" id="female" value="female" /><label for="female"><span></span> 여</label></span>
+					{/* </div> */}
+			</div>
 		</div>
 
+		{/* <div className={style.phone}>
+			
+		</div> */}
+
+		<div className={style.phone}>
+			<p>휴대폰 번호</p>
+            <label><input title="휴대번호 첫번째 입력" name="userMob1" id="userMob1" type="number"  style={{width: "50px"}} class="vm center" maxlength="3" oninput="maxLengthCheck(this)"/></label> - 
+		    <label><input title="휴대번호 두번째 입력" name="userMob2" id="userMob2" type="number"  style={{width: "50px"}} class="vm center" maxlength="4" oninput="maxLengthCheck(this)"/></label> - 
+		    <label><input title="휴대번호 세번째 입력" name="userMob3" id="userMob3" type="number"  style={{width: "50px"}} class="vm center" maxlength="4" oninput="maxLengthCheck(this)"/></label>
+        </div>
+
+		<div className={style.phone}>
+			
+		</div>
+
+		
+
+
 		<div className={style.email}>
+			<p>이메일</p>
 			<input type="text" id="mmemail" name="userEmail1" placeholder="ID" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);" />
 			<span>@</span>
 			<input type="text" id="userEmail2" name="userEmail2" placeholder="email . com"  onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);" />

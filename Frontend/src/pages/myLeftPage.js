@@ -1,7 +1,6 @@
 import React from 'react';
-// import { useState } from 'react';
 import {Link} from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import style from './myLeftPage.module.css';
 
 export default function MyLeftPage() {
@@ -49,16 +48,20 @@ export default function MyLeftPage() {
         }
         alert(JSON.stringify(values,null,2));
     }
-    const [isLoggedIn, setisLoggedIn] = React.useState(false);
-
+    // const [isLoggedIn, setisLoggedIn] = React.useState(true);
     const navigate = useNavigate();
 
     const gohome =() => {
         navigate('/');
     }
-
-    const logout =() => {
-        setisLoggedIn(false);
+    
+    let {state} = useLocation();
+    // const location = useLocation();
+    // const {isLoggedIn} = location.state.isLoggedIn;
+    function logout() {
+        
+        // location.setisLoggedIn(false);
+        // setisLoggedIn(false);
     }
 
     const [user_id, getuser_id] = React.useState('user_id123');
@@ -67,7 +70,7 @@ export default function MyLeftPage() {
 
     return (
         <>
-        {isLoggedIn ? (
+        {state.isLoggedIn ?(
         <div className={style.my_menu}>
             <div className={style.head}>
                 <button className={style.close} onClick={gohome}></button>
@@ -237,15 +240,17 @@ export default function MyLeftPage() {
                 
                         <ul className={style.idpw}>
                             <li className={style.srch_id}>
-                                <a href="/memberRegSelect.do" id="memberReg">회원가입</a>
+                                <Link id='memberReg' to={'/joinpage'}>회원가입</Link>
                             </li>
                             <li className={style.srch_id}>
-                                <a href="/memberIdFind.do" id="findIdId">
-                                    아이디 찾기</a>
+                                <Link id='findIdId' to={'/findid'}>아이디 찾기</Link>
+                                {/* <a href="/memberIdFind.do" id="findIdId">
+                                    아이디 찾기</a> */}
                             </li>
                             <li className={style.srch_pw}>
-                                <a href="/memberPwFind.do" id="findIdPw">
-                                    비밀번호 찾기</a>
+                                <Link id='findIdPw' to={'/findpw'}>비밀번호 찾기</Link>
+                                {/* <a href="/memberPwFind.do" id="findIdPw">
+                                    비밀번호 찾기</a> */}
                             </li>
                         </ul>
                     </div>
@@ -253,7 +258,7 @@ export default function MyLeftPage() {
             </div>
         </div>
     </div>
-        ) }
+        )}
         </>
     );
 }

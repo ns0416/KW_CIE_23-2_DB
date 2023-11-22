@@ -71,7 +71,23 @@
 
   .content {width:1030px; margin:0 auto; position:relative; min-height:500px}
 
-
+  .join .phone {
+    position: relative;
+    /* border-bottom: 1px #222 solid; */
+    margin: 0 15px 30px 15px;
+    /* width: auto; */
+    display: block;
+    /* font-size: 0; */
+   }
+   .join .phoneb {
+    position: relative;
+    /* border-bottom: 1px #222 solid; */
+    margin: 0 15px 30px 15px;
+    /* width: auto; */
+    display: block;
+    /* font-size: 0; */
+   }
+  .join .phoneb input {line-height:30px; height:30px; border-bottom:1px #222 solid; padding:0 5px;font-size: 14px;width: 200px !important;}
   .join .phone input {line-height:30px; height:30px; border-bottom:1px #222 solid; padding:0 5px;font-size: 14px;width: 60px !important;}
   .join .optin {padding:0 15px; text-align:right; font-size:11px; color:#888;}
   .join .explan {padding:0 15px; font-size:11px; color:#222; margin-bottom:10px; width:auto}
@@ -81,7 +97,7 @@
   .join .id input {line-height:30px; font-size:11px; width:70%}
   .join .pw, .join .pw_check, .join .file {border-bottom:1px #222 solid; margin:0 15px 30px 15px; width:auto}
   .join .pw input, .join .pw_check input {line-height:30px; height:30px; font-size:11px; width:100%}
-  .join .id p, .join .pw p, .join .pw_check p, .join .email p, .join .file p {font-size:12px; color:#222; font-weight:bold}
+  .join .id p, .join .pw p, .join .pw_check p, .join .email p, .join .file p, .join .phone p {font-size:12px; color:#222; font-weight:bold}
   .join .email {margin:0 15px 5px 15px; position:relative; width:auto}
   .join .email input {line-height:30px; height:30px; font-size:11px; margin:0; width:30%; border-bottom:1px #222 solid; display:inline-block}
   .join .email .sel_box {width:30%; float:right}
@@ -156,6 +172,14 @@
     width: 100%;
     border: 1px #222 solid;
     height: 30px;
+}
+
+.inline_div {
+    display: inline-block;
+    width: 30%;
+    padding: 0 5px;
+    vertical-align: top;
+    box-sizing: border-box;
 }
 
 
