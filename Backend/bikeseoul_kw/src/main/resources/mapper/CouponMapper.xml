@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.bikeseoul.bikeseoul_kw.dao.CouponDao">
+    <select id="getUserCouponList" resultType="com.bikeseoul.bikeseoul_kw.container.Coupon">
+        SELECT
+            *
+        FROM
+            ticket_coupon
+        JOIN
+            ticket
+        ON
+            ticket_coupon.ticket_id = ticket.ticket_id
+        WHERE
+            owner_id = #{owner_id}
+    </select>
+
+    <select id="getCoupon" resultType="com.bikeseoul.bikeseoul_kw.container.Coupon">
+        SELECT
+            *
+        FROM
+            ticket_coupon
+        JOIN
+            ticket
+        ON
+            ticket_coupon.ticket_id = ticket.ticket_id
+        WHERE
+            coupon_id = #{coupon_id}
+    </select>
+
+    <select id="getCouponList" resultType="com.bikeseoul.bikeseoul_kw.container.Coupon">
+        SELECT
+            *
+        FROM
+            ticket_coupon
+        JOIN
+            ticket
+        ON
+            ticket_coupon.ticket_id = ticket.ticket_id
+    </select>
+</mapper>
