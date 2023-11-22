@@ -3,12 +3,10 @@ package com.bikeseoul.bikeseoul_kw.controller;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
+import com.bikeseoul.bikeseoul_kw.container.Config;
+import com.bikeseoul.bikeseoul_kw.manager.ConfigManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Member;
@@ -138,4 +136,84 @@ public class indexController {
 		}
 		return jo.toString();
 	}
+
+	@GetMapping("/rest/noticeId")
+	@ResponseBody
+	public String noticeId(){
+		JsonObject jo = new JsonObject();
+		Config config = new ConfigManager().getConfig();
+		String group_code = "noticeId";
+		String item_code = "noticeId";
+		try{
+			String noticeId = config.get(group_code, item_code);
+			jo.addProperty("result", "success");
+			jo.addProperty("noticeId", noticeId);
+		}catch (Exception e){
+			e.printStackTrace();
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+		return jo.toString();
+	}
+
+	// 이용안내, 이용권 사용안내, 보험안내
+	@GetMapping("/rest/information")
+	@ResponseBody
+	public String information(){
+		JsonObject jo = new JsonObject();
+		Config config = new ConfigManager().getConfig();
+		String group_code = "information";
+		String item_code = "information";
+		try{
+			String information = config.get(group_code, item_code);
+			jo.addProperty("result", "success");
+			jo.addProperty("information", information);
+		}catch (Exception e){
+			e.printStackTrace();
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+		return jo.toString();
+	}
+
+	// 이용약관 및 방침
+	@GetMapping("/rest/terms")
+	@ResponseBody
+	public String terms(@RequestParam("content") String content){
+		JsonObject jo = new JsonObject();
+		Config config = new ConfigManager().getConfig();
+		String group_code = "terms";
+		String item_code = content;
+		try{
+			String terms = config.get(group_code, item_code);
+			jo.addProperty("result", "success");
+			jo.addProperty("terms", terms);
+		}catch (Exception e){
+			e.printStackTrace();
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+		return jo.toString();
+	}
+
+	// 안전수칙
+	@GetMapping("/rest/rules")
+	@ResponseBody
+	public String rules(@RequestParam("content") String content){
+		JsonObject jo = new JsonObject();
+		Config config = new ConfigManager().getConfig();
+		String group_code = "rules";
+		String item_code = content;
+		try{
+			String rules = config.get(group_code, item_code);
+			jo.addProperty("result", "success");
+			jo.addProperty("rules", rules);
+		}catch (Exception e){
+			e.printStackTrace();
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+		return jo.toString();
+	}
+
 }
