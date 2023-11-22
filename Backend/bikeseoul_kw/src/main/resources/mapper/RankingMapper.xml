@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bikeseoul.bikeseoul_kw.dao.RankingDao">
+    <select id="getWeeklyRankingList" resultType="com.bikeseoul.bikeseoul_kw.container.Ranking">
+        SELECT
+            member_uid, distance, created_date
+        FROM
+            ranking_weekly
+        ORDER BY
+            distance DESC
+    </select>
+
+    <select id="getMonthlyRankingList" resultType="com.bikeseoul.bikeseoul_kw.container.Ranking">
+        SELECT
+            member_uid, distance, created_date
+        FROM
+            ranking_monthly
+        ORDER BY
+            distance DESC
+    </select>
