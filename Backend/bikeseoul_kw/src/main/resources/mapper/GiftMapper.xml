@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bikeseoul.bikeseoul_kw.dao.GiftDao">
+    <select id="getReceivedGiftList" resultType="com.bikeseoul.bikeseoul_kw.container.Gift">
+        SELECT
+            *
+        FROM
+            Ticket_gift
+        JOIN
+            Ticket
+        ON
+            Ticket_gift.ticket_uid = Ticket.ticket_id
+        WHERE
+            receiver_id = #{receiver_id}
+
+    </select>
+
+    <select id="getSentGiftList" resultType="com.bikeseoul.bikeseoul_kw.container.Gift">
+        SELECT
+            *
+        FROM
+            Ticket_gift
+        JOIN
+            Ticket
+        ON
+            Ticket_gift.ticket_uid = Ticket.ticket_id
+        WHERE
+            giver_id = #{giver_id}
+    </select>
+</mapper>
