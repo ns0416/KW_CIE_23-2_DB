@@ -55,8 +55,8 @@ public class TicketController {
         }catch (Exception e) {
             e.printStackTrace();
             jo.addProperty("result", "failed");
-            return jo.toString();
         }
+        return jo.toString();
     }
 
     @GetMapping("/rest/getActivationTicket")
