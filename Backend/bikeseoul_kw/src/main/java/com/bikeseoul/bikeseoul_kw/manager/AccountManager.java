@@ -84,7 +84,7 @@ public class AccountManager {
 		if(new_mem.getUid() == 0) {
 			new_mem = memberService.getMemberInfo(0, mem.getId(), null);
 		}
-		if(new_mem.getPw().equals(pw_enc) && new_mem.getIs_valid() == true)
+		if(new_mem.getPw().equals(pw_enc) && new_mem.getIsvalid() == true)
 			return new_mem;
 		else
 			return null;
@@ -406,7 +406,7 @@ public class AccountManager {
 			hs.setAttribute("authcode", key);
 			hs.setAttribute("authTime", Calendar.getInstance());
 			serviceManager.sendMail(from, email, subject, content);
-			//return true;
+			return true;
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -463,7 +463,7 @@ public class AccountManager {
 				"</html>\r\n"; 
 		try {
 			serviceManager.sendMail(from, user.getEmail(), subject, content);
-			//return true;
+			return true;
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

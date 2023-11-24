@@ -6,8 +6,8 @@ public class Member extends User{
 	private String sex;
 	private int age, weight;
 	public Member(int uid, String id, String pw, String email, String phone, int level, String sex, int age, int weight,
-		boolean is_lost, boolean is_valid, LocalDateTime regist_date) {
-		super(uid, id, pw, email, phone, level, is_valid, is_lost, regist_date);
+		boolean is_lost, boolean isvalid, LocalDateTime regist_date) {
+		super(uid, id, pw, email, phone, level, isvalid, is_lost, regist_date);
 		// TODO Auto-generated constructor stub
 		this.sex = sex;
 		this.age = age;
@@ -23,7 +23,7 @@ public class Member extends User{
 		// TODO Auto-generated constructor stub
 	}
 	public Member(String id) {
-		super(null, id);
+		super(id);
 		// TODO Auto-generated constructor stub
 	}
 	public String getSex() {
