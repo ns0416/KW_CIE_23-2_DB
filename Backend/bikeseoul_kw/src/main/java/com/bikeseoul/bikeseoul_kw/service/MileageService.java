@@ -17,4 +17,10 @@ public class MileageService implements MileageDao{
 		// TODO Auto-generated method stub
 		return mileageDao.updateTransfercardInfo(card);
 	}
+
+	@Override
+	public int deleteTransfercardInfo(int member_uid) {
+		// TODO Auto-generated method stub
+		return mileageDao.deleteTransfercardInfo(member_uid);
+	}
 }

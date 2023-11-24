@@ -28,4 +28,13 @@
 			SELECT LAST_INSERT_ID() AS uid
 		</selectKey>
 	</insert>
+	
+	<delete id="deleteTransfercardInfo" parameterType="Integer" >
+		<![CDATA[
+			DELETE FROM
+				transfercard
+			WHERE
+				member_uid = #{member_uid}
+		]]>
+	</delete>
 </mapper>

@@ -32,6 +32,11 @@ public class ServiceManager {
 			return CommonEnum.SUCCESS;
 		return CommonEnum.FAILED;
 	}
+	public CommonEnum deleteTransfercard(int member_uid) {
+		if(mileageService.deleteTransfercardInfo(member_uid) > 0)
+			return CommonEnum.SUCCESS;
+		return CommonEnum.FAILED;
+	}
 	
 	public void sendMail(String sender_addr, String receiver_addr, String subject, String content) throws MessagingException {
 		MimeMessage msg = mailSender.createMimeMessage();

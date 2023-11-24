@@ -10,4 +10,5 @@ import com.bikeseoul.bikeseoul_kw.container.Transfercard;
 public interface MileageDao {
 	
 	int updateTransfercardInfo(Transfercard card);
+	int deleteTransfercardInfo(int member_uid);
 }
