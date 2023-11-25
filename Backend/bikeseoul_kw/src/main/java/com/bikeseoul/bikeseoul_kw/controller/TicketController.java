@@ -67,7 +67,7 @@ public class TicketController {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
-        
+
         try {
             TicketService ticketService = new TicketService();
             Ticket ticket = ticketService.getActivationTicket(member_uid);
