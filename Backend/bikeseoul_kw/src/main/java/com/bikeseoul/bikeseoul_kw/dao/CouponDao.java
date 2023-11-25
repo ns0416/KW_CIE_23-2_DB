@@ -1,9 +1,11 @@
 package com.bikeseoul.bikeseoul_kw.dao;
 
 import com.bikeseoul.bikeseoul_kw.container.Coupon;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+@Mapper
 public interface CouponDao {
     // 등록한 쿠폰내역 가져옴 DR-3701
     List<Coupon> getUserCouponList(int owner_id);
