@@ -1,6 +1,7 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import com.bikeseoul.bikeseoul_kw.container.Config;
@@ -75,7 +76,7 @@ public class indexController {
 		JsonObject jo = new JsonObject();
 		Member mem = am.findID(new Member(null, email));
 		Member found = am.findID(mem);
-		if(found == null || found.getIs_valid()==false) {
+		if(found == null || found.getIsvalid()==false) {
 			jo.addProperty("result", "failed");
 		}else {
 			jo.addProperty("result", "success");
@@ -88,9 +89,9 @@ public class indexController {
 	public String findPW(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
 		HttpSession hs = request.getSession(true);
 		JsonObject jo = new JsonObject();
-		Member mem = am.findID(new Member((String)body.get("id"),(String)body.get("email")));
-		Member found = am.findID(mem);
-		if(found == null || found.getIs_valid()==false) {
+		//Member mem = am.findID(new Member((String)body.get("id"),(String)body.get("email")));
+		Member found = am.findID(new Member((String)body.get("id"),(String)body.get("email")));
+		if(found == null || found.getIsvalid()==false) {
 			jo.addProperty("result", "failed");
 		}else {
 			if(found.getId().equals((String)body.get("id"))) {
@@ -130,9 +131,36 @@ public class indexController {
 				jo.addProperty("result", "success");
 			}else if(res == CommonEnum.NOT_PERMITTED){
 				jo.addProperty("result", "same_pw");
-			}else{
+			}else if(res == CommonEnum.PW_ERROR){
+				jo.addProperty("result", "pw_error");
+			}else {
 				jo.addProperty("result", "failed3");
 			}
+		}
+		return jo.toString();
+	}
+
+	@PostMapping("/rest/checkAuthCode")
+	public String checkAuthCode(HttpServletRequest request,  @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession();
+		JsonObject jo = new JsonObject();
+		Calendar c = Calendar.getInstance();
+		try {
+			boolean checkauthcode = am.checkEmailAuth(hs,  (String)body.get("authcode"));
+			if(checkauthcode) {
+				jo.addProperty("result", "success");
+				if(hs.getAttribute("findpw_emailauth") != null && (Boolean)hs.getAttribute("findpw_emailauth")) {
+					hs.setAttribute("findpw_emailauth", null);
+					hs.setAttribute("findpw_email_check", true);
+					hs.setAttribute("findpw_authTime", Calendar.getInstance());
+				}
+			}else {
+				jo.addProperty("result", "failed");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jo.addProperty("result", "failed");
 		}
 		return jo.toString();
 	}

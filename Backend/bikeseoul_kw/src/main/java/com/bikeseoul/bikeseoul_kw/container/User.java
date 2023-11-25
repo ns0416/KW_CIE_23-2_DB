@@ -4,21 +4,21 @@ import java.time.LocalDateTime;
 
 public class User extends CommonData {
 	private String id, pw, email,phone;
-	private boolean is_valid, is_lost;
+	private boolean isvalid, is_lost;
 	private int level;
 	
 	public User(String id) {
 		super(0, null);
 		this.id = id;
 	}
-	public User(int uid,String id, String pw, String email, String phone, int level, boolean is_valid, boolean is_lost, LocalDateTime regist_date) {
+	public User(int uid,String id, String pw, String email, String phone, int level, boolean isvalid, boolean is_lost, LocalDateTime regist_date) {
 		super(uid, regist_date);
 		this.id = id;
 		this.pw = pw;
 		this.email = email;
 		this.phone = phone;
 		this.level = level;
-		this.is_valid = is_valid;
+		this.isvalid = isvalid;
 		this.is_lost = is_lost;
 	}
 	public User(int uid, String id, String pw, String email) {
@@ -47,8 +47,8 @@ public class User extends CommonData {
 	public int getLevel() {
 		return level;
 	}
-	public boolean getIs_valid() {
-		return is_valid;
+	public boolean getIsvalid() {
+		return isvalid;
 	}
 	public boolean getIs_lost() {
 		return is_lost;
@@ -66,7 +66,7 @@ public class User extends CommonData {
 		this.level = level;
 	}
 	public void setIs_valid(boolean is_valid) {
-		this.is_valid = is_valid;
+		this.isvalid = isvalid;
 	}
 	public void setIs_lost(boolean is_lost) {
 		this.is_lost = is_lost;

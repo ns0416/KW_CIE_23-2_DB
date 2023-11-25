@@ -20,4 +20,38 @@
         WHERE
             member_uid = #{member_uid}
     </select>
+	<insert id="updateTransfercardInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Transfercard">
+		<![CDATA[
+			INSERT INTO transfercard
+				(
+					member_uid,
+					card_number,
+					card_type,
+					updated_date
+				) VALUES (
+					#{member_uid},
+					#{card_number},
+					#{card_type},
+					CURRENT_TIMESTAMP()
+				)
+				ON DUPLICATE KEY UPDATE
+				card_number = #{card_number},
+				card_type = #{card_type}
+				upcated_date = CURRENT_TIMESTAMP()
+		
+		]]>
+		
+		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+			SELECT LAST_INSERT_ID() AS uid
+		</selectKey>
+	</insert>
+	
+	<delete id="deleteTransfercardInfo" parameterType="Integer" >
+		<![CDATA[
+			DELETE FROM
+				transfercard
+			WHERE
+				member_uid = #{member_uid}
+		]]>
+	</delete>
 </mapper>
