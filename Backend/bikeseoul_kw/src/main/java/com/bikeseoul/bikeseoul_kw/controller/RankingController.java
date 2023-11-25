@@ -31,7 +31,7 @@ public class RankingController {
             List<Ranking> rankingList = rankingService.getWeeklyRankingList();
             for(Ranking ranking:rankingList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("member_uid", ranking.getMember_uid());
+                item.addProperty("member_uid", ranking.getUid());
                 item.addProperty("rank", ranking.getRank());
                 item.addProperty("distance", ranking.getDistance());
                 item.addProperty("created_date", ranking.getCreated_date().format(dtf_kor));
@@ -57,7 +57,7 @@ public class RankingController {
             List<Ranking> rankingList = rankingService.getMonthlyRankingList();
             for(Ranking ranking:rankingList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("member_uid", ranking.getMember_uid());
+                item.addProperty("member_uid", ranking.getUid());
                 item.addProperty("rank", ranking.getRank());
                 item.addProperty("distance", ranking.getDistance());
                 item.addProperty("created_date", ranking.getCreated_date().format(dtf_kor));
@@ -81,20 +81,26 @@ public class RankingController {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
-        try{
-            Ranking ranking = rankingService.getWeeklyRanking(member_uid);
-            JsonObject item = new JsonObject();
-            item.addProperty("member_uid", ranking.getMember_uid());
-            item.addProperty("rank", ranking.getRank());
-            item.addProperty("distance", ranking.getDistance());
-            item.addProperty("created_date", ranking.getCreated_date().format(dtf_kor));
-            jo.addProperty("result", "success");
-            jo.add("data", item);
+        try {
+            List<Ranking> rankingList = rankingService.getWeeklyRankingList();
+            for (Ranking ranking : rankingList) {
+                if (ranking.getUid() == member_uid) {
+                    JsonObject item = new JsonObject();
+                    item.addProperty("member_uid", ranking.getUid());
+                    item.addProperty("rank", ranking.getRank());
+                    item.addProperty("distance", ranking.getDistance());
+                    item.addProperty("created_date", ranking.getCreated_date().format(dtf_kor));
+                    jo.addProperty("result", "success");
+                    jo.add("data", item);
+                    return jo.toString();
+                }
+            }
         }catch(Exception e) {
-            e.printStackTrace();
-            jo.addProperty("result", "failed");
-            return jo.toString();
-        }
+                e.printStackTrace();
+                jo.addProperty("result", "failed");
+                return jo.toString();
+            }
+        jo.addProperty("result", "failed");
         return jo.toString();
     }
 
@@ -102,24 +108,30 @@ public class RankingController {
     @ResponseBody
     public String getMonthlyRanking(int member_uid) {
         JsonObject jo = new JsonObject();
-        if(member_uid == 0) {
+        if (member_uid == 0) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
-        try{
-            Ranking ranking = rankingService.getMonthlyRanking(member_uid);
-            JsonObject item = new JsonObject();
-            item.addProperty("member_uid", ranking.getMember_uid());
-            item.addProperty("rank", ranking.getRank());
-            item.addProperty("distance", ranking.getDistance());
-            item.addProperty("created_date", ranking.getCreated_date().format(dtf_kor));
-            jo.addProperty("result", "success");
-            jo.add("data", item);
-        }catch(Exception e) {
+        try {
+            List<Ranking> rankingList = rankingService.getMonthlyRankingList();
+            for (Ranking ranking : rankingList) {
+                if (ranking.getUid() == member_uid) {
+                    JsonObject item = new JsonObject();
+                    item.addProperty("member_uid", ranking.getUid());
+                    item.addProperty("rank", ranking.getRank());
+                    item.addProperty("distance", ranking.getDistance());
+                    item.addProperty("created_date", ranking.getCreated_date().format(dtf_kor));
+                    jo.addProperty("result", "success");
+                    jo.add("data", item);
+                    return jo.toString();
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             jo.addProperty("result", "failed");
             return jo.toString();
         }
+        jo.addProperty("result", "failed");
         return jo.toString();
     }
 }

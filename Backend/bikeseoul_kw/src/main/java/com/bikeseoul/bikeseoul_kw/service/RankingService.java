@@ -29,26 +29,4 @@ public class RankingService implements RankingDao{
         }
         return rankingList;
     }
-
-    public Ranking getWeeklyRanking(int member_uid){
-        List<Ranking> rankingList = rankingDao.getWeeklyRankingList();
-        for (int i = 0; i < rankingList.size(); i++){
-            if (rankingList.get(i).getMember_uid() == member_uid){
-                rankingList.get(i).setRank(i + 1);
-                return rankingList.get(i);
-            }
-        }
-        return null;
-    }
-
-    public Ranking getMonthlyRanking(int member_uid){
-        List<Ranking> rankingList = rankingDao.getMonthlyRankingList();
-        for (int i = 0; i < rankingList.size(); i++){
-            if (rankingList.get(i).getMember_uid() == member_uid){
-                rankingList.get(i).setRank(i + 1);
-                return rankingList.get(i);
-            }
-        }
-        return null;
-    }
 }
