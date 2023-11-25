@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bikeseoul.bikeseoul_kw.dao.MileageDao">
+    <select id="getMileageList" resultType="com.bikeseoul.bikeseoul_kw.container.Mileage">
+        SELECT
+            m.uid m.member_uid, m.amount, m.created_date
+        FROM
+            mileage as m
+        WHERE
+            m.member_uid = #{member_uid}
+    </select>
+
+    <select id="getMileageSum" resultType="Integer">
+        SELECT
+            SUM(amount)
+        FROM
+            mileage
+        WHERE
+            member_uid = #{member_uid}
+    </select>
+</mapper>
