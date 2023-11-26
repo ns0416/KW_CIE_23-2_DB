@@ -48,14 +48,14 @@ export default function MyLeftPage() {
         }
         alert(JSON.stringify(values,null,2));
     }
-    // const [isLoggedIn, setisLoggedIn] = React.useState(true);
+    const [isLoggedIn, setisLoggedIn] = React.useState(false);
     const navigate = useNavigate();
 
     const gohome =() => {
         navigate('/');
     }
     
-    let {state} = useLocation();
+    //let {state} = useLocation();
     // const location = useLocation();
     // const {isLoggedIn} = location.state.isLoggedIn;
     function logout() {
@@ -70,7 +70,7 @@ export default function MyLeftPage() {
 
     return (
         <>
-        {state.isLoggedIn ?(
+        {isLoggedIn ?(
         <div className={style.my_menu}>
             <div className={style.head}>
                 <button className={style.close} onClick={gohome}></button>
@@ -176,7 +176,7 @@ export default function MyLeftPage() {
                 </ul>
             </div>
             <div className={style.tail}>
-                <Link to={'/'}>
+                <Link to={'/infopage'}>
                     <div className={style.bike_guide}>따릉이 이용안내</div>
                 </Link>
                 <Link to={'/'}>
