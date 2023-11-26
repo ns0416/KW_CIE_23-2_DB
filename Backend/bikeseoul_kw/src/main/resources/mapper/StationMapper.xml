@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bikeseoul.bikeseoul_kw.dao.StationDao">
+    <select id="getStationInfo" resultType="com.bikeseoul.bikeseoul_kw.container.Station">
+        SELECT
+            uid, station_name, lat, lon, size, is_valid, station_type, COUNT(case when b.bike_type='general' then 1 end) AS general_cnt, COUNT(case when b.bike_type='sprout' then 1 end) AS sprout_cnt
+        FROM
+            station AS s
+        JOIN
+            bike AS b
+        ON
+            b.station_uid = s.uid
+        WHERE
+            s.uid = #{station_uid}
+        AND
+            b.status_ = 'ready'
+        GROUP BY
+            s.uid
+    </select>
+
+    <select id="getFavoriteStationList" resultType="com.bikeseoul.bikeseoul_kw.container.Station">
+        SELECT
+            uid, station_name, lat, lon, size, is_valid, station_type, COUNT(case when b.bike_type='general' then 1 end) AS general_cnt, COUNT(case when b.bike_type='sprout' then 1 end) AS sprout_cnt, f.user_uid, f.created_date
+        FROM
+            station_favorite AS f
+        JOIN
+            station AS s
+        ON
+            f.station_uid = s.uid
+        JOIN
+            bike AS b
+        ON
+            b.station_uid = s.uid
+        WHERE
+            s.station_type='lent'
+        AND
+            b.status_ = 'ready'
+        AND
+            f.user_uid = #{user_uid}
+        GROUP BY
+            s.uid
+    </select>
+
+    <select id="getStationListByStationName" resultType="com.bikeseoul.bikeseoul_kw.container.Station">
+        SELECT
+            uid, station_name, lat, lon, size, is_valid, station_type, COUNT(case when b.bike_type='general' then 1 end) AS general_cnt, COUNT(case when b.bike_type='sprout' then 1 end) AS sprout_cnt
+        FROM
+            station AS s
+        JOIN
+            bike AS b
+        ON
+            b.station_uid = s.uid
+        WHERE
+            s.station_type='lent'
+        AND
+            b.status_ = 'ready'
+        AND
+            s.station_name LIKE CONCAT('%', #{station_name}, '%')
+        GROUP BY
+            s.uid
+    </select>
+
+    <insert id="insertFavoriteStation" parameterType="com.bikeseoul.bikeseoul_kw.container.Station">
+        INSERT INTO
+            station_favorite (station_uid, user_uid)
+        VALUES
+            (#{station_uid}, #{user_uid})
+    </insert>
+
+</mapper>
