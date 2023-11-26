@@ -2,6 +2,7 @@ import React from 'react';
 // import './test.css';
 import style from './test.module.css';
 import {Link} from 'react-router-dom';
+import Header from '../header';
 
 export default function Test() {
     const [values, setvalues] = React.useState({
@@ -53,17 +54,18 @@ export default function Test() {
         <div className={style.wrap} id="sub">   
         <div className={style.container}>
             <div className={style.content}>
-                <div className={style.top}>
+                {/* <div className={style.top}>
                     <div className={style.m_sub_header_wrap}>
-                        {/* <!-- //.m_sub_header --> */}
+                        
                         <div className={style.m_sub_header}>
                             <button className={style.back}></button>
                             <button className={style.close}></button>
                             <span id="title">로그인하기</span>
                         </div>
                     </div>
-                    {/* <!-- //.m_sub_header_wrap --> */}
-                </div>
+                    
+                </div> */}
+                <Header title="로그인하기"/>
                 <div className={style.login}>
                     <div className={style.sub_logo}>
                         <h3><img src="/img/logo.png" style={{width:"250px"}} alt="서울자전거 따릉이" /></h3>
