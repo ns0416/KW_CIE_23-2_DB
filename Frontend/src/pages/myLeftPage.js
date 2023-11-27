@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
 import style from './myLeftPage.module.css';
+import Header from '../header.js';
 
 export default function MyLeftPage() {
     const [values, setvalues] = React.useState({
@@ -48,7 +49,7 @@ export default function MyLeftPage() {
         }
         alert(JSON.stringify(values,null,2));
     }
-    const [isLoggedIn, setisLoggedIn] = React.useState(false);
+    const [isLoggedIn, setisLoggedIn] = React.useState(true);
     const navigate = useNavigate();
 
     const gohome =() => {
@@ -193,20 +194,10 @@ export default function MyLeftPage() {
             </div>
         </div>) : 
         (
-        <div className={style.wrap} id="sub">   
+        <div className={style.wrap} id="sub">
+            <Header title="로그인하기"/>   
         <div className={style.container}>
             <div className={style.content}>
-                <div className={style.top}>
-                    <div className={style.m_sub_header_wrap}>
-                        <div className={style.m_sub_header}>
-                            <button className={style.back}></button>
-                            <button className={style.close} onClick={gohome}></button>
-                            <span id="title">로그인하기</span>
-                        </div>
-                        {/* <!-- //.m_sub_header --> */}
-                    </div>
-                    {/* <!-- //.m_sub_header_wrap --> */}
-                </div>
                 <div className={style.login}>
                     <div className={style.sub_logo}>
                         <h3><img src="/img/logo.png" style={{width:"250px"}} alt="서울자전거 따릉이" /></h3>

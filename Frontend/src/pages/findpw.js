@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './findpw.module.css';
+import Header from '../header.js';
 
 export default function Findpw()
 {
@@ -11,19 +12,7 @@ export default function Findpw()
     return (
         <>
         <div className={style.wrap} id="sub">
-            <div className={style.header_wrap}>
-                <div className={style.header}>
-                	<div className={style.top}>
-	        			<div className={style.m_sub_header_wrap}>
-	        				<div className={style.m_sub_header}>
-	        					<button className={style.back}></button>
-	        					<button className={style.close} onClick={gohome}></button>
-	        					<span id="title">비밀번호 찾기</span>
-	        				</div>
-	        			</div>
-                    </div>
-                </div>
-            </div>
+            <Header title="비밀번호 찾기"/>
             <div className={style.container}>
 		        <div className={style.content}>
 			        <div className={style.login}>

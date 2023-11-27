@@ -1,21 +1,12 @@
 import React from 'react';
 import style from './joinpage.module.css';
+import Header from '../header.js';
 
 export default function Joinpage()
 {
 	return (
 	<>
-	<div className={style.header}>
-		<div className={style.top}>
-			<div className={style.m_sub_header_wrap}>
-				<div className={style.m_sub_header}>
-					<button className={style.back}></button>
-					<button className={style.close}></button>
-					<span id="title">회원가입</span>
-				</div>
-			</div>
-		</div>
-	</div>
+	<Header title="회원가입"/>
 	<div className={style.container}>
 	<div className={style.content}>
 
