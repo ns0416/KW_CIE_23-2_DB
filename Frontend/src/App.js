@@ -6,6 +6,7 @@ import Findid from './pages/findid';
 import Findpw from './pages/findpw';
 import Infopage from './pages/infopage'
 import Test from './pages/test';
+import moveMemberCardRegiView from './pages/moveMemberCardRegiView/moveMemberCardRegiView';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/findpw" Component={Findpw} />
         <Route path="/infopage" Component={Infopage} />
         <Route path="/test" Component={Test} />
+        <Route path="/moveMemberCardRegiView" Component={moveMemberCardRegiView} />
         
       </Routes>  
     </div>
