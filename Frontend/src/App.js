@@ -7,6 +7,7 @@ import Findpw from './pages/findpw';
 import Infopage from './pages/infopage'
 import Test from './pages/test';
 import moveMemberCardRegiView from './pages/moveMemberCardRegiView/moveMemberCardRegiView';
+import favoriteStation from './pages/favoriteStation/favoriteStation';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/infopage" Component={Infopage} />
         <Route path="/test" Component={Test} />
         <Route path="/moveMemberCardRegiView" Component={moveMemberCardRegiView} />
+        <Route path="/favoriteStation" Component={favoriteStation} />
         
       </Routes>  
     </div>

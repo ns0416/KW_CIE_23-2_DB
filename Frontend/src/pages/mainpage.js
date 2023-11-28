@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import style from './mainpage.css';
+import style from './mainpage.module.css';
 // import './newStation';
 
 export default function Mainpage() {
@@ -10,19 +10,15 @@ export default function Mainpage() {
 
 	<input type="hidden" id="tabId" />
 
-	<div id="layer" class="layer-wrap" style={{display:"none"}}> 
-		<div class="pop-layer"> 
-			<div class="pop-container"> 
+	<div id="layer" className="layer-wrap" style={{display:"none"}}> 
+		<div className="pop-layer"> 
+			<div className="pop-container"> 
 				<h1 style={{color:"blue", fontSize:"1.3em", margin:"10px 0px"}}>따릉이 장애안내</h1> 
 				{/* <!-- <span id="hyPopup">
 					<img src="images/popup/hyPopUp.jpg" alt="hyPopupImg">
 				</span> --> */}
 
-
-
-				
-				
-				<div class="btn-r"> 
+				<div className="btn-r"> 
 					<button onclick="l_out_20220718()">오늘 하루 열지 않음</button>
 					<button onclick="l_fadeOut()">닫기</button>
 				</div>
@@ -31,44 +27,44 @@ export default function Mainpage() {
 		</div>
 	</div>
    
-	<div class="wrap">
+	<div className={style.wrap}>
 		{/* <!--header--> */}
 		{/* <!--웹 : 헤더추가--> */}
-    <div class="header_wrap">
-        <div class="header">
-        	<div class="top">
-				<div class="m_sub_header_wrap">
-					<div class="m_sub_header">
-						<button class="back"></button>
-						<button class="close"></button>
+    <div className={style.header_wrap}>
+        <div className={style.header}>
+        	<div className={style.top}>
+				<div className={style.m_sub_header_wrap}>
+					<div className={style.m_sub_header}>
+						<button className={style.back}></button>
+						<button className={style.close}></button>
 						<span id="title"></span>
 					</div>
 					{/* <!-- //.m_sub_header --> */}
 				</div>
 				{/* <!-- //.m_sub_header_wrap --> */}
 			
-        		<div class="m_menu">메뉴열기</div>
-				<div class="m_global">언어선택</div>
-				<div class="info"><a href="/info/infoReg.do">이용안내</a></div>
-				<a class="join" href="/memberCertify.do?appOsType=">회원가입</a>
-						<a class="login" href="/login.do">
+        		<div className={style.m_menu}>메뉴열기</div>
+				<div className={style.m_global}>언어선택</div>
+				<div className={style.info}><a href="/info/infoReg.do">이용안내</a></div>
+				<a className={style.join} href="/memberCertify.do?appOsType=">회원가입</a>
+						<a className={style.login} href="/login.do">
 							로그인</a>
-					<div class="global">
+					<div className={style.global}>
 					<ul>
-						<li class="en"><a href="https://www.bikeseoul.com:457/main.do?lang=en">ENGLISH</a></li>
-						<li class="ch"><a href="https://www.bikeseoul.com:457/main.do?lang=zh">中國語</a></li>
-						<li class="ja"><a href="https://www.bikeseoul.com:457/main.do?lang=ja">日本語</a></li>
-						<li class="ko"><a href="https://www.bikeseoul.com:457/main.do?lang=ko">한국어</a></li>
+						<li className={style.en}><a href="https://www.bikeseoul.com:457/main.do?lang=en">ENGLISH</a></li>
+						<li className={style.ch}><a href="https://www.bikeseoul.com:457/main.do?lang=zh">中國語</a></li>
+						<li className={style.ja}><a href="https://www.bikeseoul.com:457/main.do?lang=ja">日本語</a></li>
+						<li className={style.ko}><a href="https://www.bikeseoul.com:457/main.do?lang=ko">한국어</a></li>
 					</ul>
 				</div>
 				
 				
 			</div>
 			{/* <!-- 모바일 화면 --> */}
-			<div class="logo"><a href="/main.do"><img src="/images/logo.png" alt="서울자전거 따릉이" /></a></div>
+			<div className={style.logo}><a href="/main.do"><img src="/images/logo.png" alt="서울자전거 따릉이" /></a></div>
             
             {/* <!--메뉴(웹)--> */}
-            <div class="menu_web">
+            <div className={style.menu_web}>
                 <ul>
                     <li><a href="/main.do#bike_info">사업소개</a></li>
                     <li><a href="/app/station/moveStationRealtimeStatus.do">대여소 조회</a></li>
@@ -80,19 +76,19 @@ export default function Mainpage() {
             </div>
             {/* <!--메뉴(웹)-->  */}
         </div>
-        {/* <!-- <div class="bike_tap">
+        {/* <!-- <div className={style.bike_tap">
 		  	<ul>
-				<li class="first"><span id="all">전체</span></li>
-				<li class="second"><span id="lcd">LCD형</span></li>
-				<li class="third"><span id="qr">QR형</span></li>
-				<li class="forth"><span id="yg">새싹</span></li>
+				<li className={style.first"><span id="all">전체</span></li>
+				<li className={style.second"><span id="lcd">LCD형</span></li>
+				<li className={style.third"><span id="qr">QR형</span></li>
+				<li className={style.forth"><span id="yg">새싹</span></li>
 			</ul>
 		</div>
-		 <div class="remarks">
+		 <div className={style.remarks">
 			<ul>
-				<li class="title">&nbsp;</li>
-				<li class="place01">LCD형,&nbsp;QR형&nbsp;반납가능</li>
-				<li class="place02">QR형&nbsp;반납가능<span class="lcd">(LCD형&nbsp;반납불가)</span></li>
+				<li className={style.title">&nbsp;</li>
+				<li className={style.place01">LCD형,&nbsp;QR형&nbsp;반납가능</li>
+				<li className={style.place02">QR형&nbsp;반납가능<span className={style.lcd">(LCD형&nbsp;반납불가)</span></li>
 			</ul>
 		</div>  --> */}
 		{/* <!-- //remarks --> */}
@@ -122,26 +118,26 @@ export default function Mainpage() {
 		    }
 		}
 	</script> */}
-<div class="mask">
-			<div class="maskwrap">
-				<div class="mask_close">닫기</div>
-				<div class="change_lang" id="changeLang">
+<div className={style.mask}>
+			<div className={style.maskwrap}>
+				<div className={style.mask_close}>닫기</div>
+				<div className={style.change_lang} id="changeLang">
 					<ul>
-						<li class="en"><a href="https://www.bikeseoul.com:457/main.do?lang=en">ENGLISH</a></li>
-						<li class="ch"><a href="https://www.bikeseoul.com:457/main.do?lang=zh">中國語</a></li>
-						<li class="ja"><a href="https://www.bikeseoul.com:457/main.do?lang=ja">日本語</a></li>
-						<li class="ko"><a href="https://www.bikeseoul.com">한국어</a></li>
+						<li className={style.en}><a href="https://www.bikeseoul.com:457/main.do?lang=en">ENGLISH</a></li>
+						<li className={style.ch}><a href="https://www.bikeseoul.com:457/main.do?lang=zh">中國語</a></li>
+						<li className={style.ja}><a href="https://www.bikeseoul.com:457/main.do?lang=ja">日本語</a></li>
+						<li className={style.ko}><a href="https://www.bikeseoul.com">한국어</a></li>
 				
 					</ul>
 				</div>
 	  			{/* <!-- //.change_lang --> */}
-				<div class="search_content">
+				<div className={style.search_content}>
 					<form id="frm"></form>
 				 
-					<form class="search" id="search" role="search">
-						<fieldset class="fld_sch">
-							<legend class="screen_out">검색어 입력폼</legend>
-							<div class="box_search">                    
+					<form className={style.search} id="search" role="search">
+						<fieldset className={style.fld_sch}>
+							<legend className={style.screen_out}>검색어 입력폼</legend>
+							<div className={style.box_search}>                    
 								<input type="text" id="searchValue" value="" name="searchValue" title="검색어 입력" placeholder="원하시는 지역이 어디신가요?" />
 								<div id="search_data"></div>
 							</div>
@@ -157,68 +153,68 @@ export default function Mainpage() {
 		{/* <!-- //mask --> */}
 	
 		{/* <!-- 정류장 정보 start --> */}
-		<div class="location_info" style={{display: "none"}}>
-			<div class="location_info_wrap">
+		<div className={style.location_info} style={{display: "none"}}>
+			<div className={style.location_info_wrap}>
 				{/* <!-- 창닫기  --> */}
-				<div class="mask_close location_close">
+				<div className={`${style.mask_close},${style.location_close}`}>
 					창닫기                    
 				</div>
 				{/* <!-- //.close --> */}
 
-				<p class="location_name">
+				<p className={style.location_name}>
 					<span id="location_id"></span>
 				</p>
 
-				<div class="location_box" id="location_02"> 
-					<div class="name">일반 따릉이</div>
-					<div class="num" id="parkingQRBikeCnt"></div>
+				<div className={style.location_box} id="location_02"> 
+					<div className={style.name}>일반 따릉이</div>
+					<div className={style.num} id="parkingQRBikeCnt"></div>
 				</div>
 				
-				<div class="location_box" id="location_03"> 
-					<div class="name">새싹 따릉이</div>
-					<div class="num" id="parkingELECBikeCnt"></div>
+				<div className={style.location_box} id="location_03"> 
+					<div className={style.name}>새싹 따릉이</div>
+					<div className={style.num} id="parkingELECBikeCnt"></div>
 				</div>
 			</div>
 			{/* <!-- //.location_info_wrap  --> */}
 		</div>
 	 
 		{/* <!-- 웹 메인 --> */}
-		<div class="container" id="main">
-			<div class="map" id="mapDiv" style={{height: "932px", position: "relative", overflow: "hidden", background: "rgb(248, 249, 250)"}}>
-				<div class="side_area">
-					<a class="search_bike search_open">검색하기</a>
-					<a class="refresh">새로고침</a>
-					<a class="question">이용안내</a>
+		<div className={style.container} id="main">
+			<div className={style.map} id="mapDiv" style={{height: "932px", position: "relative", overflow: "hidden", background: "rgb(248, 249, 250)"}}>
+				<div className={style.side_area}>
+					<a className={`${style.search_bike} ${style.search_open}`}>검색하기</a>
+					<a className={style.refresh}>새로고침</a>
+					<a className={style.question}>이용안내</a>
 				</div>
 				{/* <!-- //side_area --> */}
 				<div id="progress" style={{display: "none"}}>
-					<img src="/img/loding.gif" class="lazyload" alt="이미지  대기용" />
+					<img src="/img/loding.gif" className={style.lazyload} alt="이미지  대기용" />
 				</div>
 			
-			<div class="main_image">
-				<div class="content">
-						<div class="login_box">
+			<div className={style.main_image}>
+				<div className={style.content}>
+						<div className={style.login_box}>
 								<form name="loginForm" action="/j_spring_security_check" method="POST">
 									<fieldset>
 										<legend>로그인</legend>
-										<a href="" class="close"></a>
+										<a href="" className={style.close}></a>
 										<p>로그인 후 자전거 대여하실 수 있습니다.</p>
 										<div>
-											<input class="inputlogin" onkeypress="" name="j_username" id="j_username" value="" size="18" maxlength="20" placeholder="아이디" />
+											<input className={style.inputlogin} onkeypress="" name="j_username" id="j_username" value="" size="18" maxlength="20" placeholder="아이디" />
 										</div>
 										<div>
-											<input class="inputlogin" onkeypress="" name="j_password" value="" type="password" id="mempw" size="18" maxlength="20" placeholder="비밀번호" />
+											<input className={style.inputlogin} onkeypress="" name="j_password" value="" type="password" id="mempw" size="18" maxlength="20" placeholder="비밀번호" />
 										</div>
-										<div class="autologin">
+										<div className={style.autologin}>
 											<input type="checkbox" name="loginchk" id="logchk" title="자동로그인" value="true" />
 											<label for="logchk"><span></span>자동로그인</label>
 										</div> 
-										<a href="/memberIdFind.do" class="idpw_srch">아이디</a>/<a href="memberPwFind.do" class="idpw_srch">비밀번호찾기</a>
-										<div class="btn">
-											<input class="btn_login" type="button" title="로그인" value="로그인" id="loginBtn" onclick="loginFnc()" />
+										<a href="/memberIdFind.do" className={style.idpw_srch}>아이디</a>/<a href="memberPwFind.do" className={style.idpw_srch}>비밀번호찾기</a>
+										<div className={style.btn}>
+											<input className={style.btn_login} type="button" title="로그인" value="로그인" id="loginBtn" onclick="loginFnc()" />
 										</div>
-										<a href="https://www.bikeseoul.com:457/main.do?lang=ko" class="nonmember">비회원<img src="/images/arrow_login.jpg" alt="" /></a>
-										<a href="https://www.bikeseoul.com:457/main.do?lang=en" class="foreigner">foreigner<img src="/images/arrow_login.jpg" alt="" /></a>
+										<a href="https://www.bikeseoul.com:457/main.do?lang=ko" className={style.nonmember}>비회원<img src="/images/arrow_login.jpg" alt="" /></a>
+										<a href="https://www.bikeseoul.com:457/main.do?lang=en" className={style.foreigner}>foreigner<img src="/images/arrow_login.jpg" alt="" /></a>
 										
 										<input type="hidden" id="ostype" name="appOsType" value="web" /> 
 										<input type="hidden" id="usrDeviceId" name="usrDeviceId" /> 
@@ -228,37 +224,37 @@ export default function Mainpage() {
 							</div>    
 			</div>
        
-			<div class="main_tab">
+			<div className={style.main_tab}>
 				<ul>
-					<li class="mt_1"><a href="/app/use/moveUseMenuRentCpn.do">대여방법</a></li>
-					<li class="mt_2"><a href="/info/infoDuty.do">반납방법</a></li>
-					<li class="mt_3"><a href="/app/station/moveStationRealtimeStatus.do">대여소현황</a></li>
-					<li class="mt_4"><a href="/info/infoCoupon.do">이용요금안내</a></li>
-					{/* <!--li class="mt_4"><a href="/app/mybike/favoriteStation.do">대여하기</a></li--> */}
+					<li className={style.mt_1}><a href="/app/use/moveUseMenuRentCpn.do">대여방법</a></li>
+					<li className={style.mt_2}><a href="/info/infoDuty.do">반납방법</a></li>
+					<li className={style.mt_3}><a href="/app/station/moveStationRealtimeStatus.do">대여소현황</a></li>
+					<li className={style.mt_4}><a href="/info/infoCoupon.do">이용요금안내</a></li>
+					{/* <!--li className={style.mt_4"><a href="/app/mybike/favoriteStation.do">대여하기</a></li--> */}
 				</ul>
 			</div>
 
-			{/* <div class="main" id="bike_info">
-				<h1><img src="/images/ko/bikeseoul_web.png" alt="자전거와 함께하는 건강한 도시, 세계적인 자전거 도시 서울" class="lazyload" /></h1>
+			{/* <div className={style.main" id="bike_info">
+				<h1><img src="/images/ko/bikeseoul_web.png" alt="자전거와 함께하는 건강한 도시, 세계적인 자전거 도시 서울" className={style.lazyload" /></h1>
 				
-				<div class="bikeseoul_bn">
+				<div className={style.bikeseoul_bn">
 				</div>
 				
-				<div class="rental_guide">
+				<div className={style.rental_guide">
 					<h2>대여소 안내</h2>
 					<ul>
-						<li class="guide_1">
-							<div class="img"></div>
-							<div class="info">
+						<li className={style.guide_1">
+							<div className={style.img"></div>
+							<div className={style.info">
 								<dl>
 									<dt>대여소란?</dt>
 									<dd>서울자전거를 대여하고 반납할수 있는<br/>무인 정류장 형태의 자전거 거치 시설입니다.</dd>
 								</dl>
 							</div>
 						</li>
-						<li class="guide_2">
-							<div class="img"></div>
-							<div class="info">
+						<li className={style.guide_2">
+							<div className={style.img"></div>
+							<div className={style.info">
 								<dl>
 									<dt>대여소의 위치</dt>
 									<dd>
@@ -269,9 +265,9 @@ export default function Mainpage() {
 								</dl>
 							</div>
 						</li>
-						<li class="guide_4">
-							<div class="img"></div>
-							<div class="info">
+						<li className={style.guide_4">
+							<div className={style.img"></div>
+							<div className={style.info">
 								<dl>
 									<dt>이용방법</dt>
 									<dd>
@@ -285,21 +281,21 @@ export default function Mainpage() {
 					</ul>
 				</div>
 				
-				<div class="rental_info">
+				<div className={style.rental_info">
 					<h2>대여소 구성요소</h2>
 					<ul>
-						<li class="guide_1">
-							<div class="img"></div>
-							<div class="info">
+						<li className={style.guide_1">
+							<div className={style.img"></div>
+							<div className={style.info">
 								<dl>
 									<dt>자전거</dt>
 									<dd>누구나 이용할 수 있는 자전거로, 내구성이 강한 소재와 고급기어를 사용하여<br/>주행 안정성과 편의성을 최우선으로 제작하였습니다.</dd>
 								</dl>
 							</div>
 						</li>
-						<li class="guide_2">
-							<div class="img"></div>
-							<div class="info">
+						<li className={style.guide_2">
+							<div className={style.img"></div>
+							<div className={style.info">
 								<dl>
 									<dt>거치대</dt>
 									<dd>
@@ -313,7 +309,7 @@ export default function Mainpage() {
 				</div>
 
 
-				<div class="meta_info">	
+				<div className={style.meta_info">	
 
 					<a href="https://www.roblox.com/games/7594841232/seoulbike" target="_blank"><img src="/img/metaLink.jpg" /></a>
 				</div>
@@ -321,8 +317,8 @@ export default function Mainpage() {
 
 
 			
-				<div class="main_app_info">	
-					<div class="textArea">
+				<div className={style.main_app_info">	
+					<div className={style.textArea">
 						<h1>새롭게 단장하고 찾아온 따릉이 앱</h1>
 						<p>
 							간편해진 UI와 시스템으로, 사용자들이 더욱 편리하게 이용 할 수 있게 변신했습니다.<br/>
@@ -330,10 +326,10 @@ export default function Mainpage() {
 						</p>
 						
 						<a target="_blank" href="https://apps.apple.com/kr/app/%EC%84%9C%EC%9A%B8%EC%9E%90%EC%A0%84%EA%B1%B0-%EB%94%B0%EB%A6%89%EC%9D%B4/id1037272004">
-							<img src="/img/app_ios.png" alt="" class="" />
+							<img src="/img/app_ios.png" alt="" className={style." />
 						</a>
 						<a target="_blank" href="https://play.google.com/store/apps/details?id=com.dki.spb_android&amp;hl=ko&amp;gl=US">
-							<img src="/img/app_and.png" alt="" class="" />
+							<img src="/img/app_and.png" alt="" className={style." />
 						</a>
 					</div>
 				</div>
