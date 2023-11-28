@@ -8,7 +8,7 @@ import Infopage from './pages/infopage'
 import Test from './pages/test';
 import moveMemberCardRegiView from './pages/moveMemberCardRegiView/moveMemberCardRegiView';
 import favoriteStation from './pages/favoriteStation/favoriteStation';
-
+import buyTicketMenu from './pages/buyTicketMenu/buyTicketMenu';
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
         <Route path="/test" Component={Test} />
         <Route path="/moveMemberCardRegiView" Component={moveMemberCardRegiView} />
         <Route path="/favoriteStation" Component={favoriteStation} />
+        <Route path="/buyTicketMenu" Component={buyTicketMenu} />
         
       </Routes>  
     </div>
