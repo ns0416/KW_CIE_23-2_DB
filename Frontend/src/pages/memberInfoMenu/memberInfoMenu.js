@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
-import style from './buyTicketMenu.module.css';
+import style from './memberInfoMenu.module.css';
 import Header from '../../header.js';
 
 export default function MyLeftPage() {
@@ -88,52 +88,69 @@ export default function MyLeftPage() {
             
             <div className={style.main_div}>
                 <div className={style.my_list}>
-                    <p className={style.sub_m_title}>이용권 구매</p>
+                    <p className={style.sub_m_title}>회원정보 관리</p>
                 </div>
                 <ul className={style.tabs}>
-                <a href="/app/ticket/member/getSeasonTicketPayInfo.do" class="yesresult">
-                    <li>
-                        <div className={style.mcon}>
-                            <div className={style.sub_menu_icon}> 
-                                <img src="img/ticket_icon_01.png" alt="" />
-                            </div>
-                            정기권
-                        </div>
-                    </li>
-                </a>
-                <a href="/app/ticket/member/getDayTicketPayInfo.do" class="yesresult">
-                    <li>
-                        <div class="mcon">
-                            <div className={style.sub_menu_icon}> 
-                                <img src="img/ticket_icon_02.png" alt="" />
-                            </div>
-                            일일권
-                        </div>
-                    </li>
-                </a>
-                <a href="/app/ticket/member/getSeasonTicketGiftInfo.do" class="yesresult" id="ticket_monGift_as-is">
-                    <li>
-                        <div class="mcon">
-                            <div className={style.sub_menu_icon}> 
-                                <img src="img/ticket_icon_03.png" alt="" />
-                            </div>
-                            정기권<br />
-                            선물하기
-                        </div>
-                    </li>
-                </a>
-                <a href="/app/ticket/member/getDayTicketGiftInfo.do" class="yesresult" id="ticket_dayGift_as-is">
-                    <li>
-                        <div class="mcon">
-                            <div className={style.sub_menu_icon}> 
-                                <img src="img/ticket_icon_04.png" alt="" />
-                            </div>
-                            일일권<br />
-                            선물하기
-                        </div>
-                    </li>
-                </a>  
-                </ul>
+						<a href="/app/mybike/moveMemberCardRegiView.do" className={style.yesresult}>
+							<li>
+                                <div className={style.mcon}>
+                                    <div className={style.sub_menu_icon}> 
+										<img src="img/member_icon_01.png" alt="" />
+									</div>
+									환승카드 관리
+								</div>
+							</li>
+						</a>
+						<a href="/app/mybike/memberOpinion/memberOpinionList.do" className={style.yesresult}>
+							<li>
+								<div className={style.mcon}>
+									<div className={style.sub_menu_icon}> 
+										<img src="img/member_icon_04.png" alt="" />
+									</div>     
+									상담내역
+								</div>
+							</li>
+						</a>
+						<a href="/customer/opinionBoard/opinionBoardList.do" className={style.yesresult}>
+							<li>
+								<div className={style.mcon}>
+									<div className={style.sub_menu_icon}> 
+										<img src="img/member_icon_05.png" alt="" />
+									</div>     
+									시민의견등록
+								</div>
+							</li>
+						</a>
+						<a href="/app/mybike/memberInfo/memberInfoEdit.do" className={style.yesresult}>
+							<li>
+								<div className={style.mcon}>
+									<div className={style.sub_menu_icon}> 
+										<img src="img/member_icon_06.png" alt=""/>
+									</div>     
+									개인정보수정
+								</div>
+							</li>
+						</a>
+						<a href="/app/mybike/setSnsLoginInfo.do" className={style.yesresult}>
+							<li>
+								<div className={style.mcon}>
+									<div className={style.sub_menu_icon}> 
+										<img src="img/member_icon_07.png" alt="" />
+									</div>     
+									sns 로그인 연동 설정</div>
+							</li>
+						</a>
+						<a href="/app/mybike/memberInfo/memberSecede.do" className={style.yesresult}>
+							<li>
+								<div className={style.mcon}>
+									<div className={style.sub_menu_icon}> 
+										<img src="img/member_icon_08.png" alt="" />
+									</div>     
+									회원탈퇴
+								</div>
+							</li>
+						</a>
+					</ul>
             </div>
             <div className={style.tail}>
                 <Link to={'/infopage'}>

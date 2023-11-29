@@ -10,6 +10,8 @@ import moveMemberCardRegiView from './pages/moveMemberCardRegiView/moveMemberCar
 import favoriteStation from './pages/favoriteStation/favoriteStation';
 import buyTicketMenu from './pages/buyTicketMenu/buyTicketMenu';
 import getDayTicketPayInfo from './pages/getDayTicketPayInfo/getDayTicketPayInfo';
+import memberInfoMenu from './pages/memberInfoMenu/memberInfoMenu';
+import noticeBoardMenu from './pages/noticeBoardMenu/noticeBoardMenu';
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
         <Route path="/favoriteStation" Component={favoriteStation} />
         <Route path="/buyTicketMenu" Component={buyTicketMenu} />
         <Route path="/getDayTicketPayInfo" Component={getDayTicketPayInfo} />
+        <Route path="/memberInfoMenu" Component={memberInfoMenu} />
+        <Route path="/noticeBoardMenu" Component={noticeBoardMenu} />
+
         
       </Routes>  
     </div>
