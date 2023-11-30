@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bikeseoul.bikeseoul_kw.dao.BoardArticleDao">
+    <select id="getBoardArticleList" resultType="com.bikeseoul.bikeseoul_kw.container.BoardArticle">
+        SELECT
+            uid, board_uid, user_uid, title, content, created_date, updated_date
+        FROM
+            board_article
+        WHERE
+            board_uid = #{board_uid}
+        ORDER BY
+            uid DESC
+    </select>
+
+    <select id="getBoardArticle" resultType="com.bikeseoul.bikeseoul_kw.container.BoardArticle">
+        SELECT
+            b.uid, b.board_uid, b.user_uid, b.title, b.content, b.created_date, b.updated_date, a.uid as attachment_uid, a.file_name, a.loc, a.created_date as attachment_created_date, c.uid as comment_uid, c.content as comment_content, c.created_date as comment_created_date, c.updated_date as comment_updated_date
+        FROM
+            board_article as b
+        JOIN
+            attachments as a
+        ON
+            b.uid = a.article_uid
+        JOIN
+            board_comment as c
+        ON
+            b.uid = c.article_uid
+        WHERE
+            b.uid = #{uid}
+    </select>
+</mapper>
