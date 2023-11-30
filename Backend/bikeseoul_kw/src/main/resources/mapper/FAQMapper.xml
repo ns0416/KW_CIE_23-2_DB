@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bikeseoul.bikeseoul_kw.dao.FAQDAO">
+    <select id="getFAQList" resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">
+        SELECT
+            uid, faq_name, created_date
+        FROM
+            faq
+        ORDER BY
+            uid DESC
+    </select>
+
+    <select id="getFAQListByName" resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">
+        SELECT
+        uid, faq_name, created_date
+        FROM
+        faq
+        WHERE
+        faq_name = #{faq_name}
+    </select>
+
+    <select id="getFAQArticleList"  resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">
+        SELECT
+            f.uid, a.uid as article_uid, f.faq_name, a.title, a.content, f.created_date, a.created_date as article_created_date
+        FROM
+            faq as f
+        JOIN
+            faq_article as a
+        WHERE
+            f.uid = a.faq_uid
+    </select>
+
+    <select id="getFAQArticleListByTitle" resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">
+        SELECT
+            f.uid, a.uid as article_uid, f.faq_name, a.title, a.content, f.created_date, a.created_date as article_created_date
+        FROM
+            faq as f
+        JOIN
+            faq_article as a
+        WHERE
+            a.title = #{title}
+    </select>
+
+    <select id="getFAQArticle" resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">
+        SELECT
+            f.uid, a.uid as article_uid, f.faq_name, a.title, a.content, f.created_date, a.created_date as article_created_date
+        FROM
+            faq as f
+        JOIN
+            faq_article as a
+        WHERE
+            a.uid = #{uid}
+    </select>
+</mapper>
