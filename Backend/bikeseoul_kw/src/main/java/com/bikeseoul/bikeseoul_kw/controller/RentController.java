@@ -1,10 +1,14 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
+import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Rent;
+import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
 import com.bikeseoul.bikeseoul_kw.service.MemberService;
 import com.bikeseoul.bikeseoul_kw.service.RentService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +24,9 @@ import java.util.List;
 public class RentController {
     @Autowired
     private RentService rentService;
+
+    @Autowired
+    private AccountManager am;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -67,8 +74,14 @@ public class RentController {
 
     @GetMapping("/rest/getRentListByDate")
     @ResponseBody
-    public String getRentListByDate(@RequestParam("member_uid") int member_uid, @RequestParam("start_date") LocalDateTime start_date, @RequestParam("end_date") LocalDateTime end_date) {
+    public String getRentListByDate(HttpServletRequest request, @RequestParam("member_uid") int member_uid, @RequestParam("start_date") LocalDateTime start_date, @RequestParam("end_date") LocalDateTime end_date) {
+        Member mem = (Member)am.checkLogged(request, false);
         JsonObject jo = new JsonObject();
+        if(mem == null) {
+            jo.addProperty("logged", false);
+            return jo.toString();
+        }
+
         if(member_uid == 0) {
             jo.addProperty("result", "failed");
             return jo.toString();
@@ -79,7 +92,7 @@ public class RentController {
         try {
             RentService rentService = new RentService();
             List<Rent> rentList = rentService.getRentListByDate(member_uid, start_date, end_date);
-            int weight = 65; // 기본값 65kg 추후 수정
+            int weight = mem.getWeight();
             int total_distance = 0;
             int total_rent_minutes = 0;
             int calory = 0;
