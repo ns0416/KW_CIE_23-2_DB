@@ -42,8 +42,8 @@ public class GiftController {
                 item.addProperty("receiver_id", gift.getReceiver_id());
                 item.addProperty("ticket_id", gift.getTicket_id());
                 item.addProperty("cost", gift.getCost());
-                item.addProperty("ticket_type", gift.getTicket_type());
-                item.addProperty("hours", gift.getHours());
+                item.addProperty("ticket_type", gift.getTicket_type().getValue());
+                item.addProperty("hours", gift.getHours().getValue());
                 item.addProperty("gift_created_date", gift.getCreated_date().format(dtf_kor));
                 item.addProperty("gift_updated_date", gift.getUpdated_date().format(dtf_kor));
                 ja.add(item);
@@ -77,8 +77,8 @@ public class GiftController {
                 item.addProperty("receiver_id", gift.getReceiver_id());
                 item.addProperty("ticket_id", gift.getTicket_id());
                 item.addProperty("cost", gift.getCost());
-                item.addProperty("ticket_type", gift.getTicket_type());
-                item.addProperty("hours", gift.getHours());
+                item.addProperty("ticket_type", gift.getTicket_type().getValue());
+                item.addProperty("hours", gift.getHours().getValue());
                 item.addProperty("gift_created_date", gift.getCreated_date().format(dtf_kor));
                 item.addProperty("gift_updated_date", gift.getUpdated_date().format(dtf_kor));
                 ja.add(item);

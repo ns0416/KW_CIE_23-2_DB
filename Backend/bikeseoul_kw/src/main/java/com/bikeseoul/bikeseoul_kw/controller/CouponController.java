@@ -42,8 +42,8 @@ public class CouponController {
                 item.addProperty("owner_id", coupon.getOwner_id());
                 item.addProperty("ticket_id", coupon.getTicket_id());
                 item.addProperty("cost", coupon.getCost());
-                item.addProperty("ticket_type", coupon.getTicket_type());
-                item.addProperty("hours", coupon.getHours());
+                item.addProperty("ticket_type", coupon.getTicket_type().getValue());
+                item.addProperty("hours", coupon.getHours().getValue());
                 item.addProperty("ticket_created_date", coupon.getCreated_date().format(dtf_kor));
                 item.addProperty("ticket_updated_date", coupon.getUpdated_date().format(dtf_kor));
                 item.addProperty("coupon_created_date", coupon.getCoupon_created_date().format(dtf_kor));
@@ -73,8 +73,8 @@ public class CouponController {
             item.addProperty("owner_id", coupon.getOwner_id());
             item.addProperty("ticket_id", coupon.getTicket_id());
             item.addProperty("cost", coupon.getCost());
-            item.addProperty("ticket_type", coupon.getTicket_type());
-            item.addProperty("hours", coupon.getHours());
+            item.addProperty("ticket_type", coupon.getTicket_type().getValue());
+            item.addProperty("hours", coupon.getHours().getValue());
             item.addProperty("ticket_created_date", coupon.getCreated_date().format(dtf_kor));
             item.addProperty("ticket_updated_date", coupon.getUpdated_date().format(dtf_kor));
             item.addProperty("coupon_created_date", coupon.getCoupon_created_date().format(dtf_kor));
@@ -101,8 +101,8 @@ public class CouponController {
                 item.addProperty("owner_id", coupon.getOwner_id());
                 item.addProperty("ticket_id", coupon.getTicket_id());
                 item.addProperty("cost", coupon.getCost());
-                item.addProperty("ticket_type", coupon.getTicket_type());
-                item.addProperty("hours", coupon.getHours());
+                item.addProperty("ticket_type", coupon.getTicket_type().getValue());
+                item.addProperty("hours", coupon.getHours().getValue());
                 item.addProperty("ticket_created_date", coupon.getCreated_date().format(dtf_kor));
                 item.addProperty("ticket_updated_date", coupon.getUpdated_date().format(dtf_kor));
                 item.addProperty("coupon_created_date", coupon.getCoupon_created_date().format(dtf_kor));

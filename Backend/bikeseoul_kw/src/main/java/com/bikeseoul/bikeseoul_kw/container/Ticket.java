@@ -4,13 +4,12 @@ import java.time.LocalDateTime;
 
 public class Ticket {
     private int ticket_id, cost, member_uid, giver_uid, receiver_uid;
-    private String ticket_type, hours;
-
+    private ticket_type ticket_type;
+    private hours hours;
     private boolean activation;
-
     private LocalDateTime created_date,updated_date, detail_start_date, detail_create_date, detail_expire_date;
 
-    public Ticket(int ticket_id, int cost, String ticket_type, String hours, LocalDateTime created_date, LocalDateTime updated_date) {
+    public Ticket(int ticket_id, int cost, ticket_type ticket_type, hours hours, LocalDateTime created_date, LocalDateTime updated_date) {
         this.ticket_id = ticket_id;
         this.cost = cost;
         this.ticket_type = ticket_type;
@@ -20,7 +19,7 @@ public class Ticket {
     }
 
     // expired ticket
-    public Ticket(int member_uid, int ticket_id, int cost, String ticket_type, String hours, LocalDateTime created_date, LocalDateTime updated_date, LocalDateTime detail_start_date, LocalDateTime detail_create_date, LocalDateTime detail_expire_date) {
+    public Ticket(int member_uid, int ticket_id, int cost, ticket_type ticket_type, hours hours, LocalDateTime created_date, LocalDateTime updated_date, LocalDateTime detail_start_date, LocalDateTime detail_create_date, LocalDateTime detail_expire_date) {
         this.member_uid = member_uid;
         this.ticket_id = ticket_id;
         this.cost = cost;
@@ -34,7 +33,7 @@ public class Ticket {
     }
 
     // detail ticket
-    public Ticket(int member_uid, int ticket_id, int cost, String ticket_type, String hours, LocalDateTime created_date, LocalDateTime updated_date, LocalDateTime detail_start_date, boolean activation, LocalDateTime detail_create_date) {
+    public Ticket(int member_uid, int ticket_id, int cost, ticket_type ticket_type, hours hours, LocalDateTime created_date, LocalDateTime updated_date, LocalDateTime detail_start_date, boolean activation, LocalDateTime detail_create_date) {
         this.member_uid = member_uid;
         this.ticket_id = ticket_id;
         this.cost = cost;
@@ -59,19 +58,19 @@ public class Ticket {
         this.cost = cost;
     }
 
-    public String getTicket_type() {
+    public ticket_type getTicket_type() {
         return ticket_type;
     }
 
-    public void setTicket_type(String ticket_type) {
+    public void setTicket_type(ticket_type ticket_type) {
         this.ticket_type = ticket_type;
     }
 
-    public String getHours() {
+    public hours getHours() {
         return hours;
     }
 
-    public void setHours(String hours) {
+    public void setHours(hours hours) {
         this.hours = hours;
     }
 

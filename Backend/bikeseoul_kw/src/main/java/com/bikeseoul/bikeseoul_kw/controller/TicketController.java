@@ -41,8 +41,8 @@ public class TicketController {
                 item.addProperty("member_uid", ticket.getMember_uid());
                 item.addProperty("ticket_id", ticket.getTicket_id());
                 item.addProperty("cost", ticket.getCost());
-                item.addProperty("ticket_type", ticket.getTicket_type());
-                item.addProperty("hours", ticket.getHours());
+                item.addProperty("ticket_type", ticket.getTicket_type().getValue());
+                item.addProperty("hours", ticket.getHours().getValue());
                 item.addProperty("ticket_created_date", ticket.getCreated_date().format(dtf_kor));
                 item.addProperty("ticket_updated_date", ticket.getUpdated_date().format(dtf_kor));
                 item.addProperty("detail_start_date", ticket.getDetail_start_date().format(dtf_kor));
@@ -75,8 +75,8 @@ public class TicketController {
             jo.addProperty("member_uid", ticket.getMember_uid());
             jo.addProperty("ticket_id", ticket.getTicket_id());
             jo.addProperty("cost", ticket.getCost());
-            jo.addProperty("ticket_type", ticket.getTicket_type());
-            jo.addProperty("hours", ticket.getHours());
+            jo.addProperty("ticket_type", ticket.getTicket_type().getValue());
+            jo.addProperty("hours", ticket.getHours().getValue());
             jo.addProperty("ticket_created_date", ticket.getCreated_date().format(dtf_kor));
             jo.addProperty("ticket_updated_date", ticket.getUpdated_date().format(dtf_kor));
             jo.addProperty("detail_start_date", ticket.getDetail_start_date().format(dtf_kor));
