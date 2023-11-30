@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bikeseoul.bikeseoul_kw.dao.PaymentLogDao">
+    <select id="getPaymentLogList" resultType="com.bikeseoul.bikeseoul_kw.container.PaymentLog">
+        SELECT
+            log.uid, log.user_uid, log.method_uid, log.amount, log.ticket_detail_uid, log.status_, log.created_date, log.updated_date, method.name, method.created_date, t.ticket_type, t.hours, t.cost
+        FROM
+            payment_log log
+        JOIN
+            payment_method method
+        ON
+            method.uid = log.method_uid
+        JOIN
+            ticket_detail d
+        ON
+            d.uid = log.ticket_detail_uid
+        JOIN
+            ticket t
+        ON
+            t.ticket_id = d.ticket_uid
+        WHERE
+            log.user_uid = #{user_uid}
+    </select>
+
+    <select id="getRefundLogList" resultType="com.bikeseoul.bikeseoul_kw.container.PaymentLog">
+        SELECT
+            log.uid, log.user_uid, log.method_uid, log.amount, log.ticket_detail_uid, log.status_, log.created_date, log.updated_date, method.name, method.created_date, t.ticket_type, t.hours, t.cost
+        FROM
+            payment_log log
+        JOIN
+            payment_method method
+        ON
+            method.uid = log.method_uid
+        JOIN
+            ticket_detail d
+        ON
+            d.uid = log.ticket_detail_uid
+        JOIN
+            ticket t
+        ON
+            t.ticket_id = d.ticket_uid
+        WHERE
+            log.user_uid = #{user_uid}
+        AND
+            log.status_ = 'refund'
+    </select>
+</mapper>
