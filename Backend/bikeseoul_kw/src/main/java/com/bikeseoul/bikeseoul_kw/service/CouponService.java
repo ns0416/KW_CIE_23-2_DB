@@ -26,4 +26,5 @@ public class CouponService implements CouponDao{
     public List<Coupon> getCouponList() {
         return couponDao.getCouponList();
     }
+
 }

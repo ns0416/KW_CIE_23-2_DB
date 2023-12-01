@@ -4,14 +4,19 @@ import com.bikeseoul.bikeseoul_kw.container.Coupon;
 import com.bikeseoul.bikeseoul_kw.service.CouponService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -116,6 +121,15 @@ public class CouponController {
             return jo.toString();
         }
         return jo.toString();
+    }
+    
+    @PostMapping("/rest/registerCoupon")
+    public String registerCoupon(HttpServletRequest request, HashMap<String, Object> body) {
+    	JsonObject jo = new JsonObject();
+    	
+    	
+    	
+    	return jo.toString();
     }
 
 }

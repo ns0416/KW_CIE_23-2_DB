@@ -16,6 +16,12 @@ public class Transfercard extends CommonData{
 		this.card_type = card_type;
 		this.updated_time = updated_time;
 	}
+	public Transfercard(int member_uid, String card_number, card_type card_type) {
+		super(0, null);
+		this.member_uid = member_uid;
+		this.card_number = card_number;
+		this.card_type = card_type;
+	}
 	public int getMember_uid() {
 		return member_uid;
 	}

@@ -1,6 +1,8 @@
 package com.bikeseoul.bikeseoul_kw.manager;
 
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

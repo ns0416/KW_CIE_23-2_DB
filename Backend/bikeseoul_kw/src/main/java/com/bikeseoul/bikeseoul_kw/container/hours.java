@@ -1,7 +1,7 @@
 package com.bikeseoul.bikeseoul_kw.container;
 
 public enum hours {
-    one(1), two(2)
+    one(1), two(2);
 
     private int value;
 

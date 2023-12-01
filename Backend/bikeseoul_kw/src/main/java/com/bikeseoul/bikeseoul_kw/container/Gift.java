@@ -8,7 +8,7 @@ public class Gift extends Ticket{
     private LocalDateTime gift_created_date;
 
     public Gift(int ticket_id, int cost, String ticket_type, String hours, LocalDateTime created_date, LocalDateTime updated_date, int gift_id, int giver_id, int receiver_id, LocalDateTime gift_created_date) {
-        super(ticket_id, cost, ticket_type, hours, created_date, updated_date);
+        super(ticket_id, cost, com.bikeseoul.bikeseoul_kw.container.ticket_type.valueOf(ticket_type), com.bikeseoul.bikeseoul_kw.container.hours.valueOf(hours), created_date, updated_date);
         this.gift_id = gift_id;
         this.giver_id = giver_id;
         this.receiver_id = receiver_id;

@@ -40,4 +40,5 @@
         ON
             ticket_coupon.ticket_id = ticket.ticket_id
     </select>
+    
 </mapper>

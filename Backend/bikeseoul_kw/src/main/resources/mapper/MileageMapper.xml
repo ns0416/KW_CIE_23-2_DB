@@ -22,7 +22,7 @@
     </select>
 	<insert id="updateTransfercardInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Transfercard">
 		<![CDATA[
-			INSERT INTO transfercard
+			INSERT INTO transfer_card
 				(
 					member_uid,
 					card_number,
@@ -36,20 +36,16 @@
 				)
 				ON DUPLICATE KEY UPDATE
 				card_number = #{card_number},
-				card_type = #{card_type}
-				upcated_date = CURRENT_TIMESTAMP()
+				card_type = #{card_type},
+				updated_date = NOW()
 		
 		]]>
-		
-		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
-			SELECT LAST_INSERT_ID() AS uid
-		</selectKey>
 	</insert>
 	
 	<delete id="deleteTransfercardInfo" parameterType="Integer" >
 		<![CDATA[
 			DELETE FROM
-				transfercard
+				transfer_card
 			WHERE
 				member_uid = #{member_uid}
 		]]>

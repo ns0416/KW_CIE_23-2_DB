@@ -1,21 +1,36 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
+import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Mileage;
+import com.bikeseoul.bikeseoul_kw.container.Transfercard;
+import com.bikeseoul.bikeseoul_kw.container.User;
+import com.bikeseoul.bikeseoul_kw.container.card_type;
+import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
 import com.bikeseoul.bikeseoul_kw.service.MileageService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
 public class MileageController {
     @Autowired
     private MileageService mileageService;
+    
+    @Autowired
+    private ServiceManager serviceManager;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -72,4 +87,37 @@ public class MileageController {
         }
         return jo.toString();
     }
+    
+    @PostMapping("/rest/updateTransfercard")
+    public String updateTransfercard(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+    	JsonObject jo = new JsonObject();
+    	HttpSession hs = request.getSession();
+		User user = (User)hs.getAttribute("member");
+		if(user == null) {
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+			
+		Transfercard card = new Transfercard(user.getUid(), (String)body.get("card_number"), card_type.valueOf((String)body.get("card_type").toString()));
+		CommonEnum result = serviceManager.updateTransfercard(card);
+		if(result == CommonEnum.SUCCESS)
+			jo.addProperty("result", "success");
+		return jo.toString();
+    }
+    
+    @GetMapping("/rest/deleteTransfercard")
+    public String deleteTransfercard(HttpServletRequest request) {
+    	JsonObject jo = new JsonObject();
+    	HttpSession hs = request.getSession();
+		User user = (User)hs.getAttribute("member");
+		if(user == null) {
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+		CommonEnum result = serviceManager.deleteTransfercard(user.getUid());
+		if(result == CommonEnum.SUCCESS)
+			jo.addProperty("result", "success");
+		return jo.toString();
+    }
+    
 }
