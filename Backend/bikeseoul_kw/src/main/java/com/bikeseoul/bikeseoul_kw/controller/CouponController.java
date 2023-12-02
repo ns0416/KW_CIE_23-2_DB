@@ -1,8 +1,10 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
+import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Coupon;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.User;
+import com.bikeseoul.bikeseoul_kw.manager.CouponManager;
 import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -28,6 +30,9 @@ public class CouponController {
     @Autowired
     private ServiceManager serviceManager;
 
+    @Autowired
+    private CouponManager couponManager;
+    
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
@@ -135,8 +140,16 @@ public class CouponController {
     		return jo.toString();
     	}
     	String coupon_id = (String)body.get("coupon_id");
-    	
-    	
+    	Coupon cp = couponManager.getCoupon(coupon_id);
+    	if(cp.getOwner_uid() > 0) {
+    		jo.addProperty("result", "failed");
+    		return jo.toString();
+    	}
+    	CommonEnum res = couponManager.useCoupon(cp, user);
+    	if(res == CommonEnum.SUCCESS)
+    		jo.addProperty("result", "success");
+    	else
+    		jo.addProperty("result", "failed");
     	
     	return jo.toString();
     }

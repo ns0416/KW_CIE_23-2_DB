@@ -18,6 +18,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -25,6 +26,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Config;
+import com.bikeseoul.bikeseoul_kw.container.LeaveReason;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Pair;
 import com.bikeseoul.bikeseoul_kw.container.User;
@@ -135,8 +137,17 @@ public class AccountManager {
 			return memberService.getMemberInfoCount(type, value);
 	}
 	
-	public CommonEnum updateUserInfo(User mem, String pw_cfm) {
+	public CommonEnum updateUserInfo(User mem/*, String pw_cfm*/) {
 		try {
+			if(mem instanceof Member){
+				if(memberService.updateMemberInfo((Member)mem)>0) {//TODO: Normal member update user
+					return CommonEnum.SUCCESS;
+				}else {
+					return CommonEnum.FAILED;
+				}
+			}
+			return CommonEnum.FAILED;
+				/*
 			String pw = mem.getPw();
 			if(checkValidPW(pw, pw_cfm)) {
 					mem.setPw(hashingManager.HashSHA256(pw));
@@ -152,11 +163,32 @@ public class AccountManager {
 			}else {	
 				return CommonEnum.PW_ERROR;
 			}
+			*/
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return CommonEnum.UNKNOWN;
 		}
+	}
+	public List<LeaveReason> getLeaveReasons(int uid){
+		return memberService.getLeaveReason(uid);
+	}
+	@Transactional
+	public CommonEnum LeaveUser(User mem, LeaveReason lr){
+		try {
+			if(lr == null || mem == null)
+				throw new Exception();
+			Member new_mem = new Member(mem.getUid(), mem.getEmail(), true);
+			CommonEnum update_res = updateUserInfo(new_mem);
+			if(update_res != CommonEnum.SUCCESS)
+				throw new Exception();
+			if(memberService.registerLeaveReason(mem.getUid(), lr.getUid()) > 0)
+				return CommonEnum.SUCCESS;
+			throw new Exception();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return CommonEnum.FAILED;
 	}
 	public CommonEnum resetPW(User mem, String pw, String pw_cfm) {
 		try {
@@ -469,6 +501,14 @@ public class AccountManager {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public CommonEnum changePW(User mem, String pw_cur, String pw, String pw_cfm) {
+		// TODO Auto-generated method stub
+		Member mem_pw = (Member)getUserInfo(mem.getUid(), false);
+		if(!mem_pw.getPw().equals(pw_cur))
+			return CommonEnum.NOT_PERMITTED;
+		return resetPW(mem_pw, pw, pw_cfm);
 	}
 	
 }

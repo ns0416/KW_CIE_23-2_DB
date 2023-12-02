@@ -20,4 +20,53 @@
         ORDER BY
             distance DESC
     </select>
+    
+    <insert id="insertRankingWeekly">
+		<![CDATA[
+			INSERT INTO
+				ranking_weekly (member_uid, distance)
+				(
+					SELECT
+						m.uid,
+						SUM(r.distance)
+					FROM
+						rent AS r
+					JOIN
+						member AS m ON
+						r.member_uid = m.uid
+					WHERE
+						r.start_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 WEEK) AND NOW()
+					GROUP BY
+						m.uid
+				);
+		
+		]]>
+	</insert>
+	<insert id="insertRankingMonthly">
+		<![CDATA[
+			INSERT INTO
+				ranking_weekly (member_uid, distance)
+				(
+					SELECT
+						m.uid,
+						SUM(r.distance)
+					FROM
+						rent AS r
+					JOIN
+						member AS m ON
+						r.member_uid = m.uid
+					WHERE
+						r.start_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 MONTH) AND NOW()
+					GROUP BY
+						m.uid
+				);
+		
+		]]>
+	</insert>
+	<delete id="truncateRankingWeekly">
+		TRUNCATE TABLE ranking_weekly
+	</delete>
+	<delete id="truncateRankingMonthly">
+		TRUNCATE TABLE ranking_monthly
+	</delete>
 </mapper>

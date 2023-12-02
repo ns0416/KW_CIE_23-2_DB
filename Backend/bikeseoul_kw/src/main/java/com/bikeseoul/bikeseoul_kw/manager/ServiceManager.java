@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bikeseoul.bikeseoul_kw.service.CouponService;
 import com.bikeseoul.bikeseoul_kw.service.MileageService;
+import com.bikeseoul.bikeseoul_kw.service.RankingService;
 import com.bikeseoul.bikeseoul_kw.service.TicketService;
 
 import jakarta.mail.MessagingException;
@@ -40,6 +42,9 @@ public class ServiceManager {
 	
 	@Autowired
 	private TicketService ticketService;
+	
+	@Autowired
+	private RankingService rankingService;
 
 	public CommonEnum updateTransfercard(Transfercard card) {
 		if(mileageService.updateTransfercardInfo(card) > 0)
@@ -62,6 +67,27 @@ public class ServiceManager {
 			return null;
 		}
 		return ticketService.getActivationTicket(member_uid);
+	}
+	
+	@Transactional
+	public CommonEnum refreshRanking(boolean is_weekly) {
+		try {
+			if(is_weekly) {
+				if(rankingService.truncateRankingWeekly() >0) {
+					if(rankingService.insertRankingWeekly() > 0)
+						return CommonEnum.SUCCESS;
+				}
+			}else {
+				if(rankingService.truncateRankingMonthly() >0) {
+					if(rankingService.insertRankingMonthly() > 0)
+						return CommonEnum.SUCCESS;
+				}
+			}
+			throw new Exception();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return CommonEnum.FAILED;
 	}
 	public List<Ticket> getTicketList(boolean checkValid, boolean validtype, String type) {
 		int valid_t = 2;

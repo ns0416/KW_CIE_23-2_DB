@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.bikeseoul.bikeseoul_kw.container.LeaveReason;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 
 
@@ -16,4 +17,6 @@ public interface MemberDao {
 	int getMemberInfoCount(int type, String value);
 	int getMemberCount(int type, String value, int user_uid);
 	Member findID(Member user);
+	List<LeaveReason> getLeaveReason(int uid);
+	int registerLeaveReason(int user_uid, int reason_uid);
 }
