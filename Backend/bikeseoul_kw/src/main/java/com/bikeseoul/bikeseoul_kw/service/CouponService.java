@@ -13,12 +13,12 @@ public class CouponService implements CouponDao{
     private CouponDao couponDao;
 
     @Override
-    public List<Coupon> getUserCouponList(int owner_id) {
-        return couponDao.getUserCouponList(owner_id);
+    public List<Coupon> getUserCouponList(int owner_uid) {
+        return couponDao.getUserCouponList(owner_uid);
     }
 
     @Override
-    public Coupon getCoupon(int coupon_id) {
+    public Coupon getCoupon(String coupon_id) {
         return couponDao.getCoupon(coupon_id);
     }
 

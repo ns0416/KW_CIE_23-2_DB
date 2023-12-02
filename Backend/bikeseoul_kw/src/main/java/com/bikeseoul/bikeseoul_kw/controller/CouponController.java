@@ -46,7 +46,7 @@ public class CouponController {
             for(Coupon coupon:userCouponList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("coupon_id", coupon.getCoupon_id());
-                item.addProperty("owner_id", coupon.getOwner_id());
+                item.addProperty("owner_id", coupon.getOwner_uid());
                 item.addProperty("ticket_id", coupon.getTicket_id());
                 item.addProperty("cost", coupon.getCost());
                 item.addProperty("ticket_type", coupon.getTicket_type().getValue());
@@ -67,9 +67,9 @@ public class CouponController {
     }
     @GetMapping("/rest/getCoupon")
     @ResponseBody
-    public String getCoupon(@RequestParam("coupon_id") int coupon_id) {
+    public String getCoupon(@RequestParam("coupon_id") String coupon_id) {
         JsonObject jo = new JsonObject();
-        if(coupon_id == 0) {
+        if(coupon_id == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
@@ -77,7 +77,7 @@ public class CouponController {
             Coupon coupon = couponService.getCoupon(coupon_id);
             JsonObject item = new JsonObject();
             item.addProperty("coupon_id", coupon.getCoupon_id());
-            item.addProperty("owner_id", coupon.getOwner_id());
+            item.addProperty("owner_id", coupon.getOwner_uid());
             item.addProperty("ticket_id", coupon.getTicket_id());
             item.addProperty("cost", coupon.getCost());
             item.addProperty("ticket_type", coupon.getTicket_type().getValue());
@@ -105,7 +105,7 @@ public class CouponController {
             for(Coupon coupon:couponList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("coupon_id", coupon.getCoupon_id());
-                item.addProperty("owner_id", coupon.getOwner_id());
+                item.addProperty("owner_uid", coupon.getOwner_uid());
                 item.addProperty("ticket_id", coupon.getTicket_id());
                 item.addProperty("cost", coupon.getCost());
                 item.addProperty("ticket_type", coupon.getTicket_type().getValue());
