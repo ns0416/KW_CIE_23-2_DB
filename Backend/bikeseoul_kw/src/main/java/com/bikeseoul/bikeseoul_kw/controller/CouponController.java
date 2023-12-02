@@ -3,8 +3,9 @@ package com.bikeseoul.bikeseoul_kw.controller;
 import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Coupon;
 import com.bikeseoul.bikeseoul_kw.container.Member;
+import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.CouponManager;
-import com.bikeseoul.bikeseoul_kw.service.CouponService;
+import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -27,7 +28,7 @@ import java.util.List;
 public class CouponController {
 
     @Autowired
-    private CouponService couponService;
+    private ServiceManager serviceManager;
 
     @Autowired
     private CouponManager couponManager;
@@ -38,16 +39,15 @@ public class CouponController {
 
     @GetMapping("/rest/service/getUserCouponList")
     @ResponseBody
-    public String getUserCouponList(@RequestParam("owner_id") int owner_id) {
+    public String getUserCouponList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
-        if(owner_id == 0) {
-            jo.addProperty("result", "failed");
-            return jo.toString();
-        }
+        HttpSession hs = request.getSession();
+        User user = (User)hs.getAttribute("member");
+        int owner_id = user.getUid();
         JsonArray ja = new JsonArray();
 
         try{
-            List<Coupon> userCouponList = couponService.getUserCouponList(owner_id);
+            List<Coupon> userCouponList = serviceManager.getUserCouponList(owner_id);
             for(Coupon coupon:userCouponList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("coupon_id", coupon.getCoupon_id());
@@ -56,9 +56,9 @@ public class CouponController {
                 item.addProperty("cost", coupon.getCost());
                 item.addProperty("ticket_type", coupon.getTicket_type().getValue());
                 item.addProperty("hours", coupon.getHours().getValue());
-                item.addProperty("ticket_created_date", coupon.getCreated_date().format(dtf_kor));
-                item.addProperty("ticket_updated_date", coupon.getUpdated_date().format(dtf_kor));
-                item.addProperty("coupon_created_date", coupon.getCoupon_created_date().format(dtf_kor));
+                item.addProperty("ticket_created_date", coupon.getTicket_created_date().format(dtf_kor));
+                item.addProperty("ticket_updated_date", coupon.getTicket_updated_date().format(dtf_kor));
+                item.addProperty("coupon_created_date", coupon.getCreated_date().format(dtf_kor));
                 ja.add(item);
             }
             jo.addProperty("result", "success");
@@ -79,7 +79,7 @@ public class CouponController {
             return jo.toString();
         }
         try{
-            Coupon coupon = couponService.getCoupon(coupon_id);
+            Coupon coupon = serviceManager.getCoupon(coupon_id);
             JsonObject item = new JsonObject();
             item.addProperty("coupon_id", coupon.getCoupon_id());
             item.addProperty("owner_id", coupon.getOwner_uid());
@@ -88,8 +88,8 @@ public class CouponController {
             item.addProperty("ticket_type", coupon.getTicket_type().getValue());
             item.addProperty("hours", coupon.getHours().getValue());
             item.addProperty("ticket_created_date", coupon.getCreated_date().format(dtf_kor));
-            item.addProperty("ticket_updated_date", coupon.getUpdated_date().format(dtf_kor));
-            item.addProperty("coupon_created_date", coupon.getCoupon_created_date().format(dtf_kor));
+            item.addProperty("ticket_updated_date", coupon.getTicket_updated_date().format(dtf_kor));
+            item.addProperty("coupon_created_date", coupon.getCreated_date().format(dtf_kor));
             jo.addProperty("result", "success");
             jo.add("data", item);
         }catch(Exception e) {
@@ -106,7 +106,7 @@ public class CouponController {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
         try{
-            List<Coupon> couponList = couponService.getCouponList();
+            List<Coupon> couponList = serviceManager.getCouponList();
             for(Coupon coupon:couponList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("coupon_id", coupon.getCoupon_id());
@@ -116,8 +116,8 @@ public class CouponController {
                 item.addProperty("ticket_type", coupon.getTicket_type().getValue());
                 item.addProperty("hours", coupon.getHours().getValue());
                 item.addProperty("ticket_created_date", coupon.getCreated_date().format(dtf_kor));
-                item.addProperty("ticket_updated_date", coupon.getUpdated_date().format(dtf_kor));
-                item.addProperty("coupon_created_date", coupon.getCoupon_created_date().format(dtf_kor));
+                item.addProperty("ticket_updated_date", coupon.getTicket_updated_date().format(dtf_kor));
+                item.addProperty("coupon_created_date", coupon.getCreated_date().format(dtf_kor));
                 ja.add(item);
             }
             jo.addProperty("result", "success");

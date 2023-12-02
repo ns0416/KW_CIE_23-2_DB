@@ -6,40 +6,39 @@
 <mapper namespace="com.bikeseoul.bikeseoul_kw.dao.CouponDao">
     <select id="getUserCouponList" resultType="com.bikeseoul.bikeseoul_kw.container.Coupon">
         SELECT
-<!--        int ticket_id, int cost, String ticket_type, String hours, LocalDateTime created_date, LocalDateTime updated_date, String coupon_id, int owner_id, LocalDateTime coupon_created_date) {-->
-            t.ticket_id, t.cost, t.ticket_type, t.hours, t.created_date, t.updated_date, c.coupon_id, c.owner_uid, c.created_date as coupon_created_date
+            t.ticket_id, t.ticket_type, t.hours, t.cost, t.isvalid, t.created_date, t.updated_date, c.coupon_id, c.owner_uid, c.created_date
         FROM
             ticket_coupon as c
         JOIN
             ticket as t
         ON
-            c.ticket_id = t.ticket_id
+            c.ticket_uid = t.ticket_id
         WHERE
             owner_id = #{owner_id}
     </select>
 
     <select id="getCoupon" resultType="com.bikeseoul.bikeseoul_kw.container.Coupon">
         SELECT
-            *
+            t.ticket_id, t.ticket_type, t.hours, t.cost, t.isvalid, t.created_date, t.updated_date, c.coupon_id, c.owner_uid, c.created_date
         FROM
-            ticket_coupon
+            ticket_coupon as c
         JOIN
-            ticket
+            ticket as t
         ON
-            ticket_coupon.ticket_id = ticket.ticket_id
+            c.ticket_uid = t.ticket_id
         WHERE
             coupon_id = #{coupon_id}
     </select>
 
     <select id="getCouponList" resultType="com.bikeseoul.bikeseoul_kw.container.Coupon">
         SELECT
-            *
+            t.ticket_id, t.ticket_type, t.hours, t.cost, t.isvalid, t.created_date, t.updated_date, c.coupon_id, c.owner_uid, c.created_date
         FROM
-            ticket_coupon
+            ticket_coupon AS c
         JOIN
-            ticket
+            ticket AS t
         ON
-            ticket_coupon.ticket_id = ticket.ticket_id
+            c.ticket_uid = t.ticket_id
     </select>
     
 </mapper>

@@ -3,15 +3,15 @@ package com.bikeseoul.bikeseoul_kw.container;
 import java.time.LocalDateTime;
 
 public class Gift extends Ticket{
-    private int gift_id, giver_id, receiver_id;
+    private int gift_id, giver_uid, receiver_uid;
 
     private LocalDateTime gift_created_date;
 
-    public Gift(int ticket_id, int cost, String ticket_type, String hours, LocalDateTime created_date, LocalDateTime updated_date, int gift_id, int giver_id, int receiver_id, LocalDateTime gift_created_date) {
-        super(ticket_id, cost, com.bikeseoul.bikeseoul_kw.container.ticket_type.valueOf(ticket_type), com.bikeseoul.bikeseoul_kw.container.hours.valueOf(hours), created_date, updated_date);
+    public Gift(int ticket_id, ticket_type ticket_type, hours hours, int cost, boolean isvalid, LocalDateTime ticket_created_date, LocalDateTime ticket_updated_date, int gift_id, int giver_uid, int receiver_uid, LocalDateTime gift_created_date) {
+        super(ticket_id, ticket_type, hours, cost, isvalid, ticket_created_date, ticket_updated_date);
         this.gift_id = gift_id;
-        this.giver_id = giver_id;
-        this.receiver_id = receiver_id;
+        this.giver_uid = giver_uid;
+        this.receiver_uid = receiver_uid;
         this.gift_created_date = gift_created_date;
     }
 
@@ -19,23 +19,32 @@ public class Gift extends Ticket{
         return gift_id;
     }
 
-    public int getGiver_id() {
-        return giver_id;
+    public void setGift_id(int gift_id) {
+        this.gift_id = gift_id;
     }
 
-    public void setGiver_id(int giver_id) {
-        this.giver_id = giver_id;
+    public int getGiver_uid() {
+        return giver_uid;
     }
 
-    public int getReceiver_id() {
-        return receiver_id;
+    public void setGiver_uid(int giver_uid) {
+        this.giver_uid = giver_uid;
     }
 
-    public void setReceiver_id(int receiver_id) {
-        this.receiver_id = receiver_id;
+    public int getReceiver_uid() {
+        return receiver_uid;
+    }
+
+    public void setReceiver_uid(int receiver_uid) {
+        this.receiver_uid = receiver_uid;
     }
 
     public LocalDateTime getGift_created_date() {
         return gift_created_date;
     }
+
+    public void setGift_created_date(LocalDateTime gift_created_date) {
+        this.gift_created_date = gift_created_date;
+    }
+
 }

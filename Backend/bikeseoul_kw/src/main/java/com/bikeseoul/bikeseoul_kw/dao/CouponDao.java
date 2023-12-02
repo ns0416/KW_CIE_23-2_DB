@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface CouponDao {
     // 등록한 쿠폰내역 가져옴 DR-3701
-    List<Coupon> getUserCouponList(int owner_id);
+    List<Coupon> getUserCouponList(int owner_uid);
 
     // 쿠폰번호를 조회하는 기능(쿠폰번호 검색) DR-3801
     Coupon getCoupon(String coupon_id);

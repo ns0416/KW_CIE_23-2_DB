@@ -2,8 +2,9 @@ package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Ticket;
+import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
+import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
-import com.bikeseoul.bikeseoul_kw.service.TicketService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -28,8 +29,6 @@ public class TicketController {
 	
 	@Autowired
 	private ServiceManager serviceManager;
-    @Autowired
-    private TicketService ticketService;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -37,65 +36,68 @@ public class TicketController {
 
     @GetMapping("/rest/service/getExpiredTicketList")
     @ResponseBody
-    public String getExpiredTicketList(@RequestParam("member_uid") int member_uid) {
+    public String getExpiredTicketList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
-        if(member_uid == 0) {
-            jo.addProperty("result", "failed");
-            return jo.toString();
-        }
-
+        HttpSession hs = request.getSession();
+        User user = (User)hs.getAttribute("member");
+        int member_uid = user.getUid();
         JsonArray ja = new JsonArray();
 
         try {
-            TicketService ticketService = new TicketService();
-            List<Ticket> expiredTicketList = ticketService.getExpiredTicketList(member_uid);
-            for(Ticket ticket:expiredTicketList) {
+            List<Ticket_detail> ticket_details = serviceManager.getExpiredTicketList(member_uid);
+            for(Ticket_detail ticket_detail:ticket_details) {
                 JsonObject item = new JsonObject();
-                item.addProperty("member_uid", ticket.getMember_uid());
-                item.addProperty("ticket_id", ticket.getTicket_id());
-                item.addProperty("cost", ticket.getCost());
-                item.addProperty("ticket_type", ticket.getTicket_type().getValue());
-                item.addProperty("hours", ticket.getHours().getValue());
-                item.addProperty("ticket_created_date", ticket.getCreated_date().format(dtf_kor));
-                item.addProperty("ticket_updated_date", ticket.getUpdated_date().format(dtf_kor));
-                item.addProperty("detail_start_date", ticket.getDetail_start_date().format(dtf_kor));
-                item.addProperty("detail_create_date", ticket.getDetail_create_date().format(dtf_kor));
-                item.addProperty("detail_expire_date", ticket.getDetail_expire_date().format(dtf_kor));
+                item.addProperty("member_uid", ticket_detail.getMember_uid());
+                item.addProperty("ticket_id", ticket_detail.getTicket_id());
+                item.addProperty("cost", ticket_detail.getCost());
+                item.addProperty("ticket_type", ticket_detail.getTicket_type().getValue());
+                item.addProperty("hours", ticket_detail.getHours().getValue());
+                item.addProperty("ticket_created_date", ticket_detail.getTicket_created_date().format(dtf_kor));
+                item.addProperty("ticket_updated_date", ticket_detail.getTicket_updated_date().format(dtf_kor));
+                item.addProperty("detail_start_date", ticket_detail.getStart_date().format(dtf_kor));
+                item.addProperty("detail_create_date", ticket_detail.getCreated_date().format(dtf_kor));
+                item.addProperty("activation", ticket_detail.isActivation());
+                item.addProperty("expired_date", ticket_detail.getExpired_date().format(dtf_kor));
                 ja.add(item);
             }
             jo.addProperty("result", "success");
             jo.add("data", ja);
-        }catch (Exception e) {
+        }catch(Exception e) {
             e.printStackTrace();
             jo.addProperty("result", "failed");
+            return jo.toString();
         }
         return jo.toString();
     }
 
     @GetMapping("/rest/service/getActivationTicket")
     @ResponseBody
-    public String getActivationTicket(@RequestParam("member_uid") int member_uid) {
+    public String getActivationTicket(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
-        if(member_uid == 0) {
-            jo.addProperty("result", "failed");
-            return jo.toString();
-        }
+        HttpSession hs = request.getSession();
+        User user = (User)hs.getAttribute("member");
+        int member_uid = user.getUid();
+        JsonArray ja = new JsonArray();
 
         try {
-            TicketService ticketService = new TicketService();
-            Ticket ticket = ticketService.getActivationTicket(member_uid);
+            Ticket_detail ticket_detail = serviceManager.getActivationTicket(member_uid);
+            if(ticket_detail != null) {
+                JsonObject item = new JsonObject();
+                item.addProperty("member_uid", ticket_detail.getMember_uid());
+                item.addProperty("ticket_id", ticket_detail.getTicket_id());
+                item.addProperty("cost", ticket_detail.getCost());
+                item.addProperty("ticket_type", ticket_detail.getTicket_type().getValue());
+                item.addProperty("hours", ticket_detail.getHours().getValue());
+                item.addProperty("ticket_created_date", ticket_detail.getTicket_created_date().format(dtf_kor));
+                item.addProperty("ticket_updated_date", ticket_detail.getTicket_updated_date().format(dtf_kor));
+                item.addProperty("detail_start_date", ticket_detail.getStart_date().format(dtf_kor));
+                item.addProperty("detail_create_date", ticket_detail.getCreated_date().format(dtf_kor));
+                item.addProperty("activation", ticket_detail.isActivation());
+                ja.add(item);
+            }
             jo.addProperty("result", "success");
-            jo.addProperty("member_uid", ticket.getMember_uid());
-            jo.addProperty("ticket_id", ticket.getTicket_id());
-            jo.addProperty("cost", ticket.getCost());
-            jo.addProperty("ticket_type", ticket.getTicket_type().getValue());
-            jo.addProperty("hours", ticket.getHours().getValue());
-            jo.addProperty("ticket_created_date", ticket.getCreated_date().format(dtf_kor));
-            jo.addProperty("ticket_updated_date", ticket.getUpdated_date().format(dtf_kor));
-            jo.addProperty("detail_start_date", ticket.getDetail_start_date().format(dtf_kor));
-            jo.addProperty("detail_create_date", ticket.getDetail_create_date().format(dtf_kor));
-            jo.addProperty("activation", ticket.isActivation());
-        }catch (Exception e) {
+            jo.add("data", ja);
+        }catch(Exception e) {
             e.printStackTrace();
             jo.addProperty("result", "failed");
             return jo.toString();
