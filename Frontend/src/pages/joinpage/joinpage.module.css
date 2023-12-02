@@ -44,7 +44,7 @@
      }
   
      .m_sub_header_wrap .back {
-       background:url(../../public/img/btn_back.png) center no-repeat; 
+       background:url(../../../public/img/btn_back.png) center no-repeat; 
        width:25px; 
        height:25px; 
        background-size:contain;
@@ -54,7 +54,7 @@
       }
   
      .m_sub_header_wrap .close {
-       background:url(../../public/img/close.png) center no-repeat; 
+       background:url(../../../public/img/close.png) center no-repeat; 
        width:22px; 
        height:22px; 
        background-size:contain;

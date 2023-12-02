@@ -49,7 +49,7 @@ export default function MyLeftPage() {
         }
         alert(JSON.stringify(values,null,2));
     }
-    const [isLoggedIn, setisLoggedIn] = React.useState(true);
+    const [isLoggedIn, setisLoggedIn] = React.useState(false);
     const navigate = useNavigate();
 
     const gohome =() => {

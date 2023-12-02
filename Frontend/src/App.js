@@ -1,10 +1,10 @@
 import { Route,Routes } from 'react-router-dom';
 import MyLeftPage from './pages/myLeftPage';
 import Mainpage from './pages/mainpage';
-import Joinpage from './pages/joinpage';
-import Findid from './pages/findid';
-import Findpw from './pages/findpw';
-import Infopage from './pages/infopage'
+import Joinpage from './pages/joinpage/joinpage';
+import Findid from './pages/findid/findid';
+import Findpw from './pages/findpw/findpw';
+import Infopage from './pages/infopage/infopage'
 import Test from './pages/test';
 import moveMemberCardRegiView from './pages/moveMemberCardRegiView/moveMemberCardRegiView';
 

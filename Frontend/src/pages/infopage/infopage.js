@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './infopage.module.css';
-import Header from '../header.js';
+import Header from '../../header.js';
 
 export default function Infopage()
 {
