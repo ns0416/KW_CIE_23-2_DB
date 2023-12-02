@@ -13,7 +13,19 @@ public class Member extends User{
 		this.age = age;
 		this.weight = weight;
 	}
-	
+	public Member(int uid,String phone, int weight) {
+			super(uid, phone);
+			// TODO Auto-generated constructor stub
+			this.weight = weight;
+		}
+	public Member(int uid,String email) {
+		super(uid, null, null, email, null,0,false, false, null);
+		// TODO Auto-generated constructor stub
+	}
+	public Member(int uid,boolean is_lost) {
+		super(uid, null, null, null, null,0,false, is_lost, null);
+		// TODO Auto-generated constructor stub
+	}
 	public Member(String id, String email) {
 			super(id, email);
 			// TODO Auto-generated constructor stub

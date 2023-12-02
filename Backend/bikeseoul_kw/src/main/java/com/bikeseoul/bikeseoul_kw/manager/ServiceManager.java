@@ -51,6 +51,7 @@ public class ServiceManager {
 		return CommonEnum.FAILED;
 	}
 	
+	
 	public List<Ticket> getTicketList(boolean checkValid, boolean validtype, String type) {
 		int valid_t = 2;
 		if(checkValid) 

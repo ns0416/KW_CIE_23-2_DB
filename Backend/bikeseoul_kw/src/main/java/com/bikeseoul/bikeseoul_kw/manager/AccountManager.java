@@ -135,8 +135,17 @@ public class AccountManager {
 			return memberService.getMemberInfoCount(type, value);
 	}
 	
-	public CommonEnum updateUserInfo(User mem, String pw_cfm) {
+	public CommonEnum updateUserInfo(User mem/*, String pw_cfm*/) {
 		try {
+			if(mem instanceof Member){
+				if(memberService.updateMemberInfo((Member)mem)>0) {//TODO: Normal member update user
+					return CommonEnum.SUCCESS;
+				}else {
+					return CommonEnum.FAILED;
+				}
+			}
+			return CommonEnum.FAILED;
+				/*
 			String pw = mem.getPw();
 			if(checkValidPW(pw, pw_cfm)) {
 					mem.setPw(hashingManager.HashSHA256(pw));
@@ -152,6 +161,7 @@ public class AccountManager {
 			}else {	
 				return CommonEnum.PW_ERROR;
 			}
+			*/
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -469,6 +479,14 @@ public class AccountManager {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public CommonEnum changePW(User mem, String pw_cur, String pw, String pw_cfm) {
+		// TODO Auto-generated method stub
+		Member mem_pw = (Member)getUserInfo(mem.getUid(), false);
+		if(!mem_pw.getPw().equals(pw_cur))
+			return CommonEnum.NOT_PERMITTED;
+		return resetPW(mem_pw, pw, pw_cfm);
 	}
 	
 }

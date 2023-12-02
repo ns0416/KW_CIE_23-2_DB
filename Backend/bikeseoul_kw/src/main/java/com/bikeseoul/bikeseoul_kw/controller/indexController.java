@@ -139,6 +139,132 @@ public class indexController {
 		}
 		return jo.toString();
 	}
+	
+	@PostMapping("/rest/updateEmail")
+	public String updateEmail(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession(false);
+		JsonObject jo = new JsonObject();
+		if(hs == null) {
+			jo.addProperty("result", "failed1");
+			return jo.toString();
+		}
+		Member mem = (Member)hs.getAttribute("member");
+		if(hs.getAttribute("register_emailauth") == null  || (Boolean)hs.getAttribute("register_emailauth") != true|| am.checkResetPWTime(hs)==false) {
+			jo.addProperty("result", "failed2");
+		}else {
+			Member user = new Member(mem.getUid(),(String)hs.getAttribute("authAddr"));
+			CommonEnum res = am.updateUserInfo(user);
+			if(res == CommonEnum.SUCCESS) {
+				jo.addProperty("result", "success");
+			}else if(res == CommonEnum.NOT_PERMITTED){
+				jo.addProperty("result", "same_email");
+			}else {
+				jo.addProperty("result", "failed3");
+			}
+		}
+		return jo.toString();
+	}
+	@PostMapping("/rest/service/setLost")
+	public String setLost(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		JsonObject jo = new JsonObject();
+		try {
+			HttpSession hs = request.getSession();
+			Member mem = (Member)hs.getAttribute("member");
+			
+			String pw_cur = (String)body.get("pw_cur");
+			Member mem_ = new Member(mem.getUid(), true);
+			User chk_pw = am.checkPW(mem, pw_cur);
+			if(chk_pw == null) {
+				jo.addProperty("result", "failed");
+				return jo.toString();
+			}
+			
+			CommonEnum res = am.updateUserInfo(mem_);
+			if(res == CommonEnum.SUCCESS) {
+				jo.addProperty("result", "success");
+			}else {
+				if(res == CommonEnum.NOT_PERMITTED) {
+					jo.addProperty("msg", "permission_error");
+				}else if(res == CommonEnum.PW_ERROR) {
+					jo.addProperty("msg", "pw_error");
+				}
+				jo.addProperty("result", "failed");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jo.toString();
+	}
+	
+	@PostMapping("/rest/service/changePW")
+	public String changePW(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession();
+		Member mem = (Member)hs.getAttribute("member");
+		JsonObject jo = new JsonObject();
+		String pw_cur = (String)body.get("pw_cur");
+		String pw = (String)body.get("pw");
+		String pw_cfm = (String)body.get("pw_cfm");
+		CommonEnum res = am.changePW(mem, pw_cur, pw, pw_cfm);
+		if(res == CommonEnum.SUCCESS) {
+			jo.addProperty("result", "success");
+		}else {
+			if(res == CommonEnum.NOT_PERMITTED) {
+				jo.addProperty("msg", "cur_pw_not_match");
+			}else if(res == CommonEnum.PW_ERROR) {
+				jo.addProperty("msg", "pw_policy_error");
+			}
+			jo.addProperty("result", "failed");
+		}
+		
+		return jo.toString();
+	}
+	@PostMapping("/rest/service/updateMember")
+	public String updateMember(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession();
+		Member mem = (Member)hs.getAttribute("member");
+		JsonObject jo = new JsonObject();
+		int weight = (Integer)body.get("weight");
+		String phone = (String)body.get("phohe");
+		if(phone != null)
+			phone = phone.replaceAll("[^0-9]", "");
+		Member new_mem = new Member(mem.getUid(), phone, weight);
+		CommonEnum res = am.updateUserInfo(new_mem);
+		if(res == CommonEnum.SUCCESS)
+			jo.addProperty("result", "success");
+		else
+			jo.addProperty("result", "failed");
+		return jo.toString();
+	}
+	@PostMapping("/rest/service/sendAuthMail")
+	public String sendAuthMail(HttpServletRequest request,  @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession();
+		JsonObject jo = new JsonObject();
+		try {
+			boolean res = am.checkDuplication(2, (String)body.get("email"), 0, false);
+			if(res) {
+				jo.addProperty("result", "failed");
+				jo.addProperty("msg", "duplicated_email");
+				return jo.toString();
+			}
+			boolean sendmail = am.sendAuthMail(hs,  (String)body.get("email"));
+			if(sendmail) {
+				if(hs.getAttribute("findpw_emailauth") != null &&(Boolean)hs.getAttribute("findpw_emailauth") == true) {
+					hs.setAttribute("findpw_emailauth", null);
+					hs.setAttribute("userinfo", null);
+				}
+				hs.setAttribute("register_emailauth", true);
+				jo.addProperty("result", "success");
+			}else {
+				jo.addProperty("result", "failed");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jo.addProperty("result", "failed");
+		}
+		return jo.toString();
+	}
 
 	@PostMapping("/rest/checkAuthCode")
 	public String checkAuthCode(HttpServletRequest request,  @RequestBody HashMap<String, Object> body) {
