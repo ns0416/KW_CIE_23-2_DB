@@ -12,6 +12,9 @@ import buyTicketMenu from './pages/buyTicketMenu/buyTicketMenu';
 import getDayTicketPayInfo from './pages/getDayTicketPayInfo/getDayTicketPayInfo';
 import memberInfoMenu from './pages/memberInfoMenu/memberInfoMenu';
 import noticeBoardMenu from './pages/noticeBoardMenu/noticeBoardMenu';
+import PaymentMenu from './pages/PaymentMenu/PaymentMenu';
+import rentStatementMenu from './pages/rentStatementMenu/rentStatementMenu';
+import neglectReport from './pages/neglectReport/neglectReport';
 
 function App() {
   return (
@@ -30,8 +33,9 @@ function App() {
         <Route path="/getDayTicketPayInfo" Component={getDayTicketPayInfo} />
         <Route path="/memberInfoMenu" Component={memberInfoMenu} />
         <Route path="/noticeBoardMenu" Component={noticeBoardMenu} />
-
-        
+        <Route path="/PaymentMenu" Component={PaymentMenu} />
+        <Route path="/rentStatementMenu" Component={rentStatementMenu} />
+        <Route path="/neglectReport" Component={neglectReport} />
       </Routes>  
     </div>
   );

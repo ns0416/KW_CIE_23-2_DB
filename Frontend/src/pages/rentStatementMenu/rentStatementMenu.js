@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
-import style from './buyTicketMenu.module.css';
+import style from './rentStatementMenu.module.css';
 import Header from '../../header.js';
 
-export default function BuyTicketMenu() {
+export default function RentStatementMenu() {
     const [values, setvalues] = React.useState({
         Id: "",
         Pw: "",
@@ -88,52 +88,40 @@ export default function BuyTicketMenu() {
             
             <div className={style.main_div}>
                 <div className={style.my_list}>
-                    <p className={style.sub_m_title}>이용권 구매</p>
+                    <p className={style.sub_m_title}>이용정보 관리</p>
                 </div>
                 <ul className={style.tabs}>
-                <a href="/app/ticket/member/getSeasonTicketPayInfo.do" class="yesresult">
-                    <li>
-                        <div className={style.mcon}>
-                            <div className={style.sub_menu_icon}> 
-                                <img src="img/ticket_icon_01.png" alt="" />
-                            </div>
-                            정기권
-                        </div>
-                    </li>
-                </a>
-                <a href="/app/ticket/member/getDayTicketPayInfo.do" class="yesresult">
-                    <li>
-                        <div class="mcon">
-                            <div className={style.sub_menu_icon}> 
-                                <img src="img/ticket_icon_02.png" alt="" />
-                            </div>
-                            일일권
-                        </div>
-                    </li>
-                </a>
-                <a href="/app/ticket/member/getSeasonTicketGiftInfo.do" class="yesresult" id="ticket_monGift_as-is">
-                    <li>
-                        <div class="mcon">
-                            <div className={style.sub_menu_icon}> 
-                                <img src="img/ticket_icon_03.png" alt="" />
-                            </div>
-                            정기권<br />
-                            선물하기
-                        </div>
-                    </li>
-                </a>
-                <a href="/app/ticket/member/getDayTicketGiftInfo.do" class="yesresult" id="ticket_dayGift_as-is">
-                    <li>
-                        <div class="mcon">
-                            <div className={style.sub_menu_icon}> 
-                                <img src="img/ticket_icon_04.png" alt="" />
-                            </div>
-                            일일권<br />
-                            선물하기
-                        </div>
-                    </li>
-                </a>  
-                </ul>
+						<a href="/app/mybike/moveMemberCardRegiView.do" className={style.yesresult}>
+							<li>
+                                <div className={style.mcon}>
+                                    <div className={style.sub_menu_icon}> 
+										<img src="img/use_icon_01.png" alt="" />
+									</div>
+									대여반납이력
+								</div>
+							</li>
+						</a>
+						<a href="/app/mybike/memberOpinion/memberOpinionList.do" className={style.yesresult}>
+							<li>
+								<div className={style.mcon}>
+									<div className={style.sub_menu_icon}> 
+										<img src="img/use_icon_02.png" alt="" />
+									</div>     
+									이용권 내역
+								</div>
+							</li>
+						</a>
+						<a href="/customer/opinionBoard/opinionBoardList.do" className={style.yesresult}>
+							<li>
+								<div className={style.mcon}>
+									<div className={style.sub_menu_icon}> 
+										<img src="img/use_icon_03.png" alt="" />
+									</div>     
+									환승마일리지(적립내역)
+								</div>
+							</li>
+						</a>
+					</ul>
             </div>
             <div className={style.tail}>
                 <Link to={'/infopage'}>

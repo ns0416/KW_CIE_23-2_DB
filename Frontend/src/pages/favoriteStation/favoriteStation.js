@@ -2,7 +2,7 @@ import style from './favoriteStation.module.css';
 import React from 'react';
 
 
-export default function favoriteStation() {
+export default function FavoriteStation() {
 	return (
 		<>
 <div className={style.wrap} id="sub">

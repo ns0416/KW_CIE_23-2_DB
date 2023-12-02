@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import style from './noticeBoardMenu.module.css';
 import Header from '../../header.js';
 
-export default function noticeBoardMenu() {
+export default function NoticeBoardMenu() {
     return (
     <>
     <div className={`${style.wrap} ${style.myleft}`} id="sub">

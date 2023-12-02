@@ -2,7 +2,7 @@ import style from './getDayTicketPayInfo.module.css';
 import React from 'react';
 
 
-export default function paymentTicket() {
+export default function GetDayTicketPayInfo() {
 	return (
 		<>
 <div className={`${style.wrap} ${style.pay}`} id="sub">
