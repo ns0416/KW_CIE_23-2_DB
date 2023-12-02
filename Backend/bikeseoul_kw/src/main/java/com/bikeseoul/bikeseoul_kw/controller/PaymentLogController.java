@@ -22,7 +22,7 @@ public class PaymentLogController {
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 
-    @GetMapping("/rest/getPaymentLogList")
+    @GetMapping("/rest/service/getPaymentLogList")
     @ResponseBody
     public String getPaymentLogList(@RequestParam("member_uid") int member_uid) {
         JsonObject jo = new JsonObject();
@@ -60,7 +60,7 @@ public class PaymentLogController {
             return jo.toString();
         }
     }
-    @GetMapping("/rest/getRefundLogList")
+    @GetMapping("/rest/service/getRefundLogList")
     @ResponseBody
     public String getRefundLogList(@RequestParam("member_uid") int member_uid) {
         JsonObject jo = new JsonObject();

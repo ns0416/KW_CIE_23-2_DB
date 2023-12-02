@@ -2,6 +2,7 @@ package com.bikeseoul.bikeseoul_kw.manager;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,8 +10,12 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
 import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
+import com.bikeseoul.bikeseoul_kw.container.Coupon;
+import com.bikeseoul.bikeseoul_kw.container.Ticket;
 import com.bikeseoul.bikeseoul_kw.container.Transfercard;
+import com.bikeseoul.bikeseoul_kw.service.CouponService;
 import com.bikeseoul.bikeseoul_kw.service.MileageService;
+import com.bikeseoul.bikeseoul_kw.service.TicketService;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -31,6 +36,9 @@ public class ServiceManager {
 	
 	@Autowired
 	private MileageService mileageService;
+	
+	@Autowired
+	private TicketService ticketService;
 
 	public CommonEnum updateTransfercard(Transfercard card) {
 		if(mileageService.updateTransfercardInfo(card) > 0)
@@ -41,6 +49,14 @@ public class ServiceManager {
 		if(mileageService.deleteTransfercardInfo(member_uid) > 0)
 			return CommonEnum.SUCCESS;
 		return CommonEnum.FAILED;
+	}
+	
+	public List<Ticket> getTicketList(boolean checkValid, boolean validtype, String type) {
+		int valid_t = 2;
+		if(checkValid) 
+			valid_t = validtype ? 1 : 0;
+
+		return ticketService.getTicketList(valid_t, type);
 	}
 	
 	public void sendMail(String sender_addr, String receiver_addr, String subject, String content) throws MessagingException {

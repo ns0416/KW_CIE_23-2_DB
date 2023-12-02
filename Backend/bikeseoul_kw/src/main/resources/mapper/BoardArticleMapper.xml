@@ -30,4 +30,146 @@
         WHERE
             b.uid = #{uid}
     </select>
+    <select id="getAttachments" resultType="com.bikeseoul.bikeseoul_kw.container.Attachment">
+    	SELECT
+    		uid,
+    		article_uid,
+    		filename,
+    		loc,
+    		created_date
+    	FROM
+    		attachments
+    	WHERE
+    		article_uid = #{article_uid}
+    </select>
+    <select id="getAttachment" resultType="com.bikeseoul.bikeseoul_kw.container.Attachment">
+    	SELECT
+    		uid,
+    		article_uid,
+    		filename,
+    		loc,
+    		created_date
+    	FROM
+    		attachments
+    	WHERE
+    		article_uid = #{article_uid} AND
+    		uid = #{att_uid}
+    </select>
+    <select id="getComments" resultType="com.bikeseoul.bikeseoul_kw.container.Comment">
+    	SELECT
+    		uid,
+    		article_uid,
+    		user_uid,
+    		conent,
+    		created_date
+    	FROM
+    		board_comment
+    	WHERE
+    		article_uid = #{article_uid}
+    </select>
+    <select id="getBoardInfo" resultType="com.bikeseoul.bikeseoul_kw.container.Board">
+    	SELECT
+    		uid,
+    		board_name,
+    		read_level,
+    		write_level,
+    		created_date,
+    		updated_date
+    	FROM
+    		board
+    	WHERE
+    		board_name = #{board_name}
+    </select>
+    <insert id="writeArticle" parameterType="com.bikeseoul.bikeseoul_kw.container.BoardArticle">
+		<![CDATA[
+			INSERT INTO board_article
+				(
+					board_uid,
+					user_uid,
+					title,
+					content
+				) VALUES (
+					#{board_uid},
+					#{user_uid},
+					#{title},
+					#{content}
+				)
+		
+		]]>
+		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+			SELECT LAST_INSERT_ID() AS uid
+		</selectKey>
+	</insert>
+	<insert id="writeAttachment" parameterType="com.bikeseoul.bikeseoul_kw.container.Attachment">
+		<![CDATA[
+			INSERT INTO attachements
+				(
+					article_uid,
+					board_uid,
+					filename,
+					loc
+				) VALUES (
+					#{article_uid},
+					#{board_uid},
+					#{filename}
+				)
+		
+		]]>
+		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+			SELECT LAST_INSERT_ID() AS uid
+		</selectKey>
+	</insert>
+	<insert id="writeComment" parameterType="com.bikeseoul.bikeseoul_kw.container.Comment">
+		<![CDATA[
+			INSERT INTO board_comment
+				(
+					article_uid,
+					board_uid,
+					content
+				) VALUES (
+					#{article_uid},
+					#{board_uid},
+					#{content}
+				)
+		
+		]]>
+		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+			SELECT LAST_INSERT_ID() AS uid
+		</selectKey>
+	</insert>
+	<delete id="deleteAttachment" parameterType="Integer" >
+		<![CDATA[
+			DELETE FROM
+				attachments
+			WHERE
+				uid = #{uid}
+		]]>
+	</delete>
+	<delete id="deleteComment" parameterType="Integer" >
+		<![CDATA[
+			DELETE FROM
+				board_comment
+			WHERE
+				uid = #{uid}
+		]]>
+	</delete>
+	<update id="updateArticle" parameterType="com.bikeseoul.bikeseoul_kw.container.BoardArticle">
+		UPDATE
+			board_article
+		SET
+			title = #{title},
+			content = #{content},
+			updated_date = NOW()
+		WHERE
+			uid = #{uid}
+	</update>
+	<update id="updateComment" parameterType="com.bikeseoul.bikeseoul_kw.container.Comment">
+		UPDATE
+			board_comment
+		SET
+			content = #{content},
+			updated_date = NOW()
+		WHERE
+			uid = #{uid}
+	</update>
 </mapper>

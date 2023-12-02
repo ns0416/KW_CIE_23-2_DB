@@ -30,5 +30,34 @@
         AND
             t.activation = 1
     </select>
+    
+     <select id="getTicketList" resultType="com.bikeseoul.bikeseoul_kw.container.Ticket">
+        SELECT
+            ticket_id,
+            ticket_type,
+            hours,
+            cost,
+            isvalid,
+            created_date,
+            updated_date
+        FROM
+            ticket
+		<trim prefix="WHERE" suffixOverrides="AND|OR">
+			<if test="checkvalid <2">
+				<if test="checkvalid == 0">
+					isvalid = 0
+				</if>
+				<if test="checkvalid == 1">
+					isvalid = 1
+				</if>
+				<if test="ticketType == 'commutation'">
+					AND ticket_type != '1'
+				</if>
+				<if test="ticketType == 'daily'">
+					AND ticket_type = '1'
+				</if>
+			</if>
+		</trim>
+    </select>
 
 </mapper>

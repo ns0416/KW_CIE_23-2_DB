@@ -10,5 +10,5 @@ public interface TicketDao {
     List<Ticket> getExpiredTicketList(int member_uid);
 
     Ticket getActivationTicket(int member_uid);
-
+    List<Ticket> getTicketList(int checkvalid, String type);
 }

@@ -22,7 +22,7 @@ public class TransfercardController {
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 
-    @GetMapping("/rest/getTransfercardList")
+    @GetMapping("/rest/service/getTransfercardList")
     @ResponseBody
     public String getTransfercardList() {
         JsonObject jo = new JsonObject();
@@ -50,7 +50,7 @@ public class TransfercardController {
         return jo.toString();
     }
 
-    @GetMapping("/rest/getTransfercard")
+    @GetMapping("/rest/service/getTransfercard")
     @ResponseBody
     public String getTransfercard(@RequestParam("uid") int uid) {
         JsonObject jo = new JsonObject();

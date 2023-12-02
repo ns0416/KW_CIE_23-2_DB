@@ -36,7 +36,7 @@ public class MileageController {
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 
-    @GetMapping("/rest/getMileageList")
+    @GetMapping("/rest/service/getMileageList")
     public String getMileageList(@RequestParam("member_uid") int member_uid) {
         JsonObject jo = new JsonObject();
         if(member_uid == 0) {
@@ -67,7 +67,7 @@ public class MileageController {
         return jo.toString();
     }
 
-    @GetMapping("/rest/getMileage")
+    @GetMapping("/rest/service/getMileage")
     public String getMileage(@RequestParam("member_uid") int member_uid) {
         JsonObject jo = new JsonObject();
         if(member_uid == 0) {
@@ -88,7 +88,7 @@ public class MileageController {
         return jo.toString();
     }
     
-    @PostMapping("/rest/updateTransfercard")
+    @PostMapping("/rest/service/updateTransfercard")
     public String updateTransfercard(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
     	JsonObject jo = new JsonObject();
     	HttpSession hs = request.getSession();
@@ -105,7 +105,7 @@ public class MileageController {
 		return jo.toString();
     }
     
-    @GetMapping("/rest/deleteTransfercard")
+    @GetMapping("/rest/service/deleteTransfercard")
     public String deleteTransfercard(HttpServletRequest request) {
     	JsonObject jo = new JsonObject();
     	HttpSession hs = request.getSession();

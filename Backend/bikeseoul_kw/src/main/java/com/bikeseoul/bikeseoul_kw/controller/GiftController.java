@@ -23,7 +23,7 @@ public class GiftController {
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 
-    @GetMapping("/rest/getReceivedGiftList")
+    @GetMapping("/rest/service/getReceivedGiftList")
     @ResponseBody
     public String getReceivedGiftList(@RequestParam("receiver_id") int receiver_id) {
         JsonObject jo = new JsonObject();
@@ -58,7 +58,7 @@ public class GiftController {
         return jo.toString();
     }
 
-    @GetMapping("/rest/getSentGiftList")
+    @GetMapping("/rest/service/getSentGiftList")
     @ResponseBody
     public String getSentGiftList(@RequestParam("giver_id") int giver_id) {
         JsonObject jo = new JsonObject();

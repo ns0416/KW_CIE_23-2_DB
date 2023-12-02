@@ -22,4 +22,10 @@ public class TicketService implements TicketDao {
     public Ticket getActivationTicket(int member_uid) {
         return ticketDao.getActivationTicket(member_uid);
     }
+
+	@Override
+	public List<Ticket> getTicketList(int checkvalid, String type) { // 0 : false, 1 : true, 2 : don't care
+		// TODO Auto-generated method stub
+		return ticketDao.getTicketList(checkvalid, type);
+	}
 }

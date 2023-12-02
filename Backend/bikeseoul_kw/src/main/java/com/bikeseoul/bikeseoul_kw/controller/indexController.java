@@ -50,7 +50,7 @@ public class indexController {
 		return jo.toString();
 	}
 	
-	@GetMapping("/rest/getUserInfo")
+	@GetMapping("/rest/service/getUserInfo")
 	public String getUserInfo(HttpServletRequest request) {
 		Member mem = (Member)am.checkLogged(request, false);
 		JsonObject jo = new JsonObject();

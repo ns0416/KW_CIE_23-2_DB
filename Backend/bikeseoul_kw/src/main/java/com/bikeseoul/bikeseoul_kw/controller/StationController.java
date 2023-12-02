@@ -49,7 +49,7 @@ public class StationController {
         return jo.toString();
     }
 
-    @GetMapping("/rest/getFavoriteStationList")
+    @GetMapping("/rest/service/getFavoriteStationList")
     @ResponseBody
     public String getFavoriteStationList(@RequestParam("member_uid") int member_uid) {
         JsonObject jo = new JsonObject();
@@ -122,7 +122,7 @@ public class StationController {
     }
 //    Station insertFavoriteStation(int station_uid, int user_uid);
 
-    @PostMapping("/rest/insertFavoriteStation")
+    @PostMapping("/rest/service/insertFavoriteStation")
     public String insertFavoriteStation(@RequestParam("station_uid") int station_uid, @RequestParam("user_uid") int user_uid) {
         JsonObject jo = new JsonObject();
         if(station_uid == 0 || user_uid == 0) {

@@ -1,6 +1,7 @@
 package com.bikeseoul.bikeseoul_kw.container;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class BoardArticle extends CommonData{
     /*Board_Article table*/
@@ -9,14 +10,10 @@ public class BoardArticle extends CommonData{
     private LocalDateTime updated_date;
 
     /*Attachments table*/
-    private int attachment_uid;
-    private String file_name, loc;
-    private LocalDateTime attachment_created_date;
+    private ArrayList<Attachment> attachments = null;
 
     /*Board_Comment table*/
-    private int comment_uid;
-    private String comment_content;
-    private LocalDateTime comment_created_date, comment_updated_date;
+    private ArrayList<Comment> comments = null;
 
     public BoardArticle(int uid, int board_uid, int user_uid, String title, String content, LocalDateTime created_date, LocalDateTime updated_date) {
         super(uid, created_date);
@@ -27,23 +24,21 @@ public class BoardArticle extends CommonData{
         this.updated_date = updated_date;
     }
 
-    public BoardArticle(int uid, int board_uid, int user_uid, String title, String content, LocalDateTime created_date, LocalDateTime updated_date, int attachment_uid, String file_name, String loc, LocalDateTime attachment_created_date, int comment_uid, String comment_content, LocalDateTime comment_created_date, LocalDateTime comment_updated_date) {
-        super(uid, created_date);
+    public BoardArticle(int board_uid, int user_uid, String title, String content) {
+        super(0, null);
         this.board_uid = board_uid;
         this.user_uid = user_uid;
         this.title = title;
         this.content = content;
-        this.updated_date = updated_date;
-        this.attachment_uid = attachment_uid;
-        this.file_name = file_name;
-        this.loc = loc;
-        this.attachment_created_date = attachment_created_date;
-        this.comment_uid = comment_uid;
-        this.comment_content = comment_content;
-        this.comment_created_date = comment_created_date;
-        this.comment_updated_date = comment_updated_date;
     }
-
+    public BoardArticle(int uid, int board_uid, int user_uid, String title, String content) {
+        super(uid, null);
+        this.board_uid = board_uid;
+        this.user_uid = user_uid;
+        this.title = title;
+        this.content = content;
+    }
+    
     public int getBoard_uid() {
         return board_uid;
     }
@@ -83,68 +78,21 @@ public class BoardArticle extends CommonData{
     public void setUpdated_date(LocalDateTime updated_date) {
         this.updated_date = updated_date;
     }
-
-    public int getAttachment_uid() {
-        return attachment_uid;
+    public void addAttachment(Attachment att) {
+    	if(attachments == null)
+    		attachments = new ArrayList<Attachment>();
+    	attachments.add(att);
     }
-
-    public void setAttachment_uid(int attachment_uid) {
-        this.attachment_uid = attachment_uid;
+    public void addComment(Comment cmt) {
+    	if(comments == null)
+    		comments = new ArrayList<Comment>();
+    	comments.add(cmt);
     }
-
-    public String getFile_name() {
-        return file_name;
+    public ArrayList<Attachment> getAttachments(){
+    	return attachments;
     }
-
-    public void setFile_name(String file_name) {
-        this.file_name = file_name;
-    }
-
-    public String getLoc() {
-        return loc;
-    }
-
-    public void setLoc(String loc) {
-        this.loc = loc;
-    }
-
-    public LocalDateTime getAttachment_created_date() {
-        return attachment_created_date;
-    }
-
-    public void setAttachment_created_date(LocalDateTime attachment_created_date) {
-        this.attachment_created_date = attachment_created_date;
-    }
-
-    public int getComment_uid() {
-        return comment_uid;
-    }
-
-    public void setComment_uid(int comment_uid) {
-        this.comment_uid = comment_uid;
-    }
-
-    public String getComment_content() {
-        return comment_content;
-    }
-
-    public void setComment_content(String comment_content) {
-        this.comment_content = comment_content;
-    }
-
-    public LocalDateTime getComment_created_date() {
-        return comment_created_date;
-    }
-
-    public void setComment_created_date(LocalDateTime comment_created_date) {
-        this.comment_created_date = comment_created_date;
-    }
-
-    public LocalDateTime getComment_updated_date() {
-        return comment_updated_date;
-    }
-
-    public void setComment_updated_date(LocalDateTime comment_updated_date) {
-        this.comment_updated_date = comment_updated_date;
-    }
+    public ArrayList<Comment> getComments() {
+		return comments;
+	}
+ 
 }

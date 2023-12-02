@@ -32,7 +32,7 @@ public class RentController {
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 
-    @GetMapping("/rest/getRentList")
+    @GetMapping("/rest/service/getRentList")
     @ResponseBody
     public String getRentList(@RequestParam("member_uid") int member_uid) {
         JsonObject jo = new JsonObject();
@@ -72,7 +72,7 @@ public class RentController {
         return jo.toString();
     }
 
-    @GetMapping("/rest/getRentListByDate")
+    @GetMapping("/rest/service/getRentListByDate")
     @ResponseBody
     public String getRentListByDate(HttpServletRequest request, @RequestParam("member_uid") int member_uid, @RequestParam("start_date") LocalDateTime start_date, @RequestParam("end_date") LocalDateTime end_date) {
         Member mem = (Member)am.checkLogged(request, false);

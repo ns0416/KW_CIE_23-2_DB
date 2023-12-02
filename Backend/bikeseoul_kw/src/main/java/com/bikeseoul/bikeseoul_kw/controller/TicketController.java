@@ -1,9 +1,15 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
+import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Ticket;
+import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
 import com.bikeseoul.bikeseoul_kw.service.TicketService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,10 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class TicketController {
+	
+	@Autowired
+	private ServiceManager serviceManager;
     @Autowired
     private TicketService ticketService;
 
@@ -22,7 +32,7 @@ public class TicketController {
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 
-    @GetMapping("/rest/getExpiredTicketList")
+    @GetMapping("/rest/service/getExpiredTicketList")
     @ResponseBody
     public String getExpiredTicketList(@RequestParam("member_uid") int member_uid) {
         JsonObject jo = new JsonObject();
@@ -59,7 +69,7 @@ public class TicketController {
         return jo.toString();
     }
 
-    @GetMapping("/rest/getActivationTicket")
+    @GetMapping("/rest/service/getActivationTicket")
     @ResponseBody
     public String getActivationTicket(@RequestParam("member_uid") int member_uid) {
         JsonObject jo = new JsonObject();
@@ -89,4 +99,27 @@ public class TicketController {
         }
         return jo.toString();
     }
+    @GetMapping("/rest/service/getTicketType")
+    public String getTicketType(HttpServletRequest request, @RequestParam String type) {
+    	JsonObject jo = new JsonObject();
+    	if(!(type.equals("commutation") || type.equals("daily"))) {
+    		jo.addProperty("result", "failed");
+    		return jo.toString();
+    	}
+    	List<Ticket> tickets = serviceManager.getTicketList(false, false, type);
+    	JsonArray ja = new JsonArray();
+    	for(Ticket tk : tickets) {
+    		JsonObject jo_item = new JsonObject();
+    		jo_item.addProperty("ticket_id", tk.getTicket_id());
+    		jo_item.addProperty("hours", tk.getHours().getValue());
+    		jo_item.addProperty("cost", tk.getCost());
+    		ja.add(jo_item);
+    	}
+    	jo.addProperty("result", "success");
+    	jo.add("data", ja);
+    	return jo.toString();
+    }
+    
+    
+    
 }

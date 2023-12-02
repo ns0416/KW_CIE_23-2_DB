@@ -31,7 +31,7 @@ public class CouponController {
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 
-    @GetMapping("/rest/getUserCouponList")
+    @GetMapping("/rest/service/getUserCouponList")
     @ResponseBody
     public String getUserCouponList(@RequestParam("owner_id") int owner_id) {
         JsonObject jo = new JsonObject();
@@ -65,7 +65,7 @@ public class CouponController {
         }
         return jo.toString();
     }
-    @GetMapping("/rest/getCoupon")
+    @GetMapping("/rest/service/getCoupon")
     @ResponseBody
     public String getCoupon(@RequestParam("coupon_id") int coupon_id) {
         JsonObject jo = new JsonObject();
@@ -95,7 +95,7 @@ public class CouponController {
         return jo.toString();
     }
 
-    @GetMapping("/rest/getCouponList")
+    @GetMapping("/rest/service/getCouponList")
     @ResponseBody
     public String getCouponList() {
         JsonObject jo = new JsonObject();
@@ -125,7 +125,7 @@ public class CouponController {
         return jo.toString();
     }
     
-    @PostMapping("/rest/registerCoupon")
+    @PostMapping("/rest/service/registerCoupon")
     public String registerCoupon(HttpServletRequest request, HashMap<String, Object> body) {
     	JsonObject jo = new JsonObject();
     	HttpSession hs = request.getSession();
@@ -134,6 +134,8 @@ public class CouponController {
     		jo.addProperty("result", "failed");
     		return jo.toString();
     	}
+    	String coupon_id = (String)body.get("coupon_id");
+    	
     	
     	
     	return jo.toString();
