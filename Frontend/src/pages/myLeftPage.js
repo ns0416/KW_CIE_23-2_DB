@@ -4,7 +4,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import style from './myLeftPage.module.css';
 import Header from '../header.js';
 
+import { useDispatch } from "react-redux";
+import { loginUser } from "../_actions/userAction";
+
 export default function MyLeftPage() {
+    const dispatch = useDispatch();
+    
     const [values, setvalues] = React.useState({
         Id: "",
         Pw: "",
@@ -47,7 +52,20 @@ export default function MyLeftPage() {
         if(Object.values(errors).some(v=>v)) {
             return
         }
-        alert(JSON.stringify(values,null,2));
+        dispatch(loginUser(values))
+        .then((res) => {
+            console.log(res);
+            if(res.payload.loginSuccess) {
+                navigate('/');
+            }
+            else {
+                alert(res.payload.message);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        // alert(JSON.stringify(values,null,2));
     }
     const [isLoggedIn, setisLoggedIn] = React.useState(false);
     const navigate = useNavigate();
@@ -231,7 +249,7 @@ export default function MyLeftPage() {
                 
                         <ul className={style.idpw}>
                             <li className={style.srch_id}>
-                                <Link id='memberReg' to={'/joinpage'}>회원가입</Link>
+                                <Link id='memberReg' to={'/joinpage1'}>회원가입</Link>
                             </li>
                             <li className={style.srch_id}>
                                 <Link id='findIdId' to={'/findid'}>아이디 찾기</Link>
