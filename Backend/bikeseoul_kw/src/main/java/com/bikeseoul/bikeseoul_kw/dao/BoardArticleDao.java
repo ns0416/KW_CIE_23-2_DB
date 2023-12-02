@@ -19,7 +19,8 @@ public interface BoardArticleDao {
     int writeComment(Comment cmt);
     List<Attachment> getAttachments(int article_uid);
     Attachment getAttachment(int article_uid, int att_uid);
-    List<Comment> getComment(int article_uid);
+    List<Comment> getComments(int article_uid);
+    Comment getComment(int cmt_uid);
     int deleteAttachment(int uid);
     int deleteComment(int uid);
     int updateArticle(BoardArticle art);

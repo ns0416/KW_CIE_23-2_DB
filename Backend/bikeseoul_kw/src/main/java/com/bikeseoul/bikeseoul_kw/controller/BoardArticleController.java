@@ -235,6 +235,24 @@ public class BoardArticleController {
     	jo.addProperty("result", "failed");
 		return jo.toString();
     }
+    @GetMapping("/rest/service/deleteComment")
+    public String deleteComment(HttpServletRequest request, @RequestParam String cmt_uid) {
+    	JsonObject jo = new JsonObject();
+    	HttpSession hs = request.getSession();
+    	Member mem = (Member)hs.getAttribute("member");
+    	Comment cmt = boardManager.getComment(Integer.parseInt(cmt_uid));
+    	if(cmt == null || cmt.getUser_uid() != mem.getUid()) {
+    		jo.addProperty("result", "failed");
+    		return jo.toString();
+    	}
+    		
+    	CommonEnum res = boardManager.deleteComment(Integer.parseInt(cmt_uid));
+    	if(res == CommonEnum.SUCCESS)
+    		jo.addProperty("result", "success");
+    	else
+    		jo.addProperty("result", "failed");
+		return jo.toString();
+    }
     @PostMapping("/rest/service/updateArticle")
     public String updateArticle(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
     	JsonObject jo = new JsonObject();

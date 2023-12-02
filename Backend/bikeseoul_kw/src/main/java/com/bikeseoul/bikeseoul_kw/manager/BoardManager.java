@@ -192,6 +192,14 @@ public class BoardManager {
 	}
 	public CommonEnum updateComment(Comment cmt) {
 		// TODO Auto-generated method stub
-		return boardArticleService.updateComment(cmt);
+		return boardArticleService.updateComment(cmt) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
+	public CommonEnum deleteComment(int cmt_uid) {
+		// TODO Auto-generated method stub
+		return boardArticleService.deleteComment(cmt_uid) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
+	public Comment getComment(int cmt_uid) {
+		// TODO Auto-generated method stub
+		return boardArticleService.getComment(cmt_uid);
 	}
 }

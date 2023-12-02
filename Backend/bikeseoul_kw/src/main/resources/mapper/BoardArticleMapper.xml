@@ -67,6 +67,18 @@
     	WHERE
     		article_uid = #{article_uid}
     </select>
+    <select id="getComment" resultType="com.bikeseoul.bikeseoul_kw.container.Comment">
+    	SELECT
+    		uid,
+    		article_uid,
+    		user_uid,
+    		conent,
+    		created_date
+    	FROM
+    		board_comment
+    	WHERE
+    		uid = #{cmt_uid}
+    </select>
     <select id="getBoardInfo" resultType="com.bikeseoul.bikeseoul_kw.container.Board">
     	SELECT
     		uid,

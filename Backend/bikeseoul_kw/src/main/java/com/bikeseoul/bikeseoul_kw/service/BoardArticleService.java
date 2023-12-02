@@ -56,9 +56,14 @@ public class BoardArticleService implements BoardArticleDao {
 	}
 
 	@Override
-	public List<Comment> getComment(int article_uid) {
+	public List<Comment> getComments(int article_uid) {
 		// TODO Auto-generated method stub
-		return boardArticleDao.getComment(article_uid);
+		return boardArticleDao.getComments(article_uid);
+	}
+	@Override
+	public Comment getComment(int cmt_uid) {
+		// TODO Auto-generated method stub
+		return boardArticleDao.getComment(cmt_uid);
 	}
 
 	@Override
