@@ -11,7 +11,7 @@ public interface CouponDao {
     List<Coupon> getUserCouponList(int owner_id);
 
     // 쿠폰번호를 조회하는 기능(쿠폰번호 검색) DR-3801
-    Coupon getCoupon(int coupon_id);
+    Coupon getCoupon(String coupon_id);
 
     // 전체 쿠폰 리스트 가져옴 관리자 기능
     List<Coupon> getCouponList();
