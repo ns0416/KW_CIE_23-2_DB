@@ -1,7 +1,7 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.Gift;
-import com.bikeseoul.bikeseoul_kw.service.GiftService;
+import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 public class GiftController {
 
     @Autowired
-    private GiftService giftService;
+    private ServiceManager serviceManager;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -25,27 +25,22 @@ public class GiftController {
 
     @GetMapping("/rest/service/getReceivedGiftList")
     @ResponseBody
-    public String getReceivedGiftList(@RequestParam("receiver_id") int receiver_id) {
+    public String getReceivedGiftList(@RequestParam("receiver_uid") int receiver_uid) {
         JsonObject jo = new JsonObject();
-        if(receiver_id == 0) {
-            jo.addProperty("result", "failed");
-            return jo.toString();
-        }
         JsonArray ja = new JsonArray();
 
         try{
-            List<Gift> receivedGiftList = giftService.getReceivedGiftList(receiver_id);
+            List<Gift> receivedGiftList = serviceManager.getReceivedGiftList(receiver_uid);
             for(Gift gift:receivedGiftList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("gift_id", gift.getGift_id());
-                item.addProperty("giver_id", gift.getGiver_id());
-                item.addProperty("receiver_id", gift.getReceiver_id());
+                item.addProperty("giver_uid", gift.getGiver_uid());
+                item.addProperty("receiver_uid", gift.getReceiver_uid());
                 item.addProperty("ticket_id", gift.getTicket_id());
                 item.addProperty("cost", gift.getCost());
                 item.addProperty("ticket_type", gift.getTicket_type().getValue());
                 item.addProperty("hours", gift.getHours().getValue());
-                item.addProperty("gift_created_date", gift.getCreated_date().format(dtf_kor));
-                item.addProperty("gift_updated_date", gift.getUpdated_date().format(dtf_kor));
+                item.addProperty("gift_created_date", gift.getGift_created_date().format(dtf_kor));
                 ja.add(item);
             }
             jo.addProperty("result", "success");
@@ -60,27 +55,22 @@ public class GiftController {
 
     @GetMapping("/rest/service/getSentGiftList")
     @ResponseBody
-    public String getSentGiftList(@RequestParam("giver_id") int giver_id) {
+    public String getSentGiftList(@RequestParam("giver_uid") int giver_uid) {
         JsonObject jo = new JsonObject();
-        if(giver_id == 0) {
-            jo.addProperty("result", "failed");
-            return jo.toString();
-        }
         JsonArray ja = new JsonArray();
 
         try{
-            List<Gift> sentGiftList = giftService.getSentGiftList(giver_id);
+            List<Gift> sentGiftList = serviceManager.getSentGiftList(giver_uid);
             for(Gift gift:sentGiftList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("gift_id", gift.getGift_id());
-                item.addProperty("giver_id", gift.getGiver_id());
-                item.addProperty("receiver_id", gift.getReceiver_id());
+                item.addProperty("giver_uid", gift.getGiver_uid());
+                item.addProperty("receiver_uid", gift.getReceiver_uid());
                 item.addProperty("ticket_id", gift.getTicket_id());
                 item.addProperty("cost", gift.getCost());
                 item.addProperty("ticket_type", gift.getTicket_type().getValue());
                 item.addProperty("hours", gift.getHours().getValue());
                 item.addProperty("gift_created_date", gift.getCreated_date().format(dtf_kor));
-                item.addProperty("gift_updated_date", gift.getUpdated_date().format(dtf_kor));
                 ja.add(item);
             }
             jo.addProperty("result", "success");

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface GiftDao {
-    List<Gift> getReceivedGiftList(int receiver_id);
+    List<Gift> getReceivedGiftList(int receiver_uid);
 
-    List<Gift> getSentGiftList(int giver_id);
+    List<Gift> getSentGiftList(int giver_uid);
 }

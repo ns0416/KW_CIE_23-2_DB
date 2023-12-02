@@ -13,12 +13,12 @@ public class GiftService implements GiftDao {
     private GiftDao giftDao;
 
     @Override
-    public List<Gift> getReceivedGiftList(int receiver_id) {
-        return giftDao.getReceivedGiftList(receiver_id);
+    public List<Gift> getReceivedGiftList(int receiver_uid) {
+        return giftDao.getReceivedGiftList(receiver_uid);
     }
 
     @Override
-    public List<Gift> getSentGiftList(int giver_id) {
-        return giftDao.getSentGiftList(giver_id);
+    public List<Gift> getSentGiftList(int giver_uid) {
+        return giftDao.getSentGiftList(giver_uid);
     }
 }

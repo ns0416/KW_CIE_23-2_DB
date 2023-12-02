@@ -5,13 +5,13 @@
 <mapper namespace="com.bikeseoul.bikeseoul_kw.dao.GiftDao">
     <select id="getReceivedGiftList" resultType="com.bikeseoul.bikeseoul_kw.container.Gift">
         SELECT
-            *
+            t.ticket_id, t.ticket_type, t.hours, t.cost, t.isvalid, t.created_date, t.updated_date, g.uid, g.giver_uid, g.receiver_uid, g.created_date
         FROM
-            Ticket_gift
+            Ticket_gift as g
         JOIN
-            Ticket
+            Ticket as t
         ON
-            Ticket_gift.ticket_uid = Ticket.ticket_id
+            g.ticket_uid = t.ticket_id
         WHERE
             receiver_id = #{receiver_id}
 
@@ -19,13 +19,13 @@
 
     <select id="getSentGiftList" resultType="com.bikeseoul.bikeseoul_kw.container.Gift">
         SELECT
-            *
+            t.ticket_id, t.ticket_type, t.hours, t.cost, t.isvalid, t.created_date, t.updated_date, g.uid, g.giver_uid, g.receiver_uid, g.created_date
         FROM
-            Ticket_gift
+            Ticket_gift as g
         JOIN
-            Ticket
+            Ticket as t
         ON
-            Ticket_gift.ticket_uid = Ticket.ticket_id
+            g.ticket_uid = t.ticket_id
         WHERE
             giver_id = #{giver_id}
     </select>
