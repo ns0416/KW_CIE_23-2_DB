@@ -23,7 +23,11 @@ public class BoardArticle extends CommonData{
         this.content = content;
         this.updated_date = updated_date;
     }
-
+    public BoardArticle(int uid,String title, String content) {
+        super(uid, null);
+        this.title = title;
+        this.content = content;
+    }
     public BoardArticle(int board_uid, int user_uid, String title, String content) {
         super(0, null);
         this.board_uid = board_uid;

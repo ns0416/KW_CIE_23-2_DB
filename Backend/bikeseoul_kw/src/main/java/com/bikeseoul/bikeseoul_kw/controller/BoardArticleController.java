@@ -201,12 +201,21 @@ public class BoardArticleController {
     	JsonObject jo = new JsonObject();
     	HttpSession hs = request.getSession();
     	Member mem = (Member)hs.getAttribute("member");
+    	if(Integer.parseInt(att_uid) == 0) {
+    		hs.setAttribute("articleUpdate", null);
+    		hs.setAttribute("delete_atts", null);
+    		hs.setAttribute("attachments", null);
+    		jo.addProperty("result", "success");
+        	return jo.toString();
+    	}
+    		
     	BoardArticle art = boardManager.getBoardArticle(Integer.parseInt(att_uid));
     	if(art.getUser_uid() != mem.getUid()) {
     		jo.addProperty("result", "failed");
     		return jo.toString();
     	}
     	hs.setAttribute("delete_atts", null);
+    	hs.setAttribute("attachments", null);
     	hs.setAttribute("articleUpdate", art);
     	jo.addProperty("result", "success");
     	return jo.toString();
@@ -217,7 +226,7 @@ public class BoardArticleController {
     	HttpSession hs = request.getSession();
     	Member mem = (Member)hs.getAttribute("member");
     	BoardArticle art = (BoardArticle)hs.getAttribute("articleUpdate");
-    	if(art == null) {
+    	if(art == null || art.getUser_uid() != mem.getUid()) {
     		jo.addProperty("result", "failed");
     		return jo.toString();
     	}
@@ -258,12 +267,12 @@ public class BoardArticleController {
     	JsonObject jo = new JsonObject();
     	HttpSession hs = request.getSession();
     	Member mem = (Member)hs.getAttribute("member");
-    	Board brd = boardManager.getBoardInfo((String)body.get("board_name"));
-    	if(brd == null) {
+    	BoardArticle art = boardManager.getBoardArticle((Integer)body.get("art_uid"));
+    	if(art == null || art.getUser_uid() != mem.getUid()) {
     		jo.addProperty("result", "failed");
     		return jo.toString();
     	}
-    	BoardArticle art = new BoardArticle(brd.getUid(), mem.getUid(), (String)body.get("title"), (String)body.get("content"));
+    	BoardArticle art_update = new BoardArticle(art.getUid(), (String)body.get("title"), (String)body.get("content"));
     	ArrayList<Attachment> atts = (ArrayList<Attachment>)hs.getAttribute("attachments");
     	ArrayList<Attachment> del_atts = (ArrayList<Attachment>)hs.getAttribute("delete_atts");
     	if(atts != null) {
@@ -271,7 +280,7 @@ public class BoardArticleController {
     			art.addAttachment(att);
     		}
     	}
-    	CommonEnum res = boardManager.updateArticle(art, del_atts);
+    	CommonEnum res = boardManager.updateArticle(art_update, del_atts);
     	if(res == CommonEnum.SUCCESS) {
     		hs.setAttribute("attachments", null);
     		hs.setAttribute("delete_atts", null);
@@ -286,7 +295,7 @@ public class BoardArticleController {
     	JsonObject jo = new JsonObject();
     	HttpSession hs = request.getSession();
     	Member mem = (Member)hs.getAttribute("member");
-    	BoardArticle art = boardManager.getBoardArticle((Integer)body.get("article_uid"));
+    	BoardArticle art = boardManager.getBoardArticle((Integer)body.get("cmt_uid"));
     	if(art == null) {
     		jo.addProperty("result", "failed");
     		return jo.toString();
