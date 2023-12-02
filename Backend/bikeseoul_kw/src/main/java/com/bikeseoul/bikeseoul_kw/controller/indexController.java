@@ -184,18 +184,19 @@ public class indexController {
 		return jo.toString();
 	}
 
-	// 이용안내, 이용권 사용안내, 보험안내
-	@GetMapping("/rest/information")
+	@GetMapping("/rest/getConfig")
 	@ResponseBody
-	public String information(){
+	public String information(@RequestParam("group_code") String group_code, @RequestParam("item_code") String item_code){
 		JsonObject jo = new JsonObject();
 		Config config = new ConfigManager().getConfig();
-		String group_code = "information";
-		String item_code = "information";
+		if(group_code == null || item_code == null || group_code == "sendmail"){
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
 		try{
-			String information = config.get(group_code, item_code);
+			String data = config.get(group_code, item_code);
 			jo.addProperty("result", "success");
-			jo.addProperty("information", information);
+			jo.addProperty("data", data);
 		}catch (Exception e){
 			e.printStackTrace();
 			jo.addProperty("result", "failed");
@@ -203,45 +204,4 @@ public class indexController {
 		}
 		return jo.toString();
 	}
-
-	// 이용약관 및 방침
-	@GetMapping("/rest/terms")
-	@ResponseBody
-	public String terms(@RequestParam("content") String content){
-		JsonObject jo = new JsonObject();
-		Config config = new ConfigManager().getConfig();
-		String group_code = "terms";
-		String item_code = content;
-		try{
-			String terms = config.get(group_code, item_code);
-			jo.addProperty("result", "success");
-			jo.addProperty("terms", terms);
-		}catch (Exception e){
-			e.printStackTrace();
-			jo.addProperty("result", "failed");
-			return jo.toString();
-		}
-		return jo.toString();
-	}
-
-	// 안전수칙
-	@GetMapping("/rest/rules")
-	@ResponseBody
-	public String rules(@RequestParam("content") String content){
-		JsonObject jo = new JsonObject();
-		Config config = new ConfigManager().getConfig();
-		String group_code = "rules";
-		String item_code = content;
-		try{
-			String rules = config.get(group_code, item_code);
-			jo.addProperty("result", "success");
-			jo.addProperty("rules", rules);
-		}catch (Exception e){
-			e.printStackTrace();
-			jo.addProperty("result", "failed");
-			return jo.toString();
-		}
-		return jo.toString();
-	}
-
 }
