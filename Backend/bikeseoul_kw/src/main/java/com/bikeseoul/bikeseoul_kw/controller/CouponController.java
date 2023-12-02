@@ -1,11 +1,13 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.Coupon;
+import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.service.CouponService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -126,7 +128,12 @@ public class CouponController {
     @PostMapping("/rest/registerCoupon")
     public String registerCoupon(HttpServletRequest request, HashMap<String, Object> body) {
     	JsonObject jo = new JsonObject();
-    	
+    	HttpSession hs = request.getSession();
+    	Member user = (Member)hs.getAttribute("member");
+    	if(user == null) {
+    		jo.addProperty("result", "failed");
+    		return jo.toString();
+    	}
     	
     	
     	return jo.toString();

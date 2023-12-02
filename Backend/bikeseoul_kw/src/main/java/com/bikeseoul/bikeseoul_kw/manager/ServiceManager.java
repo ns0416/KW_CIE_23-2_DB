@@ -24,6 +24,9 @@ public class ServiceManager {
 	private ConfigManager configManager;
 	
 	@Autowired
+	private CouponService couponservice;
+	
+	@Autowired
 	private JavaMailSender mailSender;
 	
 	@Autowired
