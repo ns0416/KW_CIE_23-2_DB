@@ -3,28 +3,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bikeseoul.bikeseoul_kw.dao.TicketDao">
-    <select id="getExpiredTicketList" resultType="com.bikeseoul.bikeseoul_kw.container.Ticket">
+    <select id="getExpiredTicketList" resultType="com.bikeseoul.bikeseoul_kw.container.Ticket_detail">
         SELECT
-            t.member_uid t.ticket_id, t.cost, t.ticket_type, t.hours, t.created_date, t.updated_date, t.detail_start_date, t.detail_create_date, t.detail_expire_date
+            t.ticket_id, t.ticket_type, t.hours, t.cost, t.isvalid, t.created_date, t.updated_date, tde.uid, tde.member_uid, tde.start_date, tde.activation, tde.created_date, tde.expired_date
         FROM
             ticket t
         LEFT JOIN
             ticket_detail_expired tde
         ON
-            t.ticket_id = tde.ticket_id
+            t.ticket_id = tde.ticket_uid
         WHERE
             t.member_uid = #{member_uid}
     </select>
 
-    <select id="getActivatedTicketList" resultType="com.bikeseoul.bikeseoul_kw.container.Ticket">
+    <select id="getActivatedTicketList" resultType="com.bikeseoul.bikeseoul_kw.container.Ticket_detail">
         SELECT
-            t.member_uid, t.ticket_id, t.cost, t.ticket_type, t.hours, t.created_date, t.updated_date, t.detail_start_date, t.detail_create_date, t.activation
+            t.ticket_id, t.ticket_type, t.hours, t.cost, t.isvalid, t.created_date, t.updated_date, td.uid, td.member_uid, td.start_date, td.activation, td.created_date
         FROM
             ticket t
         LEFT JOIN
             ticket_detail td
         ON
-            t.ticket_id = td.ticket_id
+            t.ticket_id = td.ticket_uid
         WHERE
             t.member_uid = #{member_uid}
         AND

@@ -4,15 +4,13 @@ package com.bikeseoul.bikeseoul_kw.manager;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.bikeseoul.bikeseoul_kw.container.*;
+import com.bikeseoul.bikeseoul_kw.service.GiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
-import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
-import com.bikeseoul.bikeseoul_kw.container.Coupon;
-import com.bikeseoul.bikeseoul_kw.container.Ticket;
-import com.bikeseoul.bikeseoul_kw.container.Transfercard;
 import com.bikeseoul.bikeseoul_kw.service.CouponService;
 import com.bikeseoul.bikeseoul_kw.service.MileageService;
 import com.bikeseoul.bikeseoul_kw.service.TicketService;
@@ -30,7 +28,10 @@ public class ServiceManager {
 	
 	@Autowired
 	private CouponService couponservice;
-	
+
+	@Autowired
+	private GiftService giftService;
+
 	@Autowired
 	private JavaMailSender mailSender;
 	
@@ -50,7 +51,18 @@ public class ServiceManager {
 			return CommonEnum.SUCCESS;
 		return CommonEnum.FAILED;
 	}
-	
+	public List<Ticket_detail> getExpiredTicketList(int member_uid) {
+		if (member_uid == 0) {
+			return null;
+		}
+		return ticketService.getExpiredTicketList(member_uid);
+	}
+	public Ticket_detail getActivationTicket(int member_uid) {
+		if (member_uid == 0) {
+			return null;
+		}
+		return ticketService.getActivationTicket(member_uid);
+	}
 	public List<Ticket> getTicketList(boolean checkValid, boolean validtype, String type) {
 		int valid_t = 2;
 		if(checkValid) 
@@ -58,7 +70,33 @@ public class ServiceManager {
 
 		return ticketService.getTicketList(valid_t, type);
 	}
-	
+	public List<Gift> getReceivedGiftList(int receiver_uid) {
+		if (receiver_uid == 0) {
+			return null;
+		}
+		return giftService.getReceivedGiftList(receiver_uid);
+	}
+	public List<Gift> getSentGiftList(int giver_uid) {
+		if (giver_uid == 0) {
+			return null;
+		}
+		return giftService.getSentGiftList(giver_uid);
+	}
+	public List<Coupon> getUserCouponList(int owner_uid) {
+		if (owner_uid == 0) {
+			return null;
+		}
+		return couponservice.getUserCouponList(owner_uid);
+	}
+	public Coupon getCoupon(String coupon_id) {
+		if (coupon_id == null) {
+			return null;
+		}
+		return couponservice.getCoupon(coupon_id);
+	}
+	public List<Coupon> getCouponList() {
+		return couponservice.getCouponList();
+	}
 	public void sendMail(String sender_addr, String receiver_addr, String subject, String content) throws MessagingException {
 		MimeMessage msg = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
@@ -68,5 +106,6 @@ public class ServiceManager {
 		helper.setText(content, true); //true : html사용
 		mailSender.send(msg);
 	}
+
 
 }
