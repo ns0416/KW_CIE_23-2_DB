@@ -29,4 +29,28 @@ public class RankingService implements RankingDao{
         }
         return rankingList;
     }
+
+	@Override
+	public int insertRankingWeekly() {
+		// TODO Auto-generated method stub
+		return rankingDao.insertRankingWeekly();
+	}
+
+	@Override
+	public int insertRankingMonthly() {
+		// TODO Auto-generated method stub
+		return rankingDao.insertRankingMonthly();
+	}
+
+	@Override
+	public int truncateRankingWeekly() {
+		// TODO Auto-generated method stub
+		return rankingDao.truncateRankingWeekly();
+	}
+
+	@Override
+	public int truncateRankingMonthly() {
+		// TODO Auto-generated method stub
+		return rankingDao.truncateRankingMonthly();
+	}
 }

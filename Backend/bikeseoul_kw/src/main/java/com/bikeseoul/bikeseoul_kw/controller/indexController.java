@@ -1,10 +1,13 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import com.bikeseoul.bikeseoul_kw.container.Config;
+import com.bikeseoul.bikeseoul_kw.container.LeaveReason;
 import com.bikeseoul.bikeseoul_kw.manager.ConfigManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,7 @@ import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -265,7 +269,43 @@ public class indexController {
 		}
 		return jo.toString();
 	}
-
+	@GetMapping("/rest/service/getLeaveReasons")
+	public String getLeaveReasons(HttpServletRequest request) {
+		JsonObject jo = new JsonObject();
+		List<LeaveReason> lr = am.getLeaveReasons(0);
+		JsonArray ja = new JsonArray();
+		for(LeaveReason item : lr) {
+			JsonObject jo_item = new JsonObject();
+			jo_item.addProperty("uid", item.getUid());
+			jo_item.addProperty("msg", item.getMsg());
+			ja.add(jo_item);
+		}
+		jo.addProperty("result", "success");
+		jo.add("data", ja);
+		return jo.toString();
+	}
+	@GetMapping("/rest/service/leaveUser")
+	public String leaveUser(HttpServletRequest request, @RequestParam String lr_uid) {
+		HttpSession hs = request.getSession();
+		JsonObject jo = new JsonObject();
+		Member mem = (Member)hs.getAttribute("member");
+		try {
+			Integer lr_uid_ = Integer.parseInt(lr_uid);
+			if(lr_uid_ == null || lr_uid_==0)
+				throw new Exception();
+			List<LeaveReason> lr = am.getLeaveReasons(lr_uid_);
+			if(lr == null || lr.size()==0)
+				throw new Exception();
+			CommonEnum res = am.LeaveUser(mem, lr.get(0));
+			if(res != CommonEnum.SUCCESS)
+				throw new Exception();
+			jo.addProperty("result", "success");
+		}catch(Exception e) {
+			e.printStackTrace();
+			jo.addProperty("result", "failed");
+		}
+		return jo.toString();
+	}
 	@PostMapping("/rest/checkAuthCode")
 	public String checkAuthCode(HttpServletRequest request,  @RequestBody HashMap<String, Object> body) {
 		HttpSession hs = request.getSession();

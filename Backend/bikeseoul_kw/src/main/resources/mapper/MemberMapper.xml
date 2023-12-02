@@ -50,7 +50,17 @@
         	email LIKE CONCAT('%',#{value}, '%')
         </if>
     </select>
-    
+    <select id="getLeaveReason" resultType="com.bikeseoul.bikeseoul_kw.container.LeaveReason">
+        SELECT
+        	uid,
+        	msg
+        FROM
+        	leave_reason
+        <if test="uid > 0">
+        	WHERE
+        		uid = #{uid}
+        </if>
+    </select>
 	<update id="updateMemberInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Member">
 		UPDATE
 			member
@@ -80,9 +90,26 @@
 		WHERE
 			uid = #{uid}
 	</update>
+	<insert id="registerLeaveReason" parameterType="Integer">
+		<![CDATA[
+			INSERT INTO leave_reason_data
+				(
+					user_uid,
+					reason_uid
+				) VALUES (
+					#{user_uid},
+					#{reason_uid}
+				)
+		
+		]]>
+		
+		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+			SELECT LAST_INSERT_ID() AS uid
+		</selectKey>
+	</insert>
 	<insert id="registerMemberInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Member">
 		<![CDATA[
-			INSERT INTO nms_accounts
+			INSERT INTO member
 				(
 					id,
 					pw,

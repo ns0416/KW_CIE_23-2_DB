@@ -10,4 +10,8 @@ public interface RankingDao {
     List<Ranking> getWeeklyRankingList();
 
     List<Ranking> getMonthlyRankingList();
+    int insertRankingWeekly();
+    int insertRankingMonthly();
+    int truncateRankingWeekly();
+    int truncateRankingMonthly();
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bikeseoul.bikeseoul_kw.container.LeaveReason;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.dao.MemberDao;
 
@@ -55,6 +56,18 @@ public class MemberService implements MemberDao {
 	public int getMemberInfoCount(int type, String value) {
 		// TODO Auto-generated method stub
 		return memberDao.getMemberInfoCount(type, value);
+	}
+
+	@Override
+	public List<LeaveReason> getLeaveReason(int uid) {
+		// TODO Auto-generated method stub
+		return memberDao.getLeaveReason(uid);
+	}
+
+	@Override
+	public int registerLeaveReason(int user_uid, int reason_uid) {
+		// TODO Auto-generated method stub
+		return memberDao.registerLeaveReason(user_uid, reason_uid);
 	}
 
 }

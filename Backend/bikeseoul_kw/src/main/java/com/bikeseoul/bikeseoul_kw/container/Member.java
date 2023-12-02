@@ -26,6 +26,10 @@ public class Member extends User{
 		super(uid, null, null, null, null,0,false, is_lost, null);
 		// TODO Auto-generated constructor stub
 	}
+	public Member(int uid,String email, boolean is_valid) {
+		super(uid, null, null, email, null,0,is_valid, false, null);
+		// TODO Auto-generated constructor stub
+	}
 	public Member(String id, String email) {
 			super(id, email);
 			// TODO Auto-generated constructor stub
