@@ -17,11 +17,7 @@ export default function OpinionBoardList() {
 						<button class={style.close}></button>
 						<span id="title">문의/FAQ</span>
 					</div>
-					
 				</div>
-				
-				
-				
 			</div>
 			<div class={style.logo}><a href="/main.do"><img src="/images/logo.png" alt="서울자전거 따릉이"/></a></div>
         

@@ -20,8 +20,8 @@ import moveErrReportPage from './pages/moveErrReportPage/moveErrReportPage';
 import moveErrReportPagetList from './pages/moveErrReportPageList/moveErrReportPagetList';
 import memberBikeRank from './pages/memberBikeRank/memberBikeRank';
 import opinionBoardList from './pages/opinionBoardList/opinionBoardList';
-
-
+import memberInfoEdit from './pages/memberInfoEdit/memberInfoEdit';
+import passwordChange from './pages/passwordChange/passwordChange';
 
 function App() {
   return (
@@ -48,6 +48,9 @@ function App() {
         <Route path="/moveErrReportPagetList" Component={moveErrReportPagetList} />
         <Route path="/memberBikeRank" Component={memberBikeRank} />
         <Route path="/opinionBoardList" Component={opinionBoardList} />
+        <Route path="/memberInfoEdit" Component={memberInfoEdit} />
+        <Route path="/passwordChange" Component={passwordChange} />
+        
         
       </Routes>  
     </div>
