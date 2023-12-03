@@ -8,19 +8,18 @@
             uid, member_uid, card_number, card_type, updated_time, created_date
         FROM
             transfer_card
-        WHERE
-            user_uid = #{user_uid}
         ORDER BY
             uid DESC
     </select>
-
-    <select id="getTransfercard" resultType="com.bikeseoul.bikeseoul_kw.container.Transfercard">
+    <select id="getTransfercardList" resultType="com.bikeseoul.bikeseoul_kw.container.Transfercard">
         SELECT
             uid, member_uid, card_number, card_type, updated_time, created_date
         FROM
             transfer_card
         WHERE
-            uid = #{uid}
+            member_uid = #{member_uid}
+        ORDER BY
+            uid DESC
     </select>
 </mapper>
 

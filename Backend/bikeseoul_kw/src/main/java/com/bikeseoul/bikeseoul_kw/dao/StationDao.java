@@ -13,7 +13,7 @@ public interface StationDao {
 
     List<Station> getFavoriteStationList(int user_uid);
 
-    List<Station> getStationListByStationName(String station_name);
+    List<Station> getStationList(String station_name);
 
     int insertFavoriteStation(int station_uid, int user_uid);
 }

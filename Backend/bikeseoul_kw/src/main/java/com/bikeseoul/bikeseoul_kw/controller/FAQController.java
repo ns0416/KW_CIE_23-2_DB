@@ -26,37 +26,17 @@ public class FAQController {
 
     @GetMapping("/rest/getFAQList")
     @ResponseBody
-    public String getFAQList() {
+    public String getFAQListByName(@RequestParam(value = "faq_name", required = false) String faq_name) {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
 
         try{
-            List<FAQ> faqList = faqManager.getFAQList();
-            for(FAQ faq:faqList) {
-                JsonObject item = new JsonObject();
-                item.addProperty("uid", faq.getUid());
-                item.addProperty("faq_name", faq.getFaq_name());
-                item.addProperty("created_date", faq.getCreated_date().format(dtf_kor));
-                ja.add(item);
+            List<FAQ> faqList;
+            if (faq_name == null) {
+                faqList = faqManager.getFAQList();
+            } else{
+                faqList = faqManager.getFAQList(faq_name);
             }
-            jo.addProperty("result", "success");
-            jo.add("data", ja);
-        }catch(Exception e) {
-            e.printStackTrace();
-            jo.addProperty("result", "failed");
-            return jo.toString();
-        }
-        return jo.toString();
-    }
-
-    @GetMapping("/rest/getFAQListByName")
-    @ResponseBody
-    public String getFAQListByName(@RequestParam("faq_name") String faq_name) {
-        JsonObject jo = new JsonObject();
-        JsonArray ja = new JsonArray();
-
-        try{
-            List<FAQ> faqList = faqManager.getFAQListByName(faq_name);
             for(FAQ faq:faqList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", faq.getUid());
@@ -76,39 +56,22 @@ public class FAQController {
 
     @GetMapping("/rest/getFAQArticleList")
     @ResponseBody
-    public String getFAQArticleList(@RequestParam("faq_uid") int faq_uid) {
+    public String getFAQArticleList(@RequestParam(value = "faq_uid", required = false) int faq_uid, @RequestParam(value = "title", required = false) String title) {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
-        try{
-            List<FAQ> faqList = faqManager.getFAQArticleList(faq_uid);
-            for(FAQ faq:faqList) {
-                JsonObject item = new JsonObject();
-                item.addProperty("uid", faq.getUid());
-                item.addProperty("article_uid", faq.getArticle_uid());
-                item.addProperty("faq_name", faq.getFaq_name());
-                item.addProperty("title", faq.getTitle());
-                item.addProperty("content", faq.getContent());
-                item.addProperty("created_date", faq.getCreated_date().format(dtf_kor));
-                item.addProperty("article_created_date", faq.getArticle_created_date().format(dtf_kor));
-                ja.add(item);
-            }
-            jo.addProperty("result", "success");
-            jo.add("data", ja);
-        }catch(Exception e) {
-            e.printStackTrace();
+        if(faq_uid == 0 && title == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
-        return jo.toString();
-    }
-
-    @GetMapping("/rest/getFAQArticleListByTitle")
-    @ResponseBody
-    public String getFAQArticleListByTitle(@RequestParam("title") String title) {
-        JsonObject jo = new JsonObject();
-        JsonArray ja = new JsonArray();
         try{
-            List<FAQ> faqList = faqManager.getFAQArticleListByTitle(title);
+            List<FAQ> faqList;
+            if(faq_uid != 0 && title != null) {
+                faqList = faqManager.getFAQArticleList(faq_uid, title);
+            } else if(faq_uid != 0) {
+                faqList = faqManager.getFAQArticleList(faq_uid);
+            } else {
+                faqList = faqManager.getFAQArticleList(title);
+            }
             for(FAQ faq:faqList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", faq.getUid());

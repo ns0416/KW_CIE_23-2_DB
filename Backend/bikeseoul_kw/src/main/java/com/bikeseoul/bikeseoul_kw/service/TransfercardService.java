@@ -18,7 +18,7 @@ public class TransfercardService implements TransfercardDao {
     }
 
     @Override
-    public Transfercard getTransfercard(int uid) {
-        return transfercardDao.getTransfercard(uid);
+    public List<Transfercard> getTransfercardList(int member_uid) {
+        return transfercardDao.getTransfercardList(member_uid);
     }
 }

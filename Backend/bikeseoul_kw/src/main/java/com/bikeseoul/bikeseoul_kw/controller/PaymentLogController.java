@@ -1,16 +1,18 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
+import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.PaymentLog;
 import com.bikeseoul.bikeseoul_kw.container.PaymentMethod;
 import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.PaymentLogManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,12 +36,15 @@ public class PaymentLogController {
 
     @GetMapping("/rest/service/getPaymentLogList")
     @ResponseBody
-    public String getPaymentLogList(@RequestParam("member_uid") int member_uid) {
+    public String getPaymentLogList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
-        if (member_uid == 0) {
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
+        int member_uid = mem.getUid();
 
         JsonArray ja = new JsonArray();
 
@@ -63,7 +68,7 @@ public class PaymentLogController {
                 ja.add(item);
             }
             jo.addProperty("result", "success");
-            jo.add("paymentLogList", ja);
+            jo.add("data", ja);
             return jo.toString();
         } catch (Exception e) {
             jo.addProperty("result", "failed");
@@ -72,12 +77,15 @@ public class PaymentLogController {
     }
     @GetMapping("/rest/service/getRefundLogList")
     @ResponseBody
-    public String getRefundLogList(@RequestParam("member_uid") int member_uid) {
+    public String getRefundLogList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
-        if (member_uid == 0) {
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
+        int member_uid = mem.getUid();
 
         JsonArray ja = new JsonArray();
 

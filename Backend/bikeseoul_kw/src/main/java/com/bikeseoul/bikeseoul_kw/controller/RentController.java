@@ -33,10 +33,10 @@ public class RentController {
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
-/*
+
     @GetMapping("/rest/service/getRentList")
     @ResponseBody
-    public String getRentList(HttpServletRequest request) {
+    public String getRentList(HttpServletRequest request, @RequestParam(value = "start_date", required = false) LocalDateTime start_date, @RequestParam(value = "end_date", required = false) LocalDateTime end_date) {
         JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
         Member mem = (Member)hs.getAttribute("member");
@@ -45,52 +45,17 @@ public class RentController {
             return jo.toString();
         }
         int member_uid = mem.getUid();
-        JsonArray ja = new JsonArray();
-
-        try {
-            List<Rent> rentList = rentManager.getRentList(member_uid);
-            for(Rent rent:rentList) {
-                JsonObject item = new JsonObject();
-                item.addProperty("uid", rent.getUid());
-                item.addProperty("member_uid", rent.getMember_uid());
-                item.addProperty("bike_uid", rent.getBike_uid());
-                item.addProperty("ticket_detail_uid", rent.getTicket_detail_uid());
-                item.addProperty("start_date", rent.getStart_date().format(dtf_kor));
-                item.addProperty("return_date", rent.getReturn_date().format(dtf_kor));
-                item.addProperty("rent_station", rent.getRent_station());
-                item.addProperty("return_station", rent.getReturn_station());
-                item.addProperty("last_position_lat", rent.getLast_position_lat());
-                item.addProperty("last_position_lon", rent.getLast_position_lon());
-                item.addProperty("distance", rent.getDistance());
-                item.addProperty("updated_date", rent.getUpdated_date().format(dtf_kor));
-                ja.add(item);
-            }
-            jo.addProperty("result", "success");
-            jo.add("data", ja);
-        }catch (Exception e) {
-            e.printStackTrace();
-            jo.addProperty("result", "failed");
-            return jo.toString();
-        }
-        return jo.toString();
-    }
-*/
-    @GetMapping("/rest/service/getRentList")
-    @ResponseBody
-    public String getRentListByDate(HttpServletRequest request, @RequestParam(value="start_date", required=false) LocalDateTime start_date, @RequestParam(value="end_date", required=false) LocalDateTime end_date) {
-        Member mem = (Member)am.checkLogged(request, false);
-        JsonObject jo = new JsonObject();
-        if(mem == null) {
-            jo.addProperty("result", "failed");
-            return jo.toString();
-        }
-
-        int member_uid = mem.getUid();
         int weight = mem.getWeight();
 
         JsonArray ja = new JsonArray();
 
         try {
+            if (start_date == null && end_date == null) {
+                // 이번달
+                LocalDateTime now = LocalDateTime.now();
+                start_date = LocalDateTime.of(now.getYear(), now.getMonth(), 1, 0, 0, 0);
+                end_date = LocalDateTime.of(now.getYear(), now.getMonth(), now.getMonth().maxLength(), 23, 59, 59);
+            }
             List<Rent> rentList = rentManager.getRentList(member_uid, start_date, end_date);
             int total_distance = 0;
             int total_rent_minutes = 0;

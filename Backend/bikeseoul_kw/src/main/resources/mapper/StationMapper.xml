@@ -43,7 +43,7 @@
             s.uid
     </select>
 
-    <select id="getStationListByStationName" resultType="com.bikeseoul.bikeseoul_kw.container.Station">
+    <select id="getStationList" resultType="com.bikeseoul.bikeseoul_kw.container.Station">
         SELECT
             uid, station_name, lat, lon, size, is_valid, station_type, COUNT(case when b.bike_type='general' then 1 end) AS general_cnt, COUNT(case when b.bike_type='sprout' then 1 end) AS sprout_cnt
         FROM

@@ -1,9 +1,12 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
+import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Ranking;
 import com.bikeseoul.bikeseoul_kw.manager.RankingManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -73,14 +76,17 @@ public class RankingController {
         return jo.toString();
     }
 
-    @GetMapping("/rest/getWeeklyRanking")
+    @GetMapping("/rest/service/getWeeklyRanking")
     @ResponseBody
-    public String getWeeklyRanking(int member_uid) {
+    public String getWeeklyRanking(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
-        if(member_uid == 0) {
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
+        int member_uid = mem.getUid();
         try {
             List<Ranking> rankingList = rankingManager.getWeeklyRankingList();
             for (Ranking ranking : rankingList) {
@@ -104,14 +110,17 @@ public class RankingController {
         return jo.toString();
     }
 
-    @GetMapping("/rest/getMonthlyRanking")
+    @GetMapping("/rest/service/getMonthlyRanking")
     @ResponseBody
-    public String getMonthlyRanking(int member_uid) {
+    public String getMonthlyRanking(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
-        if (member_uid == 0) {
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
+        int member_uid = mem.getUid();
         try {
             List<Ranking> rankingList = rankingManager.getMonthlyRankingList();
             for (Ranking ranking : rankingList) {

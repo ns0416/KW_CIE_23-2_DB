@@ -16,7 +16,7 @@ public class TransfercardManager {
         return transfercardService.getTransfercardList();
     }
 
-    public Transfercard getTransfercard(int uid) {
-        return transfercardService.getTransfercard(uid);
+    public List<Transfercard> getTransfercardList(int member_uid) {
+        return transfercardService.getTransfercardList(member_uid);
     }
 }

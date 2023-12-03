@@ -9,5 +9,5 @@ import java.util.List;
 public interface TransfercardDao {
     List<Transfercard> getTransfercardList();
 
-Transfercard getTransfercard(int uid);
+    List<Transfercard> getTransfercardList(int member_uid);
 }
