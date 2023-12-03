@@ -46,4 +46,14 @@
         AND
             log.status_ = 'refund'
     </select>
+    <select id="getPaymentMethodList" resultType="com.bikeseoul.bikeseoul_kw.container.PaymentMethod">
+        SELECT
+            uid,
+            method_name,
+            created_date
+        FROM
+            payment_method
+        ORDER BY
+        	created_date DESC
+    </select>
 </mapper>

@@ -34,25 +34,26 @@ public class RentController {
     @GetMapping("/rest/service/getRentList")
     @ResponseBody
     public String getRentList(HttpServletRequest request, @RequestParam(value = "start_date", required = false) LocalDateTime start_date, @RequestParam(value = "end_date", required = false) LocalDateTime end_date) {
-        Member mem = (Member)am.checkLogged(request, false);
         JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
         if(mem == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
-
         int member_uid = mem.getUid();
         int weight = mem.getWeight();
 
         JsonArray ja = new JsonArray();
 
         try {
-            List<Rent> rentList;
             if (start_date == null && end_date == null) {
-                rentList = rentManager.getRentList(member_uid);
-            } else{
-                rentList = rentManager.getRentList(member_uid, start_date, end_date);
+                // 이번달
+                LocalDateTime now = LocalDateTime.now();
+                start_date = LocalDateTime.of(now.getYear(), now.getMonth(), 1, 0, 0, 0);
+                end_date = LocalDateTime.of(now.getYear(), now.getMonth(), now.getMonth().maxLength(), 23, 59, 59);
             }
+            List<Rent> rentList = rentManager.getRentList(member_uid, start_date, end_date);
             int total_distance = 0;
             int total_rent_minutes = 0;
             int calory = 0;

@@ -13,13 +13,6 @@ public class RentManager {
 
     @Autowired
     private RentService rentService;
-
-    public List<Rent> getRentList(int member_uid) {
-        if (member_uid == 0) {
-            return null;
-        }
-        return rentService.getRentList(member_uid);
-    }
     public List<Rent> getRentList(int member_uid, LocalDateTime start_date, LocalDateTime end_date) {
         if (member_uid == 0) {
             return null;

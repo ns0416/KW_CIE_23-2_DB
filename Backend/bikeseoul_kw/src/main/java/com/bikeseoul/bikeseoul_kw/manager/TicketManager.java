@@ -38,6 +38,6 @@ public class TicketManager {
 	}
 
 	public CommonEnum registerTicketDetail(Ticket_detail td) {
-		
+		return CommonEnum.FAILED;
 	}
 }
