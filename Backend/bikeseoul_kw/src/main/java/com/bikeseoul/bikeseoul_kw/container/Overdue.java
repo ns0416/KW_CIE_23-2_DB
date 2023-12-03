@@ -19,6 +19,11 @@ public class Overdue extends CommonData{
 		this.payment_finished = payment_finished;
 		this.updated_date = updated_date;
 	}
+	public Overdue(int overdue_amount, int payment_finished) {
+		super(0, null);
+		this.overdue_amount = overdue_amount;
+		this.payment_finished = payment_finished;
+	}
 	public int getOverdue_amount() {
 		return overdue_amount;
 	}

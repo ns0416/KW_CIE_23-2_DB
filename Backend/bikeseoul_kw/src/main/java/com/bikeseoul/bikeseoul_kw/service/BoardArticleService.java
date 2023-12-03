@@ -3,8 +3,11 @@ package com.bikeseoul.bikeseoul_kw.service;
 import com.bikeseoul.bikeseoul_kw.container.Attachment;
 import com.bikeseoul.bikeseoul_kw.container.Board;
 import com.bikeseoul.bikeseoul_kw.container.BoardArticle;
+import com.bikeseoul.bikeseoul_kw.container.Breakdown;
 import com.bikeseoul.bikeseoul_kw.container.Comment;
+import com.bikeseoul.bikeseoul_kw.container.Neglect;
 import com.bikeseoul.bikeseoul_kw.dao.BoardArticleDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +29,9 @@ public class BoardArticleService implements BoardArticleDao {
     }
 
 	@Override
-	public Board getBoardInfo(String board_name) {
+	public Board getBoardInfo(String board_name, int uid) {
 		// TODO Auto-generated method stub
-		return boardArticleDao.getBoardInfo(board_name);
+		return boardArticleDao.getBoardInfo(board_name, uid);
 	}
 
 	@Override
@@ -94,5 +97,47 @@ public class BoardArticleService implements BoardArticleDao {
 	public int updateComment(Comment cmt) {
 		// TODO Auto-generated method stub
 		return boardArticleDao.updateComment(cmt);
+	}
+
+	@Override
+	public int writeBreakdown(Breakdown bd) {
+		// TODO Auto-generated method stub
+		return boardArticleDao.writeBreakdown(bd);
+	}
+
+	@Override
+	public int updateBreakdown(Breakdown bd) {
+		// TODO Auto-generated method stub
+		return boardArticleDao.updateBreakdown(bd);
+	}
+
+	@Override
+	public int deleteBreakdown(int uid, int member_uid) {
+		// TODO Auto-generated method stub
+		return boardArticleDao.deleteBreakdown(uid, member_uid);
+	}
+
+	@Override
+	public int deleteArticle(int uid) {
+		// TODO Auto-generated method stub
+		return boardArticleDao.deleteArticle(uid);
+	}
+
+	@Override
+	public int writeNeglect(Neglect ngt) {
+		// TODO Auto-generated method stub
+		return boardArticleDao.writeNeglect(ngt);
+	}
+
+	@Override
+	public int updateNeglect(Neglect ngt) {
+		// TODO Auto-generated method stub
+		return boardArticleDao.updateNeglect(ngt);
+	}
+
+	@Override
+	public int deleteNeglect(int uid) {
+		// TODO Auto-generated method stub
+		return boardArticleDao.deleteNeglect(uid);
 	}
 }

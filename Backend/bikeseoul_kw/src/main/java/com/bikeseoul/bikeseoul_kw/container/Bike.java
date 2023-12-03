@@ -17,6 +17,10 @@ public class Bike {
         this.release_date = release_date;
         this.updated_date = updated_date;
     }
+    public Bike(int bike_id, bike_status status_) {
+        this.bike_id = bike_id;
+        this.status_ = status_;
+    }
 
     public int getBike_id() {
         return bike_id;

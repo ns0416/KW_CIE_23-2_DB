@@ -44,6 +44,53 @@
 		WHERE
 			ticket_id = #{ticket_id}
     </select>
+    <select id="getTicketDetailInfo" resultType="HashMap">
+	        SELECT
+	        	td.uid AS ticket_detail_uid,
+	        	td.member_uid AS member_uid,
+	        	td.start_date AS start_date,
+	        	td.activation AS activation,
+	        	td.created_date AS ticket_detail_created_date,
+	            t.ticket_id AS ticket_id,
+	            t.ticket_type AS ticket_type,
+	            t.hours AS hours,
+	            t.cost AS cost,
+	            t.isvalid AS isvalid,
+	            t.created_date AS ticket_created_date,
+	            t.updated_date AS ticket_updated_date,
+	            0 AS expired_date
+	        FROM
+	            ticket_detail AS td
+	        JOIN
+	        	ticket AS t
+	        ON
+	        	td.ticket_uid = t.ticket_id
+			WHERE
+			td.uid = #{uid}
+		UNION
+			SELECT
+	        	td.uid AS ticket_detail_uid,
+	        	td.member_uid AS member_uid,
+	        	td.start_date AS start_date,
+	        	td.activation AS activation,
+	        	td.created_date AS ticket_detail_created_date,
+	            t.ticket_id AS ticket_id,
+	            t.ticket_type AS ticket_type,
+	            t.hours AS hours,
+	            t.cost AS cost,
+	            t.isvalid AS isvalid,
+	            t.created_date AS ticket_created_date,
+	            t.updated_date AS ticket_updated_date,
+	            td.expired_date AS expired_date
+	        FROM
+	            ticket_detail_expired AS td
+	        JOIN
+	        	ticket AS t
+	        ON
+	        	td.ticket_uid = t.ticket_id
+			WHERE
+			td.uid = #{uid}
+    </select>
      <select id="getTicketList" resultType="com.bikeseoul.bikeseoul_kw.container.Ticket">
         SELECT
             ticket_id,

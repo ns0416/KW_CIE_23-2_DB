@@ -32,4 +32,10 @@ public class StationService implements StationDao {
     public int insertFavoriteStation(int station_uid, int user_uid) {
         return stationDao.insertFavoriteStation(station_uid, user_uid);
     }
+
+	@Override
+	public List<Station> getStationListNearby(double x1, double y1, double x2, double y2) {
+		// TODO Auto-generated method stub
+		return stationDao.getStationListNearby(x1, y1, x2, y2);
+	}
 }

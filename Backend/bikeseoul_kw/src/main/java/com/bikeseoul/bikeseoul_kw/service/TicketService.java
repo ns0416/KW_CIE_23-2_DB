@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -52,5 +53,11 @@ public class TicketService implements TicketDao {
 	public int deleteTicketDetail(int uid) {
 		// TODO Auto-generated method stub
 		return ticketDao.deleteTicketDetail(uid);
+	}
+
+	@Override
+	public List<Map<String, Object>> getTicketDetailInfo(int uid) {
+		// TODO Auto-generated method stub
+		return ticketDao.getTicketDetailInfo(uid);
 	}
 }

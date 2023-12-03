@@ -32,6 +32,24 @@ public class Rent extends CommonData{
         this.return_station = return_station;
         this.distance = distance;
     }
+    
+    public Rent(int member_uid, int bike_uid, int ticket_detail_uid, int rent_station) {
+        super(0, null);
+        this.member_uid = member_uid;
+    	this.bike_uid = bike_uid;
+        this.ticket_detail_uid = ticket_detail_uid;
+        this.rent_station = rent_station;
+    }
+    public Rent(int uid, double last_position_lat, double last_position_lon, double distance) {
+        super(uid, null);
+        this.last_position_lat = last_position_lat;
+        this.last_position_lon = last_position_lon;
+        this.distance = distance;
+    }
+    public Rent(int rent_uid, int return_station) {
+        super(rent_uid, null);
+        this.return_station = return_station;
+    }
 
     public int getMember_uid() {
         return member_uid;

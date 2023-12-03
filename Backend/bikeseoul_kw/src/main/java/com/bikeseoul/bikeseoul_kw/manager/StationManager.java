@@ -25,6 +25,11 @@ public class StationManager {
         return stationService.getStationList(station_name);
     }
 
+    public List<Station> getStationListNearby(double x, double y, double radius) {
+    	double x1 = x-radius, y1 = y-radius, x2 = x+radius, y2=y+radius;
+    	
+        return stationService.getStationListNearby(x1, y1, x2, y2);
+    }
     public int insertFavoriteStation(int station_uid, int user_uid) {
         return stationService.insertFavoriteStation(station_uid, user_uid);
     }

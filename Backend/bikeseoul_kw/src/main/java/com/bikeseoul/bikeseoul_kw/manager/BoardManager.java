@@ -15,10 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bikeseoul.bikeseoul_kw.container.Attachment;
 import com.bikeseoul.bikeseoul_kw.container.Board;
 import com.bikeseoul.bikeseoul_kw.container.BoardArticle;
+import com.bikeseoul.bikeseoul_kw.container.Breakdown;
 import com.bikeseoul.bikeseoul_kw.container.Comment;
 import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Config;
 import com.bikeseoul.bikeseoul_kw.container.Coupon;
+import com.bikeseoul.bikeseoul_kw.container.Neglect;
 import com.bikeseoul.bikeseoul_kw.container.Ticket;
 import com.bikeseoul.bikeseoul_kw.container.Transfercard;
 import com.bikeseoul.bikeseoul_kw.service.BoardArticleService;
@@ -37,8 +39,8 @@ public class BoardManager {
 	@Autowired
 	private BoardArticleService boardArticleService;
 
-	public Board getBoardInfo(String board_name) {
-		return boardArticleService.getBoardInfo(board_name);
+	public Board getBoardInfo(String board_name, int uid) {
+		return boardArticleService.getBoardInfo(board_name, uid);
 	}
 	private CommonEnum writeArticle_only(BoardArticle art) throws Exception {
 		if(boardArticleService.writeArticle(art) > 0)
@@ -73,6 +75,9 @@ public class BoardManager {
         				throw new Exception();
         		}
         	}
+    		if(art instanceof Neglect && art_res == CommonEnum.SUCCESS) {
+    			art_res = boardArticleService.writeNeglect((Neglect)art) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+    		}
 			if(art_res == CommonEnum.SUCCESS && att_res == CommonEnum.SUCCESS)
 				return CommonEnum.SUCCESS;
 			throw new Exception();
@@ -164,6 +169,9 @@ public class BoardManager {
         		}
     			
     		}
+    		if(art instanceof Neglect && art_res == CommonEnum.SUCCESS) {
+    			art_res = boardArticleService.updateNeglect((Neglect)art) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+    		}
 			if(art_res == CommonEnum.SUCCESS && att_res == CommonEnum.SUCCESS && del_res== CommonEnum.SUCCESS)
 				return CommonEnum.SUCCESS;
 			throw new Exception();
@@ -208,5 +216,65 @@ public class BoardManager {
 	public Comment getComment(int cmt_uid) {
 		// TODO Auto-generated method stub
 		return boardArticleService.getComment(cmt_uid);
+	}
+	public CommonEnum writeBreakdown(Breakdown art) {
+		// TODO Auto-generated method stub
+		return boardArticleService.writeBreakdown(art) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
+	public CommonEnum updateBreakdown(Breakdown art_update) {
+		// TODO Auto-generated method stub
+		return boardArticleService.updateBreakdown(art_update) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
+	@Transactional
+	public CommonEnum deleteArticle(BoardArticle art) {
+		// TODO Auto-generated method stub
+		Config config = configManager.getConfig();
+		String file_dir = config.get("basic", "file_dir");
+		String temp_dir = config.get("basic", "temp_dir");
+		try {
+			CommonEnum art_res = boardArticleService.deleteArticle(art.getUid()) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+    		CommonEnum del_res = CommonEnum.SUCCESS;
+    		if(art.getAttachments() != null) {
+    			for(Attachment att : art.getAttachments()) {
+        			File file_mv = new File(temp_dir+att.getLoc());
+        			File file = new File(file_dir+att.getLoc());
+        			if(!file.exists() || file_mv.exists()) {
+        				throw new Exception();
+        			}
+        			if(!file.renameTo(file_mv))
+        				throw new Exception();
+        		}
+    			for(Attachment att : art.getAttachments()) {
+    				del_res = deleteAttachment(att);
+    				if(del_res != CommonEnum.SUCCESS)
+    					break;
+        		}
+    			
+    		}
+    		if(art instanceof Neglect && art_res == CommonEnum.SUCCESS) {
+    			art_res = boardArticleService.deleteNeglect(art.getUid()) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+    		}
+			if(art_res == CommonEnum.SUCCESS && del_res== CommonEnum.SUCCESS)
+				return CommonEnum.SUCCESS;
+			throw new Exception();
+		}catch(Exception e) {
+			e.printStackTrace();
+			if(art.getAttachments() != null) {
+				for(Attachment att : art.getAttachments()) {
+					File file = new File(temp_dir+att.getLoc());
+        			File file_mv = new File(file_dir+att.getLoc());
+        			if(!file.exists() || file_mv.exists()) {
+        				return CommonEnum.FAILED;
+        			}
+        			if(!file.renameTo(file_mv))
+        				return CommonEnum.FAILED;
+				}
+			}
+			return CommonEnum.FAILED;
+		}
+	}
+	public CommonEnum deleteBreakdown(int uid, int member_uid) {
+		// TODO Auto-generated method stub
+		return boardArticleService.deleteBreakdown(uid, member_uid) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
 	}
 }

@@ -10,6 +10,7 @@ import com.bikeseoul.bikeseoul_kw.service.GiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,6 +65,14 @@ public class ServiceManager {
 		return ticketService.getActivationTicket(member_uid);
 	}
 	
+	@Scheduled(cron = "0 0 0 * * 7") 
+	public void refreshRaningWeekly() {
+		refreshRanking(true);
+	}
+	@Scheduled(cron = "0 0 0 1 * *") 
+	public void refreshRaningMonthly() {
+		refreshRanking(false);
+	}
 	@Transactional
 	public CommonEnum refreshRanking(boolean is_weekly) {
 		try {

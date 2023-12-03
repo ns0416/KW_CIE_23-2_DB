@@ -3,11 +3,14 @@ package com.bikeseoul.bikeseoul_kw.controller;
 import com.bikeseoul.bikeseoul_kw.container.Attachment;
 import com.bikeseoul.bikeseoul_kw.container.Board;
 import com.bikeseoul.bikeseoul_kw.container.BoardArticle;
+import com.bikeseoul.bikeseoul_kw.container.Breakdown;
 import com.bikeseoul.bikeseoul_kw.container.Comment;
 import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Config;
 import com.bikeseoul.bikeseoul_kw.container.Member;
+import com.bikeseoul.bikeseoul_kw.container.Neglect;
 import com.bikeseoul.bikeseoul_kw.container.PaymentLog;
+import com.bikeseoul.bikeseoul_kw.container.break_type;
 import com.bikeseoul.bikeseoul_kw.manager.BoardManager;
 import com.bikeseoul.bikeseoul_kw.manager.ConfigManager;
 import com.google.gson.JsonArray;
@@ -186,12 +189,21 @@ public class BoardArticleController {
     	JsonObject jo = new JsonObject();
     	HttpSession hs = request.getSession();
     	Member mem = (Member)hs.getAttribute("member");
-    	Board brd = boardManager.getBoardInfo((String)body.get("board_name"));
+    	Board brd = boardManager.getBoardInfo((String)body.get("board_name"), 0);
     	if(brd == null) {
     		jo.addProperty("result", "failed");
     		return jo.toString();
     	}
+    	
     	BoardArticle art = new BoardArticle(brd.getUid(), mem.getUid(), (String)body.get("title"), (String)body.get("content"));
+    	if(brd.getBoard_name().equals("neglect")) {
+    		Neglect art_neg = (Neglect)art;
+    		art_neg.setBike_uid((Integer)body.get("bike_id"));
+    		art_neg.setLat((double)body.get("lat"));
+    		art_neg.setLon((double)body.get("lon"));
+    		art_neg.setDetail_address((String)body.get("detail_address"));
+    		art =art_neg;
+    	}
     	ArrayList<Attachment> atts = (ArrayList<Attachment>)hs.getAttribute("attachments");
     	if(atts != null) {
     		for(Attachment att : atts) {
@@ -201,6 +213,35 @@ public class BoardArticleController {
     	CommonEnum res = boardManager.writeArticle(art);
     	if(res == CommonEnum.SUCCESS) {
     		hs.setAttribute("attachments", null);
+    		jo.addProperty("result", "success");
+    	}
+    	
+    	jo.addProperty("result", "failed");
+		return jo.toString();
+    }
+    
+    @PostMapping("/rest/service/writeBreakdown")
+    public String writeBreakdown(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+    	JsonObject jo = new JsonObject();
+    	HttpSession hs = request.getSession();
+    	Member mem = (Member)hs.getAttribute("member");
+    	Breakdown art = new Breakdown(mem.getUid(), (Integer)body.get("bike_uid"), break_type.valueOf(((String)body.get("break_type"))), (String)body.get("content"));
+    	CommonEnum res = boardManager.writeBreakdown(art);
+    	if(res == CommonEnum.SUCCESS) {
+    		jo.addProperty("result", "success");
+    	}
+    	
+    	jo.addProperty("result", "failed");
+		return jo.toString();
+    }
+    @PostMapping("/rest/service/updateBreakdown")
+    public String updateBreakdown(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+    	JsonObject jo = new JsonObject();
+    	HttpSession hs = request.getSession();
+    	Member mem = (Member)hs.getAttribute("member");
+    	Breakdown art_update = new Breakdown((Integer)body.get("art_uid"), break_type.valueOf(((String)body.get("break_type"))), (String)body.get("content"));
+    	CommonEnum res = boardManager.updateBreakdown(art_update);
+    	if(res == CommonEnum.SUCCESS) {
     		jo.addProperty("result", "success");
     	}
     	
@@ -287,7 +328,16 @@ public class BoardArticleController {
     		jo.addProperty("result", "failed");
     		return jo.toString();
     	}
+    	Board brd = boardManager.getBoardInfo(null, art.getBoard_uid());
     	BoardArticle art_update = new BoardArticle(art.getUid(), (String)body.get("title"), (String)body.get("content"));
+    	if(brd.getBoard_name().equals("neglect")) {
+    		Neglect art_neg = (Neglect)art_update;
+    		art_neg.setBike_uid((Integer)body.get("bike_id"));
+    		art_neg.setLat((double)body.get("lat"));
+    		art_neg.setLon((double)body.get("lon"));
+    		art_neg.setDetail_address((String)body.get("detail_address"));
+    		art = art_neg;
+    	}
     	ArrayList<Attachment> atts = (ArrayList<Attachment>)hs.getAttribute("attachments");
     	ArrayList<Attachment> del_atts = (ArrayList<Attachment>)hs.getAttribute("delete_atts");
     	if(atts != null) {
@@ -303,6 +353,48 @@ public class BoardArticleController {
     	}
     	
     	jo.addProperty("result", "failed");
+		return jo.toString();
+    }
+    @GetMapping("/rest/service/deleteArticle")
+    public String deleteArticle(HttpServletRequest request, @RequestParam String art_uid) {
+    	JsonObject jo = new JsonObject();
+    	HttpSession hs = request.getSession();
+    	Member mem = (Member)hs.getAttribute("member");
+		if(mem == null) {
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+		BoardArticle art = boardManager.getBoardArticle(Integer.parseInt(art_uid));
+		Board brd = boardManager.getBoardInfo(null, art.getBoard_uid());
+    	if(art == null || art.getUser_uid() != mem.getUid()) {
+    		jo.addProperty("result", "failed");
+    		return jo.toString();
+    	}
+    	if(brd.getBoard_name().equals("neglect")) {
+    		art = (Neglect)art;
+    	}
+    	CommonEnum res = boardManager.deleteArticle(art);
+    	if(res == CommonEnum.SUCCESS)
+    		jo.addProperty("result", "success");
+    	else
+    		jo.addProperty("result", "failed");
+		return jo.toString();
+    }
+    @GetMapping("/rest/service/deleteBreakdown")
+    public String deleteBreakdown(HttpServletRequest request, @RequestParam String art_uid) {
+    	JsonObject jo = new JsonObject();
+    	HttpSession hs = request.getSession();
+    	Member mem = (Member)hs.getAttribute("member");
+		if(mem == null) {
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+    		
+    	CommonEnum res = boardManager.deleteBreakdown(Integer.parseInt(art_uid), mem.getUid());
+    	if(res == CommonEnum.SUCCESS)
+    		jo.addProperty("result", "success");
+    	else
+    		jo.addProperty("result", "failed");
 		return jo.toString();
     }
     @PostMapping("/rest/service/updateComment")

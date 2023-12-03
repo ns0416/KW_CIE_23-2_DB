@@ -235,12 +235,11 @@ public class AccountManager {
 			return CommonEnum.UNKNOWN;
 		}
 	}
-	public CommonEnum registerUser(User mem, String pw_cfm, boolean sns_register) {
+	public CommonEnum registerUser(User mem, String pw_cfm) {
 		// TODO Auto-generated method stub
 		try {
 			String pw = mem.getPw();
-			if(!sns_register && checkValidPW(pw, pw_cfm)) {
-				if(!sns_register)
+			if(checkValidPW(pw, pw_cfm)) {
 				mem.setPw(hashingManager.HashSHA256(pw));
 				if(mem instanceof Member) {
 					if(memberService.registerMemberInfo((Member)mem)>0) {//TODO: Normal member update user
@@ -251,19 +250,8 @@ public class AccountManager {
 				}else {
 					return CommonEnum.UNKNOWN;
 				}
-			}else {	
-				if(sns_register) {
-					if(mem instanceof Member) {
-						if(memberService.registerMemberInfo((Member)mem)>0) {//TODO: Normal member update user
-							return CommonEnum.SUCCESS;
-						}else {
-							return CommonEnum.FAILED;
-						}
-					}
-					throw new Exception();
-				}else {
+			}else {
 					return CommonEnum.PW_ERROR;
-				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

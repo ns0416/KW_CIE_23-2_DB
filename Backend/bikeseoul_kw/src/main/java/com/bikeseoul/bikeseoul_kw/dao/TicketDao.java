@@ -6,6 +6,7 @@ import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface TicketDao {
@@ -17,5 +18,6 @@ public interface TicketDao {
     int insertTicketDetail(Ticket_detail td);
     int insertTicketDetailtoExpired(int uid);
     int deleteTicketDetail(int uid);
+    List<Map<String, Object>> getTicketDetailInfo(int uid);
     
 }

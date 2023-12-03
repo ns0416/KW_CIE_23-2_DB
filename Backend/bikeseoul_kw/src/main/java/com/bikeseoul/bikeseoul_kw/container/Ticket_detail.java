@@ -14,18 +14,24 @@ public class Ticket_detail extends CommonData{
 
     
     public Ticket_detail(int uid, int member_uid, int Ticket_uid, LocalDateTime start_date, int activation, LocalDateTime created_date) {
-    	super(0, created_date);
+    	super(uid, created_date);
     	this.member_uid = member_uid;
     	this.ticket_uid = Ticket_uid;
     	this.start_date = start_date;
     	this.activation = activation;
     }
     public Ticket_detail(int uid, int member_uid, int Ticket_uid, LocalDateTime start_date, LocalDateTime expired_date,int activation, LocalDateTime created_date) {
-    	super(0, created_date);
+    	super(uid, created_date);
     	this.member_uid = member_uid;
     	this.ticket_uid = Ticket_uid;
     	this.start_date = start_date;
     	this.expired_date = expired_date;
+    	this.activation = activation;
+    }
+    public Ticket_detail(int uid, int member_uid, LocalDateTime start_date, int activation, LocalDateTime created_date) {
+    	super(uid, created_date);
+    	this.member_uid = member_uid;
+    	this.start_date = start_date;
     	this.activation = activation;
     }
 

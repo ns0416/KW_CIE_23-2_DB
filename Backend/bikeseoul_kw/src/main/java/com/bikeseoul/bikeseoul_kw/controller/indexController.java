@@ -168,6 +168,49 @@ public class indexController {
 		}
 		return jo.toString();
 	}
+	
+	@PostMapping("/rest/service/registerMember1Step")
+	public String registerMember1Step(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		JsonObject jo = new JsonObject();
+		try {
+			HttpSession hs = request.getSession();
+			User user = new User((String)body.get("id"), (String)body.get("pw"), (String)body.get("phone"));
+			
+			hs.setAttribute("register_info", user);
+			hs.setAttribute("pw_cfm", (String)body.get("pw_cfm"));
+			jo.addProperty("result", "success");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			jo.addProperty("result", "failed");
+			e.printStackTrace();
+		}
+		return jo.toString();
+	}
+	
+	@PostMapping("/rest/service/registerMember")
+	public String registerMember(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		JsonObject jo = new JsonObject();
+		try {
+			HttpSession hs = request.getSession();
+			User user = (User)hs.getAttribute("register_info");
+			String pw_cfm = (String)hs.getAttribute("pw_cfm");
+			String email = (String)hs.getAttribute("authAddr");
+			if(user == null || pw_cfm == null || email == null)
+				throw new Exception();
+			Member mem = (Member)user;
+			mem.setWeight((Integer)body.get("weight"));
+			mem.setAge((Integer)body.get("age"));
+			mem.setEmail(email);
+			CommonEnum res = am.registerUser(mem, pw_cfm);
+			jo.addProperty("result", "success");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			jo.addProperty("result", "failed");
+			e.printStackTrace();
+		}
+		return jo.toString();
+	}
+	
 	@PostMapping("/rest/service/setLost")
 	public String setLost(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
 		JsonObject jo = new JsonObject();

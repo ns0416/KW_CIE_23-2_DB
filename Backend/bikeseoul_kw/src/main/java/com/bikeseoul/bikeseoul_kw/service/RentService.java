@@ -1,5 +1,6 @@
 package com.bikeseoul.bikeseoul_kw.service;
 
+import com.bikeseoul.bikeseoul_kw.container.Bike;
 import com.bikeseoul.bikeseoul_kw.container.Overdue;
 import com.bikeseoul.bikeseoul_kw.container.Rent;
 import com.bikeseoul.bikeseoul_kw.dao.RentDao;
@@ -26,5 +27,41 @@ public class RentService implements RentDao {
 	public List<Map<String, Object>> getOverdueList(int member_uid, int payment_finished) {
 		// TODO Auto-generated method stub
 		return rentDao.getOverdueList(member_uid, payment_finished);
+	}
+
+	@Override
+	public int insertRentInfo(Rent rent) {
+		// TODO Auto-generated method stub
+		return rentDao.insertRentInfo(rent);
+	}
+
+	@Override
+	public int updateOverdue(Overdue overdue) {
+		// TODO Auto-generated method stub
+		return rentDao.updateOverdue(overdue);
+	}
+
+	@Override
+	public int updateRent(Rent rent) {
+		// TODO Auto-generated method stub
+		return rentDao.updateRent(rent);
+	}
+
+	@Override
+	public Bike getBikeInfo(int uid) {
+		// TODO Auto-generated method stub
+		return rentDao.getBikeInfo(uid);
+	}
+
+	@Override
+	public int updateBikeInfo(Bike bike) {
+		// TODO Auto-generated method stub
+		return rentDao.updateBikeInfo(bike);
+	}
+
+	@Override
+	public Rent getRentInfo(int rent_uid, int bike_uid, int ticket_detail_uid) {
+		// TODO Auto-generated method stub
+		return rentDao.getRentInfo(rent_uid, bike_uid, ticket_detail_uid);
 	}
 }

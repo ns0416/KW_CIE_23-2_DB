@@ -1,18 +1,25 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
+import com.bikeseoul.bikeseoul_kw.container.Bike;
+import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Overdue;
 import com.bikeseoul.bikeseoul_kw.container.Pair;
 import com.bikeseoul.bikeseoul_kw.container.Rent;
+import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
 import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
+import com.bikeseoul.bikeseoul_kw.manager.PaymentLogManager;
 import com.bikeseoul.bikeseoul_kw.manager.RentManager;
+import com.bikeseoul.bikeseoul_kw.manager.TicketManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -29,6 +37,12 @@ public class RentController {
 
     @Autowired
     private AccountManager am;
+    
+    @Autowired
+    private PaymentLogManager paymentLogManager;
+    
+    @Autowired
+    private TicketManager ticketManager;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -76,7 +90,7 @@ public class RentController {
                 item.addProperty("last_position_lat", rent.getLast_position_lat());
                 item.addProperty("last_position_lon", rent.getLast_position_lon());
                 item.addProperty("distance", rent.getDistance());
-                item.addProperty("updated_date", rent.getUpdated_date().format(dtf_kor));
+                item.addProperty("updated_date", rent.getCreated_date().format(dtf_kor));
                 ja.add(item);
             }
             jo.addProperty("result", "success");
@@ -114,6 +128,76 @@ public class RentController {
         
         jo.addProperty("result", "success");
         jo.addProperty("amount", amount);
+        return jo.toString();
+    }
+    
+    @PostMapping("/rest/service/paymentOverdue")
+    public String paymentOverdue(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+    	JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        User user = (User)hs.getAttribute("member");
+        List<Pair<Rent, List<Overdue>>> data = (List<Pair<Rent, List<Overdue>>>)hs.getAttribute("overdue");
+        Integer payment_method = (Integer)body.get("payment_method"); 
+        CommonEnum res = paymentLogManager.paymentOverdue(user, data, payment_method);
+        if(res == CommonEnum.SUCCESS)
+        	jo.addProperty("result", "success");
+        else
+        	jo.addProperty("result", "failed");
+    	return jo.toString();
+    }
+    
+    @PostMapping("/rest/service/rentBike")
+    public String rentBike(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+    	JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        User user = (User)hs.getAttribute("member");
+        String qr = (String)body.get("qr");
+        Integer bike_id = 0; // TODO : bike_id from QR
+        Ticket_detail td = ticketManager.getActivationTicket(user.getUid());
+        Bike bike = rentManager.getBikeInfo(bike_id);
+        if(td == null) {
+        	jo.addProperty("result", "failed");
+        	jo.addProperty("msg", "no_activated_ticket");
+        	return jo.toString();
+        }
+        Rent rent = new Rent(user.getUid(), bike.getBike_id(), td.getUid(), bike.getStation_uid());
+        CommonEnum res = rentManager.rentBike(rent);
+        if(res == CommonEnum.SUCCESS)
+        	jo.addProperty("result", "success");
+        else
+        	jo.addProperty("result", "failed");
+        return jo.toString();
+    }
+    @PostMapping("/rest/admin/returnBike")
+    public String returnBike(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+    	JsonObject jo = new JsonObject();
+        Integer bike_id = (Integer)body.get("bike_id");
+        Integer station_id = (Integer)body.get("station_id");
+        Rent rent = rentManager.getRentInfo(0, bike_id, 0);
+        CommonEnum res = rentManager.returnBike(rent, station_id);
+        if(res == CommonEnum.SUCCESS)
+        	jo.addProperty("result", "success");
+        else
+        	jo.addProperty("result", "failed");
+        return jo.toString();
+    }
+    
+    @PostMapping("/rest/service/reportCurrentPosition")
+    public String reportCurrentPosition(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+    	JsonObject jo = new JsonObject();
+    	HttpSession hs = request.getSession();
+    	User user = (User)hs.getAttribute("member");
+    	double lat = (double)body.get("lat");
+    	double lon = (double)body.get("lon");
+    	Ticket_detail td = ticketManager.getActivationTicket(user.getUid());
+        Rent rent = rentManager.getRentInfo(0, 0, td.getUid());
+        double dist = rent.getDistance()+rentManager.getDistance_arc(rent.getLast_position_lat(), rent.getLast_position_lon(), lat, lon);
+        Rent new_rent = new Rent(rent.getUid(), lat, lon, dist);
+        CommonEnum res = rentManager.updateRent(new_rent);
+        if(res == CommonEnum.SUCCESS)
+        	jo.addProperty("result", "success");
+        else
+        	jo.addProperty("result", "failed");
         return jo.toString();
     }
 }

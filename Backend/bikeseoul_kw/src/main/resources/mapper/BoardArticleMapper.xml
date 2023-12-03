@@ -90,8 +90,33 @@
     	FROM
     		board
     	WHERE
-    		board_name = #{board_name}
+    		<if test="uid > 0">
+    			uid = #{uid}
+    		</if>
+    		<if test="uid == 0">
+    			board_name = #{board_name}
+    		</if>
     </select>
+    <insert id="writeBreakdown" parameterType="com.bikeseoul.bikeseoul_kw.container.Breakdown">
+		<![CDATA[
+			INSERT INTO breakdown
+				(
+					member_uid,
+					bike_uid,
+					break_type,
+					content
+				) VALUES (
+					#{member_uid},
+					#{bike_uid},
+					#{break_type},
+					#{content}
+				)
+		
+		]]>
+		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+			SELECT LAST_INSERT_ID() AS uid
+		</selectKey>
+	</insert>
     <insert id="writeArticle" parameterType="com.bikeseoul.bikeseoul_kw.container.BoardArticle">
 		<![CDATA[
 			INSERT INTO board_article
@@ -105,6 +130,28 @@
 					#{user_uid},
 					#{title},
 					#{content}
+				)
+		
+		]]>
+		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+			SELECT LAST_INSERT_ID() AS uid
+		</selectKey>
+	</insert>
+	 <insert id="writeNeglect" parameterType="com.bikeseoul.bikeseoul_kw.container.Neglect">
+		<![CDATA[
+			INSERT INTO neglect
+				(
+					article_uid,
+					bike_uid,
+					lat,
+					lon,
+					detail_address
+				) VALUES (
+					#{article_uid},
+					#{bike_uid},
+					#{lat},
+					#{lon},
+					#{detail_address}
 				)
 		
 		]]>
@@ -165,12 +212,59 @@
 				uid = #{uid}
 		]]>
 	</delete>
+	<delete id="deleteArticle" parameterType="Integer" >
+		<![CDATA[
+			DELETE FROM
+				board_article
+			WHERE
+				uid = #{uid} AND
+				member_uid = #{member_uid}
+		]]>
+	</delete>
+	<delete id="deleteBreakdown" parameterType="Integer" >
+		<![CDATA[
+			DELETE FROM
+				breakdown
+			WHERE
+				uid = #{uid}
+		]]>
+	</delete>
+	<delete id="deleteNeglect" parameterType="Integer" >
+		<![CDATA[
+			DELETE FROM
+				neglect
+			WHERE
+				uid = #{uid}
+		]]>
+	</delete>
+	<update id="updateBreakdown" parameterType="com.bikeseoul.bikeseoul_kw.container.Breakdown">
+		UPDATE
+			breakdown
+		SET
+			break_type = #{break_type},
+			content = #{content},
+			created_date = NOW()
+		WHERE
+			uid = #{uid} AND
+			member_uid = #{user_uid}
+	</update>
 	<update id="updateArticle" parameterType="com.bikeseoul.bikeseoul_kw.container.BoardArticle">
 		UPDATE
 			board_article
 		SET
 			title = #{title},
 			content = #{content},
+			updated_date = NOW()
+		WHERE
+			uid = #{uid}
+	</update>
+	<update id="updateNeglect" parameterType="com.bikeseoul.bikeseoul_kw.container.Neglect">
+		UPDATE
+			neglect
+		SET
+			lat = #{lat},
+			lon = #{lon},
+			detail_address = #{detail_address},
 			updated_date = NOW()
 		WHERE
 			uid = #{uid}

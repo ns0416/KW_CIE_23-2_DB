@@ -126,6 +126,43 @@ public class StationController {
         }
         return jo.toString();
     }
+    
+    @GetMapping("/rest/getStationListNearby")
+    @ResponseBody
+    public String getStationListNearby(@RequestParam("station_name") String x, String y, String radius) {
+        JsonObject jo = new JsonObject();
+        if(x == null || y == null || radius == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        try {
+        	double x_ = Double.parseDouble(x);
+        	double y_ = Double.parseDouble(y);
+        	double radius_ = Double.parseDouble(radius);
+            List<Station> stationList = stationManager.getStationListNearby(x_, y_, radius_);
+            JsonArray ja = new JsonArray();
+            for (Station station : stationList) {
+                JsonObject item = new JsonObject();
+                item.addProperty("station_id", station.getUid());
+                item.addProperty("station_name", station.getStation_name());
+                item.addProperty("lat", station.getLat());
+                item.addProperty("lon", station.getLon());
+                item.addProperty("size", station.getSize());
+                item.addProperty("is_valid", station.isIs_valid());
+                item.addProperty("station_type", station.getStation_type().toString());
+                item.addProperty("general_cnt", station.getGeneral_cnt());
+                item.addProperty("sprout_cnt", station.getSprout_cnt());
+                ja.add(item);
+            }
+            jo.addProperty("result", "success");
+            jo.add("data", ja);
+        }catch (Exception e) {
+            e.printStackTrace();
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        return jo.toString();
+    }
 
     @PostMapping("/rest/service/insertFavoriteStation")
     public String insertFavoriteStation(HttpServletRequest request, @RequestParam("station_uid") int station_uid) {

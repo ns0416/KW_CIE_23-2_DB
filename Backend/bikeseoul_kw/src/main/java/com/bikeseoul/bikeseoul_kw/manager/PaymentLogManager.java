@@ -2,14 +2,18 @@ package com.bikeseoul.bikeseoul_kw.manager;
 
 import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Gift;
+import com.bikeseoul.bikeseoul_kw.container.Overdue;
+import com.bikeseoul.bikeseoul_kw.container.Pair;
 import com.bikeseoul.bikeseoul_kw.container.PaymentLog;
 import com.bikeseoul.bikeseoul_kw.container.PaymentMethod;
+import com.bikeseoul.bikeseoul_kw.container.Rent;
 import com.bikeseoul.bikeseoul_kw.container.Ticket;
 import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
 import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.container.payment_status;
 import com.bikeseoul.bikeseoul_kw.service.GiftService;
 import com.bikeseoul.bikeseoul_kw.service.PaymentLogService;
+import com.bikeseoul.bikeseoul_kw.service.RentService;
 import com.bikeseoul.bikeseoul_kw.service.TicketService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +36,13 @@ public class PaymentLogManager {
     
     @Autowired
     private AccountManager am;
+    
+    @Autowired
+    private TicketManager ticketManager;
+    
+    @Autowired
+    private RentService rentService;
+    
     
     public List<PaymentLog> getPaymentLogList(int user_uid) {
         return paymentLogService.getPaymentLogList(user_uid);
@@ -77,5 +88,25 @@ public class PaymentLogManager {
 	public List<PaymentMethod> getPaymentMethod() {
 		// TODO Auto-generated method stub
 		return paymentLogService.getPaymentMethodList();
+	}
+	@Transactional
+	public CommonEnum paymentOverdue(User user, List<Pair<Rent, List<Overdue>>> data, Integer payment_method) {
+		// TODO Auto-generated method stub
+		try {
+			for(Pair<Rent, List<Overdue>> item : data) {
+				Pair<Ticket, Ticket_detail> ticket = ticketManager.getTicketDetailInfo(item.getFirst().getTicket_detail_uid());
+				CommonEnum res = payment(user, ticket.getFirst().getUid(), payment_method, null);
+				if(res != CommonEnum.SUCCESS)
+					throw new Exception();
+				Overdue update = new Overdue(0, 1);
+				CommonEnum overdue_res = rentService.updateOverdue(update) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+				if(overdue_res == CommonEnum.SUCCESS) {
+					return overdue_res;
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return CommonEnum.FAILED;
 	}
 }

@@ -61,6 +61,30 @@
         GROUP BY
             s.uid
     </select>
+    
+    <select id="getStationListNearby" resultType="com.bikeseoul.bikeseoul_kw.container.Station">
+    <![CDATA[
+        SELECT
+            uid, station_name, lat, lon, size, is_valid, station_type, COUNT(case when b.bike_type='general' then 1 end) AS general_cnt, COUNT(case when b.bike_type='sprout' then 1 end) AS sprout_cnt
+        FROM
+            station AS s
+        JOIN
+            bike AS b
+        ON
+            b.station_uid = s.uid
+        WHERE
+            s.station_type='lent'
+        AND
+            b.status_ = 'ready'
+        AND
+            s.lat > #{y1} AND
+            s.lat < #{y2} AND
+            s.lon > #{x1} AND
+            s.lon < #{x2} 
+        GROUP BY
+            s.uid
+            ]]>
+    </select>
 
     <insert id="insertFavoriteStation" parameterType="com.bikeseoul.bikeseoul_kw.container.Station">
         INSERT INTO

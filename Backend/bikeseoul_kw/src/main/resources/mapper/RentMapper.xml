@@ -16,6 +16,34 @@
             </if>
         </trim>
     </select>
+    <select id="getRentInfo" resultType="com.bikeseoul.bikeseoul_kw.container.Rent">
+        SELECT
+            uid,
+            member_uid,
+            bike_uid,
+            ticket_detail_uid,
+            start_date,
+            return_date,
+            rent_station,
+            return_station,
+            last_position_lat,
+            last_position_lon,
+            distance,
+            updated_date
+        FROM
+            rent
+        <trim prefix="WHERE" suffixOverrides="AND|OR">
+           	<if test="rent_uid > 0">
+        		uid = #{rent_uid} AND
+            </if>
+            <if test="bike_uid > 0">
+        		bike_uid = #{bike_uid} AND
+            </if>
+            <if test="ticket_detail_uid > 0">
+        		ticket_detail_uid = #{ticket_detail_uid}
+            </if>
+        </trim>
+    </select>
     <select id="getOverdueList" resultType="HashMap">
         SELECT
 			od.uid AS overdue_uid,
@@ -43,5 +71,92 @@
         ORDER BY
         	r.uid ASC
     </select>
+    <select id="getBikeInfo" resultType="com.bikeseoul.bikeseoul_kw.container.Bike">
+        SELECT
+			bike_id,
+			bike_type,
+			station_uid,
+			status_,
+			inspection_date,
+			release_date,
+			update_date
+        FROM
+            bike
+        WHERE
+        	bike_id = #{uid}
+    </select>
+    <update id="updateBikeInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Bike">
+		UPDATE
+			rent
+			<trim prefix="SET" suffixOverrides=",">
+				<if test="bike_type != null">
+					bike_type = #{bike_type},
+				</if>
+				<if test="station_uid > 0">
+					station_uid = #{station_uid},
+				</if>
+				<if test="status_ != null">
+					status_ = #{status_},
+				</if>
+				<if test="inspection_date != null">
+					inspection_date = #{inspection_date},
+				</if>
+				<if test="release_date != null">
+					release_date = #{release_date},
+				</if>
+				update_date = NOW()
+			</trim>	
+		WHERE
+			bike_id = #{bike_id}
+	</update>
+    <insert id="insertRentInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Rent">
+		<![CDATA[
+			INSERT INTO rent
+				(
+					bike_uid,
+					ticket_detail_uid,
+					rent_station
+				) VALUES (
+					#{bike_uid},
+					#{ticket_detail_uid},
+					#{rent_station}
+				)
+		
+		]]>
+	
+	</insert>
+    <update id="updateOverdue" parameterType="com.bikeseoul.bikeseoul_kw.container.Overdue">
+		UPDATE
+			overdue
+			<trim prefix="SET" suffixOverrides=",">
+				<if test="overdue_amount > 0">
+					overdue_amount = #{overdue_amount},
+				</if>
+				<if test="payment_finished lt 2">
+					payment_finished = #{payment_finished},
+				</if>
+				update_date = NOW()
+			</trim>	
+		WHERE
+			uid = #{uid}
+	</update>
+	<update id="updateRent" parameterType="com.bikeseoul.bikeseoul_kw.container.Rent">
+		UPDATE
+			rent
+			<trim prefix="SET" suffixOverrides=",">
+				<if test="return_station > 0">
+					return_date = NOW(),
+					return_station = #{return_station},
+				</if>
+				<if test="last_position_lat > 0 and last_position_lon > 0 and distance > 0">
+					last_position_lat = #{last_position_lat},
+					last_position_lon = #{last_position_lon},
+					distance = #{distance},
+				</if>
+				update_date = NOW()
+			</trim>	
+		WHERE
+			uid = #{uid}
+	</update>
 </mapper>
 
