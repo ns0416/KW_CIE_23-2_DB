@@ -34,16 +34,18 @@ public class StationController {
         }
         try {
             Station station = stationManager.getStationInfo(station_id);
+            JsonObject item = new JsonObject();
+            item.addProperty("station_id", station.getUid());
+            item.addProperty("station_name", station.getStation_name());
+            item.addProperty("lat", station.getLat());
+            item.addProperty("lon", station.getLon());
+            item.addProperty("size", station.getSize());
+            item.addProperty("is_valid", station.isIs_valid());
+            item.addProperty("station_type", station.getStation_type().toString());
+            item.addProperty("general_cnt", station.getGeneral_cnt());
+            item.addProperty("sprout_cnt", station.getSprout_cnt());
             jo.addProperty("result", "success");
-            jo.addProperty("station_id", station.getUid());
-            jo.addProperty("station_name", station.getStation_name());
-            jo.addProperty("lat", station.getLat());
-            jo.addProperty("lon", station.getLon());
-            jo.addProperty("size", station.getSize());
-            jo.addProperty("is_valid", station.isIs_valid());
-            jo.addProperty("station_type", station.getStation_type().toString());
-            jo.addProperty("general_cnt", station.getGeneral_cnt());
-            jo.addProperty("sprout_cnt", station.getSprout_cnt());
+            jo.add("data", item);
         }catch (Exception e) {
             e.printStackTrace();
             jo.addProperty("result", "failed");
@@ -91,16 +93,16 @@ public class StationController {
         return jo.toString();
     }
 
-    @GetMapping("/rest/getStationListByStationName")
+    @GetMapping("/rest/getStationList")
     @ResponseBody
-    public String getStationListByStationName(@RequestParam("station_name") String station_name) {
+    public String getStationList(@RequestParam("station_name") String station_name) {
         JsonObject jo = new JsonObject();
         if(station_name == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
         try {
-            List<Station> stationList = stationManager.getStationListByStationName(station_name);
+            List<Station> stationList = stationManager.getStationList(station_name);
             JsonArray ja = new JsonArray();
             for (Station station : stationList) {
                 JsonObject item = new JsonObject();

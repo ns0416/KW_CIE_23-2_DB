@@ -21,8 +21,8 @@ public class StationManager {
         return stationService.getFavoriteStationList(member_uid);
     }
 
-    public List<Station> getStationListByStationName(String station_name) {
-        return stationService.getStationListByStationName(station_name);
+    public List<Station> getStationList(String station_name) {
+        return stationService.getStationList(station_name);
     }
 
     public int insertFavoriteStation(int station_uid, int user_uid) {
