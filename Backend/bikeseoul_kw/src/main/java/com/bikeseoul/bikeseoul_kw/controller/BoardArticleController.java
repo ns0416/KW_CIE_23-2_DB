@@ -10,7 +10,6 @@ import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.PaymentLog;
 import com.bikeseoul.bikeseoul_kw.manager.BoardManager;
 import com.bikeseoul.bikeseoul_kw.manager.ConfigManager;
-import com.bikeseoul.bikeseoul_kw.service.BoardArticleService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -43,9 +42,6 @@ import java.util.Random;
 @RestController
 public class BoardArticleController {
     @Autowired
-    private BoardArticleService boardArticleService;
-
-    @Autowired
     private BoardManager boardManager;
     
     @Autowired
@@ -68,7 +64,7 @@ public class BoardArticleController {
         JsonArray ja = new JsonArray();
 
         try {
-            List<BoardArticle> boardArticleList = boardArticleService.getBoardArticleList(board_uid);
+            List<BoardArticle> boardArticleList = boardManager.getBoardArticleList(board_uid);
             for (BoardArticle boardArticle : boardArticleList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", boardArticle.getUid());
@@ -99,7 +95,9 @@ public class BoardArticleController {
         }
 
         try {
-            BoardArticle boardArticle = boardArticleService.getBoardArticle(uid);
+            BoardArticle boardArticle = boardManager.getBoardArticle(uid);
+			List<Attachment> atts = boardManager.getAttachments(uid);
+			List<Comment> cmts = boardManager.getComments(uid);
             JsonObject item = new JsonObject();
             item.addProperty("uid", boardArticle.getUid());
             item.addProperty("board_uid", boardArticle.getBoard_uid());
@@ -108,16 +106,29 @@ public class BoardArticleController {
             item.addProperty("content", boardArticle.getContent());
             item.addProperty("created_date", boardArticle.getCreated_date().format(dtf_kor));
             item.addProperty("updated_date", boardArticle.getUpdated_date().format(dtf_kor));
-            item.addProperty("attachment_uid", boardArticle.getAttachment_uid());
-            item.addProperty("file_name", boardArticle.getFile_name());
-            item.addProperty("loc", boardArticle.getLoc());
-            item.addProperty("attachment_created_date", boardArticle.getAttachment_created_date().format(dtf_kor));
-            item.addProperty("comment_uid", boardArticle.getComment_uid());
-            item.addProperty("comment_content", boardArticle.getComment_content());
-            item.addProperty("comment_created_date", boardArticle.getComment_created_date().format(dtf_kor));
-            item.addProperty("comment_updated_date", boardArticle.getComment_updated_date().format(dtf_kor));
+			JsonArray att_ja = new JsonArray();
+			for(Attachment att : atts) {
+				JsonObject att_item = new JsonObject();
+				att_item.addProperty("uid", att.getUid());
+				att_item.addProperty("file_name", att.getFilename());
+				att_item.addProperty("loc", att.getLoc());
+				att_item.addProperty("created_date", att.getCreated_date().format(dtf_kor));
+				att_ja.add(att_item);
+			}
+			JsonArray cmt_ja = new JsonArray();
+			for(Comment cmt : cmts) {
+				JsonObject cmt_item = new JsonObject();
+				cmt_item.addProperty("uid", cmt.getUid());
+				cmt_item.addProperty("user_uid", cmt.getUser_uid());
+				cmt_item.addProperty("content", cmt.getContent());
+				cmt_item.addProperty("created_date", cmt.getCreated_date().format(dtf_kor));
+				cmt_item.addProperty("updated_date", cmt.getUpdated_date().format(dtf_kor));
+				cmt_ja.add(cmt_item);
+			}
             jo.addProperty("result", "success");
             jo.add("boardArticle", item);
+			jo.add("attachments", att_ja);
+			jo.add("comments", cmt_ja);
             return jo.toString();
         } catch (Exception e) {
             jo.addProperty("result", "failed");
@@ -249,6 +260,10 @@ public class BoardArticleController {
     	JsonObject jo = new JsonObject();
     	HttpSession hs = request.getSession();
     	Member mem = (Member)hs.getAttribute("member");
+		if(mem == null) {
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
     	Comment cmt = boardManager.getComment(Integer.parseInt(cmt_uid));
     	if(cmt == null || cmt.getUser_uid() != mem.getUid()) {
     		jo.addProperty("result", "failed");

@@ -1,9 +1,12 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.Gift;
-import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
+import com.bikeseoul.bikeseoul_kw.container.Member;
+import com.bikeseoul.bikeseoul_kw.manager.GiftManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +20,7 @@ import java.util.List;
 public class GiftController {
 
     @Autowired
-    private ServiceManager serviceManager;
+    private GiftManager giftManager;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -25,12 +28,19 @@ public class GiftController {
 
     @GetMapping("/rest/service/getReceivedGiftList")
     @ResponseBody
-    public String getReceivedGiftList(@RequestParam("receiver_uid") int receiver_uid) {
+    public String getReceivedGiftList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        int receiver_uid = mem.getUid();
         JsonArray ja = new JsonArray();
 
         try{
-            List<Gift> receivedGiftList = serviceManager.getReceivedGiftList(receiver_uid);
+            List<Gift> receivedGiftList = giftManager.getReceivedGiftList(receiver_uid);
             for(Gift gift:receivedGiftList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("gift_id", gift.getGift_id());
@@ -55,12 +65,19 @@ public class GiftController {
 
     @GetMapping("/rest/service/getSentGiftList")
     @ResponseBody
-    public String getSentGiftList(@RequestParam("giver_uid") int giver_uid) {
+    public String getSentGiftList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        int giver_uid = mem.getUid();
         JsonArray ja = new JsonArray();
 
         try{
-            List<Gift> sentGiftList = serviceManager.getSentGiftList(giver_uid);
+            List<Gift> sentGiftList = giftManager.getSentGiftList(giver_uid);
             for(Gift gift:sentGiftList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("gift_id", gift.getGift_id());

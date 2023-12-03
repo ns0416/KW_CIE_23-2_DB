@@ -5,8 +5,12 @@ import com.bikeseoul.bikeseoul_kw.container.PaymentMethod;
 import com.bikeseoul.bikeseoul_kw.container.Ticket;
 import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
 import com.bikeseoul.bikeseoul_kw.container.User;
+<<<<<<< HEAD
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
 import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
+=======
+import com.bikeseoul.bikeseoul_kw.manager.TicketManager;
+>>>>>>> e336eec676ead6077a92a3768c39471b1737af78
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -30,10 +34,14 @@ import java.util.List;
 public class TicketController {
 	
 	@Autowired
+<<<<<<< HEAD
 	private ServiceManager serviceManager;
 	
 	@Autowired
 	private AccountManager am;
+=======
+	private TicketManager ticketManager;
+>>>>>>> e336eec676ead6077a92a3768c39471b1737af78
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -44,12 +52,16 @@ public class TicketController {
     public String getExpiredTicketList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
-        User user = (User)hs.getAttribute("member");
-        int member_uid = user.getUid();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        int member_uid = mem.getUid();
         JsonArray ja = new JsonArray();
 
         try {
-            List<Ticket_detail> ticket_details = serviceManager.getExpiredTicketList(member_uid);
+            List<Ticket_detail> ticket_details = ticketManager.getExpiredTicketList(member_uid);
             for(Ticket_detail ticket_detail:ticket_details) {
                 JsonObject item = new JsonObject();
                 item.addProperty("member_uid", ticket_detail.getMember_uid());
@@ -80,12 +92,16 @@ public class TicketController {
     public String getActivationTicket(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
-        User user = (User)hs.getAttribute("member");
-        int member_uid = user.getUid();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        int member_uid = mem.getUid();
         JsonArray ja = new JsonArray();
 
         try {
-            Ticket_detail ticket_detail = serviceManager.getActivationTicket(member_uid);
+            Ticket_detail ticket_detail = ticketManager.getActivationTicket(member_uid);
             if(ticket_detail != null) {
                 JsonObject item = new JsonObject();
                 item.addProperty("member_uid", ticket_detail.getMember_uid());
@@ -116,7 +132,7 @@ public class TicketController {
     		jo.addProperty("result", "failed");
     		return jo.toString();
     	}
-    	List<Ticket> tickets = serviceManager.getTicketList(false, false, type);
+    	List<Ticket> tickets = ticketManager.getTicketList(false, false, type);
     	JsonArray ja = new JsonArray();
     	for(Ticket tk : tickets) {
     		JsonObject jo_item = new JsonObject();

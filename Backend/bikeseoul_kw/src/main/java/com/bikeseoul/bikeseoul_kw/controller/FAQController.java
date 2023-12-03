@@ -2,7 +2,7 @@ package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.Coupon;
 import com.bikeseoul.bikeseoul_kw.container.FAQ;
-import com.bikeseoul.bikeseoul_kw.service.FAQService;
+import com.bikeseoul.bikeseoul_kw.manager.FAQManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 public class FAQController {
     @Autowired
-    private FAQService faqService;
+    private FAQManager faqManager;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -31,7 +31,7 @@ public class FAQController {
         JsonArray ja = new JsonArray();
 
         try{
-            List<FAQ> faqList = faqService.getFAQList();
+            List<FAQ> faqList = faqManager.getFAQList();
             for(FAQ faq:faqList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", faq.getUid());
@@ -56,7 +56,7 @@ public class FAQController {
         JsonArray ja = new JsonArray();
 
         try{
-            List<FAQ> faqList = faqService.getFAQListByName(faq_name);
+            List<FAQ> faqList = faqManager.getFAQListByName(faq_name);
             for(FAQ faq:faqList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", faq.getUid());
@@ -80,7 +80,7 @@ public class FAQController {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
         try{
-            List<FAQ> faqList = faqService.getFAQArticleList(faq_uid);
+            List<FAQ> faqList = faqManager.getFAQArticleList(faq_uid);
             for(FAQ faq:faqList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", faq.getUid());
@@ -108,7 +108,7 @@ public class FAQController {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
         try{
-            List<FAQ> faqList = faqService.getFAQArticleListByTitle(title);
+            List<FAQ> faqList = faqManager.getFAQArticleListByTitle(title);
             for(FAQ faq:faqList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", faq.getUid());
@@ -135,7 +135,7 @@ public class FAQController {
     public String getFAQArticle(@RequestParam("uid") int uid) {
         JsonObject jo = new JsonObject();
         try{
-            FAQ faq = faqService.getFAQArticle(uid);
+            FAQ faq = faqManager.getFAQArticle(uid);
             JsonObject item = new JsonObject();
             item.addProperty("uid", faq.getUid());
             item.addProperty("article_uid", faq.getArticle_uid());

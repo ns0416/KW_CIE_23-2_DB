@@ -5,16 +5,16 @@
 <mapper namespace="com.bikeseoul.bikeseoul_kw.dao.RentDao">
     <select id="getRentList" resultType="com.bikeseoul.bikeseoul_kw.container.Rent">
         SELECT
-            *
+            uid, member_uid, bike_uid, ticket_detail_uid, start_date, return_date, rent_station, return_station, last_position_lat, last_position_lon, distance, updated_date
         FROM
             rent
         WHERE
             member_uid = #{member_uid}
     </select>
 
-    <select id="getRentListByDate" resultType="com.bikeseoul.bikeseoul_kw.container.Rent">
+    <select id="getRentList" resultType="com.bikeseoul.bikeseoul_kw.container.Rent">
         SELECT
-            *
+            uid, member_uid, bike_uid, ticket_detail_uid, start_date, return_date, rent_station, return_station, last_position_lat, last_position_lon, distance, updated_date
         FROM
             rent
         WHERE

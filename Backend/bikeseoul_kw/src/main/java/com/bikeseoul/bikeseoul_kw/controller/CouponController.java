@@ -5,7 +5,6 @@ import com.bikeseoul.bikeseoul_kw.container.Coupon;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.CouponManager;
-import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -28,9 +27,6 @@ import java.util.List;
 public class CouponController {
 
     @Autowired
-    private ServiceManager serviceManager;
-
-    @Autowired
     private CouponManager couponManager;
     
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
@@ -42,12 +38,16 @@ public class CouponController {
     public String getUserCouponList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
-        User user = (User)hs.getAttribute("member");
-        int owner_id = user.getUid();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        int owner_id = mem.getUid();
         JsonArray ja = new JsonArray();
 
         try{
-            List<Coupon> userCouponList = serviceManager.getUserCouponList(owner_id);
+            List<Coupon> userCouponList = couponManager.getUserCouponList(owner_id);
             for(Coupon coupon:userCouponList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("coupon_id", coupon.getCoupon_id());
@@ -79,7 +79,7 @@ public class CouponController {
             return jo.toString();
         }
         try{
-            Coupon coupon = serviceManager.getCoupon(coupon_id);
+            Coupon coupon = couponManager.getCoupon(coupon_id);
             JsonObject item = new JsonObject();
             item.addProperty("coupon_id", coupon.getCoupon_id());
             item.addProperty("owner_id", coupon.getOwner_uid());
@@ -106,7 +106,7 @@ public class CouponController {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
         try{
-            List<Coupon> couponList = serviceManager.getCouponList();
+            List<Coupon> couponList = couponManager.getCouponList();
             for(Coupon coupon:couponList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("coupon_id", coupon.getCoupon_id());

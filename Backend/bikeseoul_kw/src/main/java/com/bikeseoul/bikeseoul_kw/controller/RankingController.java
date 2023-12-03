@@ -1,7 +1,7 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.Ranking;
-import com.bikeseoul.bikeseoul_kw.service.RankingService;
+import com.bikeseoul.bikeseoul_kw.manager.RankingManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 public class RankingController {
     @Autowired
-    private RankingService rankingService;
+    private RankingManager rankingManager;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -28,7 +28,7 @@ public class RankingController {
         JsonArray ja = new JsonArray();
 
         try{
-            List<Ranking> rankingList = rankingService.getWeeklyRankingList();
+            List<Ranking> rankingList = rankingManager.getWeeklyRankingList();
             for(Ranking ranking:rankingList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("member_uid", ranking.getUid());
@@ -54,7 +54,7 @@ public class RankingController {
         JsonArray ja = new JsonArray();
 
         try{
-            List<Ranking> rankingList = rankingService.getMonthlyRankingList();
+            List<Ranking> rankingList = rankingManager.getMonthlyRankingList();
             for(Ranking ranking:rankingList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("member_uid", ranking.getUid());
@@ -82,7 +82,7 @@ public class RankingController {
             return jo.toString();
         }
         try {
-            List<Ranking> rankingList = rankingService.getWeeklyRankingList();
+            List<Ranking> rankingList = rankingManager.getWeeklyRankingList();
             for (Ranking ranking : rankingList) {
                 if (ranking.getUid() == member_uid) {
                     JsonObject item = new JsonObject();
@@ -113,7 +113,7 @@ public class RankingController {
             return jo.toString();
         }
         try {
-            List<Ranking> rankingList = rankingService.getMonthlyRankingList();
+            List<Ranking> rankingList = rankingManager.getMonthlyRankingList();
             for (Ranking ranking : rankingList) {
                 if (ranking.getUid() == member_uid) {
                     JsonObject item = new JsonObject();

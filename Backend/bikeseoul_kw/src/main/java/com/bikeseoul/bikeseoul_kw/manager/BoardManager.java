@@ -105,6 +105,9 @@ public class BoardManager {
 	public BoardArticle getBoardArticle(int uid) {
 		return boardArticleService.getBoardArticle(uid);
 	}
+	public List<BoardArticle> getBoardArticleList(int board_uid) {
+		return boardArticleService.getBoardArticleList(board_uid);
+	}
 	public CommonEnum deleteAttachment(Attachment att) {
 		// TODO Auto-generated method stub
 		if(att == null)
@@ -197,6 +200,10 @@ public class BoardManager {
 	public CommonEnum deleteComment(int cmt_uid) {
 		// TODO Auto-generated method stub
 		return boardArticleService.deleteComment(cmt_uid) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
+	public List<Comment> getComments(int article_uid) {
+		// TODO Auto-generated method stub
+		return boardArticleService.getComments(article_uid);
 	}
 	public Comment getComment(int cmt_uid) {
 		// TODO Auto-generated method stub

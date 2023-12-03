@@ -1,7 +1,7 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.Transfercard;
-import com.bikeseoul.bikeseoul_kw.service.TransfercardService;
+import com.bikeseoul.bikeseoul_kw.manager.TransfercardManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 public class TransfercardController {
     @Autowired
-    private TransfercardService transfercardService;
+    private TransfercardManager transfercardManager;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -29,7 +29,7 @@ public class TransfercardController {
         JsonArray ja = new JsonArray();
 
         try{
-            List<Transfercard> transfercardList = transfercardService.getTransfercardList();
+            List<Transfercard> transfercardList = transfercardManager.getTransfercardList();
             for(Transfercard transfercard:transfercardList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", transfercard.getUid());
@@ -59,7 +59,7 @@ public class TransfercardController {
             return jo.toString();
         }
         try{
-            Transfercard transfercard = transfercardService.getTransfercard(uid);
+            Transfercard transfercard = transfercardManager.getTransfercard(uid);
             JsonObject item = new JsonObject();
             item.addProperty("uid", transfercard.getUid());
             item.addProperty("member_uid", transfercard.getMember_uid());

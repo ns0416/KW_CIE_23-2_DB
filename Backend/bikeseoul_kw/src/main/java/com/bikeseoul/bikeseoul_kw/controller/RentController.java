@@ -3,8 +3,7 @@ package com.bikeseoul.bikeseoul_kw.controller;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Rent;
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
-import com.bikeseoul.bikeseoul_kw.service.MemberService;
-import com.bikeseoul.bikeseoul_kw.service.RentService;
+import com.bikeseoul.bikeseoul_kw.manager.RentManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +22,7 @@ import java.util.List;
 @RestController
 public class RentController {
     @Autowired
-    private RentService rentService;
+    private RentManager rentManager;
 
     @Autowired
     private AccountManager am;
@@ -34,18 +33,19 @@ public class RentController {
 
     @GetMapping("/rest/service/getRentList")
     @ResponseBody
-    public String getRentList(@RequestParam("member_uid") int member_uid) {
+    public String getRentList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
-        if(member_uid == 0) {
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
-
+        int member_uid = mem.getUid();
         JsonArray ja = new JsonArray();
 
         try {
-            RentService rentService = new RentService();
-            List<Rent> rentList = rentService.getRentList(member_uid);
+            List<Rent> rentList = rentManager.getRentList(member_uid);
             for(Rent rent:rentList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", rent.getUid());
@@ -72,27 +72,23 @@ public class RentController {
         return jo.toString();
     }
 
-    @GetMapping("/rest/service/getRentListByDate")
+    @GetMapping("/rest/service/getRentList")
     @ResponseBody
-    public String getRentListByDate(HttpServletRequest request, @RequestParam("member_uid") int member_uid, @RequestParam("start_date") LocalDateTime start_date, @RequestParam("end_date") LocalDateTime end_date) {
+    public String getRentListByDate(HttpServletRequest request, @RequestParam("start_date") LocalDateTime start_date, @RequestParam("end_date") LocalDateTime end_date) {
         Member mem = (Member)am.checkLogged(request, false);
         JsonObject jo = new JsonObject();
         if(mem == null) {
-            jo.addProperty("logged", false);
-            return jo.toString();
-        }
-
-        if(member_uid == 0) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
 
+        int member_uid = mem.getUid();
+        int weight = mem.getWeight();
+
         JsonArray ja = new JsonArray();
 
         try {
-            RentService rentService = new RentService();
-            List<Rent> rentList = rentService.getRentListByDate(member_uid, start_date, end_date);
-            int weight = mem.getWeight();
+            List<Rent> rentList = rentManager.getRentList(member_uid, start_date, end_date);
             int total_distance = 0;
             int total_rent_minutes = 0;
             int calory = 0;

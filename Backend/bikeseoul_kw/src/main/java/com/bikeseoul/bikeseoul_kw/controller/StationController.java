@@ -1,10 +1,13 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
+import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Station;
 import com.bikeseoul.bikeseoul_kw.container.station_type;
-import com.bikeseoul.bikeseoul_kw.service.StationService;
+import com.bikeseoul.bikeseoul_kw.manager.StationManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +18,7 @@ import java.util.List;
 @RestController
 public class StationController {
     @Autowired
-    private StationService stationService;
+    private StationManager stationManager;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -30,7 +33,7 @@ public class StationController {
             return jo.toString();
         }
         try {
-            Station station = stationService.getStationInfo(station_id);
+            Station station = stationManager.getStationInfo(station_id);
             jo.addProperty("result", "success");
             jo.addProperty("station_id", station.getUid());
             jo.addProperty("station_name", station.getStation_name());
@@ -51,15 +54,17 @@ public class StationController {
 
     @GetMapping("/rest/service/getFavoriteStationList")
     @ResponseBody
-    public String getFavoriteStationList(@RequestParam("member_uid") int member_uid) {
+    public String getFavoriteStationList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
-        if(member_uid == 0) {
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
+        int member_uid = mem.getUid();
         try {
-            StationService stationService = new StationService();
-            List<Station> stationList = stationService.getFavoriteStationList(member_uid);
+            List<Station> stationList = stationManager.getFavoriteStationList(member_uid);
             JsonArray ja = new JsonArray();
             for (Station station : stationList) {
                 JsonObject item = new JsonObject();
@@ -95,8 +100,7 @@ public class StationController {
             return jo.toString();
         }
         try {
-            StationService stationService = new StationService();
-            List<Station> stationList = stationService.getStationListByStationName(station_name);
+            List<Station> stationList = stationManager.getStationListByStationName(station_name);
             JsonArray ja = new JsonArray();
             for (Station station : stationList) {
                 JsonObject item = new JsonObject();
@@ -120,18 +124,19 @@ public class StationController {
         }
         return jo.toString();
     }
-//    Station insertFavoriteStation(int station_uid, int user_uid);
 
     @PostMapping("/rest/service/insertFavoriteStation")
-    public String insertFavoriteStation(@RequestParam("station_uid") int station_uid, @RequestParam("user_uid") int user_uid) {
+    public String insertFavoriteStation(HttpServletRequest request, @RequestParam("station_uid") int station_uid) {
         JsonObject jo = new JsonObject();
-        if(station_uid == 0 || user_uid == 0) {
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
+        int member_uid = mem.getUid();
         try {
-            StationService stationService = new StationService();
-            int result = stationService.insertFavoriteStation(station_uid, user_uid);
+            int result = stationManager.insertFavoriteStation(station_uid, member_uid);
             if(result == 1) {
                 jo.addProperty("result", "success");
             }else {
