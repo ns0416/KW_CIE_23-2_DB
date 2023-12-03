@@ -7,91 +7,74 @@ import Header from '../../header.js';
 export default function OpinionBoardList() {
     return (
         <>
-
-<div className={style.wrap} id="sub"> 
-    <div className={style.header_wrap}>
-        <div className={style.header}>
-        	<div className={style.top}>
-				<div className={style.m_sub_header_wrap}>
-					<div className={style.m_sub_header}>
-						<button className={style.back}></button>
-						<button className={style.close}></button>
+<div class={style.wrap} id="sub"> 
+    <div class={style.header_wrap}>
+        <div class={style.header}>
+        	<div class={style.top}>
+				<div class={style.m_sub_header_wrap}>
+					<div class={style.m_sub_header}>
+						<button class={style.back}></button>
+						<button class={style.close}></button>
 						<span id="title">문의/FAQ</span>
 					</div>
+					
 				</div>
+				
+				
+				
 			</div>
-			<div className={style.logo}><a href="/main.do"><img src="/images/logo.png" alt="서울자전거 따릉이"/></a></div>
+			<div class={style.logo}><a href="/main.do"><img src="/images/logo.png" alt="서울자전거 따릉이"/></a></div>
+        
         </div>
+
     </div>
-	<div className={style.container}>
-    	<div className={style.content}>
-    		<div className={style.faq}>
-				<div className={style.top}>
+    <div class={style.container}>
+    	<div class={style.content}>
+    		<div class={style.faq}>
+				<div class={style.top}>
 					<h3>문의/FAQ</h3>
 				</div>
 				
-				<div className={style.tabs_wrap}>
-	                <ul className={style.tabs}>
-	                    <li className={`tab-link ${style.current}`} data-tab="tab-1">문의하기<p>궁금한 점이 있으세요? 분야별 담당자들이 도와드리겠습니다.</p></li>
-	                    <li className={"tab-link"} data-tab="tab-2">자주하는 질문<p>자주하는질문을 이용하시면 보다 빠르게 답변을 얻으실 수 있습니다. </p></li>
+				<div class={style.tabs_wrap}>
+	                <ul class={style.tabs}>
+	                    <li class={`tab-link ${style.current}`} data-tab="tab-1">문의하기<p>궁금한 점이 있으세요? 분야별 담당자들이 도와드리겠습니다.</p></li>
+	                    <li class={`tab-link`} data-tab="tab-2">자주하는 질문<p>자주하는질문을 이용하시면 보다 빠르게 답변을 얻으실 수 있습니다. </p></li>
 	                </ul>
 	            </div>
-	            <div id="tab-2" className={"tab-content"}>
-		            <div className={style.board_srch}>
-		            	<div className={style.select}>
-		                <select id="comUpCD" name="comUpCD">
-		                    <option value="">구분선택</option>
-		                    <option value="FAQ_001">이용안내</option>
-							<option value="FAQ_002">대여/반납</option>
-							<option value="FAQ_003">앱/홈페이지</option>
-							<option value="FAQ_004">결제/환불/마일리지</option>
-							<option value="FAQ_005">대여소(개설/폐쇄)</option>
-							<option value="FAQ_006">회원정보,로그인</option>
-							<option value="FAQ_007">자전거/시설 관리</option>
-							<option value="FAQ_008">기타</option>
-							<option value="FAQ_009">운영 및 정책</option>
-							<option value="FAQ_010">자전거 추가배치</option>
-							<option value="FAQ_011">QR 따릉이</option>
-							<option value="FAQ_012">새싹 따릉이</option>
-							</select>
-		                </div>
-	                <form id="form" name="form" accept-charset="utf-8" onsubmit="return false">
-	                <input type="hidden" id="comCD" name="comCD" value=""/>
-					<div className={`${style.input} ${style.w60}`}><input type="text" className={style.w100} id="searchValue" name="" placeholder="제목/내용을 입력해주세요."/></div>
-					<div className={style.btn_search}><a href="#" id="searchButton" name="searchButton">검색</a></div>
-	                </form>
-	                </div>
-	                
-	            
+	        
+				
+			
+			
+            <form id="frm">
+            	<input type="hidden" id="cateCD" name="cateCD" value=""/>
+            </form>
+	            <div id="tab-1" class={`tab-content ${style.current}`} style={{display: "block"}}>
+	            	<div class={style.opinion_btns}>
+	            		<dl>
+	            			<dd class={style.ticket}><a href="javascript:goCateList('FAQ_002');"><label>대여 및 반납</label><span><img src="/images/opi/opi_1.png" alt="대여/반납"/></span><span><b>대여 및 반납</b></span></a></dd>
+	            			<dd class={style.ticket}><a href="javascript:goCateList('FAQ_010');"><label>자전거 추가배치</label><span><img src="/images/opi/opi_2.png" alt="추가배치"/></span><span><b>자전거 추가배치</b></span></a></dd>
+	            			<dd class={style.ticket}><a href="javascript:goCateList('FAQ_005');"><label>대여소(개설 및 폐쇄)</label><span><img src="/images/opi/opi_3.png" alt="대여소"/></span><span><b>대여소(개설/폐쇄)</b></span></a></dd>
+	            			<dd class={style.ticket}><a href="javascript:goCateList('FAQ_004');"><label>결제/환불/마일리지</label><span><img src="/images/opi/opi_4.png" alt="결제"/></span><span><b>결제/환불/마일리지</b></span></a></dd>
+	            			<dd class={style.ticket}><a href="javascript:goCateList('FAQ_009');"><label>운영 및 정책</label><span><img src="/images/opi/opi_5.png" alt="운영정책"/></span><span><b>운영 및 정책</b></span></a></dd>
+	            			
+	            			<dd class={style.ticket}><a href="javascript:goCateList('FAQ_007');"><label>자전거, 시설관리</label><span><img src="/images/opi/opi_6.png" alt="시설관리"/></span><span><b>자전거 및 시설관리</b></span></a></dd>
+	            			<dd class={style.ticket}><a href="javascript:goCateList('FAQ_003');"><label>앱, 홉페이지</label><span><img src="/images/opi/opi_7.png" alt="앱/홈페이지"/></span><span><b>앱 또는 홈페이지 문의</b></span></a></dd>
+	            			<dd class={style.ticket}><a href="/app/err/moveBikeParkingLocation.do"><label>방치자전거</label><span><img src="/images/opi/opi_8.png" alt="방치신고"/></span><span><b>방치 자전거 발견</b></span></a></dd>
+	            			<dd class={style.ticket}><a href="/customer/opinionBoard/opinionBoardEdit.do?cateCD=OPI_012"><label>기타 문의사항</label><span><img src="/images/opi/opi_9.png" alt="글쓰기"/></span><span><b>1:1 문의하기</b></span></a></dd>
+	            			<dd class={style.ticket}><a href="/app/mybike/memberOpinion/memberOpinionList.do"><label>내가 문의한 내역</label><span><img src="/images/opi/opi_10.png" alt="문의내역확인"/></span><span><b>문의내역 확인</b></span></a></dd>
+	            			
+	            		</dl>
+	            	</div>
+	            </div>
 
-				<ul className={style.faq_list}>
-					<li>
-							<dl>
-								<dt><a href="#"><span className={style.cont}>따릉이 시설물 현황을 알고 싶습니다.</span></a></dt>
-								<dd id="102" style={{display: "none"}}><p> 2022년 12월 31일 기준
-							자전거 43,500대/대여소 2,719개소/지역센터 11개소를 운영하고 있습니다.</p>
-							<p>따릉이 단말기 고장 또는 통신상태에 일시 장애가 있는 경우 잠금장치가 해제되지 않을 수 있습니다.<br /></p></dd>
-							</dl>
-						</li>
-					<li>
-							<dl>
-								<dt><a href="#"><span className={style.cont}>자전거 대여는 어떻게 하나요?</span></a></dt>
-								<dd id="92" style={{display: "none"}}><p>
-									<span >따릉이 단말기 고장 또는 통신상태에 일시 장애가 있는 경우 잠금장치가 해제되지 않을 수 있습니다.</span></p></dd>
-							</dl>
-						</li>
-					<li>
-							<dl>
-								<dt><a href="#"><span className={style.cont}>대여를 시도했는데 자전거 잠금장치가 해제되지 않습니다.</span></a></dt>
-								<dd id="93" style={{display: "none"}}><p> 따릉이 단말기 고장 또는 통신상태에 일시 장애가 있는 경우 잠금장치가 해제되지 않을 수 있습니다.</p><p> 전산상으로 대여 완료되었음에도 불구하고 잠금장치가 분리되지 않는 경우는 콜센터 1599-0120로 연락주시면 조치하도록 하겠습니다.<br /></p></dd>
-							</dl>
-						</li>
-					</ul>
+
+			</div>
+
+
 		</div>
-		</div>
-		</div>
-		</div>
+	</div>
 </div>
+
         </>
     );
 }
