@@ -77,7 +77,7 @@ public class BoardArticleController {
                 ja.add(item);
             }
             jo.addProperty("result", "success");
-            jo.add("boardArticleList", ja);
+            jo.add("data", ja);
             return jo.toString();
         } catch (Exception e) {
             jo.addProperty("result", "failed");
@@ -126,7 +126,7 @@ public class BoardArticleController {
 				cmt_ja.add(cmt_item);
 			}
             jo.addProperty("result", "success");
-            jo.add("boardArticle", item);
+            jo.add("article", item);
 			jo.add("attachments", att_ja);
 			jo.add("comments", cmt_ja);
             return jo.toString();
