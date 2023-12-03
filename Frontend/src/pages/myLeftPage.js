@@ -5,7 +5,7 @@ import style from './myLeftPage.module.css';
 import Header from '../header.js';
 
 import { useDispatch } from "react-redux";
-import { loginUser } from "../_actions/userAction";
+import { loginUser,checkLogin } from "../_actions/userAction";
 
 export default function MyLeftPage() {
     const dispatch = useDispatch();
@@ -86,6 +86,24 @@ export default function MyLeftPage() {
     const [user_id, getuser_id] = React.useState('user_id123');
     const [valid_date, getvalid_date] = React.useState('2024-11-13 00:00');
     const [mileage, getmileage] = React.useState('1000');
+
+
+    // 로그인 상태 반영
+    React.useEffect(() =>{
+        dispatch(checkLogin())
+        .then((res) => {
+            console.log(res);
+            if(res.payload.rcvd_data.logged == "true") {
+                setisLoggedIn(true)
+            }
+            else {
+                setisLoggedIn(false)
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    })
 
     return (
         <>

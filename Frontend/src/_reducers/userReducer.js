@@ -1,4 +1,4 @@
-import { REGISTER_USER, LOGIN_USER } from "../_actions/types";
+import { REGISTER_USER, LOGIN_USER,IS_LOGGED } from "../_actions/types";
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -6,6 +6,8 @@ export default function (state = {}, action) {
         return { ...state, Success: action.payload };
     case LOGIN_USER:
         return { ...state, loginSuccess: action.payload };
+    case IS_LOGGED:
+        return { ...state, rcvd_data: action.payload};
     default:
         return state;
   }
