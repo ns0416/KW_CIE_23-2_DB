@@ -1,16 +1,26 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
+import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.PaymentLog;
+import com.bikeseoul.bikeseoul_kw.container.PaymentMethod;
+import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.PaymentLogManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -98,4 +108,45 @@ public class PaymentLogController {
             return jo.toString();
         }
     }
+    
+    @GetMapping("/rest/service/getPaymentMethod")
+    public String getPaymentMethod(HttpServletRequest request) {
+    	JsonObject jo = new JsonObject();
+    	List<PaymentMethod> methods = paymentLogManager.getPaymentMethod();
+    	JsonArray ja = new JsonArray();
+    	for(PaymentMethod pm : methods) {
+    		JsonObject jo_item = new JsonObject();
+    		jo_item.addProperty("uid", pm.getUid());
+    		jo_item.addProperty("method_name", pm.getMethod_name());
+    		ja.add(jo_item);
+    	}
+    	jo.addProperty("result", "success");
+    	jo.add("data", ja);
+    	return jo.toString();
+    }
+    
+    @PostMapping("/rest/service/payment")
+    public String payment(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+    	JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        User user = (User)hs.getAttribute("member");
+        String gift_email = (String)body.get("gift_email");
+        if(gift_email != null) {
+        	String email_session = (String)hs.getAttribute("gift_email");
+        	if(!email_session.equals(gift_email)) {
+        		jo.addProperty("result", "failed");
+        		jo.addProperty("msg", "email_not_match");
+        		return jo.toString();
+        	}
+        }
+        Integer ticket_uid = (Integer)body.get("ticket_uid");
+        Integer payment_method = (Integer)body.get("payment_method"); 
+        CommonEnum res = paymentLogManager.payment(user, ticket_uid, payment_method, gift_email);
+        if(res == CommonEnum.SUCCESS)
+        	jo.addProperty("result", "success");
+        else
+        	jo.addProperty("result", "failed");
+    	return jo.toString();
+    }
+ 
 }

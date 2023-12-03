@@ -28,4 +28,16 @@ public class PaymentLogService implements PaymentLogDao {
 		// TODO Auto-generated method stub
 		return paymentLogDao.getPaymentMethodList();
 	}
+
+	@Override
+	public PaymentMethod getPaymentMethodInfo(int uid) {
+		// TODO Auto-generated method stub
+		return paymentLogDao.getPaymentMethodInfo(uid);
+	}
+
+	@Override
+	public int insertPaymentLog(PaymentLog log) {
+		// TODO Auto-generated method stub
+		return paymentLogDao.insertPaymentLog(log);
+	}
 }

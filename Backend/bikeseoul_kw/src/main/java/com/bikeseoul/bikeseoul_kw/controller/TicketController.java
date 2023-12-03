@@ -1,5 +1,6 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
+import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.PaymentMethod;
 import com.bikeseoul.bikeseoul_kw.container.Ticket;
@@ -157,40 +158,7 @@ public class TicketController {
     
     }
     
-    @GetMapping("/rest/service/getPaymentMethod")
-    public String getPaymentMethod(HttpServletRequest request) {
-    	JsonObject jo = new JsonObject();
-    	List<PaymentMethod> methods = serviceManager.getPaymentMethod();
-    	JsonArray ja = new JsonArray();
-    	for(PaymentMethod pm : methods) {
-    		JsonObject jo_item = new JsonObject();
-    		jo_item.addProperty("uid", pm.getUid());
-    		jo_item.addProperty("method_name", pm.getMethod_name());
-    		ja.add(jo_item);
-    	}
-    	jo.addProperty("result", "success");
-    	jo.add("data", ja);
-    	return jo.toString();
-    }
     
-    @PostMapping("/rest/service/payment")
-    public String payment(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
-    	JsonObject jo = new JsonObject();
-        HttpSession hs = request.getSession();
-        User user = (User)hs.getAttribute("member");
-        boolean is_gift = (Boolean)body.get("is_gift");
-        if(is_gift) {
-        	String email_session = (String)hs.getAttribute("gift_email");
-        	String email = (String)body.get("email");
-        	if(!email_session.equals(email)) {
-        		jo.addProperty("result", "failed");
-        		jo.addProperty("msg", "email_not_match");
-        		return jo.toString();
-        	}
-        }
-        
-    	return null;
-    }
     
     
 }

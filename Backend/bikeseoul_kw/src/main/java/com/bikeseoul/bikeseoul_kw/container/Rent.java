@@ -2,14 +2,14 @@ package com.bikeseoul.bikeseoul_kw.container;
 
 import java.time.LocalDateTime;
 
-public class Rent{
-    private int uid, member_uid, bike_uid, ticket_detail_uid, rent_station, return_station;
+public class Rent extends CommonData{
+    private int member_uid, bike_uid, ticket_detail_uid, rent_station, return_station;
 
     private double last_position_lat, last_position_lon, distance;
-    private LocalDateTime start_date, return_date, updated_date;
+    private LocalDateTime start_date, return_date;
 
     public Rent(int uid, int member_uid, int bike_uid, int ticket_detail_uid, LocalDateTime start_date, LocalDateTime return_date, int rent_station, int return_station, double last_position_lat, double last_position_lon, double distance, LocalDateTime updated_date) {
-        this.uid = uid;
+        super(uid, updated_date);
         this.member_uid = member_uid;
         this.bike_uid = bike_uid;
         this.ticket_detail_uid = ticket_detail_uid;
@@ -20,15 +20,17 @@ public class Rent{
         this.last_position_lat = last_position_lat;
         this.last_position_lon = last_position_lon;
         this.distance = distance;
-        this.updated_date = updated_date;
     }
-
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
+    
+    public Rent(int bike_uid, int ticket_detail_uid, LocalDateTime start_date, LocalDateTime return_date, int rent_station, int return_station,double distance) {
+        super(0, null);
+    	this.bike_uid = bike_uid;
+        this.ticket_detail_uid = ticket_detail_uid;
+        this.start_date = start_date;
+        this.return_date = return_date;
+        this.rent_station = rent_station;
+        this.return_station = return_station;
+        this.distance = distance;
     }
 
     public int getMember_uid() {
@@ -109,13 +111,5 @@ public class Rent{
 
     public void setReturn_date(LocalDateTime return_date) {
         this.return_date = return_date;
-    }
-
-    public LocalDateTime getUpdated_date() {
-        return updated_date;
-    }
-
-    public void setUpdated_date(LocalDateTime updated_date) {
-        this.updated_date = updated_date;
     }
 }

@@ -29,4 +29,17 @@
         WHERE
             giver_id = #{giver_id}
     </select>
+    
+	<insert id="insertGiftInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Gift">
+			INSERT INTO ticket_gift
+				(
+					ticket_uid,
+					giver_uid,
+					receiver_uid
+				) VALUES (
+					#{ticket_uid},
+					#{giver_uid},
+					#{receiver_uid}
+				)
+	</insert>
 </mapper>

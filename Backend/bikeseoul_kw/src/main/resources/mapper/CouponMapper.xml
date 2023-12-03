@@ -40,5 +40,14 @@
         ON
             c.ticket_uid = t.ticket_id
     </select>
-    
+    <insert id="insertCoupon" parameterType="com.bikeseoul.bikeseoul_kw.container.Coupon">
+			INSERT INTO ticket_coupon
+				(
+					coupon_id,
+					ticket_uid
+				) VALUES (
+					#{coupon_id},
+					#{ticket_uid}
+				)
+	</insert>
 </mapper>

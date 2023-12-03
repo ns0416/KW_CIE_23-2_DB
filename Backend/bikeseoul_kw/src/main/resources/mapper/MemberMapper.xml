@@ -61,12 +61,33 @@
         		uid = #{uid}
         </if>
     </select>
+     <select id="getMemberCount" resultType="Integer">
+        SELECT
+        	COUNT(*)
+        FROM
+        	member
+        <if test="type > 0">
+        WHERE
+        	uid != #{user_uid} AND
+        </if>
+        <if test="type == 1">
+        	id = #{value}
+        </if>
+        <if test="type == 2">
+        	email = #{value}
+        </if>
+        <if test="type == 4">
+        	phone = #{value}
+        </if>
+        
+    </select>
 	<update id="updateMemberInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Member">
 		UPDATE
 			member
 		<trim prefix="SET" suffixOverrides=",">
-			<if test="pw != null">
-				pw = #{pw},
+				<if test="pw != null">
+					pw = #{pw},
+				</if>
 				<if test="email != null">
 					email = #{email},
 				</if>
@@ -79,13 +100,13 @@
 				<if test="phone != null">
 					phone = #{phone},
 				</if>
-				<if test="is_lost != null">
+				<if test="is_lost lt 2">
 					is_lost = #{is_lost},
 				</if>
-				<if test="isvalid != null">
+				<if test="isvalid lt 2">
 					isvalid = #{isvalid},
 				</if>
-			</if>
+			
 		</trim>	
 		WHERE
 			uid = #{uid}

@@ -2,36 +2,38 @@ package com.bikeseoul.bikeseoul_kw.container;
 
 import java.time.LocalDateTime;
 
-public class Ticket_detail extends Ticket{
+public class Ticket_detail extends CommonData{
     // detail
-    private int uid, member_uid;
-    private boolean activation;
-    private LocalDateTime start_date, created_date;
+    private int member_uid, ticket_uid;
+    private int activation;
+    private LocalDateTime start_date;
 
     // expired
     private LocalDateTime expired_date;
 
-    public Ticket_detail(int ticket_id, ticket_type ticket_type, hours hours, int cost, boolean isvalid, LocalDateTime ticket_created_date, LocalDateTime ticket_updated_date, int uid, int member_uid, LocalDateTime start_date, boolean activation, LocalDateTime created_date) {
-        super(ticket_id, ticket_type, hours, cost, isvalid, ticket_created_date, ticket_updated_date);
-        this.uid = uid;
-        this.member_uid = member_uid;
-        this.start_date = start_date;
-        this.activation = activation;
-        this.created_date = created_date;
+
+    
+    public Ticket_detail(int uid, int member_uid, int Ticket_uid, LocalDateTime start_date, int activation, LocalDateTime created_date) {
+    	super(0, created_date);
+    	this.member_uid = member_uid;
+    	this.ticket_uid = Ticket_uid;
+    	this.start_date = start_date;
+    	this.activation = activation;
+    }
+    public Ticket_detail(int uid, int member_uid, int Ticket_uid, LocalDateTime start_date, LocalDateTime expired_date,int activation, LocalDateTime created_date) {
+    	super(0, created_date);
+    	this.member_uid = member_uid;
+    	this.ticket_uid = Ticket_uid;
+    	this.start_date = start_date;
+    	this.expired_date = expired_date;
+    	this.activation = activation;
     }
 
-    public Ticket_detail(int ticket_id, ticket_type ticket_type, hours hours, int cost, boolean isvalid, LocalDateTime ticket_created_date, LocalDateTime ticket_updated_date, int uid, int member_uid, LocalDateTime start_date, boolean activation, LocalDateTime created_date, LocalDateTime expired_date) {
-        super(ticket_id, ticket_type, hours, cost, isvalid, ticket_created_date, ticket_updated_date);
-        this.uid = uid;
-        this.member_uid = member_uid;
-        this.start_date = start_date;
-        this.activation = activation;
-        this.created_date = created_date;
-        this.expired_date = expired_date;
-    }
-
-    public int getUid() {
-        return uid;
+    public Ticket_detail(int member_uid, int Ticket_uid) {
+    	super(0, null);
+    	this.member_uid = member_uid;
+    	this.ticket_uid = Ticket_uid;
+    	
     }
 
     public int getMember_uid() {
@@ -41,12 +43,14 @@ public class Ticket_detail extends Ticket{
     public void setMember_uid(int member_uid) {
         this.member_uid = member_uid;
     }
-
+public int getTicket_uid() {
+	return ticket_uid;
+}
     public boolean isActivation() {
-        return activation;
+        return activation == 1 ? true : false;
     }
 
-    public void setActivation(boolean activation) {
+    public void setActivation(int activation) {
         this.activation = activation;
     }
 
@@ -58,13 +62,6 @@ public class Ticket_detail extends Ticket{
         this.start_date = start_date;
     }
 
-    public LocalDateTime getCreated_date() {
-        return created_date;
-    }
-
-    public void setCreated_date(LocalDateTime created_date) {
-        this.created_date = created_date;
-    }
 
     public LocalDateTime getExpired_date() {
         return expired_date;

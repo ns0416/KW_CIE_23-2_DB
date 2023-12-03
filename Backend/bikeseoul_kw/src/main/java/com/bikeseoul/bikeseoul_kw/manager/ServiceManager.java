@@ -39,9 +39,6 @@ public class ServiceManager {
 	private RankingService rankingService;
 	
 	@Autowired
-	private PaymentLogService paymentlogService;
-	
-	@Autowired
 	private TicketService ticketService;
 
 	public CommonEnum updateTransfercard(Transfercard card) {
@@ -97,10 +94,6 @@ public class ServiceManager {
 		helper.setText(content, true); //true : html사용
 		mailSender.send(msg);
 	}
-	public List<PaymentMethod> getPaymentMethod() {
-		// TODO Auto-generated method stub
-		return paymentlogService.getPaymentMethodList();
-	}
-
+	
 
 }

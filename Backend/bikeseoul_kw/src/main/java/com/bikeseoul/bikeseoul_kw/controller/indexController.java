@@ -80,7 +80,7 @@ public class indexController {
 		JsonObject jo = new JsonObject();
 		Member mem = am.findID(new Member(null, email));
 		Member found = am.findID(mem);
-		if(found == null || found.getIsvalid()==false) {
+		if(found == null || found.getIsvalid_boolean()==false) {
 			jo.addProperty("result", "failed");
 		}else {
 			jo.addProperty("result", "success");
@@ -95,7 +95,7 @@ public class indexController {
 		JsonObject jo = new JsonObject();
 		//Member mem = am.findID(new Member((String)body.get("id"),(String)body.get("email")));
 		Member found = am.findID(new Member((String)body.get("id"),(String)body.get("email")));
-		if(found == null || found.getIsvalid()==false) {
+		if(found == null || found.getIsvalid_boolean()==false) {
 			jo.addProperty("result", "failed");
 		}else {
 			if(found.getId().equals((String)body.get("id"))) {
@@ -126,7 +126,7 @@ public class indexController {
 			return jo.toString();
 		}
 		Member found = (Member)hs.getAttribute("userinfo");
-		if(hs.getAttribute("findpw_email_check") == null  || (Boolean)hs.getAttribute("findpw_email_check") != true || found == null || am.checkResetPWTime(hs)==false) {
+		if(hs.getAttribute("findpw_email_check") == null  || (Boolean)hs.getAttribute("findpw_email_check") != true || found == null || am.checkAuthTime(hs,"findpw_authTime")==false) {
 			jo.addProperty("result", "failed2");
 		}else {
 			Member user = new Member(found.getUid(), found.getId(), found.getPw(), found.getEmail());
@@ -144,7 +144,7 @@ public class indexController {
 		return jo.toString();
 	}
 	
-	@PostMapping("/rest/updateEmail")
+	@PostMapping("/rest/service/updateEmail")
 	public String updateEmail(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
 		HttpSession hs = request.getSession(false);
 		JsonObject jo = new JsonObject();
@@ -153,7 +153,7 @@ public class indexController {
 			return jo.toString();
 		}
 		Member mem = (Member)hs.getAttribute("member");
-		if(hs.getAttribute("register_emailauth") == null  || (Boolean)hs.getAttribute("register_emailauth") != true|| am.checkResetPWTime(hs)==false) {
+		if(hs.getAttribute("register_emailauth") == null  || (Boolean)hs.getAttribute("register_emailauth") != true|| am.checkAuthTime(hs, "register_authTime")==false) {
 			jo.addProperty("result", "failed2");
 		}else {
 			Member user = new Member(mem.getUid(),(String)hs.getAttribute("authAddr"));
@@ -228,8 +228,10 @@ public class indexController {
 		HttpSession hs = request.getSession();
 		Member mem = (Member)hs.getAttribute("member");
 		JsonObject jo = new JsonObject();
-		int weight = (Integer)body.get("weight");
-		String phone = (String)body.get("phohe");
+		int weight = 0;
+		if(body.containsKey("weight"))
+			weight = (Integer)body.get("weight");
+		String phone = (String)body.get("phone");
 		if(phone != null)
 			phone = phone.replaceAll("[^0-9]", "");
 		Member new_mem = new Member(mem.getUid(), phone, weight);
@@ -319,6 +321,8 @@ public class indexController {
 					hs.setAttribute("findpw_emailauth", null);
 					hs.setAttribute("findpw_email_check", true);
 					hs.setAttribute("findpw_authTime", Calendar.getInstance());
+				}else {
+					hs.setAttribute("register_authTime", Calendar.getInstance());
 				}
 			}else {
 				jo.addProperty("result", "failed");

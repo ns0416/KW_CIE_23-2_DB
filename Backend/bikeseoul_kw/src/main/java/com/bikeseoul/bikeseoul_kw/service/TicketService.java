@@ -29,4 +29,28 @@ public class TicketService implements TicketDao {
 		// TODO Auto-generated method stub
 		return ticketDao.getTicketList(checkvalid, type);
 	}
+
+	@Override
+	public Ticket getTicketInfo(int ticket_id) {
+		// TODO Auto-generated method stub
+		return ticketDao.getTicketInfo(ticket_id);
+	}
+
+	@Override
+	public int insertTicketDetail(Ticket_detail td) {
+		// TODO Auto-generated method stub
+		return ticketDao.insertTicketDetail(td);
+	}
+
+	@Override
+	public int insertTicketDetailtoExpired(int uid) {
+		// TODO Auto-generated method stub
+		return ticketDao.insertTicketDetailtoExpired(uid);
+	}
+
+	@Override
+	public int deleteTicketDetail(int uid) {
+		// TODO Auto-generated method stub
+		return ticketDao.deleteTicketDetail(uid);
+	}
 }

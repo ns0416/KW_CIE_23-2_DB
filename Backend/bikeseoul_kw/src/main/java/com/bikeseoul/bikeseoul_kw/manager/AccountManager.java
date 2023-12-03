@@ -86,7 +86,7 @@ public class AccountManager {
 		if(new_mem.getUid() == 0) {
 			new_mem = memberService.getMemberInfo(0, mem.getId(), null);
 		}
-		if(new_mem.getPw().equals(pw_enc) && new_mem.getIsvalid() == true)
+		if(new_mem.getPw().equals(pw_enc) && new_mem.getIsvalid_boolean() == true)
 			return new_mem;
 		else
 			return null;
@@ -178,7 +178,7 @@ public class AccountManager {
 		try {
 			if(lr == null || mem == null)
 				throw new Exception();
-			Member new_mem = new Member(mem.getUid(), mem.getEmail(), true);
+			Member new_mem = new Member(mem.getUid(), mem.getEmail(), false);
 			CommonEnum update_res = updateUserInfo(new_mem);
 			if(update_res != CommonEnum.SUCCESS)
 				throw new Exception();
@@ -336,8 +336,8 @@ public class AccountManager {
 			return false;
 		}
 	}
-	public boolean checkResetPWTime(HttpSession hs) {
-		Calendar validate = (Calendar)hs.getAttribute("findpw_authTime");
+	public boolean checkAuthTime(HttpSession hs, String val_code) {
+		Calendar validate = (Calendar)hs.getAttribute(val_code);
 		Calendar now = Calendar.getInstance();
 		validate.add(Calendar.MINUTE, 5);
 		if(now.before(validate)) {
@@ -505,10 +505,16 @@ public class AccountManager {
 
 	public CommonEnum changePW(User mem, String pw_cur, String pw, String pw_cfm) {
 		// TODO Auto-generated method stub
-		Member mem_pw = (Member)getUserInfo(mem.getUid(), false);
-		if(!mem_pw.getPw().equals(pw_cur))
-			return CommonEnum.NOT_PERMITTED;
-		return resetPW(mem_pw, pw, pw_cfm);
+		try {
+			String pw_enc = hashingManager.HashSHA256(pw_cur);
+			Member mem_pw = (Member)getUserInfo(mem.getUid(), false);
+			if(!mem_pw.getPw().equals(pw_enc))
+				return CommonEnum.NOT_PERMITTED;
+			return resetPW(mem_pw, pw, pw_cfm);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return CommonEnum.FAILED;
 	}
 	
 }

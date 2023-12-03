@@ -10,4 +10,5 @@ public interface GiftDao {
     List<Gift> getReceivedGiftList(int receiver_uid);
 
     List<Gift> getSentGiftList(int giver_uid);
+    int insertGiftInfo(Gift gift);
 }

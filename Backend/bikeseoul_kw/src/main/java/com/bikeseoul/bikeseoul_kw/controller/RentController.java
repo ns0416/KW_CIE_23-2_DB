@@ -1,7 +1,10 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.Member;
+import com.bikeseoul.bikeseoul_kw.container.Overdue;
+import com.bikeseoul.bikeseoul_kw.container.Pair;
 import com.bikeseoul.bikeseoul_kw.container.Rent;
+import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
 import com.bikeseoul.bikeseoul_kw.manager.RentManager;
 import com.google.gson.JsonArray;
@@ -127,6 +130,25 @@ public class RentController {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
+        return jo.toString();
+    }
+    
+    @GetMapping("/rest/service/getOverdueAmount")
+    public String getOverdueAmount(HttpServletRequest request) {
+    	JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        User user = (User)hs.getAttribute("member");
+        List<Pair<Rent, List<Overdue>>> data = rentManager.getOverdueList(user.getUid(), true);
+        int amount = 0;
+        for(Pair<Rent, List<Overdue>> pair : data) {
+        	for(Overdue item : pair.getSecond()) {
+        		amount+= item.getOverdue_amount();
+        	}
+        }
+        hs.setAttribute("overdue", data);
+        
+        jo.addProperty("result", "success");
+        jo.addProperty("amount", amount);
         return jo.toString();
     }
 }

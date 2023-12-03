@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
+import com.bikeseoul.bikeseoul_kw.container.PaymentMethod;
+import com.bikeseoul.bikeseoul_kw.service.PaymentLogService;
 import com.bikeseoul.bikeseoul_kw.service.TicketService;
 
 import java.util.List;
@@ -15,6 +17,8 @@ public class TicketManager {
 	
 	@Autowired
 	private TicketService ticketService;
+	@Autowired
+	private PaymentLogService paymentlogService;
 
 	public List<Ticket_detail> getExpiredTicketList(int member_uid) {
 		if (member_uid == 0) {
@@ -40,4 +44,6 @@ public class TicketManager {
 	public CommonEnum registerTicketDetail(Ticket_detail td) {
 		return CommonEnum.FAILED;
 	}
+	
+
 }

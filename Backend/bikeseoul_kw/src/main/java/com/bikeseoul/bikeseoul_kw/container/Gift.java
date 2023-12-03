@@ -2,30 +2,30 @@ package com.bikeseoul.bikeseoul_kw.container;
 
 import java.time.LocalDateTime;
 
-public class Gift extends Ticket{
-    private int gift_id, giver_uid, receiver_uid;
+public class Gift extends CommonData{
+    private int giver_uid, ticket_uid, ticket_detail_uid, receiver_uid;
 
-    private LocalDateTime gift_created_date;
-
-    public Gift(int ticket_id, ticket_type ticket_type, hours hours, int cost, boolean isvalid, LocalDateTime ticket_created_date, LocalDateTime ticket_updated_date, int gift_id, int giver_uid, int receiver_uid, LocalDateTime gift_created_date) {
-        super(ticket_id, ticket_type, hours, cost, isvalid, ticket_created_date, ticket_updated_date);
-        this.gift_id = gift_id;
+    public Gift(int gift_id, int ticket_uid, int giver_uid, int receiver_uid, int ticket_detail_uid, LocalDateTime gift_created_date) {
+        super(gift_id, gift_created_date);
+        this.ticket_uid = ticket_uid;
         this.giver_uid = giver_uid;
         this.receiver_uid = receiver_uid;
-        this.gift_created_date = gift_created_date;
+        this.ticket_detail_uid = ticket_detail_uid;
     }
-
-    public int getGift_id() {
-        return gift_id;
-    }
-
-    public void setGift_id(int gift_id) {
-        this.gift_id = gift_id;
+    
+    public Gift(int ticket_uid, int giver_uid, int receiver_uid) {
+        super(0, null);
+        this.ticket_uid = ticket_uid;
+        this.giver_uid = giver_uid;
+        this.receiver_uid = receiver_uid;
     }
 
     public int getGiver_uid() {
         return giver_uid;
     }
+    public int getTicket_uid() {
+		return ticket_uid;
+	}
 
     public void setGiver_uid(int giver_uid) {
         this.giver_uid = giver_uid;
@@ -35,16 +35,14 @@ public class Gift extends Ticket{
         return receiver_uid;
     }
 
+    public int getTicket_detail_uid() {
+		return ticket_detail_uid;
+	}
     public void setReceiver_uid(int receiver_uid) {
         this.receiver_uid = receiver_uid;
     }
-
-    public LocalDateTime getGift_created_date() {
-        return gift_created_date;
-    }
-
-    public void setGift_created_date(LocalDateTime gift_created_date) {
-        this.gift_created_date = gift_created_date;
-    }
+    public void setTicket_detail_uid(int ticket_detail_uid) {
+		this.ticket_detail_uid = ticket_detail_uid;
+	}
 
 }

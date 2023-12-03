@@ -30,9 +30,21 @@
         AND
             t.activation = 1
     </select>
-    
+    <select id="getTicketInfo" resultType="com.bikeseoul.bikeseoul_kw.container.Ticket">
+        SELECT
+            ticket_id,
+            ticket_type,
+            hours,
+            cost,
+            isvalid,
+            created_date,
+            updated_date
+        FROM
+            ticket
+		WHERE
+			ticket_id = #{ticket_id}
+    </select>
      <select id="getTicketList" resultType="com.bikeseoul.bikeseoul_kw.container.Ticket">
-     <![CDATA[
         SELECT
             ticket_id,
             ticket_type,
@@ -44,7 +56,7 @@
         FROM
             ticket
 		<trim prefix="WHERE" suffixOverrides="AND|OR">
-			<if test="checkvalid <2">
+			<if test="checkvalid lt 2">
 				<if test="checkvalid == 0">
 					isvalid = 0
 				</if>
@@ -59,7 +71,54 @@
 				</if>
 			</if>
 		</trim>
-		]]>
     </select>
+	<insert id="insertTicketDetail" parameterType="com.bikeseoul.bikeseoul_kw.container.Ticket_detail">
+			INSERT INTO ticket_detail
+				(
+					member_uid,
+					ticket_uid,
+					start_date
+				) VALUES (
+				<trim suffixOverrides=",">
+					#{member_uid},
+					#{ticket_uid},
+					<if test="start_date == null">
+						NOW()
+					</if>
+				</trim>	
+				)
+	</insert>
+	<insert id="insertTicketDetailtoExpired" parameterType="Integer">
+			INSERT INTO ticket_detail_expired
+				(
+					uid,
+					member_uid,
+					ticket_uid,
+					start_date,
+					created_date,
+					expired_date
+				)(
+					SELECT
+						uid,
+						member_uid,
+						ticket_uid,
+						start_date,
+						created_date,
+						NOW()
+					FROM
+						ticket_detail
+					WHERE
+						uid = #{uid}
+				)
+	</insert>
 
+	
+	<delete id="deleteTicketDetail" parameterType="Integer" >
+		<![CDATA[
+			DELETE FROM
+				ticket_detail
+			WHERE
+				uid = #{uid}
+		]]>
+	</delete>
 </mapper>

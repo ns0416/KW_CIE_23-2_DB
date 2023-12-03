@@ -27,7 +27,7 @@ public class Member extends User{
 		// TODO Auto-generated constructor stub
 	}
 	public Member(int uid,String email, boolean is_valid) {
-		super(uid, null, null, email, null,0,is_valid, false, null);
+		super(uid, null, null, email, null,0,is_valid == true ? 1 : 0, 2, null);
 		// TODO Auto-generated constructor stub
 	}
 	public Member(String id, String email) {

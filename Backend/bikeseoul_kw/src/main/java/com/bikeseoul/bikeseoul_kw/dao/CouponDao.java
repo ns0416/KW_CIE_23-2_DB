@@ -15,4 +15,6 @@ public interface CouponDao {
 
     // 전체 쿠폰 리스트 가져옴 관리자 기능
     List<Coupon> getCouponList();
+    
+    int insertCoupon(Coupon cp);
 }

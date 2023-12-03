@@ -16,5 +16,32 @@
             </if>
         </trim>
     </select>
+    <select id="getOverdueList" resultType="HashMap">
+        SELECT
+			od.uid AS overdue_uid,
+			od.overdue_amount AS overdue_amount,
+			od.payment_finished AS payment_finished,
+			od.created_date AS created_date,
+			od.update_date AS update_date,
+			r.uid AS uid,
+			r.bike_uid AS bike_uid,
+			r.ticket_detail_uid AS ticket_detail_uid,
+			r.start_date AS start_date,
+			r.return_date AS return_date,
+			r.rent_station AS rent_station,
+			r.return_station AS return_station,
+			r.distance AS distance
+        FROM
+            overdue AS od
+        JOIN
+        	rent AS r
+       	ON
+       		od.rent_uid = r.uid
+        WHERE
+        	r.member_uid = #{member_uid} AND
+        	od.payment_finished = #{payment_finished}
+        ORDER BY
+        	r.uid ASC
+    </select>
 </mapper>
 

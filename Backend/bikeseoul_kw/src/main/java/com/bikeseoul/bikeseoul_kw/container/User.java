@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class User extends CommonData {
 	private String id, pw, email,phone;
-	private boolean isvalid, is_lost;
+	private int isvalid=2, is_lost=2;
 	private int level;
 	
 	public User(String id) {
@@ -12,6 +12,16 @@ public class User extends CommonData {
 		this.id = id;
 	}
 	public User(int uid,String id, String pw, String email, String phone, int level, boolean isvalid, boolean is_lost, LocalDateTime regist_date) {
+		super(uid, regist_date);
+		this.id = id;
+		this.pw = pw;
+		this.email = email;
+		this.phone = phone;
+		this.level = level;
+		this.isvalid = isvalid == true ? 1 : 0;
+		this.is_lost = is_lost == true ? 1 : 0;
+	}
+	public User(int uid,String id, String pw, String email, String phone, int level, int isvalid, int is_lost, LocalDateTime regist_date) {
 		super(uid, regist_date);
 		this.id = id;
 		this.pw = pw;
@@ -51,10 +61,16 @@ public class User extends CommonData {
 	public int getLevel() {
 		return level;
 	}
-	public boolean getIsvalid() {
+	public boolean getIsvalid_boolean() {
+		return isvalid == 1 ? true : false;
+	}
+	public boolean getIs_lost_boolean() {
+		return is_lost == 1 ? true : false;
+	}
+	public int getIsvalid() {
 		return isvalid;
 	}
-	public boolean getIs_lost() {
+	public int getIs_lost() {
 		return is_lost;
 	}
 	public void setPw(String pw) {
@@ -70,10 +86,10 @@ public class User extends CommonData {
 		this.level = level;
 	}
 	public void setIs_valid(boolean is_valid) {
-		this.isvalid = isvalid;
+		this.isvalid = is_valid == true ? 1 : 0;
 	}
 	public void setIs_lost(boolean is_lost) {
-		this.is_lost = is_lost;
+		this.is_lost = is_lost == true ? 1 : 0;
 	}
 	
 }

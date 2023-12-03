@@ -6,11 +6,6 @@ public class PaymentLog extends CommonData{
     private int user_id, method_uid, amount, ticket_detail_uid;
     private payment_status status_;
     private LocalDateTime updated_date;
-    private String method_name;
-    private LocalDateTime method_created_date;
-    private ticket_type ticket_type;
-    private hours hours;
-    private int cost;
 
 
     public PaymentLog(int uid, int user_id, int method_uid, int amount, int ticket_detail_uid, payment_status status_, LocalDateTime created_date, LocalDateTime updated_date) {
@@ -22,7 +17,7 @@ public class PaymentLog extends CommonData{
         this.status_ = status_;
         this.updated_date = updated_date;
     }
-
+    /*
     public PaymentLog(int uid, int user_id, int method_uid, int amount, int ticket_detail_uid, payment_status status_, LocalDateTime created_date, LocalDateTime updated_date, String method_name, LocalDateTime method_created_date) {
         super(uid, created_date);
         this.user_id = user_id;
@@ -48,6 +43,13 @@ public class PaymentLog extends CommonData{
         this.ticket_type = ticket_type;
         this.hours = hours;
         this.cost = cost;
+    }*/
+    public PaymentLog(int user_id, int method_uid, int amount, payment_status status_) {
+        super(0, null);
+        this.user_id = user_id;
+        this.method_uid = method_uid;
+        this.amount = amount;
+        this.status_ = status_;
     }
 
     public int getUser_id() {

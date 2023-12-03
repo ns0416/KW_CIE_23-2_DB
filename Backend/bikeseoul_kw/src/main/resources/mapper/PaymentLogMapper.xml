@@ -56,4 +56,32 @@
         ORDER BY
         	created_date DESC
     </select>
+    <select id="getPaymentMethodInfo" resultType="com.bikeseoul.bikeseoul_kw.container.PaymentMethod">
+        SELECT
+            uid,
+            method_name,
+            created_date
+        FROM
+            payment_method
+        WHERE
+        	uid = #{uid}
+        ORDER BY
+        	created_date DESC
+    </select>
+    	<insert id="insertPaymentLog" parameterType="com.bikeseoul.bikeseoul_kw.container.PaymentLog">
+			INSERT INTO payment_log
+				(
+					user_uid,
+					method_uid,
+					amount,
+					ticket_detail_uid,
+					status_
+				) VALUES (
+					#{user_uid},
+					#{method_uid},
+					#{amount},
+					#[ticket_detail_uid],
+					#{status}
+				)
+	</insert>
 </mapper>
