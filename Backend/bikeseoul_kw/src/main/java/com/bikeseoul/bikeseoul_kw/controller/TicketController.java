@@ -5,12 +5,9 @@ import com.bikeseoul.bikeseoul_kw.container.PaymentMethod;
 import com.bikeseoul.bikeseoul_kw.container.Ticket;
 import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
 import com.bikeseoul.bikeseoul_kw.container.User;
-<<<<<<< HEAD
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
 import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
-=======
 import com.bikeseoul.bikeseoul_kw.manager.TicketManager;
->>>>>>> e336eec676ead6077a92a3768c39471b1737af78
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -34,14 +31,11 @@ import java.util.List;
 public class TicketController {
 	
 	@Autowired
-<<<<<<< HEAD
 	private ServiceManager serviceManager;
 	
 	@Autowired
 	private AccountManager am;
-=======
 	private TicketManager ticketManager;
->>>>>>> e336eec676ead6077a92a3768c39471b1737af78
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");

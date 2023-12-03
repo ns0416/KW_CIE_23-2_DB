@@ -8,19 +8,13 @@
             uid, member_uid, bike_uid, ticket_detail_uid, start_date, return_date, rent_station, return_station, last_position_lat, last_position_lon, distance, updated_date
         FROM
             rent
-        WHERE
-            member_uid = #{member_uid}
-    </select>
-
-    <select id="getRentList" resultType="com.bikeseoul.bikeseoul_kw.container.Rent">
-        SELECT
-            uid, member_uid, bike_uid, ticket_detail_uid, start_date, return_date, rent_station, return_station, last_position_lat, last_position_lon, distance, updated_date
-        FROM
-            rent
-        WHERE
-            member_uid = #{member_uid}
-        AND
-            return_date BETWEEN #{start_date} AND #{end_date}
+        <trim prefix="WHERE" suffixOverrides="AND|OR">
+            	member_uid = #{member_uid}
+           	<if test="start_date != null and end_date != null">
+        		AND
+            		return_date BETWEEN #{start_date} AND #{end_date}
+            </if>
+        </trim>
     </select>
 </mapper>
 

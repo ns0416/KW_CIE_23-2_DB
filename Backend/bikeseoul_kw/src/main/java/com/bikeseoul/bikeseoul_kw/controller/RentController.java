@@ -30,7 +30,7 @@ public class RentController {
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
-
+/*
     @GetMapping("/rest/service/getRentList")
     @ResponseBody
     public String getRentList(HttpServletRequest request) {
@@ -71,10 +71,10 @@ public class RentController {
         }
         return jo.toString();
     }
-
+*/
     @GetMapping("/rest/service/getRentList")
     @ResponseBody
-    public String getRentListByDate(HttpServletRequest request, @RequestParam("start_date") LocalDateTime start_date, @RequestParam("end_date") LocalDateTime end_date) {
+    public String getRentListByDate(HttpServletRequest request, @RequestParam(value="start_date", required=false) LocalDateTime start_date, @RequestParam(value="end_date", required=false) LocalDateTime end_date) {
         Member mem = (Member)am.checkLogged(request, false);
         JsonObject jo = new JsonObject();
         if(mem == null) {

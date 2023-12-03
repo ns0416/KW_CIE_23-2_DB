@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.bikeseoul.bikeseoul_kw.container.*;
-import com.bikeseoul.bikeseoul_kw.controller.Pay;
+import com.bikeseoul.bikeseoul_kw.controller.PaymentLogController;
 import com.bikeseoul.bikeseoul_kw.service.GiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;

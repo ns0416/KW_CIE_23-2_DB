@@ -15,10 +15,6 @@ public class RentService implements RentDao {
     private RentDao rentDao;
 
     @Override
-    public List<Rent> getRentList(int member_uid) {
-        return rentDao.getRentList(member_uid);
-    }
-    @Override
     public List<Rent> getRentList(int member_uid, LocalDateTime start_date, LocalDateTime end_date) {
         return rentDao.getRentList(member_uid, start_date, end_date);
     }

@@ -9,6 +9,5 @@ import java.util.List;
 @Mapper
 public interface RentDao {
 
-    List<Rent> getRentList(int member_uid);
     List<Rent> getRentList(int member_uid, LocalDateTime start_date, LocalDateTime end_date);
 }
