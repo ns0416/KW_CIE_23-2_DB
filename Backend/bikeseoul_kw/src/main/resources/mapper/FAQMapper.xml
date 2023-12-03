@@ -12,7 +12,7 @@
             uid DESC
     </select>
 
-    <select id="getFAQListByName" resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">
+    <select id="getFAQList" resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">
         SELECT
         uid, faq_name, created_date
         FROM
@@ -28,19 +28,36 @@
             faq as f
         JOIN
             faq_article as a
-        WHERE
+        ON
             f.uid = a.faq_uid
+        WHERE
+            f.uid = #{faq_uid}
     </select>
 
-    <select id="getFAQArticleListByTitle" resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">
+    <select id="getFAQArticleList" resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">
         SELECT
             f.uid, a.uid as article_uid, f.faq_name, a.title, a.content, f.created_date, a.created_date as article_created_date
         FROM
             faq as f
         JOIN
             faq_article as a
+        ON
+            f.uid = a.faq_uid
         WHERE
             a.title = #{title}
+    </select>
+
+    <select id="getFAQArticleList" resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">
+        SELECT
+            f.uid, a.uid as article_uid, f.faq_name, a.title, a.content, f.created_date, a.created_date as article_created_date
+        FROM
+            faq as f
+        JOIN
+            faq_article as a
+        ON
+            f.uid = a.faq_uid
+        WHERE
+            f.uid = #{faq_uid} AND a.title = #{title}
     </select>
 
     <select id="getFAQArticle" resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">

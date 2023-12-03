@@ -8,8 +8,9 @@ import java.util.List;
 @Mapper
 public interface FAQDAO {
     List<FAQ> getFAQList();
-    List<FAQ> getFAQListByName(String faq_name);
+    List<FAQ> getFAQList(String faq_name);
     List<FAQ> getFAQArticleList(int faq_uid);
-    List<FAQ> getFAQArticleListByTitle(String title);
+    List<FAQ> getFAQArticleList(String title);
+    List<FAQ> getFAQArticleList(int faq_uid, String title);
     FAQ getFAQArticle(int uid);
 }

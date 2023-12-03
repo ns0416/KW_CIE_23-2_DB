@@ -18,8 +18,8 @@ public class FAQService implements FAQDAO {
     }
 
     @Override
-    public List<FAQ> getFAQListByName(String faq_name) {
-        return faqdao.getFAQListByName(faq_name);
+    public List<FAQ> getFAQList(String faq_name) {
+        return faqdao.getFAQList(faq_name);
     }
 
     @Override
@@ -28,8 +28,13 @@ public class FAQService implements FAQDAO {
     }
 
     @Override
-    public List<FAQ> getFAQArticleListByTitle(String title) {
-        return faqdao.getFAQArticleListByTitle(title);
+    public List<FAQ> getFAQArticleList(String title) {
+        return faqdao.getFAQArticleList(title);
+    }
+
+    @Override
+    public List<FAQ> getFAQArticleList(int faq_uid, String title) {
+        return faqdao.getFAQArticleList(faq_uid, title);
     }
 
     @Override
