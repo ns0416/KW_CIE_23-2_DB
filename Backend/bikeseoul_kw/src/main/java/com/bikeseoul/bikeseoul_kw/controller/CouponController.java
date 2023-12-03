@@ -72,12 +72,20 @@ public class CouponController {
     }
     @GetMapping("/rest/service/getCoupon")
     @ResponseBody
-    public String getCoupon(@RequestParam("coupon_id") String coupon_id) {
+    public String getCoupon(HttpServletRequest request, @RequestParam("coupon_id") String coupon_id) {
         JsonObject jo = new JsonObject();
         if(coupon_id == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
+        // 로그인 확인
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+
         try{
             Coupon coupon = couponManager.getCoupon(coupon_id);
             JsonObject item = new JsonObject();
@@ -102,9 +110,21 @@ public class CouponController {
 
     @GetMapping("/rest/service/getCouponList")
     @ResponseBody
-    public String getCouponList() {
+    public String getCouponList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        // 관리자 확인 (level 9999)
+        int level = mem.getLevel();
+        if(level != 9999) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
         try{
             List<Coupon> couponList = couponManager.getCouponList();
             for(Coupon coupon:couponList) {
