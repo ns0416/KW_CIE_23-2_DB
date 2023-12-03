@@ -1,9 +1,11 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.Member;
+import com.bikeseoul.bikeseoul_kw.container.PaymentMethod;
 import com.bikeseoul.bikeseoul_kw.container.Ticket;
 import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
 import com.bikeseoul.bikeseoul_kw.container.User;
+import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
 import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -29,6 +31,9 @@ public class TicketController {
 	
 	@Autowired
 	private ServiceManager serviceManager;
+	
+	@Autowired
+	private AccountManager am;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -124,8 +129,56 @@ public class TicketController {
     	jo.add("data", ja);
     	return jo.toString();
     }
+    
+    @PostMapping("/rest/service/checkGiftEmail")
+    public String checkGiftEmail(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+    	JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        User user = (User)hs.getAttribute("member");
+    	String email = (String)body.get("email");
+    	User mem = am.getUserInfo(email, true, false);
+    	if(mem == null || mem.getEmail().equals(user.getEmail())) {
+    		jo.addProperty("result", "failed");
+    		return jo.toString();
+    	}
+    	hs.setAttribute("gift_email", email);
+    	jo.addProperty("result", "success");
+    	return jo.toString();
+    
+    }
+    
+    @GetMapping("/rest/service/getPaymentMethod")
+    public String getPaymentMethod(HttpServletRequest request) {
+    	JsonObject jo = new JsonObject();
+    	List<PaymentMethod> methods = serviceManager.getPaymentMethod();
+    	JsonArray ja = new JsonArray();
+    	for(PaymentMethod pm : methods) {
+    		JsonObject jo_item = new JsonObject();
+    		jo_item.addProperty("uid", pm.getUid());
+    		jo_item.addProperty("method_name", pm.getMethod_name());
+    		ja.add(jo_item);
+    	}
+    	jo.addProperty("result", "success");
+    	jo.add("data", ja);
+    	return jo.toString();
+    }
+    
     @PostMapping("/rest/service/payment")
     public String payment(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+    	JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        User user = (User)hs.getAttribute("member");
+        boolean is_gift = (Boolean)body.get("is_gift");
+        if(is_gift) {
+        	String email_session = (String)hs.getAttribute("gift_email");
+        	String email = (String)body.get("email");
+        	if(!email_session.equals(email)) {
+        		jo.addProperty("result", "failed");
+        		jo.addProperty("msg", "email_not_match");
+        		return jo.toString();
+        	}
+        }
+        
     	return null;
     }
     

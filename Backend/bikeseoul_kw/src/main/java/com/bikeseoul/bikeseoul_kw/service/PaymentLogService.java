@@ -1,6 +1,7 @@
 package com.bikeseoul.bikeseoul_kw.service;
 
 import com.bikeseoul.bikeseoul_kw.container.PaymentLog;
+import com.bikeseoul.bikeseoul_kw.container.PaymentMethod;
 import com.bikeseoul.bikeseoul_kw.dao.PaymentLogDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,4 +22,10 @@ public class PaymentLogService implements PaymentLogDao {
     public List<PaymentLog> getRefundLogList(int user_uid) {
         return paymentLogDao.getRefundLogList(user_uid);
     }
+
+	@Override
+	public List<PaymentMethod> getPaymentMethodList() {
+		// TODO Auto-generated method stub
+		return paymentLogDao.getPaymentMethodList();
+	}
 }

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.bikeseoul.bikeseoul_kw.container.*;
+import com.bikeseoul.bikeseoul_kw.controller.Pay;
 import com.bikeseoul.bikeseoul_kw.service.GiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bikeseoul.bikeseoul_kw.service.CouponService;
 import com.bikeseoul.bikeseoul_kw.service.MileageService;
+import com.bikeseoul.bikeseoul_kw.service.PaymentLogService;
 import com.bikeseoul.bikeseoul_kw.service.RankingService;
 import com.bikeseoul.bikeseoul_kw.service.TicketService;
 
@@ -45,6 +47,9 @@ public class ServiceManager {
 	
 	@Autowired
 	private RankingService rankingService;
+	
+	@Autowired
+	private PaymentLogService paymentlogService;
 
 	public CommonEnum updateTransfercard(Transfercard card) {
 		if(mileageService.updateTransfercardInfo(card) > 0)
@@ -131,6 +136,10 @@ public class ServiceManager {
 		helper.setSubject(subject);
 		helper.setText(content, true); //true : html사용
 		mailSender.send(msg);
+	}
+	public List<PaymentMethod> getPaymentMethod() {
+		// TODO Auto-generated method stub
+		return paymentlogService.getPaymentMethodList();
 	}
 
 
