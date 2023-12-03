@@ -33,48 +33,7 @@ public class RentController {
 
     @GetMapping("/rest/service/getRentList")
     @ResponseBody
-    public String getRentList(HttpServletRequest request) {
-        JsonObject jo = new JsonObject();
-        HttpSession hs = request.getSession();
-        Member mem = (Member)hs.getAttribute("member");
-        if(mem == null) {
-            jo.addProperty("result", "failed");
-            return jo.toString();
-        }
-        int member_uid = mem.getUid();
-        JsonArray ja = new JsonArray();
-
-        try {
-            List<Rent> rentList = rentManager.getRentList(member_uid);
-            for(Rent rent:rentList) {
-                JsonObject item = new JsonObject();
-                item.addProperty("uid", rent.getUid());
-                item.addProperty("member_uid", rent.getMember_uid());
-                item.addProperty("bike_uid", rent.getBike_uid());
-                item.addProperty("ticket_detail_uid", rent.getTicket_detail_uid());
-                item.addProperty("start_date", rent.getStart_date().format(dtf_kor));
-                item.addProperty("return_date", rent.getReturn_date().format(dtf_kor));
-                item.addProperty("rent_station", rent.getRent_station());
-                item.addProperty("return_station", rent.getReturn_station());
-                item.addProperty("last_position_lat", rent.getLast_position_lat());
-                item.addProperty("last_position_lon", rent.getLast_position_lon());
-                item.addProperty("distance", rent.getDistance());
-                item.addProperty("updated_date", rent.getUpdated_date().format(dtf_kor));
-                ja.add(item);
-            }
-            jo.addProperty("result", "success");
-            jo.add("data", ja);
-        }catch (Exception e) {
-            e.printStackTrace();
-            jo.addProperty("result", "failed");
-            return jo.toString();
-        }
-        return jo.toString();
-    }
-
-    @GetMapping("/rest/service/getRentList")
-    @ResponseBody
-    public String getRentListByDate(HttpServletRequest request, @RequestParam("start_date") LocalDateTime start_date, @RequestParam("end_date") LocalDateTime end_date) {
+    public String getRentList(HttpServletRequest request, @RequestParam(value = "start_date", required = false) LocalDateTime start_date, @RequestParam(value = "end_date", required = false) LocalDateTime end_date) {
         Member mem = (Member)am.checkLogged(request, false);
         JsonObject jo = new JsonObject();
         if(mem == null) {
@@ -88,7 +47,12 @@ public class RentController {
         JsonArray ja = new JsonArray();
 
         try {
-            List<Rent> rentList = rentManager.getRentList(member_uid, start_date, end_date);
+            List<Rent> rentList;
+            if (start_date == null && end_date == null) {
+                rentList = rentManager.getRentList(member_uid);
+            } else{
+                rentList = rentManager.getRentList(member_uid, start_date, end_date);
+            }
             int total_distance = 0;
             int total_rent_minutes = 0;
             int calory = 0;
