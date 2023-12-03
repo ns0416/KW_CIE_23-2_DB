@@ -260,6 +260,10 @@ public class BoardArticleController {
     	JsonObject jo = new JsonObject();
     	HttpSession hs = request.getSession();
     	Member mem = (Member)hs.getAttribute("member");
+		if(mem == null) {
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
     	Comment cmt = boardManager.getComment(Integer.parseInt(cmt_uid));
     	if(cmt == null || cmt.getUser_uid() != mem.getUid()) {
     		jo.addProperty("result", "failed");

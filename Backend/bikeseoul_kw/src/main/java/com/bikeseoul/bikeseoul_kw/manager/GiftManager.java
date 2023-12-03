@@ -3,9 +3,11 @@ package com.bikeseoul.bikeseoul_kw.manager;
 import com.bikeseoul.bikeseoul_kw.container.Gift;
 import com.bikeseoul.bikeseoul_kw.service.GiftService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class GiftManager {
 
     @Autowired

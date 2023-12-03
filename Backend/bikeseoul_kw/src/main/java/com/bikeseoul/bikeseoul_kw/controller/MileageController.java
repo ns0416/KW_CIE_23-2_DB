@@ -1,11 +1,7 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
-import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
-import com.bikeseoul.bikeseoul_kw.container.Mileage;
-import com.bikeseoul.bikeseoul_kw.container.Transfercard;
-import com.bikeseoul.bikeseoul_kw.container.User;
-import com.bikeseoul.bikeseoul_kw.container.card_type;
-import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
+import com.bikeseoul.bikeseoul_kw.container.*;
+import com.bikeseoul.bikeseoul_kw.manager.MileageManager;
 import com.bikeseoul.bikeseoul_kw.service.MileageService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -27,28 +23,26 @@ import java.util.List;
 @RestController
 public class MileageController {
     @Autowired
-    private MileageService mileageService;
-    
-    @Autowired
-    private ServiceManager serviceManager;
+    private MileageManager mileageManager;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 
     @GetMapping("/rest/service/getMileageList")
-    public String getMileageList(@RequestParam("member_uid") int member_uid) {
+    public String getMileageList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
-        if(member_uid == 0) {
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
-
+        int member_uid = mem.getUid();
         JsonArray ja = new JsonArray();
 
         try {
-            MileageService mileageService = new MileageService();
-            List<Mileage> mileageList = mileageService.getMileageList(member_uid);
+            List<Mileage> mileageList = mileageManager.getMileageList(member_uid);
             for(Mileage mileage:mileageList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("member_uid", mileage.getMember_uid());
@@ -68,16 +62,18 @@ public class MileageController {
     }
 
     @GetMapping("/rest/service/getMileage")
-    public String getMileage(@RequestParam("member_uid") int member_uid) {
+    public String getMileage(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
-        if(member_uid == 0) {
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
+        int member_uid = mem.getUid();
 
-        MileageService mileageService = new MileageService();
         try {
-            int mileage = mileageService.getMileageSum(member_uid);
+            int mileage = mileageManager.getMileageSum(member_uid);
             jo.addProperty("result", "success");
             jo.addProperty("mileage", mileage);
         }catch (Exception e) {
@@ -99,7 +95,7 @@ public class MileageController {
 		}
 			
 		Transfercard card = new Transfercard(user.getUid(), (String)body.get("card_number"), card_type.valueOf((String)body.get("card_type").toString()));
-		CommonEnum result = serviceManager.updateTransfercard(card);
+		CommonEnum result = mileageManager.updateTransfercard(card);
 		if(result == CommonEnum.SUCCESS)
 			jo.addProperty("result", "success");
 		return jo.toString();
@@ -114,7 +110,7 @@ public class MileageController {
 			jo.addProperty("result", "failed");
 			return jo.toString();
 		}
-		CommonEnum result = serviceManager.deleteTransfercard(user.getUid());
+		CommonEnum result = mileageManager.deleteTransfercard(user.getUid());
 		if(result == CommonEnum.SUCCESS)
 			jo.addProperty("result", "success");
 		return jo.toString();

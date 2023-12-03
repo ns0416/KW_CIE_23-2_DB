@@ -34,17 +34,6 @@ public class ServiceManager {
 	
 	@Autowired
 	private RankingService rankingService;
-
-	public CommonEnum updateTransfercard(Transfercard card) {
-		if(mileageService.updateTransfercardInfo(card) > 0)
-			return CommonEnum.SUCCESS;
-		return CommonEnum.FAILED;
-	}
-	public CommonEnum deleteTransfercard(int member_uid) {
-		if(mileageService.deleteTransfercardInfo(member_uid) > 0)
-			return CommonEnum.SUCCESS;
-		return CommonEnum.FAILED;
-	}
 	
 	@Transactional
 	public CommonEnum refreshRanking(boolean is_weekly) {

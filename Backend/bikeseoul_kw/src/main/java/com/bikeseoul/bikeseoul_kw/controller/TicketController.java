@@ -36,8 +36,12 @@ public class TicketController {
     public String getExpiredTicketList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
-        User user = (User)hs.getAttribute("member");
-        int member_uid = user.getUid();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        int member_uid = mem.getUid();
         JsonArray ja = new JsonArray();
 
         try {
@@ -72,8 +76,12 @@ public class TicketController {
     public String getActivationTicket(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
-        User user = (User)hs.getAttribute("member");
-        int member_uid = user.getUid();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        int member_uid = mem.getUid();
         JsonArray ja = new JsonArray();
 
         try {

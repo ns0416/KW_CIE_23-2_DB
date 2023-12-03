@@ -38,8 +38,12 @@ public class CouponController {
     public String getUserCouponList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
-        User user = (User)hs.getAttribute("member");
-        int owner_id = user.getUid();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        int owner_id = mem.getUid();
         JsonArray ja = new JsonArray();
 
         try{

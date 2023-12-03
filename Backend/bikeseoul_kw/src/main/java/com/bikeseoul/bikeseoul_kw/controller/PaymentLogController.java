@@ -1,7 +1,7 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.PaymentLog;
-import com.bikeseoul.bikeseoul_kw.service.PaymentLogService;
+import com.bikeseoul.bikeseoul_kw.manager.PaymentLogManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 public class PaymentLogController {
     @Autowired
-    private PaymentLogService paymentLogService;
+    private PaymentLogManager paymentLogManager;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -34,7 +34,7 @@ public class PaymentLogController {
         JsonArray ja = new JsonArray();
 
         try {
-            List<PaymentLog> paymentLogList = paymentLogService.getPaymentLogList(member_uid);
+            List<PaymentLog> paymentLogList = paymentLogManager.getPaymentLogList(member_uid);
             for (PaymentLog paymentLog : paymentLogList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", paymentLog.getUid());
@@ -72,7 +72,7 @@ public class PaymentLogController {
         JsonArray ja = new JsonArray();
 
         try {
-            List<PaymentLog> paymentLogList = paymentLogService.getRefundLogList(member_uid);
+            List<PaymentLog> paymentLogList = paymentLogManager.getRefundLogList(member_uid);
             for (PaymentLog paymentLog : paymentLogList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", paymentLog.getUid());

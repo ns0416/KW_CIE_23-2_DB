@@ -331,25 +331,6 @@ public class indexController {
 		return jo.toString();
 	}
 
-	@GetMapping("/rest/noticeId")
-	@ResponseBody
-	public String noticeId(){
-		JsonObject jo = new JsonObject();
-		Config config = new ConfigManager().getConfig();
-		String group_code = "noticeId";
-		String item_code = "noticeId";
-		try{
-			String noticeId = config.get(group_code, item_code);
-			jo.addProperty("result", "success");
-			jo.addProperty("noticeId", noticeId);
-		}catch (Exception e){
-			e.printStackTrace();
-			jo.addProperty("result", "failed");
-			return jo.toString();
-		}
-		return jo.toString();
-	}
-
 	@GetMapping("/rest/getConfig")
 	@ResponseBody
 	public String information(@RequestParam("group_code") String group_code, @RequestParam("item_code") String item_code){
