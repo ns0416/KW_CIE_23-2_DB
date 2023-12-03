@@ -22,6 +22,10 @@ import memberBikeRank from './pages/memberBikeRank/memberBikeRank';
 import opinionBoardList from './pages/opinionBoardList/opinionBoardList';
 import memberInfoEdit from './pages/memberInfoEdit/memberInfoEdit';
 import passwordChange from './pages/passwordChange/passwordChange';
+import memberDelete from './pages/memberDelete/memberDelete';
+import noticeBoard from './pages/noticeBoard/noticeBoard';
+
+
 
 function App() {
   return (
@@ -50,6 +54,8 @@ function App() {
         <Route path="/opinionBoardList" Component={opinionBoardList} />
         <Route path="/memberInfoEdit" Component={memberInfoEdit} />
         <Route path="/passwordChange" Component={passwordChange} />
+        <Route path="/memberDelete" Component={memberDelete} />
+        <Route path="/noticeBoard" Component={noticeBoard} />
         
         
       </Routes>  

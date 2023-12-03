@@ -575,6 +575,7 @@ ul.tabs li {
           left:15px; 
           display:block
       }
+      
     /*** 추가 ****/
 
 
@@ -1760,3 +1761,6 @@ margin-top:50px;
 
 }
 /* 1024 end */
+
+
+a {text-decoration:none; cursor:pointer; font-weight:bold; color:#222;}

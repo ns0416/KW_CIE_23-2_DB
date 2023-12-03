@@ -1,0 +1,356 @@
+/* --------------------- sub header ----------------------------------------------  */
+
+@media (max-width:1024px) {
+
+    .m_sub_header_wrap {
+      display:block;
+      position:fixed;
+      top: 0; 
+      width:100%;
+      height:45px;
+      z-index:90000; 
+      background: #fff;
+    }
+  
+    .m_sub_header {
+       display:block; 
+       height:50px; 
+       width:100%; 
+       text-align:center;
+       font-size:16px;
+       font-weight: bold; 
+       line-height: 50px;
+       background: #fff;
+     }
+  
+     .m_sub_header_wrap .back {
+       background:url(../../../public/img/btn_back.png) center no-repeat; 
+       width:25px; 
+       height:25px; 
+       background-size:contain;
+       position:absolute; 
+       top:15px; 
+       left:15px;
+      }
+  
+     .m_sub_header_wrap .close {
+       background:url(../../../public/img/close.png) center no-repeat; 
+       width:22px; 
+       height:22px; 
+       background-size:contain;
+       position:absolute; 
+       top:15px; 
+       right:15px;
+      }
+   
+   } 
+   /*1024 end */
+  /* --------------------- sub header end ----------------------------------------------  */
+  
+  /* ------------------------------------- header start -----------------------------------------  */
+
+@media (max-width:1024px) {
+    html,body {
+        font-size:14px;
+    }
+  }
+  
+  .wrap {width:100%;}
+  
+  
+  .header_wrap {
+    width:100%; 
+    height:119px; 
+    /* background:url(../../../public/img/header_bg.gif) repeat-x; */
+    border-bottom:1px solid #ededed;
+  }
+  
+  
+  
+  
+  .header {
+      width:1030px; 
+      margin:0 auto; 
+      overflow:hidden; 
+      text-align:left; 
+  }
+  
+  .header .top {
+      height:48px; 
+      line-height:48px; 
+      overflow:hidden;
+      border-bottom:1px solid #ededed;
+  }
+  
+  .header:after {
+    content:"";
+    display:block;
+    clear:both;
+  }
+  
+  .header .setting {display:none}
+  
+  
+  .header .login, .header .logout {font-size:12px; color:#222; float:right; padding-left:15px}
+  
+  .header .login a, .header .logout a {font-weight:normal}
+  
+  .header .top .info {font-size:12px; color:#222; float:right; padding-left:15px}
+  .header .top .info a {font-weight:normal}
+  
+  .header .top .join {font-size:12px; color:#222; float:right; padding-left:15px}
+  .header .top .join a {font-weight:normal}
+  
+  .header .alim {font-size:12px; color:#222; float:right; padding-left:15px;}
+  .header .alim a {font-weight:normal}
+  /* .header .alim .new {background:url(../../../public/img/alim_new_bg.png) no-repeat; width:17px; height:16px; font-size:11px; color:#fff; font-weight:bold; padding:1px 15px 2px 5px} */
+  
+  
+  .header .global {float:left}
+  .header .global li {float:left; padding-right:15px}
+  .header .global li a {font-size:12px; color:#222; font-weight:normal}
+  
+  
+  
+  .header .logo img {width:166px; height:39px; padding-top:15px; float:left}
+  
+  
+  .header .menu_web {float:right; padding-top:20px}
+  .header .menu_web li {float:left; padding-left:50px}
+  .header .menu_web li a {font-size:17px; color:#222; font-weight:bold}
+  
+  .header .menu_web:after {
+    content:"";
+    display:block;
+    clear:both;
+  }
+  
+  .header .m_global,.header .m_menu {display:none;} 
+  .new_float_icon {display:none;} 
+  .new_float_icon_mask {display:none;} 
+  .new_float_icon_mask_2 {display:none;} 
+  .new_float_info_wrap {display:none;}
+  
+  
+  /* ------------------------------------- header mobile start -----------------------------------------  */
+  
+  @media (max-width:1024px) {
+   
+  
+    .header_wrap {height:45px; position: fixed;top: 0; padding-top:15px; z-index:10; background:#fff}
+  
+    .header {height:45px; width:100%; text-align:center; background: #fff; position:relative;}
+    .header:after {clear:both; display:block; content:'';}
+  
+    .header .top {float: left;}
+  
+    .header .logo img {width:175px; height:43px; padding-top:0px; float:none}
+  
+    .header .login, .header .logout, .header .join, .header .info, .header .alim, .header .global {display:none}
+    .t_index .bike_tap , .t_index .remarks{display: none}
+  
+    .header .m_global {
+      display:block;
+      background:url(../../../public/img/btn_global.png) no-repeat; 
+      width:36px;
+      height:42px; 
+      background-size:100%; 
+      position:absolute; 
+      top:0; 
+      right:16px; 
+      font-size:0; 
+      text-indent: -99999px; 
+     }
+     /* //global */
+  
+     .header .m_menu {
+       display:block;    
+       background:url(../../../public/img/mo_menu.png) no-repeat; 
+       width:29px;
+       height:35px;  
+       background-size:contain;
+       position:absolute; 
+       top:3px; 
+       left:16px; 
+       font-size:0; 
+       padding:0; 
+     }
+     /* //alim */
+  
+     .header .menu_web {display:none;}
+  
+     #sub .logo {display:none;}
+  
+     #sub .header_wrap {
+      position:relative;
+      margin-bottom:0px;
+    }
+      .main.er {display:block}
+      .error {text-align:center;margin-bottom:100px; margin-top:150px}
+      .error img {width:50%; height:50%}
+      .error p span {font-size:13px !important;}
+  }
+  /* 1024 end */
+  
+  
+   /*** 추가 ****/
+    #sub .m_menu , #sub .m_global , #sub .bike_tap, #sub .remarks {display:none;}  /* 메인 페이지가 아닐경우 지도페이지(mainWrap) 상단 안보이게변경 */
+    .mainWrap .m_sub_header_wrap {display:none;}          /* 메인 페이지일 경우 서브페이지(#sub) 상단 안보이게변경 */
+    .myleft .header_wrap {display:none;}              /* myLeft페이지 전용 */
+    /*** 추가 ****/
+    
+  
+    /* --------------------- 고객센터 start ----------------------------------------------  */
+
+.board_srch_help {
+    padding: 30px 0px;
+    text-align: center;
+    background-color: #fff;
+    margin-bottom:0;
+}
+.board_srch_help .input {border:1px #dfdfdf solid; display:inline-block;}
+.board_srch_help .input input {height:40px; line-height:40px; font-size:13px}
+.board_srch_help .btn_search {height:42px; line-height:42px; text-align:center; font-size:13px; display:inline-block; margin-left:5px}
+.board_srch_help  .btn_search a {color:#fff; display:block; cursor:pointer; background-color:#4cab6a; padding:0 20px}
+.board_srch_help  .btn_search img {width:14px; height:14px; vertical-align:middle; padding-right:5px}
+ 
+
+
+ ul.help {
+  display:none;
+ }
+ 
+
+@media (max-width:1024px) {
+
+ ul.help {
+  display:block;
+ }
+
+   ul.help {
+    width: 100%;
+    box-sizing:border-box;
+   }
+
+   ul.help li { 
+     width:100%;
+     height:50px;
+     line-height: 50px;
+     border-top:1px solid #ddd;
+     font-size:16px;
+     padding-left:20px;
+     box-sizing:border-box; 
+     position: relative;
+   }
+
+   ul.help li:after {
+    content:"";
+    display:block;
+    position:absolute;
+    top:20px;
+    right:15px;
+    width:18px;
+    height:18px;
+    /* background: url(../../../public/img/help_arrow.png) 0 0 no-repeat; */
+    -webkit-background-size: contain;
+    background-size: contain;
+   }
+
+
+.board_srch_help {padding:10px 15px; margin-top:50px; text-align:center; margin-bottom:0} 
+.board_srch_help .btn_search {width:100px;} 
+
+}
+/*//1024 end*/
+
+/* --------------------- 고객센터 end ----------------------------------------------  */
+
+.w100 {
+    width: 100%;
+}
+
+/* ------------------------------------- 상담내역 pc start  -----------------------------------------  */  
+
+.board_srch {
+    padding: 30px 0px; 
+    text-align: center;
+    background-color: #fff;
+  margin-bottom:0;
+}
+.board_srch .input {border:1px #dfdfdf solid; display:inline;}
+.board .input {border:1px #dfdfdf solid; display:inline-block;}
+.board_srch .input input {height:40px; line-height:40px; font-size:13px}
+.board_srch  .btn_search {height:40px; line-height:40px; text-align:center; font-size:13px; display:inline-block; margin-left:5px;} 
+.board_srch  .btn_search a {color:#fff; display:block; cursor:pointer; background-color:#056531; height:37px;}
+.board_srch  .btn_search img {width:14px; height:14px; vertical-align:middle; padding-right:5px}
+
+
+.board_box table {
+    border-top: 1px solid #000;
+    font-size: 13px;
+    width: 100%;
+    margin: 0 auto;
+}
+.board_box th {
+    border-bottom: 1px solid #056531;
+    font-weight: bold;
+    color: #222;
+    line-height: 400%;
+}
+.board_box td {
+    border-bottom: 1px solid #dfdfdf;
+    color: #666;
+    padding: 20px 15px;	/* 사이즈 관련 수정 */
+}
+.board_box td span.red {color:#f1424f;}
+.board_box td.nodata {color:#f1424f; padding:30px 0}
+
+
+.board_info {
+    padding: 20px 15px;
+    margin: 10px auto 10px auto;
+    background-color: #efefef;
+    width: 100%;
+    box-sizing: border-box;
+}
+.board_info li {
+    font-size: 12px;
+    color: #666;
+    line-height: 16px;
+}
+.board_info li a {text-decoration:underline; background:url(../../../public/img/menu_arrow.png) right center no-repeat; background-size:10px; color:#000; padding-right:10px; line-height:20px; font-weight:bold}
+.board_info li span {color:#f3414f}
+.board_info_nonBox {
+    margin: 10px auto 10px auto;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+
+/* ------------------------------------- 상담내역 pc end  -----------------------------------------  */  
+
+
+/* ------------------------------------- 상담내역 mobile start  -----------------------------------------  */ 
+
+@media (max-width:1024px) { 
+
+    
+  .board_srch {padding:10px 15px; text-align:center; margin-bottom:0}
+  .board_srch .input {border:1px #dfdfdf solid; display:inline-block;}
+  .board_srch .input input {height:27px; line-height:30px; font-size:12px;}
+  .board .input {border:1px #dfdfdf solid; display:inline-block;}
+  .board_srch  .btn_search {height:32px; line-height:32px; text-align:center; font-size:12px; display:inline-block; margin-left:5px; margin-top:0}
+  .board_srch  .btn_search a {color:#fff; display:block; cursor:pointer; background-color:#056531; padding:0 10px}
+  .board_srch  .btn_search img {width:14px; height:14px; vertical-align:middle; padding-right:5px}
+  .board .btn {margin:20px 15px 0 15px; height:33px; line-height:33px; text-align:center; font-size:12px; width:auto}
+  .board .btn a {color:#fff; display:block; cursor:pointer; background-color:#056531; }
+
+
+  
+
+}
+/* 1024 end */
+/* ------------------------------------- 상담내역 mobile end  -----------------------------------------  */ 
+
