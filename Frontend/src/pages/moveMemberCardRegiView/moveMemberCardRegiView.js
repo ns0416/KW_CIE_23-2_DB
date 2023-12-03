@@ -2,7 +2,7 @@ import style from './common.css';
 import React from 'react';
 
 
-export default function moveMemberCardRegiView() {
+export default function MoveMemberCardRegiView() {
 	return (
 		<>
 

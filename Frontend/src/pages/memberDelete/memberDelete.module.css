@@ -1,0 +1,258 @@
+/* --------------------- sub header ----------------------------------------------  */
+
+@media (max-width:1024px) {
+
+  .m_sub_header_wrap {
+    display:block;
+    position:fixed;
+    top: 0; 
+    width:100%;
+    height:45px;
+    z-index:90000; 
+    background: #fff;
+  }
+
+  .m_sub_header {
+     display:block; 
+     height:50px; 
+     width:100%; 
+     text-align:center;
+     font-size:16px;
+     font-weight: bold; 
+     line-height: 50px;
+     background: #fff;
+   }
+
+   .m_sub_header_wrap .back {
+     background:url(../../../public/img/btn_back.png) center no-repeat; 
+     width:25px; 
+     height:25px; 
+     background-size:contain;
+     position:absolute; 
+     top:15px; 
+     left:15px;
+    }
+
+   .m_sub_header_wrap .close {
+     background:url(../../../public/img/close.png) center no-repeat; 
+     width:22px; 
+     height:22px; 
+     background-size:contain;
+     position:absolute; 
+     top:15px; 
+     right:15px;
+    }
+ 
+ } 
+ /*1024 end */
+/* --------------------- sub header end ----------------------------------------------  */
+
+
+/* ------------------------------------- header start -----------------------------------------  */
+
+@media (max-width:1024px) {
+  html,body {
+  	font-size:14px;
+  }
+}
+
+.wrap {width:100%; margin-top: 100px;}
+
+
+.header_wrap {
+  width:100%; 
+  height:119px; 
+  /* background:url(../../../public/img/header_bg.gif) repeat-x; */
+  border-bottom:1px solid #ededed;
+}
+
+
+
+
+.header {
+    width:1030px; 
+    margin:0 auto; 
+    overflow:hidden; 
+    text-align:left; 
+}
+
+.header .top {
+    height:48px; 
+    line-height:48px; 
+    overflow:hidden;
+    border-bottom:1px solid #ededed;
+}
+
+.header:after {
+  content:"";
+  display:block;
+  clear:both;
+}
+
+.header .setting {display:none}
+
+
+.header .login, .header .logout {font-size:12px; color:#222; float:right; padding-left:15px}
+
+.header .login a, .header .logout a {font-weight:normal}
+
+.header .top .info {font-size:12px; color:#222; float:right; padding-left:15px}
+.header .top .info a {font-weight:normal}
+
+.header .top .join {font-size:12px; color:#222; float:right; padding-left:15px}
+.header .top .join a {font-weight:normal}
+
+.header .alim {font-size:12px; color:#222; float:right; padding-left:15px;}
+.header .alim a {font-weight:normal}
+/* .header .alim .new {background:url(../../../public/img/alim_new_bg.png) no-repeat; width:17px; height:16px; font-size:11px; color:#fff; font-weight:bold; padding:1px 15px 2px 5px} */
+
+
+.header .global {float:left}
+.header .global li {float:left; padding-right:15px}
+.header .global li a {font-size:12px; color:#222; font-weight:normal}
+
+
+
+.header .logo img {width:166px; height:39px; padding-top:15px; float:left}
+
+
+.header .menu_web {float:right; padding-top:20px}
+.header .menu_web li {float:left; padding-left:50px}
+.header .menu_web li a {font-size:17px; color:#222; font-weight:bold}
+
+.header .menu_web:after {
+  content:"";
+  display:block;
+  clear:both;
+}
+
+.header .m_global,.header .m_menu {display:none;} 
+.new_float_icon {display:none;} 
+.new_float_icon_mask {display:none;} 
+.new_float_icon_mask_2 {display:none;} 
+.new_float_info_wrap {display:none;}
+
+
+/* ------------------------------------- header mobile start -----------------------------------------  */
+
+@media (max-width:1024px) {
+ 
+
+  .header_wrap {height:45px; position: fixed;top: 0; padding-top:15px; z-index:10; background:#fff}
+
+  .header {height:45px; width:100%; text-align:center; background: #fff; position:relative;}
+  .header:after {clear:both; display:block; content:'';}
+
+  .header .top {float: left;}
+
+  .header .logo img {width:175px; height:43px; padding-top:0px; float:none}
+
+  .header .login, .header .logout, .header .join, .header .info, .header .alim, .header .global {display:none}
+  .t_index .bike_tap , .t_index .remarks{display: none}
+
+  .header .m_global {
+    display:block;
+    background:url(../../../public/img/btn_global.png) no-repeat; 
+    width:36px;
+    height:42px; 
+    background-size:100%; 
+    position:absolute; 
+    top:0; 
+    right:16px; 
+    font-size:0; 
+    text-indent: -99999px; 
+   }
+   /* //global */
+
+   .header .m_menu {
+     display:block;    
+     background:url(../../../public/img/mo_menu.png) no-repeat; 
+     width:29px;
+     height:35px;  
+     background-size:contain;
+     position:absolute; 
+     top:3px; 
+     left:16px; 
+     font-size:0; 
+     padding:0; 
+   }
+   /* //alim */
+
+   .header .menu_web {display:none;}
+
+   #sub .logo {display:none;}
+
+   #sub .header_wrap {
+    position:relative;
+    margin-bottom:0px;
+  }
+	.main.er {display:block}
+	.error {text-align:center;margin-bottom:100px; margin-top:150px}
+	.error img {width:50%; height:50%}
+	.error p span {font-size:13px !important;}
+}
+/* 1024 end */
+
+
+ /*** 추가 ****/
+  #sub .m_menu , #sub .m_global , #sub .bike_tap, #sub .remarks {display:none;}  /* 메인 페이지가 아닐경우 지도페이지(mainWrap) 상단 안보이게변경 */
+  .mainWrap .m_sub_header_wrap {display:none;}          /* 메인 페이지일 경우 서브페이지(#sub) 상단 안보이게변경 */
+  .myleft .header_wrap {display:none;}              /* myLeft페이지 전용 */
+  /*** 추가 ****/
+  
+
+
+
+/* ------------------------------------- 회원탈퇴  pc start  -----------------------------------------  */  
+ 
+.member_out > h3 {font-size:25px; padding:5px 0 10px 0; letter-spacing:-1px}
+ 
+
+.my .out_txt {text-align:center; margin:30px 0 30px 0}
+.my .out_txt dt {font-size:17px; font-weight:bold; color:#000; margin-bottom:30px}
+.my .out_txt dt span {color:#f1424f}
+.my .out_txt dd {font-size:14px; color:#222; line-height:24px}
+
+
+.my .out_info {border:1px solid #f2f2f2; padding:10px 15px; margin:10px 15px 10px 15px; background-color: #f5f5f5;}
+/* .my .out_info li {font-size:13px; color:#888; line-height:20px; background:#f5f5f5 url(../img/ico_ing_bul.png) no-repeat left top 7px !important; padding-left:10px; letter-spacing:-1px;} */
+.my .out_box {padding:50px 300px; margin:30px 15px 10px 15px; }
+.my .out_box .btn {width:100%; margin:0 auto; height:45px; line-height:45px; text-align:center; font-size:14px; padding-top:10px; clear:both}
+.my .out_box .btn a {color:#ccc; display:block; cursor:pointer; background-color:#24384a;}
+
+
+/* -------------------------------------  회원탈퇴 pc end  -----------------------------------------  */  
+
+
+
+/* -------------------------------------  회원탈퇴 mobile start  -----------------------------------------  */ 
+
+@media (max-width:1024px) { 
+   
+  .member_out > h3 {display:none;} 
+
+
+  .my .out_txt {text-align:center; margin:70px 0 30px 0}
+  .my .out_txt dt {font-size:14px; font-weight:bold; color:#000; margin-bottom:30px}
+  .my .out_txt dt span {color:#f1424f}
+  .my .out_txt dd {font-size:13px; color:#222; line-height:16px}
+  .my .out_info {border:1px solid #f2f2f2; padding:10px 15px; margin:10px 15px 10px 15px}
+  /* .my .out_info li {font-size:11px; color:#888; line-height:14px; background:#fff url(../img/ico_ing_bul.png) no-repeat left top 5px !important; padding-left:10px; letter-spacing:-1px;} */
+  .my .out_box {padding:30px 15px; margin:30px 15px 10px 15px; background-color:#efefef;}
+  .my .out_box .btn {width:100%; margin:0 auto; height:40px; line-height:40px; text-align:center; font-size:12px; padding-top:10px; clear:both}
+  .my .out_box .btn a {color:#ccc; display:block; cursor:pointer; background-color:#666;}
+
+ 
+} 
+/* 1024 end */
+/* -------------------------------------  회원탈퇴 mobile end  -----------------------------------------  */ 
+
+body {background-color:#fff; font-size:12px; font-family:'notokr-regular', sans-serif; /*font-family:'NanumSquare',sans-serif;*/ -webkit-text-size-adjust:none; -ms-text-size-adjust: none; text-align:left; color:#333; line-height:1.2em; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
+ul {list-style:none;}
+img {border:0; vertical-align:middle}
+a {text-decoration:none; cursor:pointer; font-weight:bold; color:#222;}
+em {font-style:normal}
+table {border-collapse:collapse; width:100%}
+caption {overflow:hidden; height:0;}
+/*div, button, p {box-sizing:border-box}*/
+.my select {background:#fff; width:100%; border:1px #dfdfdf solid; height:30px; }
