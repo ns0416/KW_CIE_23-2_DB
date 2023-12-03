@@ -1,7 +1,7 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.Gift;
-import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
+import com.bikeseoul.bikeseoul_kw.manager.GiftManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 public class GiftController {
 
     @Autowired
-    private ServiceManager serviceManager;
+    private GiftManager giftManager;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -30,7 +30,7 @@ public class GiftController {
         JsonArray ja = new JsonArray();
 
         try{
-            List<Gift> receivedGiftList = serviceManager.getReceivedGiftList(receiver_uid);
+            List<Gift> receivedGiftList = giftManager.getReceivedGiftList(receiver_uid);
             for(Gift gift:receivedGiftList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("gift_id", gift.getGift_id());
@@ -60,7 +60,7 @@ public class GiftController {
         JsonArray ja = new JsonArray();
 
         try{
-            List<Gift> sentGiftList = serviceManager.getSentGiftList(giver_uid);
+            List<Gift> sentGiftList = giftManager.getSentGiftList(giver_uid);
             for(Gift gift:sentGiftList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("gift_id", gift.getGift_id());
