@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bikeseoul.bikeseoul_kw.service.MileageService;
 import com.bikeseoul.bikeseoul_kw.service.PaymentLogService;
 import com.bikeseoul.bikeseoul_kw.service.RankingService;
+import com.bikeseoul.bikeseoul_kw.service.TicketService;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -39,6 +40,9 @@ public class ServiceManager {
 	
 	@Autowired
 	private PaymentLogService paymentlogService;
+	
+	@Autowired
+	private TicketService ticketService;
 
 	public CommonEnum updateTransfercard(Transfercard card) {
 		if(mileageService.updateTransfercardInfo(card) > 0)
