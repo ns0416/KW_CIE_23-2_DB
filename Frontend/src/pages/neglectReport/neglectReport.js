@@ -9,20 +9,28 @@ export default function NeglectReport() {
 
     return (
         <>
-<body scroll="yes" class="ie8m">
-    {/* <div class="wrap" id="sub">   
+<body scroll="yes" className={style.ie8m}>
+    {/* <div className={style.wrap" id="sub">   
 
-    <!--웹 : 헤더추가--><div id="layer" class="layer-wrap" style={{display:none "> 
-		<div class="pop-layer">  */}
-	<div class="container">
-		<div class="content">
-			<div class="trouble">
-				<div class="top">
-					<h3>방치 신고</h3>
-					{/* <!-- <button class="back right"></button>
-					<button class="close"></button> --> */}
+    <!--웹 : 헤더추가--><div id="layer" className={style.layer-wrap" style={{display:none "> 
+		<div className={style.pop-layer">  */}
+	<div className={style.container}>
+		<div className={style.content}>
+			<div className={style.trouble}>
+			<div className={style.top}>
+				<div className={style.m_sub_header_wrap}>
+					<div className={style.m_sub_header}>
+						<button className={style.back}></button>
+						<button className={style.close}></button>
+						<span id="title">방치 신고</span>
+					</div>
 				</div>
-				<div class="my_box">
+			
+				
+				
+				
+			</div>
+				<div className={style.my_box}>
 	            	<table>
 	            		<colgroup>
 							<col width="120px" />
@@ -32,15 +40,15 @@ export default function NeglectReport() {
 							<tr>
 								<th>자전거 번호</th>
 								<td>
-									SPB-<div class="pay_input" style={{width:"40%"}}>
+									SPB-<div className={style.pay_input} style={{width:"40%"}}>
                                         <input type="number" id="bikeNo" name="" maxlength="5" style={{height:"25px", width: "100%"}} oninput="maxLengthCheck(this)"/></div>
-									&nbsp",<button class="id_check" id="bikeDupChk">중복확인</button>
+									<button className={style.id_check} id="bikeDupChk">중복확인</button>
 								</td>
 							</tr>
 							<tr>
 								<th>방치 주소</th>
 								<td>
-									<div class="pay_input" style={{width:"100%",border:"none"}}>
+									<div className={style.pay_input} style={{width:"100%",border:"none"}}>
                                         <input type="text" readonly="readonly" id="address" name="address" maxlength="5" style={{height:"25px", width:"100%"}} placeholder="지도에서 위치 선택시 주소 자동입력"/>
                                         </div>
 								</td>
@@ -63,8 +71,8 @@ export default function NeglectReport() {
 						<tbody>
                             <tr>
 							<td id="maptd" style={{width: "270px", height: "382px"}} colspan="2">
-								<div class="side_location" style={{}}>
-									<a class="location">현재위치</a>
+								<div className={style.side_location} style={{}}>
+									<a className={style.location}>현재위치</a>
 								</div>
                                 {/* 맵 */}
 								 </td>
@@ -99,8 +107,8 @@ export default function NeglectReport() {
 									<a style={{fontWeight: "normal", textDecoration:"underline", fontSize: "12px"}} value="" href="javascript:l_fadeIn()">(예시보기)</a>
 								</th>
 								<td>
-									<div class="upload-wrapper" style={{width: "100%"}}>
-										<input type="file" accept="image/*" id="upload" name="enfrcFile" class="image-upload" style={{width:"100%"}} />
+									<div className="upload-wrapper" style={{width: "100%"}}>
+										<input type="file" accept="image/*" id="upload" name="enfrcFile" className="image-upload" style={{width:"100%"}} />
 									</div>
 									<input type="hidden" name="enfrcFileNoList" value="0"/>
 									<input type="hidden" name="enfrcFileStateList" value="I"/>
@@ -109,12 +117,12 @@ export default function NeglectReport() {
 						
 					</tbody>
                     </table>		
-					<div class="register">
-						<a id="reportBtn" class="btn">등록</a>
+					<div className={style.register}>
+						<a id="reportBtn" className={style.btn}>등록</a>
 					</div> 
 				</div>
-				<div class="my">
-    				<div class="go"><a href="/app/err/getLeaveReportList.do">방치신고내역 보기</a></div>
+				<div className={style.my}>
+    				<div className={style.go}><a href="/app/err/getLeaveReportList.do">방치신고내역 보기</a></div>
     			</div>
 			</div>
 		</div>
