@@ -1,11 +1,6 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
-import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
-import com.bikeseoul.bikeseoul_kw.container.Member;
-import com.bikeseoul.bikeseoul_kw.container.PaymentMethod;
-import com.bikeseoul.bikeseoul_kw.container.Ticket;
-import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
-import com.bikeseoul.bikeseoul_kw.container.User;
+import com.bikeseoul.bikeseoul_kw.container.*;
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
 import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
 import com.bikeseoul.bikeseoul_kw.manager.TicketManager;
@@ -56,20 +51,20 @@ public class TicketController {
         JsonArray ja = new JsonArray();
 
         try {
-            List<Ticket_detail> ticket_details = ticketManager.getExpiredTicketList(member_uid);
-            for(Ticket_detail ticket_detail:ticket_details) {
+            List<Pair<Ticket, Ticket_detail>> expiredTicketList = ticketManager.getExpiredTicketList(member_uid);
+            for(Pair<Ticket, Ticket_detail> pair : expiredTicketList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("member_uid", ticket_detail.getMember_uid());
-                item.addProperty("ticket_id", ticket_detail.getTicket_id());
-                item.addProperty("cost", ticket_detail.getCost());
-                item.addProperty("ticket_type", ticket_detail.getTicket_type().getValue());
-                item.addProperty("hours", ticket_detail.getHours().getValue());
-                item.addProperty("ticket_created_date", ticket_detail.getTicket_created_date().format(dtf_kor));
-                item.addProperty("ticket_updated_date", ticket_detail.getTicket_updated_date().format(dtf_kor));
-                item.addProperty("detail_start_date", ticket_detail.getStart_date().format(dtf_kor));
-                item.addProperty("detail_create_date", ticket_detail.getCreated_date().format(dtf_kor));
-                item.addProperty("activation", ticket_detail.isActivation());
-                item.addProperty("expired_date", ticket_detail.getExpired_date().format(dtf_kor));
+                item.addProperty("member_uid", pair.getSecond().getMember_uid());
+                item.addProperty("ticket_id", pair.getFirst().getTicket_id());
+                item.addProperty("cost", pair.getFirst().getCost());
+                item.addProperty("ticket_type", pair.getFirst().getTicket_type().getValue());
+                item.addProperty("hours", pair.getFirst().getHours().getValue());
+                item.addProperty("ticket_created_date", pair.getFirst().getTicket_created_date().format(dtf_kor));
+                item.addProperty("ticket_updated_date", pair.getFirst().getTicket_updated_date().format(dtf_kor));
+                item.addProperty("ticket_detail_start_date", pair.getSecond().getStart_date().format(dtf_kor));
+                item.addProperty("ticket_detail_create_date", pair.getSecond().getCreated_date().format(dtf_kor));
+                item.addProperty("activation", pair.getSecond().isActivation());
+                item.addProperty("expired_date", pair.getSecond().getExpired_date().format(dtf_kor));
                 ja.add(item);
             }
             jo.addProperty("result", "success");
@@ -96,21 +91,19 @@ public class TicketController {
         JsonArray ja = new JsonArray();
 
         try {
-            Ticket_detail ticket_detail = ticketManager.getActivationTicket(member_uid);
-            if(ticket_detail != null) {
-                JsonObject item = new JsonObject();
-                item.addProperty("member_uid", ticket_detail.getMember_uid());
-                item.addProperty("ticket_id", ticket_detail.getTicket_id());
-                item.addProperty("cost", ticket_detail.getCost());
-                item.addProperty("ticket_type", ticket_detail.getTicket_type().getValue());
-                item.addProperty("hours", ticket_detail.getHours().getValue());
-                item.addProperty("ticket_created_date", ticket_detail.getTicket_created_date().format(dtf_kor));
-                item.addProperty("ticket_updated_date", ticket_detail.getTicket_updated_date().format(dtf_kor));
-                item.addProperty("detail_start_date", ticket_detail.getStart_date().format(dtf_kor));
-                item.addProperty("detail_create_date", ticket_detail.getCreated_date().format(dtf_kor));
-                item.addProperty("activation", ticket_detail.isActivation());
-                ja.add(item);
-            }
+            Pair<Ticket, Ticket_detail> activationTicket = ticketManager.getActivationTicket(member_uid);
+            JsonObject item = new JsonObject();
+            item.addProperty("member_uid", activationTicket.getSecond().getMember_uid());
+            item.addProperty("ticket_id", activationTicket.getFirst().getTicket_id());
+            item.addProperty("cost", activationTicket.getFirst().getCost());
+            item.addProperty("ticket_type", activationTicket.getFirst().getTicket_type().getValue());
+            item.addProperty("hours", activationTicket.getFirst().getHours().getValue());
+            item.addProperty("ticket_created_date", activationTicket.getFirst().getTicket_created_date().format(dtf_kor));
+            item.addProperty("ticket_updated_date", activationTicket.getFirst().getTicket_updated_date().format(dtf_kor));
+            item.addProperty("ticket_detail_start_date", activationTicket.getSecond().getStart_date().format(dtf_kor));
+            item.addProperty("ticket_detail_create_date", activationTicket.getSecond().getCreated_date().format(dtf_kor));
+            item.addProperty("activation", activationTicket.getSecond().isActivation());
+            ja.add(item);
             jo.addProperty("result", "success");
             jo.add("data", ja);
         }catch(Exception e) {

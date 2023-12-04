@@ -16,12 +16,12 @@ public class TicketService implements TicketDao {
     private TicketDao ticketDao;
 
     @Override
-    public List<Ticket_detail> getExpiredTicketList(int member_uid) {
+    public  List<Map<String, Object>> getExpiredTicketList(int member_uid) {
         return ticketDao.getExpiredTicketList(member_uid);
     }
 
     @Override
-    public Ticket_detail getActivationTicket(int member_uid) {
+    public  List<Map<String, Object>> getActivationTicket(int member_uid) {
         return ticketDao.getActivationTicket(member_uid);
     }
 

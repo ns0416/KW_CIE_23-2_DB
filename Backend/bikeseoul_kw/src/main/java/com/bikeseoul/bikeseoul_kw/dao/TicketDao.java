@@ -10,9 +10,8 @@ import java.util.Map;
 
 @Mapper
 public interface TicketDao {
-    List<Ticket_detail> getExpiredTicketList(int member_uid);
-
-    Ticket_detail getActivationTicket(int member_uid);
+    List<Map<String, Object>> getExpiredTicketList(int member_uid);
+    List<Map<String, Object>> getActivationTicket(int member_uid);
     List<Ticket> getTicketList(int checkvalid, String type);
     Ticket getTicketInfo(int ticket_id);
     int insertTicketDetail(Ticket_detail td);

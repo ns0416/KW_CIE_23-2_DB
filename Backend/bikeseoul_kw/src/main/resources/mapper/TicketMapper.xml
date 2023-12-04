@@ -3,9 +3,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bikeseoul.bikeseoul_kw.dao.TicketDao">
-    <select id="getExpiredTicketList" resultType="com.bikeseoul.bikeseoul_kw.container.Ticket_detail">
+    <select id="getExpiredTicketList" resultType="HashMap">
         SELECT
-            t.ticket_id, t.ticket_type, t.hours, t.cost, t.isvalid, t.created_date, t.updated_date, tde.uid, tde.member_uid, tde.start_date, tde.activation, tde.created_date, tde.expired_date
+            t.ticket_id,
+			t.ticket_type,
+			t.hours,
+			t.cost,
+			t.isvalid,
+			t.created_date AS ticket_created_date,
+			t.updated_date AS ticket_updated_date,
+			tde.uid AS ticket_detail_uid,
+			tde.member_uid,
+			tde.start_date AS ticket_detail_start_date,
+			tde.activation AS ticket_detail_activation,
+			tde.created_date AS ticket_detail_created_date,
+			tde.expired_date AS ticket_detail_expired_date
         FROM
             ticket t
         LEFT JOIN
@@ -16,9 +28,20 @@
             t.member_uid = #{member_uid}
     </select>
 
-    <select id="getActivatedTicketList" resultType="com.bikeseoul.bikeseoul_kw.container.Ticket_detail">
+    <select id="getActivatedTicketList" resultType="HashMap">
         SELECT
-            t.ticket_id, t.ticket_type, t.hours, t.cost, t.isvalid, t.created_date, t.updated_date, td.uid, td.member_uid, td.start_date, td.activation, td.created_date
+			t.ticket_id,
+			t.ticket_type,
+			t.hours,
+			t.cost,
+			t.isvalid,
+			t.created_date AS ticket_created_date,
+			t.updated_date AS ticket_updated_date,
+			td.uid AS ticket_detail_uid,
+			td.member_uid,
+			td.start_date AS ticket_detail_start_date,
+			td.activation AS ticket_detail_activation,
+			td.created_date AS ticket_detail_created_date,
         FROM
             ticket t
         LEFT JOIN
