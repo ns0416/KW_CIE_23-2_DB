@@ -16,7 +16,7 @@ export default function Joinpage1()
     const [seconds, setSeconds] = useState(59);
 
     function Submit_handler() { //인증 메일 발송 함수
-        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/service/sendAuthMail", {email:email})
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/sendAuthMail", {email:email})
         .then((res) => {
             if(res.data.result == "success")
             {

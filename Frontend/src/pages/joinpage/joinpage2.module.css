@@ -1,0 +1,187 @@
+.header {
+    width:1030px; 
+    margin:0 auto; 
+    overflow:hidden; 
+    text-align:left; 
+}
+
+.header .top {
+    height:48px; 
+    line-height:48px; 
+    overflow:hidden;
+    border-bottom:1px solid #ededed;
+}
+
+.header::after {
+  content:"";
+  display:block;
+  clear:both;
+}
+
+/* --------------------- sub header ----------------------------------------------  */
+
+@media (max-width:1024px) {
+
+    .m_sub_header_wrap {
+      display:block;
+      position:fixed;
+      top: 0; 
+      width:100%;
+      height:45px;
+      /* z-index:90000;  */
+      background: #fff;
+    }
+  
+    .m_sub_header {
+       display:block; 
+       height:50px; 
+       width:100%; 
+       text-align:center;
+       font-size:16px;
+       font-weight: bold; 
+       line-height: 50px;
+       background: #fff;
+     }
+  
+     .m_sub_header_wrap .back {
+       background:url(../../../public/img/btn_back.png) center no-repeat; 
+       width:25px; 
+       height:25px; 
+       background-size:contain;
+       position:absolute; 
+       top:15px; 
+       left:15px;
+      }
+  
+     .m_sub_header_wrap .close {
+       background:url(../../../public/img/close.png) center no-repeat; 
+       width:22px; 
+       height:22px; 
+       background-size:contain;
+       position:absolute; 
+       top:15px; 
+       right:15px;
+      }
+   
+   } 
+   /*1024 end */
+  /* --------------------- sub header end ----------------------------------------------  */
+  
+  .container {display:block;}
+
+  .content {width:1030px; margin:0 auto; position:relative; min-height:500px}
+
+  .join .phone {
+    position: relative;
+    /* border-bottom: 1px #222 solid; */
+    margin: 0 15px 30px 15px;
+    /* width: auto; */
+    display: block;
+    text-align: center;
+    /* font-size: 0; */
+   }
+   .join .phoneb {
+    position: relative;
+    /* border-bottom: 1px #222 solid; */
+    margin: 0 15px 30px 15px;
+    /* width: auto; */
+    display: block;
+    /* font-size: 0; */
+   }
+  .join .phoneb input {line-height:30px; height:30px; border-bottom:1px #222 solid; padding:0 5px;font-size: 14px;width: 200px !important;}
+  .join .phone input {line-height:30px; height:30px; border-bottom:1px #222 solid; padding:0 5px;font-size: 14px;width: 60px !important;}
+  .join .optin {padding:0 15px; text-align:right; font-size:11px; color:#888;}
+  .join .explan {padding:0 15px; font-size:11px; color:#222; margin-bottom:10px; width:auto}
+  .join .id {position:relative; border-bottom:1px #222 solid; margin:0 15px 30px 15px; width:auto}
+  .file input[type="file"] {width:70px}
+  .join .id .id_check, .join .file .file_btn {position:absolute; right:10px; bottom:5px; background-color:#fff; border:1px #001a31 solid; color:#001a31; font-size:11px; padding:0 10px; line-height:30px; font-weight:bold}
+  .join .id input {line-height:30px; font-size:11px; width:70%}
+  .join .pw, .join .pw_check, .join .file {border-bottom:1px #222 solid; margin:0 15px 30px 15px; width:auto}
+  .join .pw input, .join .pw_check input {line-height:30px; height:30px; font-size:11px; width:100%}
+  .join .id p, .join .pw p, .join .pw_check p, .join .email p, .join .file p, .join .phone p {font-size:12px; color:#222; font-weight:bold}
+  .join .email {margin:0 15px 5px 15px; position:relative; width:auto}
+  .join .email input {line-height:30px; height:30px; font-size:11px; margin:0; width:30%; border-bottom:1px #222 solid; display:inline-block}
+  .join .email .sel_box {width:30%; float:right}
+  .join .years {margin:20px auto 40px auto; width:200px}
+  .join .gender {font-size:12px; width:200px; margin:0 auto 40px auto}
+  .join .weight {margin:0 auto 30px auto; position:relative; width:250px}
+  .join .years .sel_box {width:30%}
+  .join .weight .sel_box {width:30%;}
+  .join .weight input {line-height:30px; height:30px; font-size:11px; margin:0; width:100%; border-bottom:1px #222 solid;}
+  .join .weight span {color:#222; font-size:12px; position:absolute; right:15px; bottom:5px}
+
+  .join .agreement {color:#333; font-size:12px; line-height:normal; padding:15px}
+
+  .join .agree {text-align:center; line-height:28px}
+/* .join .agree a {
+    font-size: 16px;
+    color: #222;
+    font-weight: bold;
+    background: url(../img/arrow_login.jpg) right center no-repeat;
+    padding-right: 20px;
+} */
+.join .agree span {
+    font-size: 16px;
+    color: #222;
+}
+/* .join .check.agree {margin:30px auto; font-size:14px; text-align:center; padding-bottom:30px; color:#333;} */
+ 
+
+
+.join .btn {margin:30px auto; color:#fff; background-color:#056531; border-radius:3px; text-align:center; width:300px}
+.join .btn a {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* .join .btn2 {margin: 0px auto 0px 15%; color:#fff; background-color:#056531; border-radius:3px; text-align:center; width:30%; float:left;}
+.join .btn2 a {
+    width: 50%;
+    height: 50px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+    box-sizing: border-box;
+} */
+
+.join p.info {
+    background: #efefef;
+    padding: 20px 80px;
+    font-size: 12px;
+    color: #666;
+    letter-spacing: normal;
+    line-height: 20px;
+    width: 100%;
+    margin: 30px auto 60px auto;
+    box-sizing: border-box;
+}
+.join .check {
+    font-size: 13px;
+    color: #333;
+    margin: 30px auto 15px auto;
+    width:auto;
+    text-align: center;
+}
+
+.join select {
+    background: #fff;
+    width: 100%;
+    border: 1px #222 solid;
+    height: 30px;
+}
+
+.inline_div {
+    display: inline-block;
+    width: 30%;
+    padding: 0 5px;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+
+
