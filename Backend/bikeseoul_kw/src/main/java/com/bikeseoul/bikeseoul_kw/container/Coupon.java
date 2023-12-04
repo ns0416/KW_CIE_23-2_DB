@@ -14,6 +14,11 @@ public class Coupon extends Ticket{
         this.created_date = created_date;
     }
 
+    public Coupon(String coupon_id, int owner_uid) {
+        super(0, null, null, 0, false, null, null);
+        this.coupon_id = coupon_id;
+        this.owner_uid = owner_uid;
+    }
     public String getCoupon_id() {
         return coupon_id;
     }

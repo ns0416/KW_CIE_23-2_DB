@@ -50,4 +50,12 @@
 					#{ticket_uid}
 				)
 	</insert>
+	<update id="updateCoupon" parameterType="com.bikeseoul.bikeseoul_kw.container.Coupon">
+		UPDATE
+			coupon
+		SET
+			owner_uid = #{owner_uid}
+		WHERE
+			coupon_id = #{coupon_id}
+	</update>
 </mapper>

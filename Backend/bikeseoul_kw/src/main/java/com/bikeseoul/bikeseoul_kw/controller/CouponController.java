@@ -3,8 +3,12 @@ package com.bikeseoul.bikeseoul_kw.controller;
 import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Coupon;
 import com.bikeseoul.bikeseoul_kw.container.Member;
+import com.bikeseoul.bikeseoul_kw.container.Pair;
+import com.bikeseoul.bikeseoul_kw.container.Ticket;
+import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
 import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.CouponManager;
+import com.bikeseoul.bikeseoul_kw.manager.TicketManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -28,6 +32,9 @@ public class CouponController {
 
     @Autowired
     private CouponManager couponManager;
+    
+    @Autowired
+    private TicketManager ticketManager;
     
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -164,6 +171,11 @@ public class CouponController {
     	if(cp.getOwner_uid() > 0) {
     		jo.addProperty("result", "failed");
     		return jo.toString();
+    	}
+    	Pair<Ticket, Ticket_detail> td = ticketManager.getActivationTicket(user.getUid());
+    	if(td != null) {
+    		jo.addProperty("result", "failed");
+        	return jo.toString();
     	}
     	CommonEnum res = couponManager.useCoupon(cp, user);
     	if(res == CommonEnum.SUCCESS)

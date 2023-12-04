@@ -6,6 +6,7 @@ import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Overdue;
 import com.bikeseoul.bikeseoul_kw.container.Pair;
 import com.bikeseoul.bikeseoul_kw.container.Rent;
+import com.bikeseoul.bikeseoul_kw.container.Ticket;
 import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
 import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
@@ -153,14 +154,14 @@ public class RentController {
         User user = (User)hs.getAttribute("member");
         String qr = (String)body.get("qr");
         Integer bike_id = 0; // TODO : bike_id from QR
-        Ticket_detail td = ticketManager.getActivationTicket(user.getUid());
+        Pair<Ticket,Ticket_detail> td = ticketManager.getActivationTicket(user.getUid());
         Bike bike = rentManager.getBikeInfo(bike_id);
         if(td == null) {
         	jo.addProperty("result", "failed");
         	jo.addProperty("msg", "no_activated_ticket");
         	return jo.toString();
         }
-        Rent rent = new Rent(user.getUid(), bike.getBike_id(), td.getUid(), bike.getStation_uid());
+        Rent rent = new Rent(user.getUid(), bike.getBike_id(), td.getSecond().getUid(), bike.getStation_uid());
         CommonEnum res = rentManager.rentBike(rent);
         if(res == CommonEnum.SUCCESS)
         	jo.addProperty("result", "success");
@@ -189,8 +190,8 @@ public class RentController {
     	User user = (User)hs.getAttribute("member");
     	double lat = (double)body.get("lat");
     	double lon = (double)body.get("lon");
-    	Ticket_detail td = ticketManager.getActivationTicket(user.getUid());
-        Rent rent = rentManager.getRentInfo(0, 0, td.getUid());
+    	Pair<Ticket,Ticket_detail> td = ticketManager.getActivationTicket(user.getUid());
+        Rent rent = rentManager.getRentInfo(0, 0, td.getSecond().getUid());
         double dist = rent.getDistance()+rentManager.getDistance_arc(rent.getLast_position_lat(), rent.getLast_position_lon(), lat, lon);
         Rent new_rent = new Rent(rent.getUid(), lat, lon, dist);
         CommonEnum res = rentManager.updateRent(new_rent);
