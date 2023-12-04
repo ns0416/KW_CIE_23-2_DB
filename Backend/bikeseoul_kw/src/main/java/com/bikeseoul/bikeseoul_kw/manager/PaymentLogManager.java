@@ -20,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class PaymentLogManager {
@@ -44,12 +46,36 @@ public class PaymentLogManager {
     private RentService rentService;
     
     
-    public List<PaymentLog> getPaymentLogList(int user_uid) {
-        return paymentLogService.getPaymentLogList(user_uid);
+    public List<Pair<PaymentLog,PaymentMethod>> getPaymentLogList(int user_uid) {
+		List<Pair<PaymentLog,PaymentMethod>> paymentLogList = null;
+		List<Map<String, Object>> data = paymentLogService.getPaymentLogList(user_uid);
+		if (data == null || data.size() == 0) {
+			return null;
+		}
+		for (Map<String, Object> map : data) {
+			PaymentLog pl = new PaymentLog((Integer)map.get("uid"), (Integer)map.get("user_uid"), (Integer)map.get("method_uid"), (Integer)map.get("amount"), (Integer)map.get("ticket_detail_uid"), payment_status.valueOf((String)map.get("status_")), (LocalDateTime)map.get("log_created_date"), (LocalDateTime)map.get("log_updated_date"));
+			PaymentMethod pm = new PaymentMethod((Integer)map.get("method_uid"), (String)map.get("name"), (LocalDateTime)map.get("method_created_date"));
+			Pair<PaymentLog,PaymentMethod> pair = new Pair();
+			pair.set(pl, pm);
+			paymentLogList.add(pair);
+		}
+		return paymentLogList;
     }
 
-    public List<PaymentLog> getRefundLogList(int user_uid) {
-        return paymentLogService.getRefundLogList(user_uid);
+    public List<Pair<PaymentLog,PaymentMethod>> getRefundLogList(int user_uid) {
+		List<Pair<PaymentLog,PaymentMethod>> paymentLogList = null;
+		List<Map<String, Object>> data = paymentLogService.getRefundLogList(user_uid);
+		if (data == null || data.size() == 0) {
+			return null;
+		}
+		for (Map<String, Object> map : data) {
+			PaymentLog pl = new PaymentLog((Integer)map.get("uid"), (Integer)map.get("user_uid"), (Integer)map.get("method_uid"), (Integer)map.get("amount"), (Integer)map.get("ticket_detail_uid"), payment_status.valueOf((String)map.get("status_")), (LocalDateTime)map.get("log_created_date"), (LocalDateTime)map.get("log_updated_date"));
+			PaymentMethod pm = new PaymentMethod((Integer)map.get("method_uid"), (String)map.get("name"), (LocalDateTime)map.get("method_created_date"));
+			Pair<PaymentLog,PaymentMethod> pair = new Pair();
+			pair.set(pl, pm);
+			paymentLogList.add(pair);
+		}
+		return paymentLogList;
     }
     @Transactional
     public CommonEnum payment(User mem, Integer ticket_uid, Integer payment_method, String gift_email) {

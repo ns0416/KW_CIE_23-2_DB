@@ -1,11 +1,8 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
-import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
-import com.bikeseoul.bikeseoul_kw.container.Member;
-import com.bikeseoul.bikeseoul_kw.container.PaymentLog;
-import com.bikeseoul.bikeseoul_kw.container.PaymentMethod;
-import com.bikeseoul.bikeseoul_kw.container.User;
+import com.bikeseoul.bikeseoul_kw.container.*;
 import com.bikeseoul.bikeseoul_kw.manager.PaymentLogManager;
+import com.bikeseoul.bikeseoul_kw.manager.TicketManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +27,9 @@ public class PaymentLogController {
     @Autowired
     private PaymentLogManager paymentLogManager;
 
+    @Autowired
+    private TicketManager ticketManager;
+
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
@@ -49,22 +49,28 @@ public class PaymentLogController {
         JsonArray ja = new JsonArray();
 
         try {
-            List<PaymentLog> paymentLogList = paymentLogManager.getPaymentLogList(member_uid);
-            for (PaymentLog paymentLog : paymentLogList) {
+            List<Pair<PaymentLog, PaymentMethod>> paymentLogList = paymentLogManager.getPaymentLogList(member_uid);
+            if (paymentLogList == null) {
+                jo.addProperty("result", "failed");
+                return jo.toString();
+            }
+            for (Pair<PaymentLog, PaymentMethod> pair: paymentLogList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("uid", paymentLog.getUid());
-                item.addProperty("user_id", paymentLog.getUser_id());
-                item.addProperty("method_uid", paymentLog.getMethod_uid());
-                item.addProperty("amount", paymentLog.getAmount());
-                item.addProperty("ticket_detail_uid", paymentLog.getTicket_detail_uid());
-                item.addProperty("status_", paymentLog.getStatus_().toString());
-                item.addProperty("created_date", paymentLog.getCreated_date().format(dtf_kor));
-                item.addProperty("updated_date", paymentLog.getUpdated_date().format(dtf_kor));
-                item.addProperty("method_name", paymentLog.getMethod_name());
-                item.addProperty("method_created_date", paymentLog.getMethod_created_date().format(dtf_kor));
-                item.addProperty("ticket_type", paymentLog.getTicket_type().toString());
-                item.addProperty("hours", paymentLog.getHours().toString());
-                item.addProperty("cost", paymentLog.getCost());
+                Pair<Ticket, Ticket_detail> ticketPair = ticketManager.getTicketDetailInfo(pair.getFirst().getTicket_detail_uid());
+                Ticket ticket = ticketPair.getFirst();
+                item.addProperty("uid", pair.getFirst().getUid());
+                item.addProperty("user_id", pair.getFirst().getUser_id());
+                item.addProperty("method_uid", pair.getFirst().getMethod_uid());
+                item.addProperty("amount", pair.getFirst().getAmount());
+                item.addProperty("ticket_detail_uid", pair.getFirst().getTicket_detail_uid());
+                item.addProperty("status_", pair.getFirst().getStatus_().toString());
+                item.addProperty("log_created_date", pair.getFirst().getCreated_date().format(dtf_kor));
+                item.addProperty("log_updated_date", pair.getFirst().getUpdated_date().format(dtf_kor));
+                item.addProperty("method_name", pair.getSecond().getMethod_name());
+                item.addProperty("method_created_date", pair.getSecond().getCreated_date().format(dtf_kor));
+                item.addProperty("ticket_type", ticket.getTicket_type().toString());
+                item.addProperty("hours", ticket.getHours().toString());
+                item.addProperty("cost", ticket.getCost());
                 ja.add(item);
             }
             jo.addProperty("result", "success");
@@ -90,22 +96,28 @@ public class PaymentLogController {
         JsonArray ja = new JsonArray();
 
         try {
-            List<PaymentLog> paymentLogList = paymentLogManager.getRefundLogList(member_uid);
-            for (PaymentLog paymentLog : paymentLogList) {
+            List<Pair<PaymentLog, PaymentMethod>> paymentLogList = paymentLogManager.getRefundLogList(member_uid);
+            if (paymentLogList == null) {
+                jo.addProperty("result", "failed");
+                return jo.toString();
+            }
+            for (Pair<PaymentLog, PaymentMethod> pair: paymentLogList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("uid", paymentLog.getUid());
-                item.addProperty("user_id", paymentLog.getUser_id());
-                item.addProperty("method_uid", paymentLog.getMethod_uid());
-                item.addProperty("amount", paymentLog.getAmount());
-                item.addProperty("ticket_detail_uid", paymentLog.getTicket_detail_uid());
-                item.addProperty("status_", paymentLog.getStatus_().toString());
-                item.addProperty("created_date", paymentLog.getCreated_date().format(dtf_kor));
-                item.addProperty("updated_date", paymentLog.getUpdated_date().format(dtf_kor));
-                item.addProperty("method_name", paymentLog.getMethod_name());
-                item.addProperty("method_created_date", paymentLog.getMethod_created_date().format(dtf_kor));
-                item.addProperty("ticket_type", paymentLog.getTicket_type().toString());
-                item.addProperty("hours", paymentLog.getHours().toString());
-                item.addProperty("cost", paymentLog.getCost());
+                Pair<Ticket, Ticket_detail> ticketPair = ticketManager.getTicketDetailInfo(pair.getFirst().getTicket_detail_uid());
+                Ticket ticket = ticketPair.getFirst();
+                item.addProperty("uid", pair.getFirst().getUid());
+                item.addProperty("user_id", pair.getFirst().getUser_id());
+                item.addProperty("method_uid", pair.getFirst().getMethod_uid());
+                item.addProperty("amount", pair.getFirst().getAmount());
+                item.addProperty("ticket_detail_uid", pair.getFirst().getTicket_detail_uid());
+                item.addProperty("status_", pair.getFirst().getStatus_().toString());
+                item.addProperty("log_created_date", pair.getFirst().getCreated_date().format(dtf_kor));
+                item.addProperty("log_updated_date", pair.getFirst().getUpdated_date().format(dtf_kor));
+                item.addProperty("method_name", pair.getSecond().getMethod_name());
+                item.addProperty("method_created_date", pair.getSecond().getCreated_date().format(dtf_kor));
+                item.addProperty("ticket_type", ticket.getTicket_type().toString());
+                item.addProperty("hours", ticket.getHours().toString());
+                item.addProperty("cost", ticket.getCost());
                 ja.add(item);
             }
             jo.addProperty("result", "success");

@@ -7,12 +7,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface PaymentLogDao {
-    List<PaymentLog> getPaymentLogList(int user_uid);
+    List<Map<String, Object>> getPaymentLogList(int user_uid);
 
-    List<PaymentLog> getRefundLogList(int user_uid);
+    List<Map<String, Object>> getRefundLogList(int user_uid);
     List<PaymentMethod> getPaymentMethodList();
     PaymentMethod getPaymentMethodInfo(int uid);
     int insertPaymentLog(PaymentLog log);
