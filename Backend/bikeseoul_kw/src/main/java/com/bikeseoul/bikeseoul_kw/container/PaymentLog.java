@@ -99,44 +99,4 @@ public class PaymentLog extends CommonData{
     public void setUpdated_date(LocalDateTime updated_date) {
         this.updated_date = updated_date;
     }
-
-    public String getMethod_name() {
-        return method_name;
-    }
-
-    public void setMethod_name(String method_name) {
-        this.method_name = method_name;
-    }
-
-    public LocalDateTime getMethod_created_date() {
-        return method_created_date;
-    }
-
-    public void setMethod_created_date(LocalDateTime method_created_date) {
-        this.method_created_date = method_created_date;
-    }
-
-    public com.bikeseoul.bikeseoul_kw.container.ticket_type getTicket_type() {
-        return ticket_type;
-    }
-
-    public void setTicket_type(com.bikeseoul.bikeseoul_kw.container.ticket_type ticket_type) {
-        this.ticket_type = ticket_type;
-    }
-
-    public com.bikeseoul.bikeseoul_kw.container.hours getHours() {
-        return hours;
-    }
-
-    public void setHours(com.bikeseoul.bikeseoul_kw.container.hours hours) {
-        this.hours = hours;
-    }
-
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
 }
