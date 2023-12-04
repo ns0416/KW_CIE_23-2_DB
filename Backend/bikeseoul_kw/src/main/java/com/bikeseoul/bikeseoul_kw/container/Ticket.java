@@ -18,6 +18,13 @@ public class Ticket extends CommonData{
         this.updated_date = updated_date;
     }
 
+    public Ticket(ticket_type ticket_type, hours hours, int cost) {
+        super(0, null);
+        this.ticket_type = ticket_type;
+        this.hours = hours;
+        this.cost = cost;
+    }
+
     public int getTicket_id() {
         return super.getUid();
     }

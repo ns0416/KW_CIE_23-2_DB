@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class GiftService implements GiftDao {
@@ -13,12 +14,12 @@ public class GiftService implements GiftDao {
     private GiftDao giftDao;
 
     @Override
-    public List<Gift> getReceivedGiftList(int receiver_uid) {
+    public List<Map<String, Object>> getReceivedGiftList(int receiver_uid) {
         return giftDao.getReceivedGiftList(receiver_uid);
     }
 
     @Override
-    public List<Gift> getSentGiftList(int giver_uid) {
+    public List<Map<String, Object>> getSentGiftList(int giver_uid) {
         return giftDao.getSentGiftList(giver_uid);
     }
 

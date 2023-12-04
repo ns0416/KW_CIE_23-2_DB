@@ -2,6 +2,8 @@ package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.Gift;
 import com.bikeseoul.bikeseoul_kw.container.Member;
+import com.bikeseoul.bikeseoul_kw.container.Pair;
+import com.bikeseoul.bikeseoul_kw.container.Ticket;
 import com.bikeseoul.bikeseoul_kw.manager.GiftManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -40,17 +42,17 @@ public class GiftController {
         JsonArray ja = new JsonArray();
 
         try{
-            List<Gift> receivedGiftList = giftManager.getReceivedGiftList(receiver_uid);
-            for(Gift gift:receivedGiftList) {
+            List<Pair<Ticket, Gift>> receivedGiftList = giftManager.getReceivedGiftList(receiver_uid);
+            for(Pair<Ticket, Gift> pair:receivedGiftList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("gift_id", gift.getGift_id());
-                item.addProperty("giver_uid", gift.getGiver_uid());
-                item.addProperty("receiver_uid", gift.getReceiver_uid());
-                item.addProperty("ticket_id", gift.getTicket_id());
-                item.addProperty("cost", gift.getCost());
-                item.addProperty("ticket_type", gift.getTicket_type().getValue());
-                item.addProperty("hours", gift.getHours().getValue());
-                item.addProperty("gift_created_date", gift.getGift_created_date().format(dtf_kor));
+                item.addProperty("gift_id", pair.getSecond().getUid());
+                item.addProperty("giver_uid", pair.getSecond().getGiver_uid());
+                item.addProperty("receiver_uid", pair.getSecond().getReceiver_uid());
+                item.addProperty("ticket_id", pair.getSecond().getTicket_uid());
+                item.addProperty("cost", pair.getFirst().getCost());
+                item.addProperty("ticket_type", pair.getFirst().getTicket_type().getValue());
+                item.addProperty("hours", pair.getFirst().getHours().getValue());
+                item.addProperty("gift_created_date", pair.getSecond().getCreated_date().format(dtf_kor));
                 ja.add(item);
             }
             jo.addProperty("result", "success");
@@ -77,17 +79,17 @@ public class GiftController {
         JsonArray ja = new JsonArray();
 
         try{
-            List<Gift> sentGiftList = giftManager.getSentGiftList(giver_uid);
-            for(Gift gift:sentGiftList) {
+            List<Pair<Ticket, Gift>> receivedGiftList = giftManager.getReceivedGiftList(giver_uid);
+            for(Pair<Ticket, Gift> pair:receivedGiftList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("gift_id", gift.getGift_id());
-                item.addProperty("giver_uid", gift.getGiver_uid());
-                item.addProperty("receiver_uid", gift.getReceiver_uid());
-                item.addProperty("ticket_id", gift.getTicket_id());
-                item.addProperty("cost", gift.getCost());
-                item.addProperty("ticket_type", gift.getTicket_type().getValue());
-                item.addProperty("hours", gift.getHours().getValue());
-                item.addProperty("gift_created_date", gift.getCreated_date().format(dtf_kor));
+                item.addProperty("gift_id", pair.getSecond().getUid());
+                item.addProperty("giver_uid", pair.getSecond().getGiver_uid());
+                item.addProperty("receiver_uid", pair.getSecond().getReceiver_uid());
+                item.addProperty("ticket_id", pair.getSecond().getTicket_uid());
+                item.addProperty("cost", pair.getFirst().getCost());
+                item.addProperty("ticket_type", pair.getFirst().getTicket_type().getValue());
+                item.addProperty("hours", pair.getFirst().getHours().getValue());
+                item.addProperty("gift_created_date", pair.getSecond().getCreated_date().format(dtf_kor));
                 ja.add(item);
             }
             jo.addProperty("result", "success");
