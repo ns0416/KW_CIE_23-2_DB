@@ -32,11 +32,7 @@ public class FAQController {
 
         try{
             List<FAQ> faqList;
-            if (faq_name == null) {
-                faqList = faqManager.getFAQList();
-            } else{
-                faqList = faqManager.getFAQList(faq_name);
-            }
+            faqList = faqManager.getFAQList(faq_name);
             for(FAQ faq:faqList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", faq.getUid());
@@ -65,13 +61,7 @@ public class FAQController {
         }
         try{
             List<FAQ> faqList;
-            if(faq_uid != 0 && title != null) {
-                faqList = faqManager.getFAQArticleList(faq_uid, title);
-            } else if(faq_uid != 0) {
-                faqList = faqManager.getFAQArticleList(faq_uid);
-            } else {
-                faqList = faqManager.getFAQArticleList(title);
-            }
+            faqList = faqManager.getFAQArticleList(faq_uid, title);
             for(FAQ faq:faqList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", faq.getUid());

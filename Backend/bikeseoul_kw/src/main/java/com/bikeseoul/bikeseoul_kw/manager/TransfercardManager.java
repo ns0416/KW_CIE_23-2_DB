@@ -12,9 +12,7 @@ public class TransfercardManager {
     @Autowired
     private TransfercardService transfercardService;
 
-    public List<Transfercard> getTransfercardList() {
-        return transfercardService.getTransfercardList();
-    }
+
 
     public List<Transfercard> getTransfercardList(int member_uid) {
         return transfercardService.getTransfercardList(member_uid);

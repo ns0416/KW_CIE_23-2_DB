@@ -7,7 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface TransfercardDao {
-    List<Transfercard> getTransfercardList();
-
     List<Transfercard> getTransfercardList(int member_uid);
 }

@@ -12,25 +12,12 @@ public class FAQService implements FAQDAO {
     @Autowired
     private FAQDAO faqdao;
 
-    @Override
-    public List<FAQ> getFAQList() {
-        return faqdao.getFAQList();
-    }
 
     @Override
     public List<FAQ> getFAQList(String faq_name) {
         return faqdao.getFAQList(faq_name);
     }
 
-    @Override
-    public List<FAQ> getFAQArticleList(int faq_uid) {
-        return faqdao.getFAQArticleList(faq_uid);
-    }
-
-    @Override
-    public List<FAQ> getFAQArticleList(String title) {
-        return faqdao.getFAQArticleList(title);
-    }
 
     @Override
     public List<FAQ> getFAQArticleList(int faq_uid, String title) {

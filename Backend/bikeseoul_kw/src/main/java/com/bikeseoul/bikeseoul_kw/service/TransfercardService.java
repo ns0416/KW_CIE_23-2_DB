@@ -11,12 +11,6 @@ import java.util.List;
 public class TransfercardService implements TransfercardDao {
     @Autowired
     private TransfercardDao transfercardDao;
-
-    @Override
-    public List<Transfercard> getTransfercardList() {
-        return transfercardDao.getTransfercardList();
-    }
-
     @Override
     public List<Transfercard> getTransfercardList(int member_uid) {
         return transfercardDao.getTransfercardList(member_uid);

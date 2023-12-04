@@ -42,11 +42,11 @@ public class TransfercardController {
         try{
             List<Transfercard> transfercardList;
             if(level == 9999) {
-                transfercardList = transfercardManager.getTransfercardList();
+                transfercardList = transfercardManager.getTransfercardList(0);
             }else{
                 transfercardList = transfercardManager.getTransfercardList(member_uid);
             }
-            transfercardList = transfercardManager.getTransfercardList();
+            //transfercardList = transfercardManager.getTransfercardList();
             for(Transfercard transfercard:transfercardList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", transfercard.getUid());
