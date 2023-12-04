@@ -33,4 +33,10 @@ public class CouponService implements CouponDao{
 		return couponDao.insertCoupon(cp);
 	}
 
+	@Override
+	public int updateCoupon(Coupon cp) {
+		// TODO Auto-generated method stub
+		return couponDao.updateCoupon(cp);
+	}
+
 }

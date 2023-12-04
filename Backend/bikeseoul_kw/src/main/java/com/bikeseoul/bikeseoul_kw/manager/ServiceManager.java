@@ -41,6 +41,7 @@ public class ServiceManager {
 	
 	@Autowired
 	private TicketService ticketService;
+	
 
 	public CommonEnum updateTransfercard(Transfercard card) {
 		if(mileageService.updateTransfercardInfo(card) > 0)
@@ -51,18 +52,6 @@ public class ServiceManager {
 		if(mileageService.deleteTransfercardInfo(member_uid) > 0)
 			return CommonEnum.SUCCESS;
 		return CommonEnum.FAILED;
-	}
-	public List<Ticket_detail> getExpiredTicketList(int member_uid) {
-		if (member_uid == 0) {
-			return null;
-		}
-		return ticketService.getExpiredTicketList(member_uid);
-	}
-	public Ticket_detail getActivationTicket(int member_uid) {
-		if (member_uid == 0) {
-			return null;
-		}
-		return ticketService.getActivationTicket(member_uid);
 	}
 	
 	@Scheduled(cron = "0 0 0 * * 7") 
