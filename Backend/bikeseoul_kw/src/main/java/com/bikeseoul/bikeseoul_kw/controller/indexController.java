@@ -169,7 +169,7 @@ public class indexController {
 		return jo.toString();
 	}
 	
-	@PostMapping("/rest/service/registerMember1Step")
+	@PostMapping("/rest/registerMember1Step")
 	public String registerMember1Step(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
 		JsonObject jo = new JsonObject();
 		try {
@@ -187,7 +187,7 @@ public class indexController {
 		return jo.toString();
 	}
 	
-	@PostMapping("/rest/service/registerMember")
+	@PostMapping("/rest/registerMember")
 	public String registerMember(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
 		JsonObject jo = new JsonObject();
 		try {
