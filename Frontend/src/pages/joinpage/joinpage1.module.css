@@ -37,7 +37,7 @@
     border-bottom: 1px #222 solid;
     padding: 0 5px;
     font-size: 14px;
-    width: 60px !important;
+    /* width: 60px !important; */
 }
 
 .phone {
@@ -66,6 +66,20 @@
     font-weight: bold;
 }
 
+/* .join .btn {
+    margin: 30px auto;
+    color: #fff;
+    background-color: #056531;
+    border-radius: 3px;
+    text-align: center;
+    width: 300px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+} */
+
 .join .check {
     font-size: 13px;
     color: #333;
@@ -73,4 +87,9 @@
     width: auto;
     text-align: center;
 }
+
+.join .id p, .join .pw p, .join .pw_check p, .join .email p, .join .file p, .join .phone p {font-size:12px; color:#222; font-weight:bold}
+.join .email {margin:0 15px 5px 15px; position:relative; width:auto}
+.join .email input {line-height:30px; height:30px; font-size:11px; margin:0; width:30%; border-bottom:1px #222 solid; display:inline-block}
+.join .email .sel_box {width:30%; float:right}
 

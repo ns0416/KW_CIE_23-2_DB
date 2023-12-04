@@ -127,7 +127,7 @@ export default function MyLeftPage() {
     //             console.log("current state is log out state, execute logout")
     //             dispatch(Logout());
     //         }
-    //     })
+    //     }
     //     .catch((err) => console.log(err))
 
     //     // 마일리지 정보 받아오기

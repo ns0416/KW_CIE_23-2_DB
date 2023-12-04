@@ -1,7 +1,7 @@
 import { Route,Routes } from 'react-router-dom';
 import MyLeftPage from './pages/myLeftPage';
 import Mainpage from './pages/mainpage';
-//import Joinpage from './pages/joinpage/joinpage';
+import Joinpage2 from './pages/joinpage/joinpage2';
 import Joinpage1 from './pages/joinpage/joinpage1';
 import Findid from './pages/findid/findid';
 import Findpw from './pages/findpw/findpw';
@@ -35,6 +35,7 @@ function App() {
         <Route path="/" Component={Mainpage} />
         <Route path="/myLeftPage" Component={MyLeftPage} />
         <Route path="/joinPage1" Component={Joinpage1} />
+        <Route path="/joinPage2" Component={Joinpage2} />
         <Route path="/findid" Component={Findid} />
         <Route path="/findpw" Component={Findpw} />
         <Route path="/infopage" Component={Infopage} />
