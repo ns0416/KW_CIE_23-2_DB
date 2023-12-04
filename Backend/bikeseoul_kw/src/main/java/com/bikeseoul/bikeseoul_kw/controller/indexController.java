@@ -285,7 +285,7 @@ public class indexController {
 			jo.addProperty("result", "failed");
 		return jo.toString();
 	}
-	@PostMapping("/rest/service/sendAuthMail")
+	@PostMapping("/rest/sendAuthMail")
 	public String sendAuthMail(HttpServletRequest request,  @RequestBody HashMap<String, Object> body) {
 		HttpSession hs = request.getSession();
 		JsonObject jo = new JsonObject();
