@@ -4,20 +4,33 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import style from './myLeftPage.module.css';
 import Header from '../header.js';
 
-import { useDispatch } from "react-redux";
-import { loginUser,checkLogin } from "../_actions/userAction";
+import { useSelector,useDispatch } from "react-redux";
+import { Login, Logout } from '../_redux_slice/loginslice';
+import axios from "axios";
 
 export default function MyLeftPage() {
+    // const [isLoggedIn, setisLoggedIn] = React.useState(true);
+    const [user_id, getuser_id] = React.useState('user_id123');
+    const [valid_date, getvalid_date] = React.useState('2024-11-13 00:00');
+    const [mileage, getmileage] = React.useState('1000');
+
+    const isLoggedIn = useSelector((state) => state.logged.value)
     const dispatch = useDispatch();
     
+    const navigate = useNavigate();
+
+    const gohome =() => {
+        navigate('/');
+    }
+
     const [values, setvalues] = React.useState({
-        Id: "",
-        Pw: "",
+        id: "",
+        pw: "",
     })
 
     const [errors, seterrors] = React.useState({
-        Id: "",
-        Pw: "",
+        id: "",
+        pw: "",
     })
 
     function ChangeHandler(e) {
@@ -29,18 +42,18 @@ export default function MyLeftPage() {
 
     function validate() {
         const errors ={
-            Id: "",
-            Pw: ""
+            id: "",
+            pw: ""
         }
 
-        if(!values.Id) {
-            errors.Id ="아이디를 입력하세요"
-            alert(errors.Id)
+        if(!values.id) {
+            errors.id ="아이디를 입력하세요"
+            alert(errors.id)
         }
 
-        if(!values.Pw) {
-            errors.Pw ="비밀번호를 입력하세요"
-            alert(errors.Pw)
+        if(!values.pw) {
+            errors.pw ="비밀번호를 입력하세요"
+            alert(errors.pw)
         }
         return errors
     }
@@ -52,58 +65,97 @@ export default function MyLeftPage() {
         if(Object.values(errors).some(v=>v)) {
             return
         }
-        dispatch(loginUser(values))
-        .then((res) => {
-            console.log(res);
-            if(res.payload.loginSuccess) {
-                navigate('/');
-            }
-            else {
-                alert(res.payload.message);
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
         // alert(JSON.stringify(values,null,2));
-    }
-    const [isLoggedIn, setisLoggedIn] = React.useState(false);
-    const navigate = useNavigate();
-
-    const gohome =() => {
-        navigate('/');
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/login", values)
+            .then((res) => {
+                if(res.data.result == "success") {
+                    dispatch(Login());
+                    navigate('/');
+                }
+                else {
+                    alert("Login Failed");
+                }
+            })
+            .catch((err) => console.log(err))
     }
     
-    //let {state} = useLocation();
-    // const location = useLocation();
-    // const {isLoggedIn} = location.state.isLoggedIn;
+    
+
     function logout() {
-        
-        // location.setisLoggedIn(false);
-        // setisLoggedIn(false);
+        // 로그아웃 처리
+        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/logout")
+        .then((res) => {
+            if(res.data.result== "success") {
+                dispatch(Logout());
+            }
+            else { //로그아웃 실패 출력
+                console.log(res.data);
+                console.log("logout result error!")
+            }
+        })
+        .catch((err) => console.log(err))
     }
 
-    const [user_id, getuser_id] = React.useState('user_id123');
-    const [valid_date, getvalid_date] = React.useState('2024-11-13 00:00');
-    const [mileage, getmileage] = React.useState('1000');
-
+ 
 
     // 로그인 상태 반영
-    React.useEffect(() =>{
-        dispatch(checkLogin())
-        .then((res) => {
-            console.log(res);
-            if(res.payload.rcvd_data.logged == "true") {
-                setisLoggedIn(true)
-            }
-            else {
-                setisLoggedIn(false)
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-    })
+    // React.useEffect(() =>{
+    //     dispatch(checkLogin())
+    //     .then((res) => {
+    //         console.log(res);
+    //         if(res.payload.rcvd_data.logged == "true") {
+    //             setisLoggedIn(true)
+    //         }
+    //         else {
+    //             setisLoggedIn(false)
+    //         }
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //     })
+    // })
+
+    // 로그인 상태에서 페이지 최초 로딩 시 사용자 정보 받아오기
+    // React.useEffect(() =>{
+    //     // id정보 받아오기
+    //     axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getUserInfo")
+    //     .then((res) => {
+    //         if(res.data.logged== true) {
+    //             getuser_id(res.data.id);
+    //         }
+    //         else { //로그인 상태가 아니면 로그아웃처리
+    //             console.log("current state is log out state, execute logout")
+    //             dispatch(Logout());
+    //         }
+    //     })
+    //     .catch((err) => console.log(err))
+
+    //     // 마일리지 정보 받아오기
+    //     axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getMileage")
+    //     .then((res) => {
+    //         if(res.data.result == "success") {
+    //             getmileage(res.data.mileage);
+    //         }
+    //         else {
+    //             console.log("getmileage error!")
+    //         }
+    //     })
+    //     .catch((err) => console.log(err))
+
+    //     // 사용중인 대여권 정보 받아오기
+    //     axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getActivationTicket")
+    //     .then((res) => {
+    //         if(res.data.result == "success") {
+    //             console.log(res.data.data);
+    //             //getvalid_date(res.data.mileage);
+    //         }
+    //         else {
+    //             console.log("get active ticket error!")
+    //         }
+    //     })
+    //     .catch((err) => console.log(err))
+
+    // },[]);
 
     return (
         <>
@@ -243,12 +295,12 @@ export default function MyLeftPage() {
                          <form name='loginForm' onSubmit={SubmitHandler}>
                             <div className={style.id}>
                                 {/* <input type="text" id="memid" name="j_username" placeholder="아이디" /> */}
-                                <input type="text" value={values.Id} name="Id" placeholder="아이디" onChange={ChangeHandler}/>
+                                <input type="text" value={values.id} name="id" placeholder="아이디" onChange={ChangeHandler}/>
                             </div>
                             <div className={style.pw}>
                                 {/* <input type="password" id="mempw" name="j_password" placeholder="비밀번호" 
                                 data-tk-kbdType="qwerty" data-tk-useinput="true" data-tk-dataType="aA@" autoComplete="off" /> */}
-                                <input type="password" value={values.Pw} name="Pw" placeholder="비밀번호" onChange={ChangeHandler}/>
+                                <input type="password" value={values.pw} name="pw" placeholder="비밀번호" onChange={ChangeHandler}/>
                             </div>
                             <div className={style.login_auto}>
                                 <input type="checkbox" name="loginchk" id="loginCheck" />

@@ -2,6 +2,8 @@ import { REGISTER_USER, LOGIN_USER,IS_LOGGED } from "./types";
 import { request } from "../utils/axios";
 import axios from "axios";
 
+// 리덕스 action 정의 페이지
+
 const USER_URL = "/rest"; // !!!!!!request url
 
 export function registerUser(dataToSubmit) {

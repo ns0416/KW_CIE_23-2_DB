@@ -5,31 +5,35 @@ import './common.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { Provider } from "react-redux";
-import { applyMiddleware, createStore } from "redux";
-import promiseMiddlerware from "redux-promise";
-import reduxThunk from "redux-thunk";
-import reducer from "./_reducers";
+import store from './_store/store';
 
-const createStoreWidthMiddleware = applyMiddleware(
-  promiseMiddlerware,
-  reduxThunk
-)(createStore);
+import { Provider } from "react-redux";
+//import { applyMiddleware, createStore } from "redux";
+//import promiseMiddlerware from "redux-promise";
+//import reduxThunk from "redux-thunk";
+//import reducer from "./_reducers";
+
+// const createStoreWidthMiddleware = applyMiddleware(
+//   promiseMiddlerware,
+//   reduxThunk
+// )(createStore);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <Provider store={createStoreWidthMiddleware(
+    {/* <Provider store={createStoreWidthMiddleware(
         reducer,
         //개발자 도구를 사용하기 위한 설정
         window.__REDUX_DEVTOOLS_EXTENSION__ &&
           window.__REDUX_DEVTOOLS_EXTENSION__()
-      )}>
+      )}> */}
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>
+    {/* </Provider> */}
   </React.StrictMode>
 );
 

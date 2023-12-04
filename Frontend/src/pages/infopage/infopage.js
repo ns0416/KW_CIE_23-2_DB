@@ -30,8 +30,8 @@ export default function Infopage()
                             
                         </div>
                     </div>
-                    <p style={{marginTop: "30px"}}><a href="/info/infoCoupon.do" style={{textDecoration: "underline", color: "#fe4f6c"}}>※ 이용권 사용안내/환불 규정 보기</a></p>
-                    <p style={{marginTop: "30px"}}><a href="/customer/faq/faqList.do?gbn=faq" style={{textDecoration: "underline", color: "#fe4f6c"}}>※자주찾는 질문 바로가기</a></p>
+                    <p style={{marginTop: "30px"}}><a href="/infoCoupon" style={{textDecoration: "underline", color: "#fe4f6c"}}>※ 이용권 사용안내/환불 규정 보기</a></p>
+                    <p style={{marginTop: "30px"}}><a href="/faqPage" style={{textDecoration: "underline", color: "#fe4f6c"}}>※자주찾는 질문 바로가기</a></p>
                 </div>
             </div>
         </div>    

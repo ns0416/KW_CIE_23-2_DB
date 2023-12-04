@@ -25,6 +25,7 @@ import memberInfoEdit from './pages/memberInfoEdit/memberInfoEdit';
 import passwordChange from './pages/passwordChange/passwordChange';
 import memberDelete from './pages/memberDelete/memberDelete';
 import noticeBoard from './pages/noticeBoard/noticeBoard';
+import InfoCoupon from './pages/infoCoupon/infoCoupon';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path="/findid" Component={Findid} />
         <Route path="/findpw" Component={Findpw} />
         <Route path="/infopage" Component={Infopage} />
+        <Route path="/infoCoupon" Component={InfoCoupon} />
         <Route path="/test" Component={Test} />
         <Route path="/moveMemberCardRegiView" Component={moveMemberCardRegiView} />
         <Route path="/favoriteStation" Component={favoriteStation} />
@@ -56,6 +58,7 @@ function App() {
         <Route path="/passwordChange" Component={passwordChange} />
         <Route path="/memberDelete" Component={memberDelete} />
         <Route path="/noticeBoard" Component={noticeBoard} />
+        
         
         
       </Routes>  
