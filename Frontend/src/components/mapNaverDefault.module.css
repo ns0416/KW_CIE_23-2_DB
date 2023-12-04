@@ -1,0 +1,10 @@
+.jb_image {
+  position: relative;
+}
+.jb_image_text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate( -50%, -50% );
+  color: white;
+}

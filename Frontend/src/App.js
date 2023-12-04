@@ -24,7 +24,8 @@ import memberInfoEdit from './pages/memberInfoEdit/memberInfoEdit';
 import passwordChange from './pages/passwordChange/passwordChange';
 import memberDelete from './pages/memberDelete/memberDelete';
 import noticeBoard from './pages/noticeBoard/noticeBoard';
-
+import moveUseMenuInsurance from './pages/moveUseMenuInsurance/moveUseMenuInsurance';
+import moveUseMenuClauseInfo from './pages/moveUseMenuClauseInfo/moveUseMenuClauseInfo';
 
 
 function App() {
@@ -56,6 +57,8 @@ function App() {
         <Route path="/passwordChange" Component={passwordChange} />
         <Route path="/memberDelete" Component={memberDelete} />
         <Route path="/noticeBoard" Component={noticeBoard} />
+        <Route path="/moveUseMenuInsurance" Component={moveUseMenuInsurance} />
+        <Route path="/moveUseMenuClauseInfo" Component={moveUseMenuClauseInfo} />
         
         
       </Routes>  
