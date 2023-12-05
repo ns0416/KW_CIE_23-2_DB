@@ -15,9 +15,9 @@
             t.ticket_type,
             t.hours
         FROM
-            Ticket_gift as g
+            ticket_gift as g
         JOIN
-            Ticket as t
+            ticket as t
         ON
             g.ticket_uid = t.ticket_id
         WHERE
@@ -37,9 +37,9 @@
             t.ticket_type,
             t.hours
         FROM
-            Ticket_gift as g
+            ticket_gift as g
         JOIN
-            Ticket as t
+            ticket as t
         ON
             g.ticket_uid = t.ticket_id
         WHERE

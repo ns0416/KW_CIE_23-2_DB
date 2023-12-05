@@ -26,7 +26,7 @@ public class FAQController {
 
     @GetMapping("/rest/getFAQList")
     @ResponseBody
-    public String getFAQListByName(@RequestParam(value = "faq_name", required = false) String faq_name) {
+    public String getFAQList(@RequestParam(value = "faq_name", required = false) String faq_name) {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
 

@@ -47,13 +47,13 @@
             method.name,
             method.created_date AS method_created_date,
         FROM
-            payment_log log
+            payment_log AS log
         JOIN
-            payment_method method
+            payment_method AS method
         ON
             method.uid = log.method_uid
         JOIN
-            ticket_detail d
+            ticket_detail AS d
         ON
             d.uid = log.ticket_detail_uid
         WHERE
