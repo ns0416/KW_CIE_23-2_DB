@@ -1,0 +1,100 @@
+.rcorners {
+    border-radius: 25px;
+    border: 2px solid rgb(115, 173, 33);
+    padding: 20px 0px 20px 20px;
+    width: 80%;
+    height: 150px;
+    margin: auto;
+}
+
+.join .optin {
+    padding: 0px 15px;
+    text-align: right;
+    font-size: 11px;
+    color: rgb(136, 136, 136);
+}
+
+.join .years {
+    margin: 20px auto 40px;
+    width: 200px;
+}
+
+.join .years span {
+    line-height: 30px;
+    font-size: 12px;
+}
+
+.join select {
+    background: rgb(255, 255, 255);
+    width: 100%;
+    border: 1px solid rgb(34, 34, 34);
+    height: 30px;
+}
+
+.join .gender {
+    font-size: 12px;
+    width: 200px;
+    margin: 0px auto 40px;
+}
+
+.lconer {
+    margin-top: 30px;
+    border-radius: 25px;
+    border: 2px solid lightskyblue;
+    padding: 20px 0px 20px 20px;
+    width: 80%;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.join .explan {
+    padding: 0px 15px;
+    font-size: 11px;
+    color: rgb(34, 34, 34);
+    margin-bottom: 10px;
+    width: auto;
+    margin: 10px auto 20px;
+    text-align: center;
+}
+
+.join .weight {
+    margin: 0px auto 30px;
+    position: relative;
+    width: 250px;
+}
+
+.join .weight input {
+    line-height: 30px;
+    height: 30px;
+    font-size: 11px;
+    margin: 0px;
+    width: 100%;
+    border-bottom: 1px solid rgb(34, 34, 34);
+}
+
+.join .weight span {
+    color: rgb(34, 34, 34);
+    font-size: 12px;
+    position: absolute;
+    right: 15px;
+    bottom: 5px;
+}
+
+.join .btn {
+    margin: 30px auto;
+    color: rgb(255, 255, 255);
+    background-color: rgb(5, 101, 49);
+    border-radius: 3px;
+    text-align: center;
+    width: 300px;
+}
+
+.join .btn a {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
