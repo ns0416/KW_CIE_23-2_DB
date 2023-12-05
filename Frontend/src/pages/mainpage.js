@@ -9,7 +9,7 @@ export default function Mainpage() {
 	const [locations, setLocations] = useState();
 
 	useEffect(() => {
-		setLocations([[37.519791, 127.060899],[37.419761, 127.060899],[37.519790, 127.060899]]);
+		setLocations([[37.619791, 127.060899],[37.619761, 127.060899],[37.519790, 127.060899],[37.508860,127.100200]]);
 	}, []);
 
 	
