@@ -9,6 +9,8 @@ import java.util.List;
 import com.bikeseoul.bikeseoul_kw.container.Config;
 import com.bikeseoul.bikeseoul_kw.container.LeaveReason;
 import com.bikeseoul.bikeseoul_kw.manager.ConfigManager;
+import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +33,9 @@ public class indexController {
 	@Autowired
 	private ConfigManager configManager;
 
+	@Autowired
+	private ServiceManager serviceManager;
+	
 	DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
 	DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
 	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
@@ -404,6 +409,29 @@ public class indexController {
 			e.printStackTrace();
 			jo.addProperty("result", "failed");
 			return jo.toString();
+		}
+		return jo.toString();
+	}
+	@GetMapping("/rest/service/findPath")
+	public String findPath(HttpServletRequest request, @RequestParam String s_lon, @RequestParam String s_lat, @RequestParam String d_lon, @RequestParam String d_lat) {
+		HttpSession hs = request.getSession();
+		JsonObject jo = new JsonObject();
+		//Member mem = (Member)hs.getAttribute("member");
+		try {
+			double s_lon_ = Double.parseDouble(s_lon);
+			double s_lat_ = Double.parseDouble(s_lat);
+			double d_lon_ = Double.parseDouble(d_lon);
+			double d_lat_ = Double.parseDouble(d_lat);
+			
+			
+			JsonObject res = serviceManager.requestFindpath(s_lon_, s_lat_, d_lon_, d_lat_);
+			if(res == null)
+				throw new Exception();
+			jo.addProperty("result", "success");
+			jo.add("data", res);
+		}catch(Exception e) {
+			e.printStackTrace();
+			jo.addProperty("result", "failed");
 		}
 		return jo.toString();
 	}
