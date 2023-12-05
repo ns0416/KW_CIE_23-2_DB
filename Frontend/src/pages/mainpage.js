@@ -3,12 +3,31 @@ import {Link} from 'react-router-dom';
 import style from './mainpage.module.css';
 import MapNaverDefault from '../components/mapNaverDefault';
 import { Container as MapDiv } from 'react-naver-maps';
+import axios from "axios";
 
 export default function Mainpage() {
     const [isLoggedIn, setisLoggedIn] = React.useState(false);
 	const [locations, setLocations] = useState();
 
+	function serviceFindPath() {
+    
+        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/findPath?s_lon=127.060899&s_lat=37.619791&d_lon=37.508860&d_lat=127.100200")
+        .then((res) => {
+            if(res.data.result== "success") {
+                console.log("success");
+				console.log(res.data);
+            }
+            else { //로그아웃 실패 출력
+				console.log("error");
+                console.log(res.data);
+                console.log("logout result error!")
+            }
+        })
+        .catch((err) => console.log(err))
+    }
+
 	useEffect(() => {
+		serviceFindPath();
 		setLocations([[37.619791, 127.060899],[37.619761, 127.060899],[37.519790, 127.060899],[37.508860,127.100200]]);
 	}, []);
 
