@@ -7,6 +7,7 @@ const MapNaverDefault = (props) => {
   const { naver } = window;
 
 
+
   // 다중 marker 진행중
 
   var markers = [], infoWindows = [];
@@ -56,19 +57,16 @@ const MapNaverDefault = (props) => {
       naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
     }
 
-    var arrayOfCoords = [  
-      new naver.maps.LatLng(37.36043630196386, 127.12293148040771),
-      new naver.maps.LatLng(37.36354029942161, 127.12310314178465),
-      new naver.maps.LatLng(37.365211629488016, 127.12456226348876),
-      new naver.maps.LatLng(37.37544345085402, 127.11224555969238)
-  ];
+    
+
+    
+    var arrayOfCoords = [];
+    props.paths.map(path=>{
+        console.log(path);
+        arrayOfCoords.push(new naver.maps.LatLng(path[1],path[0]));
+    })
+
   
-  // var arrayOfCoordsLiteral = [  
-  //     [127.12293148040771, 37.36043630196386],
-  //     [127.12310314178465, 37.36354029942161],
-  //     [127.12456226348876, 37.365211629488016],
-  //     [127.1122455596923, 37.37544345085402]
-  // ];
   
   
   var polyline = new naver.maps.Polyline({  
