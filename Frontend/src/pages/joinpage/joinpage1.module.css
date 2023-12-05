@@ -1,5 +1,4 @@
-@media (max-width: 1024px)
-{
+
 .container {
     width: 100%;
     clear: both;
@@ -44,8 +43,6 @@
     width: 100%;
     text-align: center;
     /* margin: 0 10px 15px; */
-}
-
 }
 
 .join .btn {

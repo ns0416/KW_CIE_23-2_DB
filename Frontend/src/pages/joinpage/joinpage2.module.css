@@ -95,7 +95,7 @@
   .join .id {position:relative; border-bottom:1px #222 solid; margin:0 15px 30px 15px; width:auto}
   .file input[type="file"] {width:70px}
   .join .id .id_check, .join .file .file_btn {position:absolute; right:10px; bottom:5px; background-color:#fff; border:1px #001a31 solid; color:#001a31; font-size:11px; padding:0 10px; line-height:30px; font-weight:bold}
-  .join .id input {line-height:30px; font-size:11px; width:70%}
+  .join .id input {line-height:30px; font-size:11px; width:90%}
   .join .pw, .join .pw_check, .join .file {border-bottom:1px #222 solid; margin:0 15px 30px 15px; width:auto}
   .join .pw input, .join .pw_check input {line-height:30px; height:30px; font-size:11px; width:100%}
   .join .id p, .join .pw p, .join .pw_check p, .join .email p, .join .file p, .join .phone p {font-size:12px; color:#222; font-weight:bold}

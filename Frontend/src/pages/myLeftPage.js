@@ -11,8 +11,8 @@ import axios from "axios";
 export default function MyLeftPage() {
     // const [isLoggedIn, setisLoggedIn] = React.useState(true);
     const [user_id, getuser_id] = React.useState('user_id123');
-    const [valid_date, getvalid_date] = React.useState('2024-11-13 00:00');
-    const [mileage, getmileage] = React.useState('1000');
+    const [valid_date, getvalid_date] = React.useState('');
+    const [mileage, getmileage] = React.useState('0');
 
     const isLoggedIn = useSelector((state) => state.logged.value)
     const dispatch = useDispatch();
@@ -116,46 +116,48 @@ export default function MyLeftPage() {
     // })
 
     // 로그인 상태에서 페이지 최초 로딩 시 사용자 정보 받아오기
-    // React.useEffect(() =>{
-    //     // id정보 받아오기
-    //     axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getUserInfo")
-    //     .then((res) => {
-    //         if(res.data.logged== true) {
-    //             getuser_id(res.data.id);
-    //         }
-    //         else { //로그인 상태가 아니면 로그아웃처리
-    //             console.log("current state is log out state, execute logout")
-    //             dispatch(Logout());
-    //         }
-    //     }
-    //     .catch((err) => console.log(err))
+    React.useEffect(() =>{
+                
+        // id정보 받아오기
+        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getUserInfo")
+        .then((res) => {
+            if(res.data.logged== true) {
+                getuser_id(res.data.id);
+                dispatch(Login());
+            }
+            else { //로그인 상태가 아니면 로그아웃처리
+                //console.log("current state is log out state, execute logout")
+                dispatch(Logout());
+            }
+        })
+        .catch((err) => console.log(err))
 
-    //     // 마일리지 정보 받아오기
-    //     axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getMileage")
-    //     .then((res) => {
-    //         if(res.data.result == "success") {
-    //             getmileage(res.data.mileage);
-    //         }
-    //         else {
-    //             console.log("getmileage error!")
-    //         }
-    //     })
-    //     .catch((err) => console.log(err))
+        // 마일리지 정보 받아오기
+        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getMileage")
+        .then((res) => {
+            if(res.data.result == "success") {
+                getmileage(res.data.mileage);
+            }
+            else {
+                //console.log("getmileage error!")
+            }
+        })
+        .catch((err) => console.log(err))
 
-    //     // 사용중인 대여권 정보 받아오기
-    //     axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getActivationTicket")
-    //     .then((res) => {
-    //         if(res.data.result == "success") {
-    //             console.log(res.data.data);
-    //             //getvalid_date(res.data.mileage);
-    //         }
-    //         else {
-    //             console.log("get active ticket error!")
-    //         }
-    //     })
-    //     .catch((err) => console.log(err))
+        // 사용중인 대여권 정보 받아오기
+        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getActivationTicket")
+        .then((res) => {
+            if(res.data.result == "success") {
+                getvalid_date(res.data.data[0].expired_date);
+            }
+            else {
+                //console.log("get active ticket error!")
+            }
+        })
+        .catch((err) => console.log(err))
+        
 
-    // },[]);
+    },[]);
 
     return (
         <>
@@ -198,68 +200,84 @@ export default function MyLeftPage() {
 			    </div>
                 <ul className={style.tabs}>
                     <li>
+                    <Link className={style.link} to={'/favoriteStation'}>
                         <div className={style.mcon}>
                             <div className={style.sub_menu_icon}>
                                 <img src="img/main_icon_01.png"></img>
                             </div>
-                            <Link className={style.link} to={'/'}>즐겨찾는 대여소</Link>
+                            즐겨찾는 대여소
                         </div>
+                        </Link>
                     </li>
                     <li>
-                        <div className={style.mcon}>
-                            <div className={style.sub_menu_icon}>
-                                <img src="img/main_icon_02.png"></img>
+                        <Link className={style.link} to={'/buyTicketMenu'}>
+                            <div className={style.mcon}>
+                                <div className={style.sub_menu_icon}>
+                                    <img src="img/main_icon_02.png"></img>
+                                </div>
+                                이용권 구매
                             </div>
-                            <Link className={style.link} to={'/'}>이용권 구매</Link>
-                        </div>
+                        </Link>
                     </li>
                     <li>
-                        <div className={style.mcon}>
-                            <div className={style.sub_menu_icon}>
-                                <img src="img/main_icon_03.png"></img>
+                        <Link className={style.link} to={'/memberInfoMenu'}>
+                            <div className={style.mcon}>
+                                <div className={style.sub_menu_icon}>
+                                    <img src="img/main_icon_03.png"></img>
+                                </div>
+                                회원정보 관리
                             </div>
-                            <Link className={style.link} to={'/'}>회원정보 관리</Link>
-                        </div>
+                        </Link>
                     </li>
                     <li>
-                        <div className={style.mcon}>
-                            <div className={style.sub_menu_icon}>
-                                <img src="img/main_icon_04.png"></img>
+                        <Link className={style.link} to={'/PaymentMenu'}>
+                            <div className={style.mcon}>
+                                <div className={style.sub_menu_icon}>
+                                    <img src="img/main_icon_04.png"></img>
+                                </div>
+                                결제 관리
                             </div>
-                            <Link className={style.link} to={'/'}>결제 관리</Link>
-                        </div>
+                        </Link>
                     </li>
                     <li>
+                        <Link className={style.link} to={'/rentStatementMenu'}>
                         <div className={style.mcon}>
                             <div className={style.sub_menu_icon}>
                                 <img src="img/main_icon_05.png"></img>
                             </div>
-                            <Link className={style.link} to={'/'}>이용정보 관리</Link>
+                            이용정보 관리
                         </div>
+                        </Link>
                     </li>
                     <li>
+                        <Link className={style.link} to={'/neglectReport'}>
                         <div className={style.mcon}>
                             <div className={style.sub_menu_icon}>
                                 <img src="img/main_icon_06.png"></img>
                             </div>
-                            <Link className={style.link} to={'/'}>방치 신고</Link>
+                            방치 신고
                         </div>
+                        </Link>
                     </li>
                     <li>
+                    <Link className={style.link} to='/moveErrReportPage'>
                         <div className={style.mcon}>
                             <div className={style.sub_menu_icon}>
                                 <img src="img/main_icon_07.png"></img>
                             </div>
-                            <Link className={style.link} to={'/'}>고장(장애)신고</Link>
+                        고장(장애)신고      
                         </div>
+                    </Link>
                     </li>
                     <li>
+                        <Link className={style.link} to={'/memberBikeRank'}>
                         <div className={style.mcon}>
                             <div className={style.sub_menu_icon}>
                                 <img src="img/main_icon_08.png"></img>
                             </div>
-                            <Link className={style.link} to={'/'}>따릉이 이용 랭킹</Link>
+                            따릉이 이용 랭킹
                         </div>
+                        </Link>
                     </li>
                    
                 </ul>
@@ -268,7 +286,7 @@ export default function MyLeftPage() {
                 <Link to={'/infopage'}>
                     <div className={style.bike_guide}>따릉이 이용안내</div>
                 </Link>
-                <Link to={'/'}>
+                <Link to={'/NoticeBoardMenu'}>
                     <div className={style.help_desk}>따릉이 공지사항 및 게시판</div>
                 </Link>
                     <div className={style.logout_n}>

@@ -3,8 +3,28 @@ import {Link} from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
 import style from './noticeBoardMenu.module.css';
 import Header from '../../header.js';
+import Adnheader from '../../adnheader.js';
+
+import { useSelector,useDispatch } from "react-redux";
+import { Login, Logout } from '../../_redux_slice/loginslice';
+import axios from "axios";
 
 export default function NoticeBoardMenu() {
+	const dispatch = useDispatch();
+	function logout() {
+        // 로그아웃 처리
+        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/logout")
+        .then((res) => {
+            if(res.data.result== "success") {
+                dispatch(Logout());
+            }
+            else { //로그아웃 실패 출력
+                console.log(res.data);
+                console.log("logout result error!")
+            }
+        })
+        .catch((err) => console.log(err))
+    }
     return (
     <>
     <div className={`${style.wrap} ${style.myleft}`} id="sub">
@@ -95,17 +115,7 @@ export default function NoticeBoardMenu() {
 
 </div>
 			<div className={style.my_menu}>
-				<div className={style.head}>
-					<button className={style.close}></button>
-					<a className={style.backBtn} id="backBtn" style={{display:" block"}}></a>
-					<dl className={style.profile}>
-						<dd className={style.top_img}><img src="img/mypage_top_pic.png" alt="" /></dd>
-						<dd className={style.user_title}>USER</dd>
-						<dd className={style.name}>
-							<span>vlvksbdof12</span><span style={{display:"none"}}>temp</span>
-								</dd>
-					</dl>
-				</div>
+				<Adnheader />
 				<form name="leftForm" method="POST">
 					<input type="hidden" id="ostype" name="appOsType" value="web" /> 
 					<input type="hidden" id="usrDeviceId" name="usrDeviceId" /> 
@@ -114,31 +124,34 @@ export default function NoticeBoardMenu() {
 				
 				<div id="help_div" style={{display:" block"}}>
 					<div className={`${style.help_desk} ${style.help}`}>
-						따릉이&nbsp;공지사항 및 게시판<span className={style.tel}>1599-0120</span>
+						따릉이&nbsp;공지사항 및 게시판
 					</div>
 				
 					<ul className={style.help}>
-						<a href="/customer/notice/noticeList.do"><li>공지사항</li></a>
+						<a href="/noticeBoard"><li>공지사항</li></a>
+						<a href="#"><li>보험안내</li></a>
+						<a href="#"><li>안전수칙</li></a>
+						<a href="#"><li>문의/FAQ</li></a>
+						{/* <a href="#"><li>대여소 설치건의</li></a>  */}
+						<a href="#"><li>이용약관</li></a>
+						{/* <a href="/customer/notice/noticeList.do"><li>공지사항</li></a>
 						<a href="/app/use/moveUseMenuInsurance.do"><li>보험안내</li></a>
 						<a href="/customer/faq/faqList.do"><li>안전수칙</li></a>
 						<a href="/customer/opinionBoard/opinionBoardList.do"><li>문의/FAQ</li></a>
 						<a href="javascript:goCateList('FAQ_005');"><li>대여소 설치건의</li></a> 
-						<a href="/app/use/moveUseMenuClauseInfo.do"><li>이용약관</li></a>
+						<a href="/app/use/moveUseMenuClauseInfo.do"><li>이용약관</li></a> */}
 					</ul>
 				</div>
 				
-				<a href="/info/infoReg.do"> 
+				<a href="/infopage"> 
 					<div className={style.bike_guide}>
 						따릉이&nbsp;이용안내</div>
 				</a>
-
-				<div className={style.help_desk} id="help_info" style={{display:" none"}}>
-					따릉이&nbsp;공지사항 및 게시판</div>
 				
 				<div className={style.logout_n}>
 							<span className={style.pic}>
-								<a href="/logout.do">
-									로그아웃</a>
+							<Link to={"/"} onClick={logout}>
+								로그아웃</Link>
 								<span className={style.tel}>
 									☎1599-0120</span>
 							</span>
@@ -147,11 +160,6 @@ export default function NoticeBoardMenu() {
 		</div>
 	</div>
 </div>
-<form id="frm">
-            	<input type="hidden" id="cateCD" name="cateCD" value="" />
-            </form>
-
-	
         </>
     );
 }

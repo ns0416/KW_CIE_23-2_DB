@@ -1,10 +1,13 @@
 import { Route,Routes } from 'react-router-dom';
 import MyLeftPage from './pages/myLeftPage';
 import Mainpage from './pages/mainpage';
-import Joinpage2 from './pages/joinpage/joinpage2';
 import Joinpage1 from './pages/joinpage/joinpage1';
+import Joinpage2 from './pages/joinpage/joinpage2';
+import Joinpage3 from './pages/joinpage/joinpage3';
 import Findid from './pages/findid/findid';
+import Findid2 from './pages/findid/findid2';
 import Findpw from './pages/findpw/findpw';
+import Findpw2 from './pages/findpw/findpw2';
 import Infopage from './pages/infopage/infopage'
 import Test from './pages/test';
 import moveMemberCardRegiView from './pages/moveMemberCardRegiView/moveMemberCardRegiView';
@@ -25,6 +28,7 @@ import memberInfoEdit from './pages/memberInfoEdit/memberInfoEdit';
 import passwordChange from './pages/passwordChange/passwordChange';
 import memberDelete from './pages/memberDelete/memberDelete';
 import noticeBoard from './pages/noticeBoard/noticeBoard';
+import noticeBoardView from './pages/noticeBoardView/noticeBoardView';
 import InfoCoupon from './pages/infoCoupon/infoCoupon';
 
 
@@ -36,8 +40,11 @@ function App() {
         <Route path="/myLeftPage" Component={MyLeftPage} />
         <Route path="/joinPage1" Component={Joinpage1} />
         <Route path="/joinPage2" Component={Joinpage2} />
+        <Route path="/joinPage3" Component={Joinpage3} />
         <Route path="/findid" Component={Findid} />
+        <Route path="/findid2" Component={Findid2} />
         <Route path="/findpw" Component={Findpw} />
+        <Route path="/findpw2" Component={Findpw2} />
         <Route path="/infopage" Component={Infopage} />
         <Route path="/infoCoupon" Component={InfoCoupon} />
         <Route path="/test" Component={Test} />
@@ -59,6 +66,7 @@ function App() {
         <Route path="/passwordChange" Component={passwordChange} />
         <Route path="/memberDelete" Component={memberDelete} />
         <Route path="/noticeBoard" Component={noticeBoard} />
+        <Route path="/noticeBoardView/:uid" Component={noticeBoardView} />
         
         
         

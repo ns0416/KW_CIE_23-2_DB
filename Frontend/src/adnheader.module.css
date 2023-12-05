@@ -1,0 +1,47 @@
+.profile {
+    margin-top: 10px;
+    padding: 25px 0 14px 15px;
+    box-sizing: border-box;
+}
+
+.profile > dd {
+    width: auto;
+    position: static;
+    display: block;
+}
+
+.profile > .top_img {
+    margin-bottom: 20px;
+}
+
+.profile > .top_img img {
+    width: 125px;
+    height: auto;
+}
+
+.profile > .user_title {
+    font-size: 12px;
+    color: #6d6d6d;
+    margin-bottom: 4px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.profile .name {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 12px;
+}
+
+.head .close {
+    background: url(../public/img/close_02.png);
+    -webkit-background-size: contain;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 14px;
+    right: 15px;
+}

@@ -1,0 +1,87 @@
+.read_box {
+    width: auto;
+}
+
+.read_box dt {
+    padding: 10px 15px;
+    border-bottom: #056531 1px solid;
+    border-top: none;
+    line-height: 20px;
+}
+
+.read_box dt p {
+    color: #222;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.read_box dt span {
+    color: #666;
+    font-size: 13px;
+    margin-right: 20px;
+}
+
+.read_box dd {
+    padding: 10px 15px;
+    color: #666;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.read_box table {
+    border-top: #666 1px solid;
+    border-bottom: #666 1px solid;
+    margin: 0;
+    padding: 0;
+}
+
+.read_box th {
+    font-size: 12px;
+    color: #222;
+    width: 80px;
+    padding: 5px 10px;
+    border-top: 1px #ccc solid;
+    min-height: 38px;
+    text-align: left;
+}
+
+.read_box th.prev {
+    background: url(../../../public/img/read_prev.gif) left 10px center no-repeat;
+    background-size: 12px;
+    padding-left: 30px;
+}
+
+.read_box th.next {
+    background: url(../../../public/img/read_next.gif) left 10px center no-repeat;
+    background-size: 12px;
+    padding-left: 30px;
+}
+
+.read_box td {
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #666;
+    background-color: #fff;
+    border-top: 1px #ccc solid;
+    height: 38px;
+}
+
+.btns {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+.btns a.list
+{
+    color: #001b31;
+    width: 100px;
+    background-color: #fff;
+    border: 1px solid #001b31;
+    cursor: pointer;
+    display: inline-block;
+    height: 33px;
+    line-height: 33px;
+}

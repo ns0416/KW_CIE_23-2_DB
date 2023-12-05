@@ -257,7 +257,7 @@
    }
 
 
-.board_srch_help {padding:10px 15px; margin-top:50px; text-align:center; margin-bottom:0} 
+.board_srch_help {padding:10px 15px; text-align:center; margin-bottom:0} 
 .board_srch_help .btn_search {width:100px;} 
 
 }
@@ -277,7 +277,7 @@
     background-color: #fff;
   margin-bottom:0;
 }
-.board_srch .input {border:1px #dfdfdf solid; display:inline;}
+.board_srch .input {border:1px #dfdfdf solid; display:inline; }
 .board .input {border:1px #dfdfdf solid; display:inline-block;}
 .board_srch .input input {height:40px; line-height:40px; font-size:13px}
 .board_srch  .btn_search {height:40px; line-height:40px; text-align:center; font-size:13px; display:inline-block; margin-left:5px;} 
