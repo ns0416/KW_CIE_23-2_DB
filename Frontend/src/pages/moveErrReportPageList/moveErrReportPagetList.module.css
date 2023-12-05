@@ -1,0 +1,432 @@
+table {border-collapse:collapse; width:100%}
+th {
+  display: table-cell;
+  vertical-align: inherit;
+  font-weight: bold;
+  text-align: -internal-center;
+}
+.center {
+  text-align: center;
+}
+/* ---------------------------- 페이징 start----------------------------------------------  */
+.paging {
+  text-align: center; 
+  font-size: 12px;
+  margin: 50px 0 50px 0;
+  height: 34px;
+}
+
+.paging .prev {
+  /* background: url(../../../public/img/paging_bg.gif) -34px 0 no-repeat; */
+  width: 34px;
+  height: 34px;
+  vertical-align: bottom;
+}
+.paging .next {
+  /* background: url(../../../public/img/paging_bg.gif) -68px 0 no-repeat; */
+  width: 34px;
+  height: 34px;
+  vertical-align: bottom;
+}
+
+.paging {text-align:center; font-size:12px; margin:15px 0 50px 0}
+.paging div {display:inline-block}
+.paging .num span a {width:34px; height:34px; line-height:34px; cursor:pointer; display:inline-block; color:#989898; background-color:#fff}
+.paging .num span a:hover, .paging .num span a:focus, .paging .num span a:active, .paging .num .on a {color:#fff; background-color:#666666;border-radius:3px;}
+/* .paging .first {background:url(../../../public/img/paging_bg.gif) 0 0 no-repeat; width:34px; height:34px; vertical-align:middle; margin-right:-5px} */
+/* .paging .prev {background:url(../../../public/img/paging_bg.gif) -34px 0 no-repeat; width:34px; height:34px; vertical-align:middle} */
+/* .paging .next {background:url(../../../public/img/paging_bg.gif) -68px 0 no-repeat; width:34px; height:34px; vertical-align:middle} */
+/* .paging .last {background:url(../../../public/img/paging_bg.gif) -102px 0 no-repeat; width:34px; height:34px; vertical-align:middle; margin-left:-5px} */
+.paging .first a {width:34px; height:34px; cursor:pointer; display:inline-block;}
+.paging .prev a {width:34px; height:34px; cursor:pointer; display:inline-block;}
+.paging .next a {width:34px; height:34px; cursor:pointer; display:inline-block;}
+.paging .last a {width:34px; height:34px; cursor:pointer; display:inline-block;}
+/* ---------------------------- 페이징 start----------------------------------------------  */
+
+
+/* --------------------- sub header ----------------------------------------------  */
+
+@media (max-width:1024px) {
+
+  .m_sub_header_wrap {
+    display:block;
+    position:fixed;
+    top: 0; 
+    width:100%;
+    height:45px;
+    z-index:90000; 
+    background: #fff;
+  }
+
+  .m_sub_header {
+     display:block; 
+     height:50px; 
+     width:100%; 
+     text-align:center;
+     font-size:16px;
+     font-weight: bold; 
+     line-height: 50px;
+     background: #fff;
+   }
+
+   .m_sub_header_wrap .back {
+     background:url(../../../public/img/btn_back.png) center no-repeat; 
+     width:25px; 
+     height:25px; 
+     background-size:contain;
+     position:absolute; 
+     top:15px; 
+     left:15px;
+    }
+
+   .m_sub_header_wrap .close {
+     background:url(../../../public/img/close.png) center no-repeat; 
+     width:22px; 
+     height:22px; 
+     background-size:contain;
+     position:absolute; 
+     top:15px; 
+     right:15px;
+    }
+ 
+ } 
+ /*1024 end */
+/* --------------------- sub header end ----------------------------------------------  */
+
+
+/* ------------------------------------- 결제내역  pc start  -----------------------------------------  */  
+ 
+.top > h3 {font-size:25px; padding:5px 0 10px 0; letter-spacing:-1px}
+
+
+.my .payment {background-color:#efefef; padding:10px 5px; font-size:15px; margin:30px 15px 10px 15px;text-align:center; overflow:hidden }
+.my .payment .way ul {width:450px;}
+.my .payment .way li {display:inline-block; text-align:left; font-size:14px;} 
+.my .payment .way, .my .payment .day {margin-bottom:10px; display:inline-block; width:40%}
+.my .payment .day li {margin:0 3px; display:inline-block}
+.my .payment .day li a {background-color:#fff; border:1px #001b31 solid; color:#001b31; height:30px; line-height:30px; width:70px; display:block; cursor:pointer; font-size:13px}
+.my .payment .day2 {margin:0 0 10px 50px; display:block; width:50%}
+.my .payment .day2 li {margin:0 3px; display:inline-block; padding: 0;border-bottom: none;}
+.my .payment .day2 li a {background-color:#fff; border:1px #001b31 solid; color:#001b31; height:30px; line-height:30px; width:90px; display:block; cursor:pointer; font-size:13px}
+.my .payment .date {float:left; width:50%; margin:5px 0 0 70px}
+.my .payment .date div {line-height:24px; height:24px; display:inline-block; vertical-align:middle; margin:0 5px}
+.my .payment .date .pay_input {border:1px #dfdfdf solid; display:inline-block; line-height:24px; height:24px; margin:4px 0;}
+/* .my .payment .date .calendar {background:url(../../../public/img/bn_calendar.gif) no-repeat; width:30px; height:30px; display:inline-block; background-size:30px; vertical-align:middle; margin:0 0 -6px -10px;} */
+.my .payment_box {border-bottom:1px solid #000;}
+.my .payment_box table {border-top:1px solid #000; font-size:14px;}
+.my .payment_box .caption {font-size:12px; color:#666; text-align:right; padding:10px 10px 5px 0;}
+.my .payment_box .caption span {color:#ef434f;}
+.my .payment_box .caption strong {padding-right:10px}
+.my .payment_box th { border-bottom:1px solid #056531; font-weight:bold; color:#222; line-height:36px; padding:5px; background-color: #f9f9f9; }
+.my .payment_box td { border-bottom:1px solid #dfdfdf; color:#666; padding:15px 2px; text-align:center;}
+.my .payment_box td button {background-color:#fff; border:1px #001a31 solid; color:#001a31; font-size:13px; padding:0 20px; line-height:30px; font-weight:bold}
+.my .payment_box td span.red {color:#f1424f;}
+.my .payment_box td.nodata {color:#f1424f; padding:30px 0}
+  
+
+.my .btn_search {width:16%; margin:0 auto; height:40px; line-height:40px; text-align:center; font-size:14px; float:right; margin-right:130px}
+.my .btn_search a {color:#fff; display:block; cursor:pointer; background-color:#24384a;}
+.my .btn_search img {width:14px; height:14px; vertical-align:middle; padding-right:5px}
+
+
+
+.psboard3 {width:100%; border-top:2px solid #777; font-size:13px; border-collapse:collapse; border-bottom:2px solid #d2d2d2; line-height:1.5; margin-bottom:30px}
+.psboard3 thead th {color:#333; border-bottom:1px solid #d2d2d2; border-left:1px solid #d2d2d2; padding:11px 0 12px; vertical-align:middle; background:#fafafa; font-weight:normal;font-family:NanumGothicBold,'ë‚˜ëˆ”ê³ ë”•',ng,sans-serif; word-break:break-all !important;}
+.psboard3 thead th.blline {border-left:1px solid #d2d2d2 !important}
+.psboard3 tbody td {color:#666; border-bottom:1px solid #d2d2d2; border-left:1px solid #d2d2d2; text-align:left; padding:10px 5px 11px !important; vertical-align:middle}
+.psboard3 thead th:first-child,
+.psboard3 tbody td:first-child {border-left:0 none}
+.psboard3 tbody td .mapbtn {padding:4px 10px 5px 10px}
+.psboard3 tbody td a {color:#069; text-decoration:underline}
+
+
+
+/* -------------------------------------  결제내역 pc end  -----------------------------------------  */  
+
+
+
+/* -------------------------------------  결제내역 mobile start  -----------------------------------------  */ 
+
+@media (max-width:1024px) { 
+
+    .top > h3 {display:none;} 
+
+   .my .payment {background-color:#efefef; padding:10px 20px; font-size:12px; margin:30px 15px 10px 15px;text-align:center; }
+
+    .my .payment_box th {padding:0}
+    .my .payment_box table {font-size:12px;}
+    .my .payment_box td {padding:10px 2px;}
+    .my .payment_box td button {font-size:11px; padding:0 10px}
+    .my .payment_box .caption {font-size:11px;}
+
+     
+    .my .payment_box.noline table {border-top:none}
+    .my .payment {background-color:#efefef; padding:10px 20px; font-size:12px; margin:30px 15px 10px 15px;text-align:center; }
+    .my .payment .way li {display:inline-block; text-align:left; font-size:12px; }
+    .my .payment .way, .my .payment .day, .my .payment .day2 {margin:0 0 10px 0; display:block; width:100%}
+    .my .payment .day li, .my .payment .day2 li {margin:0 3px; display:inline-block}
+    .my .payment .day li a, .my .payment .day2 li a {background-color:#fff; border:1px #001b31 solid; color:#001b31; height:23px; line-height:23px; width:50px; display:block; cursor:pointer; font-size:12px}
+    .my .payment .date {float:none; width:auto; margin:0 0 0 0}
+    .my .payment .date div {line-height:24px; height:24px; display:inline-block; vertical-align:middle; margin:0 5px}
+    .my .payment .date .pay_input {border:1px #dfdfdf solid; display:inline-block; line-height:24px; height:24px; margin:4px 0;}
+    /* .my .payment .date .calendar {background:url(../../../public/img/bn_calendar.gif) no-repeat; width:30px; height:30px; display:inline-block; background-size:30px; vertical-align:middle; margin:0 0 -6px -10px;} */
+
+
+    .my .btn_search, .my .btn_search2 {width:100%; margin:0 auto; height:33px; line-height:33px; text-align:center; font-size:12px; margin-top:10px; float:none}
+    .my .btn_search a, .my .btn_search2 a {color:#fff; display:block; cursor:pointer; background-color:#056531;}
+    .my .btn_search img, .my .btn_search2 img {width:14px; height:14px; vertical-align:middle; padding-right:5px}
+
+
+
+} 
+/* 1024 end */
+/* -------------------------------------  결제내역 mobile end  -----------------------------------------  */ 
+
+
+/* ------------------------------------- 카드관리 pc start  -----------------------------------------  */  
+
+
+.my_navi {background-color:#fff; border-bottom:1px solid #4CAB6A}
+.my_navi .head {background-color:#fff; padding:15px 0 10px 0; width:1030px; margin:0 auto}
+.my_navi .profile {float:left; width:400px}
+.my_navi .profile > dd {width:auto; position:static; display:block;}
+.my_navi .profile .name {font-size:15px; color:#000; font-weight:bold; margin:15px 0}
+.my_navi .profile .ticket {background-size:352px 35px; padding-left:20px; height:35px; line-height:35px; font-size:15px; color:#5fe8c1;}
+.my_navi .profile .ticket span {color:#000; background-color: #f5f5f5; padding: 10px 20px; border-radius: 5px;}
+.my_navi .my_list {background-color:#fff; display:inline-block; overflow:hidden; margin-bottom:6px; width:630px; box-sizing:border-box}
+.my_navi .my_list li {float:left; width:49.7%; height:48px; background-size:10px}
+.my_navi .my_list li a {font-size:13px; color:#222; line-height:48px; width:100%; padding-left:15px; font-weight:normal}
+.my_navi .tabs{ padding: 0px; list-style: none; background-color: #808A92; border-right:#056531 1px solid; box-sizing:border-box; width:100%}
+
+.my_navi .tabs ul {width:1030px; margin:0 auto;}
+.my_navi .tabs li{color: #656565;padding: 20px 15px; cursor: pointer; width:33%; display:inline-block; text-align:center; font-size:14px; box-sizing:border-box}
+.my_navi .tabs li.on{background-color: #fff !important;color: #222; border-left:#4CAB6A 2px solid; border-right:#4CAB6A 2px solid; border-top:#4CAB6A 2px solid; border-bottom:#fff 1px solid; margin-bottom:-2px} 
+/* .my_navi .tabs li.tab-1 {background:url(../../../public/img/my_ic_1.gif) center top 15px no-repeat; padding-top:60px; background-size:35px} */
+.my_navi .tabs li.tab-2 {background:url(../../../public/img/my_ic_2.gif) center top 15px no-repeat; padding-top:60px; background-size:35px}
+.my_navi .tabs li.tab-3 {background:url(../../../public/img/my_ic_3.gif) center top 15px no-repeat; padding-top:60px; background-size:35px}
+.my_navi .tabs li.tab-1.on {background:url(../../../public/img/my_ic_1on.gif) center top 20px no-repeat; padding-top:60px; background-size:35px}
+/* .my_navi .tabs li.tab-2.on {background:url(../../../public/img/my_ic_2on.gif) center top 20px no-repeat; padding-top:60px; background-size:35px} */
+/* .my_navi .tabs li.tab-3.on {background:url(../../../public/img/my_ic_3on.gif) center top 20px no-repeat; padding-top:60px; background-size:35px} */
+.my_navi .tabs li.tab-1 a, .my_navi .tabs li.tab-2 a, .my_navi .tabs li.tab-3 a {color:#fff}
+.my_navi .tabs li.tab-1.on a, .my_navi .tabs li.tab-2.on a, .my_navi .tabs li.tab-3.on a {color:#4CAB6A}
+ 
+
+.category_tab {padding:50px 0 30px 0; display:block}
+.category_tab dl {width:100%; padding-left:2px; margin-bottom:20px}
+.category_tab dd {border:1px solid #001b31; margin-top:-2px; background-image:none; background-color:#fff; float:left; box-sizing:border-box; margin-left:-2px; text-align:center; font-size:17px; color:#000; font-weight:bold; line-height:24px; padding: 15px 25px;}
+.category_tab dd a {color:#000; /*font-size:17px; font-weight:bold; display:block; cursor:pointer; line-height:24px; padding: 15px 25px;*/}
+.category_tab dd.on, .category_tab dd.on a {color:#fff; background-color:#001b31}
+.category_tab:after {clear:both; display:block; content:'';}
+
+
+.my ul.tabs{/*margin: 30px 0 0 0;*/ display:block; padding: 0px; list-style: none; }
+.my ul.tabs:after {display:block; content:''; clear:both;}
+.my ul.tabs li{color: #999; display: block; cursor: pointer; height:40px; line-height:40px; text-align:center; font-size:17px; float:left; padding:0 20px; width:auto !important}
+.my ul.tabs li.current{color: #000; display:block; font-weight:bold; border-bottom:4px solid #000} 
+.my .tab-content {padding:10px 0; display: none;}
+.my .tab-content.current {display:block;}
+
+.my .btns {width:100%; margin:0 auto; height:50px; line-height:50px; text-align:center; font-size:14px; margin-top:20px}
+.my .btns a.del {color:#001b31; width:200px; background-color:#fff; border:1px solid #001b31; cursor:pointer; display:inline-block}
+.my .btns a.modify {color:#fff; width:200px; background-color:#056531; display:block; cursor:pointer; margin-right:10px; display:inline-block; height:50px; line-height:50px;}
+
+.my_box.noline {border-top:none}
+.my_box th img {width:15px; height:15px; margin-left:10px}
+.my_box {border-top:#056531 1px solid; border-bottom:#333 1px solid; margin:10px 15px 10px 15px; padding:0}
+.my_box .pay_input {position:relative; border:1px #dfdfdf solid; display:inline-block; line-height:30px; height:30px; margin:2px 2px 2px 2px}
+.pay_input input {border:none;}
+.my_box th {font-size:14px; color:#222; width:150px; padding:10px; background-color:#fafafa; border-top:1px #ccc solid; letter-spacing:-1px; min-height:38px; text-align:center}
+.my_box td {padding:10px 10px; font-size:14px; color:#666; background-color:#fff;border-top:1px #ccc solid; height:38px}
+.my_box.list td {text-align:center; height:50px}
+.my_box.list td.none {color:#f1424f}
+.my_box td span {padding-right:5px}
+.my_box td .check span {padding-right:0}
+.my_box th.first, .my_box td.first {border-top:none;}
+.my_box td button {background-color:#fff; border:1px #001a31 solid; color:#001a31; font-size:13px; padding:0 10px; line-height:30px; font-weight:bold}
+.my_box td p {font-size:13px; color:#666; line-height:normal; letter-spacing:normal; padding-top:5px}
+.my_box p {font-size:12px; color:#666; line-height:30px; }
+.my_box .number {margin-left:-50px}
+
+.my_box .num_press {margin:10px auto 10px auto; }
+.my_box .number li {background-color:#fff; border-top:none;}
+.my_box p.num {font-size:13px; color:#666; line-height:30px; line-height:normal; padding:0 10px 20px 10px; letter-spacing:normal}
+
+
+.sub_m_title {
+   width:100%;
+   text-align:left;
+   font-size:16px;
+   letter-spacing: -1px; 
+   font-weight: bold;
+   margin:20px 0 10px 13px;
+}
+ 
+.sub_m_title.card {
+   margin:50px 0; 
+}
+
+
+.my .btn {width:370px; margin:0 auto 50px auto; height:50px; line-height:50px; text-align:center; font-size:14px; margin-top:20px; box-sizing:border-box}
+.my .btn a {color:#fff; display:block; cursor:pointer; background-color:#24384a; }
+
+
+.my .pay_info {border:2px solid #f2f2f2; padding:10px 15px; margin:10px 15px 10px 15px}
+.my .pay_info li {font-size:13px; color:#666; line-height:20px; background-color:#fff !important }
+.my .pay_info li a {text-decoration:underline; background:url(../../../public/img/menu_arrow.png) right center no-repeat; background-size:10px; color:#000; padding-right:10px; line-height:20px; font-weight:bold}
+.my .pay_info li span {color:#f3414f}
+.my .pay_info li strong {padding-top:7px; display:block}
+
+
+.my .my_info {border:1px solid #f2f2f2; padding:10px 15px; margin:10px 15px 10px 15px}
+.my .my_info p {font-size:11px; color:#666; font-weight:bold}
+.my .my_info li {font-size:13px; color:#888; line-height:18px; background:#fff url(../../../public/img/ico_ing_bul.png) no-repeat left top 5px !important; padding-left:10px; margin-top:5px }
+
+.my .check {font-size:13px; color:#222; margin:0 0 10px 0; text-align:center; letter-spacing:normal}
+.my .check input[type=checkbox] {vertical-align:middle}
+.my .check a {text-decoration:underline; color:#222;}
+
+.my h1 {font-size:12px; padding:10px 0 0 20px}
+.my p.caption {font-size:12px; color:#666; text-align:right; padding:5px 10px 5px 0;}
+.my p.caption img {width:15px; height:15px; margin-right:5px}
+
+.my td .agree {text-align:left; line-height:normal}
+.my td .check.agree {margin:5px 0 0 0; text-align:left; }
+.my select {background:#fff; width:100%; border:1px #dfdfdf solid; height:30px; }
+
+
+.my h1 {font-size:12px; padding:10px 0 0 20px}
+
+/* ------------------------------------- 카드관리 mobile start  -----------------------------------------  */   
+
+@media (max-width:1024px) {
+  
+  .my_navi {display:none}
+  .category_tab {display:none} 
+
+
+  .my ul.tabs{
+    display:block; 
+    padding: 0px; 
+    list-style: none; 
+    width:100%; 
+    background-color:#efefef; 
+    border-top:1px solid #ddd;
+    border-bottom:#056531 1px solid;
+  }
+
+  .my ul.tabs:after {display:block; content:''; clear:both;}
+
+  .my ul.tabs li{
+    color: #999; 
+    display: block; 
+    cursor: pointer; 
+    height:50px; 
+    line-height:50px; 
+    width:49.5% !important; 
+    text-align:center; 
+    float:left; 
+    padding:0
+  }
+
+
+  .my ul.tabs.list li {width:33% !important;}
+
+  .my ul.tabs li.current{
+    background-color: #fff;
+    color: #222; 
+    font-weight:bold; 
+    border-bottom:#fff 1px solid; 
+    border-right:#056531 1px solid; 
+    border-left:#056531 1px solid; 
+    margin-bottom:-1px
+  } 
+
+
+  .my .tab-content {padding:10px 0}
+
+  .my_box.noline {border-top:none}
+
+  .my_box .pay_input {
+
+    position:relative; 
+    border:1px #dfdfdf solid; 
+    display:inline-block; 
+    line-height:30px; 
+    height:30px; 
+    margin:2px 2px 2px 2px
+  }
+
+
+  .my_box {border-top:#056531 1px solid; border-bottom:#333 1px solid; margin:0; padding:0}
+
+  .my_box th {
+    font-size:14px; 
+    color:#222; 
+    width:80px; 
+    padding:5px; 
+    background-color:#fafafa; 
+    border-top:1px #ccc solid; 
+    letter-spacing:-1px; 
+    min-height:38px; 
+    text-align:center
+  }
+
+
+  .my_box td {padding:5px 10px; font-size:12px; color:#666; background-color:#fff;border-top:1px #ccc solid; height:38px}
+  .my_box.list td {text-align:center; height:50px}
+  .my_box.list td.none {color:#f1424f}
+  .my_box td span {padding-right:5px}
+  .my_box td .check span {padding-right:0}
+  .my_box th.first, .my_box td.first {border-top:none;}
+  .my_box td button {background-color:#fff; border:1px #001a31 solid; color:#001a31; font-size:11px; padding:0 10px; line-height:30px; font-weight:bold}
+  .my_box td p {font-size:11px; color:#666; line-height:normal; letter-spacing:-1px}
+  .my_box p {font-size:12px; color:#666; line-height:30px; }
+
+
+  .my_box .number {margin-left:0}
+  .my_box .num_press {margin:10px auto 10px auto}
+  .my_box .number li {background-color:#fff; border-top:none;}
+  .my_box p.num {font-size:12px; color:#666; line-height:30px; line-height:normal; padding:0 10px; letter-spacing:-1px}
+
+
+  .my .btn {width:164px; margin:0 auto; height:33px; line-height:33px; text-align:center; font-size:12px; margin-top:20px}
+  .my .btn a {color:#fff; display:block; cursor:pointer; background-color:#24384a; }
+
+
+  .my .pay_info {border:1px solid #f2f2f2; padding:10px 15px; margin:10px 15px 10px 15px}
+  .my .pay_info li {font-size:12px; color:#666; line-height:1.5; background-color:#fff !important }
+  .my .pay_info li a {text-decoration:underline; background:url(../../../public/img/menu_arrow.png) right center no-repeat; background-size:10px; color:#000; padding-right:10px; line-height:20px; font-weight:bold}
+  .my .pay_info li span {color:#f3414f}
+  .my .pay_info li strong {padding-top:7px; display:block}
+
+ 
+
+}
+/* 카드관리 mobile end */
+
+/* -------------------------------------  추가과금결제 mobile start  -----------------------------------------  */ 
+
+@media (max-width:1024px) { 
+
+  .top > h3 {display:none;} 
+
+  .my .radio {display:inline-flex; font-size:12px; color:#222; margin-bottom:0 }
+  .my .my_box .radio {line-height:30px; width:45%}
+
+
+  .my .pay_box.total {background-color:#ffecee; height:48px; line-height:48px; padding:0 10px; margin:15px 10px; width:auto}
+  .my .pay_box.total p {display:inline-block; font-weight:bold; font-size:12px}
+  .my .pay_box.total span {font-size:11px; letter-spacing:-1px;  color:#222;}
+  .my .pay_box.total input {line-height:30px; background-color:#ffecee; font-size:18px; color:#f24854; font-weight:bold; text-align:right; height:30px; padding:0 5px}
+  .my .check {font-size:11px; color:#222; margin:0 0 10px 0; text-align:center; letter-spacing:-1px}
+  .my .check input[type=checkbox] {vertical-align:middle}
+  .my .check a {text-decoration:underline; color:#222;}
+
+  .my .btn_pay {padding:0 10px;text-align:center; margin-bottom:25px; width:auto}
+  .my .btn_pay a { width:100%; background-color:#056531; border-radius:3px; height:50px; line-height:50px; font-size:13px; color:#fff; font-weight:bold; display:block; cursor:pointer}
+ 
+
+} 
+/* 1024 end */
+/* -------------------------------------  추가과금결제 mobile end  -----------------------------------------  */ 
+

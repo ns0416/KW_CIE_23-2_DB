@@ -1,0 +1,453 @@
+.head .close {
+    background: url(../../public/img/close_02.png);
+    -webkit-background-size: contain;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 14px;
+    right: 15px;
+}
+
+.main-div{
+    display: block;
+}
+
+.my_list {
+    width: 100%;
+    background-color: #fff;
+    display: inline-block;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.my_list .my_info {
+    width: 100%;
+}
+
+.my_list > dl.my_info > dd {
+    float: left;
+    height: 25px;
+    line-height: 25px;
+}
+dl.my_info:after {
+    content:"";
+    display:block;
+    clear:both;
+}
+
+dl.my_info > dd.pic {
+    margin: 0 15px 10px 15px;
+}
+
+.my_list > dl.my_info > dd {
+    float: left;
+    height: 25px;
+    line-height: 25px;
+}
+
+.my_list > dl.my_info > dd > img {
+    width: 30px;
+    height: auto;
+}
+
+dl.my_info > dd.title {
+    width: 120px;
+    color: #575656;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.my_list > dl.my_info > dd {
+    float: left;
+    height: 25px;
+    line-height: 25px;
+}
+
+dl.my_info > dd.result {
+    color: #333;
+    font-size: 15px;
+    font-weight: bold;
+}
+.mcon{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 3px solid #eeeeee;
+    border-radius: 5px;
+    background: #eeeeee;
+    font-size: 13px;
+}
+
+.mcon .sub_menu_icon {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    margin: 25px 0 10px 0;
+    text-align: center;
+}
+
+.tabs{
+    width: 100%;
+    margin: 0 20px 0 0;
+    padding: 0px;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+.link{
+    color: black;
+    text-decoration: none;
+}
+
+ul.tabs li {
+        width: 50%;
+        height: 140px;
+        float: left;
+        color: #656565;
+        display: block;
+        padding: 12px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        box-sizing: border-box;
+        line-height: 1;
+}
+
+.profile {
+    margin-top: 10px;
+    padding: 25px 0 14px 15px;
+    box-sizing: border-box;
+}
+
+.profile > dd {
+    width: auto;
+    position: static;
+    display: block;
+}
+
+.profile > .top_img {
+    margin-bottom: 20px;
+}
+
+.profile > .top_img img {
+    width: 125px;
+    height: auto;
+}
+
+.profile > .user_title {
+    font-size: 12px;
+    color: #6d6d6d;
+    margin-bottom: 4px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.profile .name {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 12px;
+}
+
+.my_menu .bike_guide {
+    width: 100%;
+    height: 48px;
+    margin-top: 15px;
+    padding-left: 15px;
+    line-height: 48px;
+    background: #41c16a url(../../public/img/bikeguide_bg.png) right center no-repeat;
+    /* 41c16a df6565*/
+    -webkit-background-size: contain;
+    background-size: contain;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.my_menu .help_desk {
+    width: 100%;
+    height: 48px;
+    padding-left: 15px;
+    line-height: 48px;
+    background: #056531;
+    /* 056531 78222d*/
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.tail{
+    clear:both;
+}
+
+.my_menu .logout_n {
+    width: 100%;
+    height: 48px;
+    padding-left: 15px;
+    line-height: 48px;
+    background: #fff;
+    color: #000;
+    font-size: 15px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.my_menu .logout_n .pic {
+    display: block;
+    position: relative;
+    padding-left: 18px;
+}
+
+.my_menu .logout_n .pic:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 18px;
+    left: 0px;
+    width: 12px;
+    height: 12px;
+    background: url(../../public/img/logout_n_pic.png) 0 0 no-repeat;
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+
+.my_menu .logout_n .tel {
+    position: relative;
+    float: right;
+    padding-right: 18px;
+    color: black;
+}
+
+/* 로그인 페이지 */
+/* ------------------------------------- pc 로그인 시작   -----------------------------------------  */ 
+
+.login .header {display:block}
+.login .top {border-bottom:none; overflow:hidden; position:relative; margin:0 0 0 0; padding-bottom:10px; text-align:center}
+.login .top h3 {font-size:30px; padding:50px 0 20px 0;}
+.login .top.logo h3 {font-size:0; text-align:center}
+.login .top h3 img {width:280px}
+.login .back {display:none}
+.login .top .close {display:none}
+.login .header .top {display:block}
+.login_logo {text-align:center; padding-top:30px}
+.login_logo img {width:280px}
+.login .id { border-bottom:1px #222 solid; margin:40px auto 30px auto; width:320px;}
+.login .id input {line-height:30px; height:30px; font-size:12px; width:100%; display:inline-block}
+.login .pw {border-bottom:1px #222 solid; width:320px; margin:0 auto}
+.login .pw input {line-height:30px; height:30px; font-size:12px; width:100%; display:inline-block}
+.login .id p, .login .pw p {font-size:12px; color:#222; font-weight:bold; display:inline-block; width:20%}
+.login .idpw {text-align:center}
+.login .idpw li {display:inline-block; margin:10px 10px 20px 10px;}
+.login .idpw li a {color:#222; font-size:12px; font-weight:bold; padding-right:10px; background-size:10px}
+.login_btns {height:43px; width:270px; margin-bottom:18px; margin:0 auto}
+/* .login_btns a {line-height:43px; text-align:center; display:block; cursor:pointer; width:100%; height:43px; font-weight:bold; font-size:12px; border-radius:3px; color:#333; background:#056531 url(/images/kr/icon/ic_join.png) left 14px center no-repeat;} */
+.login .join_btns {margin-top:10px} 
+.login select {width:95%; background:none; margin-top:5px; font-size:12px}
+.login .phone {text-align:center}
+.login .phone input {line-height:30px; height:30px; border-bottom:1px #222 solid; padding:0 5px; width:80px !important}
+.login h2 {font-size:12px; color:#222; font-weight:normal; margin:50px 0 20px 0; line-height:normal; text-align:center}
+.login h2 span {font-size:12px; color:#222;}
+.login .btn_login {margin:30px auto; background-color:#056531; border-radius:3px; text-align:center; width:164px; height:50px; }
+.login .btn_login a {line-height:50px; font-size:13px; color:#eee; font-weight:bold;} 
+.login .srch_box {margin:120px auto 0 auto; width:325px; text-align:center; border:1px solid #001b31; padding:30px 0}
+.login .srch_box span {font-size:12px; color:#333}
+.login .srch_box span.red {color:#f1424f;}
+.login .srch_box p {font-size:16px; color:#f1424f; margin-top:20px}
+.login .check_box {position:relative; margin:30px auto 20px auto; text-align:center; width:300px}
+.login .radio {display:inline-block; font-size:12px; color:#222; }
+.login .radio input {vertical-align:top}
+.login_auto {width:270px;}
+.sub_logo {
+  width:100%;
+  text-align:center;
+  margin-top:70px;
+}
+
+@media (max-width:1024px) {
+  .sub_logo {
+    margin-top:50px;
+  }
+
+}
+
+
+.sub_logo h3 {font-size:0; text-align:center}
+.sub_logo h3 img {width:220px}
+
+
+.login .input_wrap {
+  width:320px;
+  margin:100px auto 0 auto;
+}
+
+
+@media (max-width:1024px) {
+  .login .input_wrap {
+  width:320px;
+  margin:30px auto 0 auto;
+}
+
+
+}
+
+.login .input_wrap  .id >input ,.pw > input { 
+  line-height:30px; height:30px; font-size:14px; width:100%; display:inline-block;
+}
+
+.login .input_wrap .login_auto {margin-top:10px} 
+
+.login_btns {height:43px; width:320px; margin-bottom:18px; margin-top:20px;}
+.login_btns button {line-height:43px; text-align:center; display:block; cursor:pointer; width:100%; height:43px; font-weight:bold; font-size:14px; border-radius:3px; color:#fff; background:#4cab6a;}
+/* df6565 4cab6a */
+
+.login_btns.no_member a {
+  background: #435464;
+}
+
+.login .idpw {text-align:center}
+.login .idpw li {display:inline-block; margin:10px 10px 20px 10px;}
+.login .idpw li a {color:#222; font-size:12px; font-weight:bold; padding-right:10px; background-size:10px}
+
+.login h2 {font-size:14px; color:#222; font-weight:normal; margin:30px 0 20px 0; line-height:normal; text-align:center}
+.login h2 span {font-size:12px; color:#222;}
+
+.login .top h3 {font-size:30px; padding:10px 0 10px 0;}
+
+
+
+/* box-sizing: border-box; 로그인 페이지에서 하단 박스로 인해 전체 크기가 커져서 추가  2019.12.17 */
+.login_notice_wrap {
+  width:330px;
+  margin:20px auto 0 auto;
+  padding:20px;
+  box-sizing: border-box;	
+  font-size:14px;
+  /* background: #efefef; */
+  border-radius: 5px;
+  text-align:center;
+}
+
+.login_notice_wrap > .title {
+   /* margin-top:5px; */
+   font-weight: bold; 
+   margin : 7px 0 7px 0;
+}
+
+.login_notice_wrap > .desc {
+  font-weight: normal; 
+  font-size:12px;
+  line-height: 1.9; 
+}
+
+.login .btn {margin:30px auto; color:#fff; background-color:#056531; border-radius:3px; text-align:center; width:300px}
+.login .btn a {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+}
+
+
+.login .check_box {position:relative; margin:30px auto 20px auto; text-align:center; width:300px}
+.login .radio {display:inline-block; font-size:12px; color:#222; }
+.login .radio input {vertical-align:top}
+ 
+																					
+.login .id input {line-height:30px; height:30px; font-size:12px; width:100%; display:inline-block}
+
+@media (max-width:1024px) {
+
+    .m_sub_header_wrap {
+      display:block;
+      position:fixed;
+      top: 0; 
+      width:100%;
+      height:45px;
+      z-index:90000; 
+      background: #fff;
+    }
+  
+    .m_sub_header {
+       display:block; 
+       height:50px; 
+       width:100%; 
+       text-align:center;
+       font-size:16px;
+       font-weight: bold; 
+       line-height: 50px;
+       background: #fff;
+     }
+  
+     .m_sub_header_wrap .back {
+       background:url(../../public/img/btn_back.png) center no-repeat; 
+       width:25px; 
+       height:25px; 
+       background-size:contain;
+       position:absolute; 
+       top:15px; 
+       left:15px;
+      }
+  
+     .m_sub_header_wrap .close {
+       background:url(../../public/img/close.png) center no-repeat; 
+       width:22px; 
+       height:22px; 
+       background-size:contain;
+       position:absolute; 
+       top:15px; 
+       right:15px;
+      }
+   
+   } 
+/*1024 end */
+/* --------------------- sub header end ----------------------------------------------  */
+
+/* --------------------- 로그인 mobile start ----------------------------------------------  */
+@media (max-width:1024px) {
+
+   
+    .login .logo {
+      margin-top:70px;
+      text-align: center;
+    }
+    .login .logo h3 img {
+      width:200px
+    }
+  
+  
+    .login .input_wrap {
+      width:100%;
+      margin:30px auto 0 auto;
+    }
+  
+    .login_btns {
+      width:270px; 
+      margin:20px auto;
+    }
+  
+    .login .input_wrap .login_auto {
+      display:block;
+      width:270px;
+      margin:10px auto 0 auto
+     } 
+  
+  
+    .login_notice_wrap {
+      width:100%;
+    }
+  
+   .login .id { border-bottom:1px #222 solid; margin:40px auto 30px auto; width:270px;}
+  .login .id input {line-height:30px; height:30px; font-size:12px; width:100%; display:inline-block}
+  .login .pw {border-bottom:1px #222 solid; width:270px; margin:0 auto}
+  .login .pw input {line-height:30px; height:30px; font-size:12px; width:100%; display:inline-block}
+  }
+/* login 1024 end */
+
+
