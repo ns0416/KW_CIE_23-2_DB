@@ -10,8 +10,8 @@ export default function Mainpage() {
 	const [locations, setLocations] = useState();
 
 	function serviceFindPath() {
-    
-        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/findPath?s_lon=127.060899&s_lat=37.619791&d_lon=37.508860&d_lat=127.100200")
+		
+        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/findPath?s_lon=127.060899&s_lat=37.619791&d_lon=127.060200&d_lat=37.608860")
         .then((res) => {
             if(res.data.result== "success") {
                 console.log("success");
