@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './findpw.module.css';
-import Header from '../header.js';
+import Header from '../../header.js';
 
 export default function Findpw()
 {

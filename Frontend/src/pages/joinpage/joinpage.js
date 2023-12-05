@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './joinpage.module.css';
-import Header from '../header.js';
+import Header from '../../header.js';
 
 export default function Joinpage()
 {

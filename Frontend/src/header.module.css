@@ -1,5 +1,4 @@
-@media (max-width: 1024px)
-{
+
 #sub .header_wrap {
     position: relative;
     margin-bottom: 0px;
@@ -62,5 +61,4 @@
     position: absolute;
     top: 15px;
     right: 15px;
-}
 }
