@@ -1,10 +1,18 @@
 import React from 'react';
+import axios from "axios";
 // import './test.css';
 import style from './test.module.css';
-import {Link} from 'react-router-dom';
 import Header from '../header';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { Login, Logout } from '../_redux_slice/loginslice';
+
 export default function Test() {
+    const isloggedin = useSelector((state) => state.logged.value)
+    const dispatch = useDispatch()
+
+    // const [isloggedin, setisloggedin] = React.useState(false);
+
     const [values, setvalues] = React.useState({
         Id: "",
         Pw: "",
@@ -48,33 +56,41 @@ export default function Test() {
             return
         }
         alert(JSON.stringify(values,null,2));
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/login", values)
+            .then((res) => {
+                if(res.data.result == "success") {
+                    dispatch(Login());
+                }
+                else {
+                    alert("Login Failed");
+                }
+            })
+            .catch((err) => console.log(err))
+        
+    }
+
+    function logouthandler(e) {
+        console.log("log out");
+        dispatch(Logout());
+    }
+
+    function loginhandler(e) {
+        console.log("log in");
+        dispatch(Login());
     }
 
     return(
-        <div className={style.wrap} id="sub">   
-        <div className={style.container}>
-            <div className={style.content}>
-                {/* <div className={style.top}>
-                    <div className={style.m_sub_header_wrap}>
-                        
-                        <div className={style.m_sub_header}>
-                            <button className={style.back}></button>
-                            <button className={style.close}></button>
-                            <span id="title">로그인하기</span>
-                        </div>
-                    </div>
-                    
-                </div> */}
-                <Header title="로그인하기"/>
-                <div className={style.login}>
-                    <div className={style.sub_logo}>
-                        <h3><img src="/img/logo.png" style={{width:"250px"}} alt="서울자전거 따릉이" /></h3>
-                    </div>
-                    <div className={style.input_wrap}>
-                         {/* <form name='loginForm' action="/j_spring_security_check" method="POST"> */}
+        <>
+        {isloggedin ? (
+            <>
+            <h1>로그인 상태</h1>
+            <button onClick={logouthandler}>로그아웃 하기</button>
+            </>
+        ):(
+            <>
+            <div className={style.input_wrap}>
                          <form name='loginForm' onSubmit={SubmitHandler}>
                             <div className={style.id}>
-                                {/* <input type="text" id="memid" name="j_username" placeholder="아이디" /> */}
                                 <input type="text" value={values.Id} name="Id" placeholder="아이디" onChange={ChangeHandler}/>
                                 {/* 아이디 에러출력 */}
                                 {/* {errors.Id && <span className={style.error}>{errors.Id}</span>} */}
@@ -82,8 +98,6 @@ export default function Test() {
                             
                             
                             <div className={style.pw}>
-                                {/* <input type="password" id="mempw" name="j_password" placeholder="비밀번호" 
-                                data-tk-kbdType="qwerty" data-tk-useinput="true" data-tk-dataType="aA@" autoComplete="off" /> */}
                                 <input type="password" value={values.Pw} name="Pw" placeholder="비밀번호" onChange={ChangeHandler}/>
                                 {/* 비밀번호 에러출력 */}
                                 {/* {errors.Pw && <span>{errors.Pw}</span>} */}
@@ -94,13 +108,6 @@ export default function Test() {
                                 
                             </div>
                             <div className={style.login_btns} id="loginBtn"><button type='submit'>로그인하기</button></div>
-                        
-                            <input type="hidden" id="ostype" name="appOsType"  value="web"/> 
-                            <input type="hidden" id="usrDeviceId" name="usrDeviceId" />
-                            
-                            <input type="hidden" id="hyLink" name="hyLink" />
-                            <input type="hidden" id="orgType" name="orgType" />
-                            
                         </form>
                 
                         <ul className={style.idpw}>
@@ -116,36 +123,11 @@ export default function Test() {
                                     비밀번호 찾기</a>
                             </li>
                         </ul>
-                        {/* <div className={style.sns_wrap}>
-                            <img src="img/join_line.jpg" alt="">
-                            <ul>
-                                <li> <a href="javascript:goSnsLogin(0);" className={style.kakao}></a> </li>
-                                <li> <a href="javascript:goSnsLogin(2);" className={style.naver}></a> </li>
-                            </ul>
-                        </div>
-                        <div className="login_btns no_member" id="no_member">
-                            <a href="https://www.bikeseoul.com:457/main.do?lang=ko">비회원 로그인</a>
-                        </div> */}
-                    </div>
-                    <div className={style.login_notice_wrap}>
-                        <p className={style.title}>
-                            SNS 로그인 회원가입시 SNS 제공 업체 정책상 자동로그인이 지원되고 있지 않습니다.<br/>
-                            이점 양해 부탁드립니다.</p>
-                        <p className={style.desc}>
-                            - 자동로그인을 원하시는 경우 따릉이 회원으로 전환.<br/>
-                        </p>
-                        <p className={style.title}>※ 따릉이 회원 전환 방법</p>
-                        <p className={style.desc}>
-                            1. SNS로그인-나의 공간-회원정보관리-개인정보수정-비밀번호 변경 메뉴에서 비밀번호 입력
-                            <br/>2. 생성된 비밀번호와  따릉이 아이디(개인정보수정에서 확인가능)를 통해 로그인
-                        </p>
-                    </div>
-                    {/* <!-- //.login_notice_wrap --> */}
-                </div>
-            </div>
-        </div>
-    </div>
 
+                </div>
+            </>
+        )}
+        </>
     );
 }
 

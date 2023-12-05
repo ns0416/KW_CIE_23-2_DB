@@ -1,10 +1,11 @@
 import { Route,Routes } from 'react-router-dom';
 import MyLeftPage from './pages/myLeftPage';
 import Mainpage from './pages/mainpage';
-import Joinpage from './pages/joinpage';
-import Findid from './pages/findid';
-import Findpw from './pages/findpw';
-import Infopage from './pages/infopage'
+import Joinpage2 from './pages/joinpage/joinpage2';
+import Joinpage1 from './pages/joinpage/joinpage1';
+import Findid from './pages/findid/findid';
+import Findpw from './pages/findpw/findpw';
+import Infopage from './pages/infopage/infopage'
 import Test from './pages/test';
 import moveMemberCardRegiView from './pages/moveMemberCardRegiView/moveMemberCardRegiView';
 import favoriteStation from './pages/favoriteStation/favoriteStation';
@@ -26,6 +27,8 @@ import memberDelete from './pages/memberDelete/memberDelete';
 import noticeBoard from './pages/noticeBoard/noticeBoard';
 import moveUseMenuInsurance from './pages/moveUseMenuInsurance/moveUseMenuInsurance';
 import moveUseMenuClauseInfo from './pages/moveUseMenuClauseInfo/moveUseMenuClauseInfo';
+import InfoCoupon from './pages/infoCoupon/infoCoupon';
+
 
 
 function App() {
@@ -34,10 +37,12 @@ function App() {
       <Routes>
         <Route path="/" Component={Mainpage} />
         <Route path="/myLeftPage" Component={MyLeftPage} />
-        <Route path="/joinPage" Component={Joinpage} />
+        <Route path="/joinPage1" Component={Joinpage1} />
+        <Route path="/joinPage2" Component={Joinpage2} />
         <Route path="/findid" Component={Findid} />
         <Route path="/findpw" Component={Findpw} />
         <Route path="/infopage" Component={Infopage} />
+        <Route path="/infoCoupon" Component={InfoCoupon} />
         <Route path="/test" Component={Test} />
         <Route path="/moveMemberCardRegiView" Component={moveMemberCardRegiView} />
         <Route path="/favoriteStation" Component={favoriteStation} />
@@ -59,6 +64,7 @@ function App() {
         <Route path="/noticeBoard" Component={noticeBoard} />
         <Route path="/moveUseMenuInsurance" Component={moveUseMenuInsurance} />
         <Route path="/moveUseMenuClauseInfo" Component={moveUseMenuClauseInfo} />
+        
         
         
       </Routes>  
