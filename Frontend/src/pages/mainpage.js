@@ -11,13 +11,13 @@ export default function Mainpage() {
 
 	function serviceFindPath() {
     
-        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/findPath?s_lon=127.060899&s_lat=37.619791&d_lon=37.508860&d_lat=127.100200")
+        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/findPath?s_lon=127.060899&s_lat=37.619791&d_lon=37.508860&d_lat=127.100200")
         .then((res) => {
             if(res.data.result== "success") {
                 console.log("success");
 				console.log(res.data);
             }
-            else { //로그아웃 실패 출력
+            else { 
 				console.log("error");
                 console.log(res.data);
                 console.log("logout result error!")
