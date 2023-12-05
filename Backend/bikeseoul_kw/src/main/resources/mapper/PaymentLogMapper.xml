@@ -98,5 +98,21 @@
 					#{ticket_detail_uid},
 					#{status_}
 				)
+		<selectKey resultType="Integer" keyProperty="uid" order="AFTER">
+			SELECT LAST_INSERT_ID() AS uid
+		</selectKey>
+	</insert>
+	<insert id="insertPaymentLogGift" parameterType="Integer">
+			INSERT INTO payment_log_gift
+				(
+					log_uid,
+					gift_uid
+				) VALUES (
+					#{log_uid},
+					#{gift_uid}
+				)
+		<selectKey resultType="Integer" keyProperty="uid" order="AFTER">
+			SELECT LAST_INSERT_ID() AS uid
+		</selectKey>
 	</insert>
 </mapper>

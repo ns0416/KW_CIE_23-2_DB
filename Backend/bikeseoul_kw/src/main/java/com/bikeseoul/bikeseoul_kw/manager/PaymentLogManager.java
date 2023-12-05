@@ -78,8 +78,9 @@ public class PaymentLogManager {
 		}
 		return paymentLogList;
     }
+    
     @Transactional
-    public CommonEnum payment(User mem, Integer ticket_uid, Integer payment_method, String gift_email) {
+    public CommonEnum payment(User mem, Integer ticket_uid, Integer payment_method, String gift_email, boolean isOverdue) {
 		// TODO Auto-generated method stub
     	try {
     		Ticket ticket = ticketService.getTicketInfo(ticket_uid);
@@ -91,20 +92,37 @@ public class PaymentLogManager {
     			return CommonEnum.NOT_PERMITTED;
     		
     		CommonEnum res =  null;
-    		if(gift_email != null) { //send gift
-    			User mem_recv = am.getUserInfo(gift_email, true, false);
-    			if(mem_recv == null)
-    				throw new Exception();
-    			Gift gift = new Gift(ticket.getUid(), mem.getUid(), mem_recv.getUid());
-    			res = giftService.insertGiftInfo(gift) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;    			
+    		PaymentLog log = null;
+    		if(!isOverdue) {
+	    		Gift gift = null;
+	    		if(gift_email != null) { //send gift
+	    			User mem_recv = am.getUserInfo(gift_email, true, false);
+	    			if(mem_recv == null)
+	    				throw new Exception();
+	    			gift = new Gift(ticket.getUid(), mem.getUid(), mem_recv.getUid());
+	    			res = giftService.insertGiftInfo(gift) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	    			log = new PaymentLog(mem.getUid(), 0, pm.getUid(),ticket.getCost(), payment_status.paid);
+	    		}else {
+	    			td = new Ticket_detail(mem.getUid(), ticket.getUid());
+	    			res =  ticketService.insertTicketDetail(td) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	    			log = new PaymentLog(mem.getUid(), td.getUid(), pm.getUid(),ticket.getCost(), payment_status.paid);
+	    		}
+	    		if(res != CommonEnum.SUCCESS)
+	    			throw new Exception();
+	    		CommonEnum pay_res = paymentLogService.insertPaymentLog(log) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	    		if(pay_res != CommonEnum.SUCCESS)
+	    			throw new Exception();
+	    		if(gift_email != null && gift != null) { //send gift
+	    			res = paymentLogService.insertPaymentLogGift(log.getUid(), gift.getUid()) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	    		}
     		}else {
-    			td = new Ticket_detail(mem.getUid(), ticket.getUid());
-    			res =  ticketService.insertTicketDetail(td) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+    			log = new PaymentLog(mem.getUid(), -1, pm.getUid(),ticket.getCost(), payment_status.paid);
+    			CommonEnum pay_res = paymentLogService.insertPaymentLog(log) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	    		if(pay_res != CommonEnum.SUCCESS)
+	    			throw new Exception();
+	    		else
+	    			return pay_res;
     		}
-    		PaymentLog log = new PaymentLog(mem.getUid(), td.getUid(), pm.getUid(),ticket.getCost(), payment_status.paid);
-    		CommonEnum pay_res = paymentLogService.insertPaymentLog(log) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
-    		if(pay_res != CommonEnum.SUCCESS)
-    			throw new Exception();
     		if(res != CommonEnum.SUCCESS)
     			throw new Exception();
 			else
@@ -126,16 +144,25 @@ public class PaymentLogManager {
 	public CommonEnum paymentOverdue(User user, List<Pair<Rent, List<Overdue>>> data, Integer payment_method) {
 		// TODO Auto-generated method stub
 		try {
+			if(data == null)
+				throw new Exception();
+			CommonEnum overdue_res = null;
 			for(Pair<Rent, List<Overdue>> item : data) {
 				Pair<Ticket, Ticket_detail> ticket = ticketManager.getTicketDetailInfo(item.getFirst().getTicket_detail_uid());
-				CommonEnum res = payment(user, ticket.getFirst().getUid(), payment_method, null);
+				CommonEnum res = payment(user, ticket.getFirst().getUid(), payment_method, null, true);
 				if(res != CommonEnum.SUCCESS)
 					throw new Exception();
-				Overdue update = new Overdue(0, 1);
-				CommonEnum overdue_res = rentService.updateOverdue(update) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
-				if(overdue_res == CommonEnum.SUCCESS) {
-					return overdue_res;
+				//Overdue update =null; new Overdue(0, 1);
+				for(Overdue od : item.getSecond()) {
+					od.setPayment_finished(1);
+					overdue_res = rentService.updateOverdue(od) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+					if(overdue_res != CommonEnum.SUCCESS) {
+						throw new Exception();
+					}
 				}
+			}
+			if(overdue_res == CommonEnum.SUCCESS) {
+				return overdue_res;
 			}
 			return CommonEnum.FAILED;
 		}catch(Exception e) {

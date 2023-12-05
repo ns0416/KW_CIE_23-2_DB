@@ -33,6 +33,19 @@ public class Station extends CommonData{
         this.general_cnt = general_cnt;
         this.sprout_cnt = sprout_cnt;
     }
+    public Station(int uid, String station_name, double lat, double lon, int size, boolean is_valid, station_type station_type, int general_cnt, int sprout_cnt) {
+        super(uid, null);
+        this.station_name = station_name;
+        this.lat = lat;
+        this.lon = lon;
+        this.size = size;
+        this.is_valid = is_valid;
+        this.station_type = station_type;
+        this.general_cnt = general_cnt;
+        this.sprout_cnt = sprout_cnt;
+        //this.favorite_user_uid = favorite_user_uid;
+        //this.favorite_created_date = favorite_created_date;
+    }
 
     public Station(int uid, String station_name, double lat, double lon, int size, boolean is_valid, station_type station_type, LocalDateTime created_date, int general_cnt, int sprout_cnt, int favorite_user_uid, LocalDateTime favorite_created_date) {
         super(uid, created_date);

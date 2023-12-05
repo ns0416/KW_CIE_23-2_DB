@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +42,6 @@ public class CouponController {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 
     @GetMapping("/rest/service/getUserCouponList")
-    @ResponseBody
     public String getUserCouponList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
@@ -78,7 +78,6 @@ public class CouponController {
         return jo.toString();
     }
     @GetMapping("/rest/service/getCoupon")
-    @ResponseBody
     public String getCoupon(HttpServletRequest request, @RequestParam("coupon_id") String coupon_id) {
         JsonObject jo = new JsonObject();
         if(coupon_id == null) {
@@ -116,7 +115,6 @@ public class CouponController {
     }
 
     @GetMapping("/rest/service/getCouponList")
-    @ResponseBody
     public String getCouponList(HttpServletRequest request) {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
@@ -158,7 +156,7 @@ public class CouponController {
     }
     
     @PostMapping("/rest/service/registerCoupon")
-    public String registerCoupon(HttpServletRequest request, HashMap<String, Object> body) {
+    public String registerCoupon(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
     	JsonObject jo = new JsonObject();
     	HttpSession hs = request.getSession();
     	Member user = (Member)hs.getAttribute("member");
@@ -168,13 +166,20 @@ public class CouponController {
     	}
     	String coupon_id = (String)body.get("coupon_id");
     	Coupon cp = couponManager.getCoupon(coupon_id);
+    	if(cp == null) {
+    		jo.addProperty("result", "failed");
+    		jo.addProperty("msg", "invalid_coupon_id");
+        	return jo.toString();
+    	}
     	if(cp.getOwner_uid() > 0) {
     		jo.addProperty("result", "failed");
+    		jo.addProperty("msg", "already_registered");
     		return jo.toString();
     	}
     	Pair<Ticket, Ticket_detail> td = ticketManager.getActivationTicket(user.getUid());
     	if(td != null) {
     		jo.addProperty("result", "failed");
+    		jo.addProperty("msg", "ticket_already_activated");
         	return jo.toString();
     	}
     	CommonEnum res = couponManager.useCoupon(cp, user);

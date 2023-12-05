@@ -95,7 +95,7 @@
 	        	td.uid AS ticket_detail_uid,
 	        	td.member_uid AS member_uid,
 	        	td.start_date AS start_date,
-	        	td.activation AS activation,
+	        	0,
 	        	td.created_date AS ticket_detail_created_date,
 	            t.ticket_id AS ticket_id,
 	            t.ticket_type AS ticket_type,
@@ -157,6 +157,9 @@
 					</if>
 				</trim>	
 				)
+				<selectKey resultType="Integer" keyProperty="uid" order="AFTER">
+			SELECT LAST_INSERT_ID() AS uid
+		</selectKey>
 	</insert>
 	<insert id="insertTicketDetailtoExpired" parameterType="Integer">
 			INSERT INTO ticket_detail_expired

@@ -21,7 +21,11 @@ public class Bike {
         this.bike_id = bike_id;
         this.status_ = status_;
     }
-
+    public Bike(int bike_id,int station_uid, bike_status status_) {
+        this.bike_id = bike_id;
+        this.status_ = status_;
+        this.station_uid = station_uid;
+    }
     public int getBike_id() {
         return bike_id;
     }

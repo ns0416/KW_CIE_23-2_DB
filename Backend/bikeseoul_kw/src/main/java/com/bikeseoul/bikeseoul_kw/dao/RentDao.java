@@ -21,4 +21,5 @@ public interface RentDao {
     Bike getBikeInfo(int uid);
     int updateBikeInfo(Bike bike);
     List<Rent> getRentInfo(int rent_uid, int bike_uid, int ticket_detail_uid);
+    int insertOverdue(Overdue overdue);
 }

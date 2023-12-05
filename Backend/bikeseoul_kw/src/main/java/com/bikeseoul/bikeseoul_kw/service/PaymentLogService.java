@@ -41,4 +41,10 @@ public class PaymentLogService implements PaymentLogDao {
 		// TODO Auto-generated method stub
 		return paymentLogDao.insertPaymentLog(log);
 	}
+
+	@Override
+	public int insertPaymentLogGift(int log_uid, int gift_uid) {
+		// TODO Auto-generated method stub
+		return paymentLogDao.insertPaymentLogGift(log_uid, gift_uid);
+	}
 }

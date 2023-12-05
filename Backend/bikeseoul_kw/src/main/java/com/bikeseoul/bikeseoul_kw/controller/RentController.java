@@ -6,12 +6,14 @@ import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Overdue;
 import com.bikeseoul.bikeseoul_kw.container.Pair;
 import com.bikeseoul.bikeseoul_kw.container.Rent;
+import com.bikeseoul.bikeseoul_kw.container.Station;
 import com.bikeseoul.bikeseoul_kw.container.Ticket;
 import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
 import com.bikeseoul.bikeseoul_kw.container.User;
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
 import com.bikeseoul.bikeseoul_kw.manager.PaymentLogManager;
 import com.bikeseoul.bikeseoul_kw.manager.RentManager;
+import com.bikeseoul.bikeseoul_kw.manager.StationManager;
 import com.bikeseoul.bikeseoul_kw.manager.TicketManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -45,6 +47,9 @@ public class RentController {
     @Autowired
     private TicketManager ticketManager;
 
+    @Autowired
+    private StationManager stationManager;
+    
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
@@ -118,7 +123,7 @@ public class RentController {
     	JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
         User user = (User)hs.getAttribute("member");
-        List<Pair<Rent, List<Overdue>>> data = rentManager.getOverdueList(user.getUid(), true);
+        List<Pair<Rent, List<Overdue>>> data = rentManager.getOverdueList(user.getUid(), false);
         int amount = 0;
         for(Pair<Rent, List<Overdue>> pair : data) {
         	for(Overdue item : pair.getSecond()) {
@@ -161,7 +166,15 @@ public class RentController {
         	jo.addProperty("msg", "no_activated_ticket");
         	return jo.toString();
         }
-        Rent rent = new Rent(user.getUid(), bike.getBike_id(), td.getSecond().getUid(), bike.getStation_uid());
+        List<Rent> cur = rentManager.getRentInfo(0, 0, td.getSecond().getUid());
+        if(cur != null && cur.size()>0) {
+        	if(cur.get(0).getReturn_date() == null) {
+        		jo.addProperty("result", "failed");
+        		return jo.toString();
+        	}
+        }
+        Station st = stationManager.getStationInfo(bike.getStation_uid());
+        Rent rent = new Rent(user.getUid(), bike.getBike_id(), td.getSecond().getUid(), bike.getStation_uid(), st.getLat(), st.getLon());
         CommonEnum res = rentManager.rentBike(rent);
         if(res == CommonEnum.SUCCESS)
         	jo.addProperty("result", "success");
@@ -175,13 +188,13 @@ public class RentController {
         //Integer bike_id = (Integer)body.get("bike_id");
     	Integer rent_uid = (Integer)body.get("rent_uid");
         Integer station_id = (Integer)body.get("station_id");
-        Rent rent = rentManager.getRentInfo(rent_uid, 0, 0).get(0);
-        if(rent == null) {
+        List<Rent> rent = rentManager.getRentInfo(rent_uid, 0, 0);
+        if(rent == null || rent.size()==0) {
         	jo.addProperty("result", "failed");
             return jo.toString();
         }
         	
-        CommonEnum res = rentManager.returnBike(rent, station_id);
+        CommonEnum res = rentManager.returnBike(rent.get(0), station_id);
         if(res == CommonEnum.SUCCESS)
         	jo.addProperty("result", "success");
         else

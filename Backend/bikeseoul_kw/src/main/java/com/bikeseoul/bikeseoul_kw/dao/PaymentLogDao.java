@@ -17,4 +17,5 @@ public interface PaymentLogDao {
     List<PaymentMethod> getPaymentMethodList();
     PaymentMethod getPaymentMethodInfo(int uid);
     int insertPaymentLog(PaymentLog log);
+    int insertPaymentLogGift(int log_uid, int gift_uid);
 }

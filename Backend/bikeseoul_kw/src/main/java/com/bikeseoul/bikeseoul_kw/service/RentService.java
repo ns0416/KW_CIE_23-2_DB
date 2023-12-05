@@ -64,4 +64,10 @@ public class RentService implements RentDao {
 		// TODO Auto-generated method stub
 		return rentDao.getRentInfo(rent_uid, bike_uid, ticket_detail_uid);
 	}
+
+	@Override
+	public int insertOverdue(Overdue overdue) {
+		// TODO Auto-generated method stub
+		return rentDao.insertOverdue(overdue);
+	}
 }

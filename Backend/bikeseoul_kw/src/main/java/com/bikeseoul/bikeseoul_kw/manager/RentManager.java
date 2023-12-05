@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,7 @@ public class RentManager {
 				list.set(rent, od_list);		
 				result.add(list);
 			}
-			Overdue od = new Overdue((Integer)item.get("overdue_amount"), (Integer)item.get("payment_finished"), (LocalDateTime)item.get("created_date"), (LocalDateTime)item.get("update_date"));
+			Overdue od = new Overdue((Integer)item.get("overdue_uid"), (Integer)item.get("overdue_amount"), (Boolean)item.get("payment_finished")? 1: 0, (LocalDateTime)item.get("created_date"), (LocalDateTime)item.get("update_date"));
 			result.get(result.size()-1).getSecond().add(od);
 		}
 		return result;
@@ -101,13 +102,20 @@ public class RentManager {
 			CommonEnum res1 = rentService.updateRent(return_rent) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
 			if(res1 != CommonEnum.SUCCESS)
 				throw new Exception();
-			Bike bike = new Bike(rent.getBike_uid(), bike_status.ready);
+			Bike bike = new Bike(rent.getBike_uid(), station_id, bike_status.ready);
 			CommonEnum res2 = rentService.updateBikeInfo(bike) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
 			Pair<Ticket, Ticket_detail> td = ticketManager.getActivationTicket(rent.getMember_uid());
 			if(td == null)
 				return CommonEnum.FAILED;
+			long overdue = getOverdueAmount(td)/1000;
+			if(overdue > 0) {
+				Overdue od = new Overdue(0, rent.getUid(), (int)overdue);
+				res2 = rentService.insertOverdue(od) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+				if(res2 != CommonEnum.SUCCESS)
+					throw new Exception();
+			}
 			LocalDateTime exp = getExpiredDate(td);
-			if(exp.isBefore(LocalDateTime.now()))
+			if(exp.isBefore(LocalDateTime.now()) || overdue > 0)
 				res2 = ticketManager.expireTicketDetail(td.getSecond().getUid());
 			return res2;
 		}catch(Exception e) {
@@ -116,6 +124,25 @@ public class RentManager {
 		}
 		//return CommonEnum.FAILED;
 	}
+	public long getOverdueAmount(Pair<Ticket, Ticket_detail> td) {
+		if(td == null)
+			return -1;
+		long amt = 0;
+		List<Rent> rlist = getRentInfo(0,0,td.getSecond().getUid());
+		LocalDateTime return_ = null;
+		for(Rent r : rlist) {
+			if(r.getReturn_date() == null)
+				return_ = LocalDateTime.now();
+			else
+				return_ = r.getReturn_date();
+			amt+= return_.atZone(ZoneId.systemDefault()).toEpochSecond() - r.getStart_date().atZone(ZoneId.systemDefault()).toEpochSecond();
+		}
+		long unit_time= td.getFirst().getHours().getValue()*3600;
+		long total_time = unit_time * td.getFirst().getTicket_type().getValue();
+		long result = amt - total_time;
+		return result > 0 ? result : 0;
+	}
+	
 	public double getDistance_arc(double sLat, double sLong, double dLat, double dLong){
 		final int radius=6371009;
 		double uLat=Math.toRadians(sLat-dLat);

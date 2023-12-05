@@ -47,8 +47,8 @@ public class TicketManager {
 		if(data == null || data.size() == 0)
 			return null;
 		Pair<Ticket, Ticket_detail> pair = new Pair();
-		Ticket ticket = new Ticket((Integer)data.get(0).get("ticket_id"), ticket_type.valueOf((String)data.get(0).get("ticket_type")), hours.valueOf((String)data.get(0).get("hours")), (Integer)data.get(0).get("cost"), (Boolean)data.get(0).get("isvalid"), (LocalDateTime)data.get(0).get("ticket_created_date"), (LocalDateTime)data.get(0).get("ticket_updated_date"));
-		Ticket_detail td = new Ticket_detail((Integer)data.get(0).get("ticket_detail_uid"), (Integer)data.get(0).get("member_uid"),(LocalDateTime)data.get(0).get("start_date"), (Boolean)data.get(0).get("activation") == true ? 1 : 0,(LocalDateTime)data.get(0).get("ticket_detail_created_date"));
+		Ticket ticket = new Ticket((Integer)data.get(0).get("ticket_id"), ticket_type.valueOf((String)data.get(0).get("ticket_type")), hours.valueOf((String)data.get(0).get("hours")), (Integer)data.get(0).get("cost"),(Boolean)data.get(0).get("isvalid") /*(Integer)data.get(0).get("isvalid") == 1 ? true : false*/, (LocalDateTime)data.get(0).get("ticket_created_date"), (LocalDateTime)data.get(0).get("ticket_updated_date"));
+		Ticket_detail td = new Ticket_detail((Integer)data.get(0).get("ticket_detail_uid"), (Integer)data.get(0).get("member_uid"),(LocalDateTime)data.get(0).get("start_date"),(Boolean)data.get(0).get("activation") == true ? 1 : 0/*((Long)data.get(0).get("activation")).intValue()*/,(LocalDateTime)data.get(0).get("ticket_detail_created_date"));
 		pair.set(ticket, td);
 		return pair;
 	}
@@ -66,8 +66,8 @@ public class TicketManager {
 		if(data == null || data.size() == 0)
 			return null;
 		Pair<Ticket, Ticket_detail> pair = new Pair();
-		Ticket ticket = new Ticket((Integer)data.get(0).get("ticket_id"), ticket_type.valueOf((String)data.get(0).get("ticket_type")), hours.valueOf((String)data.get(0).get("hours")), (Integer)data.get(0).get("cost"), (Boolean)data.get(0).get("isvalid"), (LocalDateTime)data.get(0).get("ticket_created_date"), (LocalDateTime)data.get(0).get("ticket_updated_date"));
-		Ticket_detail td = new Ticket_detail((Integer)data.get(0).get("ticket_detail_uid"), (Integer)data.get(0).get("member_uid"),(LocalDateTime)data.get(0).get("start_date"), (Boolean)data.get(0).get("activation") == true ? 1 : 0,(LocalDateTime)data.get(0).get("ticket_detail_created_date"));
+		Ticket ticket = new Ticket((Integer)data.get(0).get("ticket_id"), ticket_type.valueOf((String)data.get(0).get("ticket_type")), hours.valueOf((String)data.get(0).get("hours")), (Integer)data.get(0).get("cost"),(Integer)data.get(0).get("isvalid") == 0 ? false : true /*(Boolean)data.get(0).get("isvalid")*/, (LocalDateTime)data.get(0).get("ticket_created_date"), (LocalDateTime)data.get(0).get("ticket_updated_date"));
+		Ticket_detail td = new Ticket_detail((Integer)data.get(0).get("ticket_detail_uid"), (Integer)data.get(0).get("member_uid"),(LocalDateTime)data.get(0).get("start_date"), ((Long)data.get(0).get("activation")).intValue(),(LocalDateTime)data.get(0).get("ticket_detail_created_date"));
 		pair.set(ticket, td);
 		return pair;
 	}

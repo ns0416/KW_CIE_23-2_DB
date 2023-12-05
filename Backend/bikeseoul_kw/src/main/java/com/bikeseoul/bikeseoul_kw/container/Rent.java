@@ -8,7 +8,7 @@ public class Rent extends CommonData{
     private double last_position_lat, last_position_lon, distance;
     private LocalDateTime start_date, return_date;
 
-    public Rent(int uid, int member_uid, int bike_uid, int ticket_detail_uid, LocalDateTime start_date, LocalDateTime return_date, int rent_station, int return_station, double last_position_lat, double last_position_lon, double distance, LocalDateTime updated_date) {
+    public Rent(int uid, int member_uid, int bike_uid, int ticket_detail_uid, LocalDateTime start_date, LocalDateTime return_date, int rent_station, Integer return_station, double last_position_lat, double last_position_lon, double distance, LocalDateTime updated_date) {
         super(uid, updated_date);
         this.member_uid = member_uid;
         this.bike_uid = bike_uid;
@@ -16,7 +16,10 @@ public class Rent extends CommonData{
         this.start_date = start_date;
         this.return_date = return_date;
         this.rent_station = rent_station;
-        this.return_station = return_station;
+        if(return_station == null)
+        	this.rent_station = 0;
+        else
+        	this.return_station = return_station;
         this.last_position_lat = last_position_lat;
         this.last_position_lon = last_position_lon;
         this.distance = distance;
@@ -33,12 +36,14 @@ public class Rent extends CommonData{
         this.distance = distance;
     }
     
-    public Rent(int member_uid, int bike_uid, int ticket_detail_uid, int rent_station) {
+    public Rent(int member_uid, int bike_uid, int ticket_detail_uid, int rent_station, double last_position_lat, double last_position_lon) {
         super(0, null);
         this.member_uid = member_uid;
     	this.bike_uid = bike_uid;
         this.ticket_detail_uid = ticket_detail_uid;
         this.rent_station = rent_station;
+        this.last_position_lat = last_position_lat;
+        this.last_position_lon = last_position_lon;
     }
     public Rent(int uid, double last_position_lat, double last_position_lon, double distance) {
         super(uid, null);

@@ -127,9 +127,9 @@ public class StationController {
         return jo.toString();
     }
     
-    @GetMapping("/rest/getStationListNearby")
+    @GetMapping("/rest/service/getStationListNearby")
     @ResponseBody
-    public String getStationListNearby(@RequestParam("station_name") String x, String y, String radius) {
+    public String getStationListNearby(@RequestParam String x, @RequestParam String y, @RequestParam String radius) {
         JsonObject jo = new JsonObject();
         if(x == null || y == null || radius == null) {
             jo.addProperty("result", "failed");

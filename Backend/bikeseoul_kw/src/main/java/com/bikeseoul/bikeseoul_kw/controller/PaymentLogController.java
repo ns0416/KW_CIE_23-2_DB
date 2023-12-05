@@ -161,7 +161,7 @@ public class PaymentLogController {
         }
         Integer ticket_uid = (Integer)body.get("ticket_uid");
         Integer payment_method = (Integer)body.get("payment_method"); 
-        CommonEnum res = paymentLogManager.payment(user, ticket_uid, payment_method, gift_email);
+        CommonEnum res = paymentLogManager.payment(user, ticket_uid, payment_method, gift_email, false);
         if(res == CommonEnum.SUCCESS)
         	jo.addProperty("result", "success");
         else

@@ -116,12 +116,32 @@
 			INSERT INTO rent
 				(
 					bike_uid,
+					member_uid,
 					ticket_detail_uid,
-					rent_station
+					rent_station,
+					last_position_lat,
+					last_position_lon
 				) VALUES (
 					#{bike_uid},
+					#{member_uid},
 					#{ticket_detail_uid},
-					#{rent_station}
+					#{rent_station},
+					#{last_position_lat},
+					#{last_position_lon}
+				)
+		
+		]]>
+	
+	</insert>
+	 <insert id="insertOverdue" parameterType="com.bikeseoul.bikeseoul_kw.container.Overdue">
+		<![CDATA[
+			INSERT INTO overdue
+				(
+					rent_uid,
+					overdue_amount
+				) VALUES (
+					#{rent_uid},
+					#{overdue_amount}
 				)
 		
 		]]>

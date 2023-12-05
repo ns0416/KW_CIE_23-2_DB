@@ -13,11 +13,16 @@ public class Overdue extends CommonData{
 		this.payment_finished = payment_finished;
 		this.updated_date = updated_date;
 	}
-	public Overdue(int overdue_amount, int payment_finished, LocalDateTime created_date, LocalDateTime updated_date) {
-		super(0, created_date);
+	public Overdue(int uid, int overdue_amount, int payment_finished, LocalDateTime created_date, LocalDateTime updated_date) {
+		super(uid, created_date);
 		this.overdue_amount = overdue_amount;
 		this.payment_finished = payment_finished;
 		this.updated_date = updated_date;
+	}
+	public Overdue(int uid, int rent_uid, int overdue_amount) {
+		super(uid, null);
+		this.rent_uid = rent_uid;
+		this.overdue_amount = overdue_amount;
 	}
 	public Overdue(int overdue_amount, int payment_finished) {
 		super(0, null);
@@ -36,6 +41,9 @@ public class Overdue extends CommonData{
 	}
 	public LocalDateTime getUpdated_date() {
 		return updated_date;
+	}
+	public void setPayment_finished(int payment_finished) {
+		this.payment_finished = payment_finished;
 	}
 	
 	
