@@ -5,7 +5,7 @@
 <mapper namespace="com.bikeseoul.bikeseoul_kw.dao.RentDao">
     <select id="getRentList" resultType="com.bikeseoul.bikeseoul_kw.container.Rent">
         SELECT
-            uid, member_uid, bike_uid, ticket_detail_uid, start_date, return_date, rent_station, return_station, last_position_lat, last_position_lon, distance, updated_date
+            uid, member_uid, bike_uid, ticket_detail_uid, start_date, return_date, rent_station, return_station, last_position_lat, last_position_lon, distance, update_date
         FROM
             rent
         <trim prefix="WHERE" suffixOverrides="AND|OR">
@@ -29,7 +29,7 @@
             last_position_lat,
             last_position_lon,
             distance,
-            updated_date
+            update_date
         FROM
             rent
         <trim prefix="WHERE" suffixOverrides="AND|OR">
@@ -43,6 +43,8 @@
         		ticket_detail_uid = #{ticket_detail_uid}
             </if>
         </trim>
+        ORDER BY
+        	uid DESC
     </select>
     <select id="getOverdueList" resultType="HashMap">
         SELECT
@@ -87,7 +89,7 @@
     </select>
     <update id="updateBikeInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Bike">
 		UPDATE
-			rent
+			bike
 			<trim prefix="SET" suffixOverrides=",">
 				<if test="bike_type != null">
 					bike_type = #{bike_type},

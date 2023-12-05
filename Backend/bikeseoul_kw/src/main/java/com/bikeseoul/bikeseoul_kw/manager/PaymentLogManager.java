@@ -17,6 +17,7 @@ import com.bikeseoul.bikeseoul_kw.service.RentService;
 import com.bikeseoul.bikeseoul_kw.service.TicketService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -82,15 +83,13 @@ public class PaymentLogManager {
 		// TODO Auto-generated method stub
     	try {
     		Ticket ticket = ticketService.getTicketInfo(ticket_uid);
-    		if(ticket.isIsvalid())
+    		Ticket_detail td = null;
+    		if(!ticket.isIsvalid())
     			return CommonEnum.NOT_PERMITTED;
     		PaymentMethod pm = paymentLogService.getPaymentMethodInfo(payment_method);
     		if(pm == null)
     			return CommonEnum.NOT_PERMITTED;
-    		PaymentLog log = new PaymentLog(mem.getUid(), ticket.getUid(), pm.getUid(), payment_status.paid);
-    		CommonEnum pay_res = paymentLogService.insertPaymentLog(log) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
-    		if(pay_res != CommonEnum.SUCCESS)
-    			throw new Exception();
+    		
     		CommonEnum res =  null;
     		if(gift_email != null) { //send gift
     			User mem_recv = am.getUserInfo(gift_email, true, false);
@@ -99,13 +98,20 @@ public class PaymentLogManager {
     			Gift gift = new Gift(ticket.getUid(), mem.getUid(), mem_recv.getUid());
     			res = giftService.insertGiftInfo(gift) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;    			
     		}else {
-    			Ticket_detail td = new Ticket_detail(mem.getUid(), ticket.getUid());
+    			td = new Ticket_detail(mem.getUid(), ticket.getUid());
     			res =  ticketService.insertTicketDetail(td) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
     		}
+    		PaymentLog log = new PaymentLog(mem.getUid(), td.getUid(), pm.getUid(),ticket.getCost(), payment_status.paid);
+    		CommonEnum pay_res = paymentLogService.insertPaymentLog(log) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+    		if(pay_res != CommonEnum.SUCCESS)
+    			throw new Exception();
     		if(res != CommonEnum.SUCCESS)
     			throw new Exception();
 			else
 				return CommonEnum.SUCCESS;
+    	}catch(DuplicateKeyException e) {
+    		e.printStackTrace();
+    		return CommonEnum.FAILED;
     	}catch(Exception e) {
     		e.printStackTrace();
     		throw new RuntimeException();

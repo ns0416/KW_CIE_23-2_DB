@@ -8,7 +8,7 @@
         	*
         FROM
         	member
-        <if test="uid > 0 or id != null">
+        <if test="uid > 0 or id != null or email != null">
         WHERE
         </if>
         <if test="uid > 0">
@@ -16,6 +16,9 @@
         </if>
         <if test="0 >= uid  and id != null">
         	id = #{id}
+        </if>
+        <if test="0 >= uid  and id == null and email != null">
+        	email = #{email}
         </if>
     </select>
     <select id="getMemberInfoList" resultType="com.bikeseoul.bikeseoul_kw.container.Member">

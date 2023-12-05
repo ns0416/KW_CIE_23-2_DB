@@ -7,10 +7,12 @@ import com.bikeseoul.bikeseoul_kw.container.ticket_type;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Pair;
 import com.bikeseoul.bikeseoul_kw.container.PaymentMethod;
+import com.bikeseoul.bikeseoul_kw.container.Rent;
 import com.bikeseoul.bikeseoul_kw.service.PaymentLogService;
 import com.bikeseoul.bikeseoul_kw.service.TicketService;
 
@@ -25,7 +27,6 @@ public class TicketManager {
 	private TicketService ticketService;
 	@Autowired
 	private PaymentLogService paymentlogService;
-
 	public List<Pair<Ticket, Ticket_detail>> getExpiredTicketList(int member_uid) {
 		List<Pair<Ticket, Ticket_detail>> expiredTicketList = null;
 		List<Map<String, Object>> data = ticketService.getExpiredTicketList(member_uid);
@@ -71,5 +72,20 @@ public class TicketManager {
 		return pair;
 	}
 	
+	@Transactional
+	public CommonEnum expireTicketDetail(int td_uid) {
+		try {
+			CommonEnum res1 = ticketService.insertTicketDetailtoExpired(td_uid) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+			if(res1 != CommonEnum.SUCCESS)
+				throw new Exception();
+			CommonEnum res2 = ticketService.deleteTicketDetail(td_uid) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+			if(res1 != CommonEnum.SUCCESS)
+				throw new Exception();
+			return res2;
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+	}
 
 }

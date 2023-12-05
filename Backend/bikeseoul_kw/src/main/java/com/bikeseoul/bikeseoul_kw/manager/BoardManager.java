@@ -127,13 +127,13 @@ public class BoardManager {
 		if(att == null)
 			return CommonEnum.FAILED;
 		try {
-			//CommonEnum res = boardArticleService.deleteAttachment(att.getUid()) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+			CommonEnum res = boardArticleService.deleteAttachment(att.getUid()) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
 			Config config = configManager.getConfig();
 			File file = new File(config.get("basic", "temp_dir")+att.getLoc());
 			file.delete();
 			//if(res != CommonEnum.SUCCESS)
 				//throw new Exception();
-			return CommonEnum.SUCCESS;
+			return res;//CommonEnum.SUCCESS;
 		}catch(Exception e) {
 			e.printStackTrace();
 			return CommonEnum.FAILED;
@@ -148,8 +148,12 @@ public class BoardManager {
 		String temp_dir = config.get("basic", "temp_dir");
 		try {
 			CommonEnum art_res = boardArticleService.updateArticle(art) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
-			CommonEnum att_res = writeAttachment(art.getAttachments());
+			CommonEnum att_res = null;
     		if(art.getAttachments() != null) {
+    			for(Attachment att : art.getAttachments()) {
+					att.setArticle_uid(art.getUid());
+				}
+    			att_res = writeAttachment(art.getAttachments());
         		for(Attachment att : art.getAttachments()) {
         			File file = new File(cache_dir+att.getLoc());
         			File file_mv = new File(file_dir+att.getLoc());
@@ -159,8 +163,10 @@ public class BoardManager {
         			if(!file.renameTo(file_mv))
         				throw new Exception();
         		}
+        	}else {
+        		att_res = CommonEnum.SUCCESS;
         	}
-    		CommonEnum del_res = CommonEnum.SUCCESS;
+    		CommonEnum del_res = CommonEnum.FAILED;
     		if(del_atts != null) {
     			for(Attachment att : del_atts) {
         			File file_mv = new File(temp_dir+att.getLoc());
@@ -177,6 +183,8 @@ public class BoardManager {
     					break;
         		}
     			
+    		}else {
+    			del_res = CommonEnum.SUCCESS;
     		}
     		if(art instanceof Neglect && art_res == CommonEnum.SUCCESS) {
     			art_res = boardArticleService.updateNeglect((Neglect)art) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
@@ -201,10 +209,12 @@ public class BoardManager {
 					File file = new File(temp_dir+att.getLoc());
         			File file_mv = new File(file_dir+att.getLoc());
         			if(!file.exists() || file_mv.exists()) {
-        				return CommonEnum.FAILED;
+        				throw new RuntimeException();
+        				//return CommonEnum.FAILED;
         			}
         			if(!file.renameTo(file_mv))
-        				return CommonEnum.FAILED;
+        				throw new RuntimeException();
+        				//return CommonEnum.FAILED;
 				}
 			}
 			throw new RuntimeException();

@@ -5,7 +5,10 @@ import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Overdue;
 import com.bikeseoul.bikeseoul_kw.container.Pair;
 import com.bikeseoul.bikeseoul_kw.container.Rent;
+import com.bikeseoul.bikeseoul_kw.container.Ticket;
+import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
 import com.bikeseoul.bikeseoul_kw.container.bike_status;
+import com.bikeseoul.bikeseoul_kw.container.ticket_type;
 import com.bikeseoul.bikeseoul_kw.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,6 +24,9 @@ public class RentManager {
 
     @Autowired
     private RentService rentService;
+    
+    @Autowired
+    private TicketManager ticketManager;
     public List<Rent> getRentList(int member_uid, LocalDateTime start_date, LocalDateTime end_date) {
         if (member_uid == 0) {
             return null;
@@ -68,9 +74,24 @@ public class RentManager {
 		//return CommonEnum.FAILED;
 	}
 	
-	public Rent getRentInfo(int rent_uid, Integer bike_uid, int ticket_detail_uid) {
+	public List<Rent> getRentInfo(int rent_uid, Integer bike_uid, int ticket_detail_uid) {
 		// TODO Auto-generated method stub
 		return rentService.getRentInfo(rent_uid, bike_uid, ticket_detail_uid);
+	}
+	public LocalDateTime getExpiredDate(Pair<Ticket,Ticket_detail> activationTicket) {
+		List<Rent> rent = getRentInfo(0, 0, activationTicket.getSecond().getUid());
+        LocalDateTime start = null;
+        if(rent == null || rent.size()==0) {
+        	start = activationTicket.getSecond().getCreated_date();
+        	return start.plusYears(3);
+        	//item.addProperty("expired_date", start.plusYears(3).format(dtf_kor));
+        }else {
+        	Rent r = rent.get(0);
+        	start = r.getStart_date();
+        	ticket_type days = activationTicket.getFirst().getTicket_type();
+        	return start.plusDays(days.getValue());
+        	//item.addProperty("expired_date", start.plusDays(days.getValue()).format(dtf_kor));
+        }
 	}
 	@Transactional
 	public CommonEnum returnBike(Rent rent, Integer station_id) {
@@ -82,6 +103,12 @@ public class RentManager {
 				throw new Exception();
 			Bike bike = new Bike(rent.getBike_uid(), bike_status.ready);
 			CommonEnum res2 = rentService.updateBikeInfo(bike) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+			Pair<Ticket, Ticket_detail> td = ticketManager.getActivationTicket(rent.getMember_uid());
+			if(td == null)
+				return CommonEnum.FAILED;
+			LocalDateTime exp = getExpiredDate(td);
+			if(exp.isBefore(LocalDateTime.now()))
+				res2 = ticketManager.expireTicketDetail(td.getSecond().getUid());
 			return res2;
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -60,7 +60,7 @@ public class RentService implements RentDao {
 	}
 
 	@Override
-	public Rent getRentInfo(int rent_uid, int bike_uid, int ticket_detail_uid) {
+	public List<Rent> getRentInfo(int rent_uid, int bike_uid, int ticket_detail_uid) {
 		// TODO Auto-generated method stub
 		return rentDao.getRentInfo(rent_uid, bike_uid, ticket_detail_uid);
 	}

@@ -90,17 +90,18 @@ public class BoardArticleController {
 
     @GetMapping("/rest/getBoardArticle")
     @ResponseBody
-    public String getBoardArticle(@RequestParam("uid") int uid) {
+    public String getBoardArticle(@RequestParam String uid) {
         JsonObject jo = new JsonObject();
-        if (uid == 0) {
+        int uid_ = Integer.parseInt(uid);
+        if (uid_ == 0) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
 
         try {
-            BoardArticle boardArticle = boardManager.getBoardArticle(uid);
-			List<Attachment> atts = boardManager.getAttachments(uid);
-			List<Comment> cmts = boardManager.getComments(uid);
+            BoardArticle boardArticle = boardManager.getBoardArticle(uid_);
+			List<Attachment> atts = boardManager.getAttachments(uid_);
+			List<Comment> cmts = boardManager.getComments(uid_);
             JsonObject item = new JsonObject();
             item.addProperty("uid", boardArticle.getUid());
             item.addProperty("board_uid", boardArticle.getBoard_uid());
@@ -134,6 +135,7 @@ public class BoardArticleController {
 			jo.add("comments", cmt_ja);
             return jo.toString();
         } catch (Exception e) {
+        	e.printStackTrace();
             jo.addProperty("result", "failed");
             return jo.toString();
         }
@@ -264,7 +266,7 @@ public class BoardArticleController {
     	}
     		
     	BoardArticle art = boardManager.getBoardArticle(Integer.parseInt(att_uid));
-    	if(art.getUser_uid() != mem.getUid()) {
+    	if(art == null || art.getUser_uid() != mem.getUid()) {
     		jo.addProperty("result", "failed");
     		return jo.toString();
     	}
@@ -333,18 +335,18 @@ public class BoardArticleController {
     	Board brd = boardManager.getBoardInfo(null, art.getBoard_uid());
     	BoardArticle art_update = new BoardArticle(art.getUid(), (String)body.get("title"), (String)body.get("content"));
     	if(brd.getBoard_name().equals("neglect")) {
-    		Neglect art_neg = (Neglect)art_update;
+    		Neglect art_neg = new Neglect(art.getUid(),brd.getUid(),  mem.getUid(), (String)body.get("title"), (String)body.get("content"));
     		art_neg.setBike_uid((Integer)body.get("bike_id"));
     		art_neg.setLat((double)body.get("lat"));
     		art_neg.setLon((double)body.get("lon"));
     		art_neg.setDetail_address((String)body.get("detail_address"));
-    		art = art_neg;
+    		art_update = art_neg;
     	}
     	ArrayList<Attachment> atts = (ArrayList<Attachment>)hs.getAttribute("attachments");
     	ArrayList<Attachment> del_atts = (ArrayList<Attachment>)hs.getAttribute("delete_atts");
     	if(atts != null) {
     		for(Attachment att : atts) {
-    			art.addAttachment(att);
+    			art_update.addAttachment(att);
     		}
     	}
     	CommonEnum res = boardManager.updateArticle(art_update, del_atts);
@@ -352,9 +354,10 @@ public class BoardArticleController {
     		hs.setAttribute("attachments", null);
     		hs.setAttribute("delete_atts", null);
     		jo.addProperty("result", "success");
-    	}
+    	}else {
     	
     	jo.addProperty("result", "failed");
+    	}
 		return jo.toString();
     }
     @GetMapping("/rest/service/deleteArticle")

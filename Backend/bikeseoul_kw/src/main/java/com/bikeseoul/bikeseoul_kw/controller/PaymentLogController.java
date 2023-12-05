@@ -33,7 +33,7 @@ public class PaymentLogController {
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
-    /*
+    
     @GetMapping("/rest/service/getPaymentLogList")
     @ResponseBody
     public String getPaymentLogList(HttpServletRequest request) {
@@ -127,7 +127,7 @@ public class PaymentLogController {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
-    }*/
+    }
     
     @GetMapping("/rest/service/getPaymentMethod")
     public String getPaymentMethod(HttpServletRequest request) {

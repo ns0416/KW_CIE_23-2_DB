@@ -4,6 +4,8 @@ import com.bikeseoul.bikeseoul_kw.container.Gift;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Pair;
 import com.bikeseoul.bikeseoul_kw.container.Ticket;
+import com.bikeseoul.bikeseoul_kw.container.User;
+import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
 import com.bikeseoul.bikeseoul_kw.manager.GiftManager;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -11,11 +13,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -23,6 +28,9 @@ public class GiftController {
 
     @Autowired
     private GiftManager giftManager;
+    
+    @Autowired
+    private AccountManager am;
 
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
@@ -100,5 +108,21 @@ public class GiftController {
             return jo.toString();
         }
         return jo.toString();
+    }
+    @PostMapping("/rest/service/checkGiftEmail")
+    public String checkGiftEmail(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+    	JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        User user = (User)hs.getAttribute("member");
+    	String email = (String)body.get("email");
+    	User mem = am.getUserInfo(email, true, false);
+    	if(mem == null || mem.getEmail().equals(user.getEmail())) {
+    		jo.addProperty("result", "failed");
+    		return jo.toString();
+    	}
+    	hs.setAttribute("gift_email", email);
+    	jo.addProperty("result", "success");
+    	return jo.toString();
+    
     }
 }

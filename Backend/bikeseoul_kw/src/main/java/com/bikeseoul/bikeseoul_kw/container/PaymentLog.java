@@ -44,7 +44,7 @@ public class PaymentLog extends CommonData{
         this.hours = hours;
         this.cost = cost;
     }*/
-    public PaymentLog(int user_id, int method_uid, int amount, payment_status status_) {
+    public PaymentLog(int user_id,int ticket_detail_uid, int method_uid, int amount, payment_status status_) {
         super(0, null);
         this.user_id = user_id;
         this.method_uid = method_uid;

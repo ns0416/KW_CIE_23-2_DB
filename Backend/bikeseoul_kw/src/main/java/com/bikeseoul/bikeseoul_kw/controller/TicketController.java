@@ -107,16 +107,8 @@ public class TicketController {
             //item.addProperty("cost", activationTicket.getFirst().getCost());
             item.addProperty("ticket_type", activationTicket.getFirst().getTicket_type().getValue());
             item.addProperty("hours", activationTicket.getFirst().getHours().getValue());
-            Rent rent = rentManager.getRentInfo(0, 0, activationTicket.getSecond().getUid());
-            LocalDateTime start = null;
-            if(rent == null) {
-            	start = activationTicket.getSecond().getCreated_date();
-            	item.addProperty("expired_date", start.plusYears(3).format(dtf_kor));
-            }else {
-            	start = rent.getStart_date();
-            	ticket_type days = activationTicket.getFirst().getTicket_type();
-            	item.addProperty("expired_date", start.plusDays(days.getValue()).format(dtf_kor));
-            }
+            LocalDateTime exp = rentManager.getExpiredDate(activationTicket);
+            item.addProperty("expired_date", exp.format(dtf_kor));
             //item.addProperty("ticket_created_date", activationTicket.getFirst().getTicket_created_date().format(dtf_kor));
             //item.addProperty("ticket_updated_date", activationTicket.getFirst().getTicket_updated_date().format(dtf_kor));
             //item.addProperty("ticket_detail_start_date", activationTicket.getSecond().getStart_date().format(dtf_kor));
@@ -153,22 +145,7 @@ public class TicketController {
     	return jo.toString();
     }
     
-    @PostMapping("/rest/service/checkGiftEmail")
-    public String checkGiftEmail(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
-    	JsonObject jo = new JsonObject();
-        HttpSession hs = request.getSession();
-        User user = (User)hs.getAttribute("member");
-    	String email = (String)body.get("email");
-    	User mem = am.getUserInfo(email, true, false);
-    	if(mem == null || mem.getEmail().equals(user.getEmail())) {
-    		jo.addProperty("result", "failed");
-    		return jo.toString();
-    	}
-    	hs.setAttribute("gift_email", email);
-    	jo.addProperty("result", "success");
-    	return jo.toString();
-    
-    }
+   
     
     
     

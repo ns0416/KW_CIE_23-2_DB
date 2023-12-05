@@ -20,5 +20,5 @@ public interface RentDao {
     int updateRent(Rent rent);
     Bike getBikeInfo(int uid);
     int updateBikeInfo(Bike bike);
-    Rent getRentInfo(int rent_uid, int bike_uid, int ticket_detail_uid);
+    List<Rent> getRentInfo(int rent_uid, int bike_uid, int ticket_detail_uid);
 }

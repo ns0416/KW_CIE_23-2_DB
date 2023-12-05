@@ -19,6 +19,10 @@ public class Neglect extends BoardArticle{
 		super(0, board_uid, user_uid, title, content, null, null);
 		// TODO Auto-generated constructor stub
 	}
+	public Neglect(int uid, int board_uid, int user_uid, String title, String content) {
+		super(uid, board_uid, user_uid, title, content, null, null);
+		// TODO Auto-generated constructor stub
+	}
 public int getBike_uid() {
 	return bike_uid;
 }
