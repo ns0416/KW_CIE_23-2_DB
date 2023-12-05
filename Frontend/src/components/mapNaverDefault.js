@@ -9,9 +9,6 @@ const MapNaverDefault = (props) => {
 
   // 다중 marker 진행중
 
-
-
-
   var markers = [], infoWindows = [];
 
   var map = []
