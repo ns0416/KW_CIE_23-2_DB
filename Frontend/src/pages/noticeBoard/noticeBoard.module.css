@@ -354,3 +354,38 @@
 /* 1024 end */
 /* ------------------------------------- 상담내역 mobile end  -----------------------------------------  */ 
 
+
+/* ---------------------------- 페이징 start----------------------------------------------  */
+.paging {
+    text-align: center; 
+    font-size: 12px;
+    margin: 50px 0 50px 0;
+    height: 34px;
+}
+
+.paging .prev {
+    /* background: url(../../../public/img/paging_bg.gif) -34px 0 no-repeat; */
+    width: 34px;
+    height: 34px;
+    vertical-align: bottom;
+}
+.paging .next {
+    /* background: url(../../../public/img/paging_bg.gif) -68px 0 no-repeat; */
+    width: 34px;
+    height: 34px;
+    vertical-align: bottom;
+}
+
+.paging {text-align:center; font-size:12px; margin:15px 0 50px 0}
+.paging div {display:inline-block}
+.paging .num span a {width:34px; height:34px; line-height:34px; cursor:pointer; display:inline-block; color:#989898; background-color:#fff}
+.paging .num span a:hover, .paging .num span a:focus, .paging .num span a:active, .paging .num .on a {color:#fff; background-color:#666666;border-radius:3px;}
+/* .paging .first {background:url(../../../public/img/paging_bg.gif) 0 0 no-repeat; width:34px; height:34px; vertical-align:middle; margin-right:-5px} */
+/* .paging .prev {background:url(../../../public/img/paging_bg.gif) -34px 0 no-repeat; width:34px; height:34px; vertical-align:middle} */
+/* .paging .next {background:url(../../../public/img/paging_bg.gif) -68px 0 no-repeat; width:34px; height:34px; vertical-align:middle} */
+/* .paging .last {background:url(../../../public/img/paging_bg.gif) -102px 0 no-repeat; width:34px; height:34px; vertical-align:middle; margin-left:-5px} */
+.paging .first a {width:34px; height:34px; cursor:pointer; display:inline-block;}
+.paging .prev a {width:34px; height:34px; cursor:pointer; display:inline-block;}
+.paging .next a {width:34px; height:34px; cursor:pointer; display:inline-block;}
+.paging .last a {width:34px; height:34px; cursor:pointer; display:inline-block;}
+/* ---------------------------- 페이징 start----------------------------------------------  */
