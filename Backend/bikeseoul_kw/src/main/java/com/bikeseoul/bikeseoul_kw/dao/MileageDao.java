@@ -9,7 +9,7 @@ import com.bikeseoul.bikeseoul_kw.container.Transfercard;
 @Mapper
 public interface MileageDao {
     List<Mileage> getMileageList(int member_uid);
-    int getMileageSum(int member_uid);
+    Integer getMileageSum(int member_uid);
     int updateTransfercardInfo(Transfercard card);
     int deleteTransfercardInfo(int member_uid);
 }

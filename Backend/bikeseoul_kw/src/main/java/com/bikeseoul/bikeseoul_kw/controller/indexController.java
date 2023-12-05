@@ -174,7 +174,7 @@ public class indexController {
 		JsonObject jo = new JsonObject();
 		try {
 			HttpSession hs = request.getSession();
-			User user = new User((String)body.get("id"), (String)body.get("pw"), (String)body.get("phone"));
+			Member user = new Member((String)body.get("id"), (String)body.get("pw"), (String)body.get("phone"), (String)hs.getAttribute("authAddr"));
 			
 			hs.setAttribute("register_info", user);
 			hs.setAttribute("pw_cfm", (String)body.get("pw_cfm"));
@@ -192,7 +192,7 @@ public class indexController {
 		JsonObject jo = new JsonObject();
 		try {
 			HttpSession hs = request.getSession();
-			User user = (User)hs.getAttribute("register_info");
+			Member user = (Member)hs.getAttribute("register_info");
 			String pw_cfm = (String)hs.getAttribute("pw_cfm");
 			String email = (String)hs.getAttribute("authAddr");
 			if(user == null || pw_cfm == null || email == null)
@@ -200,6 +200,7 @@ public class indexController {
 			Member mem = (Member)user;
 			mem.setWeight((Integer)body.get("weight"));
 			mem.setAge((Integer)body.get("age"));
+			mem.setSex((String)body.get("sex"));
 			mem.setEmail(email);
 			CommonEnum res = am.registerUser(mem, pw_cfm);
 			jo.addProperty("result", "success");

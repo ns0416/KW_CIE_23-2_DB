@@ -41,6 +41,13 @@ public class User extends CommonData {
 		this.pw = pw;
 		this.email = email;
 	}
+	public User(int uid, String id, String pw, String phone, String email) {
+		super(uid, null);
+		this.id = id;
+		this.pw = pw;
+		this.phone = phone;
+		this.email = email;
+	}
 	public User( String id, String pw, String phone) {
 		super(0, null);
 		this.id = id;

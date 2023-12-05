@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Member extends User{
 	private String sex;
-	private int age, weight;
+	private int age, weight=0;
 	public Member(int uid, String id, String pw, String email, String phone, int level, String sex, int age, int weight,
 		boolean is_lost, boolean isvalid, LocalDateTime regist_date) {
 		super(uid, id, pw, email, phone, level, isvalid, is_lost, regist_date);
@@ -38,6 +38,10 @@ public class Member extends User{
 		super(uid, id, pw, email);
 		// TODO Auto-generated constructor stub
 	}
+	public Member(String id, String pw, String phone, String email) {
+		super(0, id, pw, phone, email);
+		// TODO Auto-generated constructor stub
+	}
 	public Member(String id) {
 		super(id);
 		// TODO Auto-generated constructor stub
@@ -56,6 +60,9 @@ public class Member extends User{
 	}
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 	
 }

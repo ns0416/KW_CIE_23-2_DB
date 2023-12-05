@@ -19,7 +19,7 @@ public class MileageService implements MileageDao {
     }
 
     @Override
-    public int getMileageSum(int member_uid) {
+    public Integer getMileageSum(int member_uid) {
         return mileageDao.getMileageSum(member_uid);
     }
 

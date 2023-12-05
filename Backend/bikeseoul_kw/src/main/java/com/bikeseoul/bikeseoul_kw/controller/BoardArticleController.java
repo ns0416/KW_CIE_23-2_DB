@@ -138,8 +138,8 @@ public class BoardArticleController {
             return jo.toString();
         }
     }
-    @PostMapping(value="/rest/service/uploadAttachment", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public String uploadAttachment(@RequestBody HashMap<String, Object> body, @RequestPart(required=false) MultipartFile file, HttpServletRequest request) {
+    @PostMapping(value="/rest/service/uploadAttachment", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public String uploadAttachment(@RequestPart(required=false) MultipartFile file, HttpServletRequest request) {
     	JsonObject jo = new JsonObject();
     	
     	if(file == null) {
@@ -197,7 +197,7 @@ public class BoardArticleController {
     	
     	BoardArticle art = new BoardArticle(brd.getUid(), mem.getUid(), (String)body.get("title"), (String)body.get("content"));
     	if(brd.getBoard_name().equals("neglect")) {
-    		Neglect art_neg = (Neglect)art;
+    		Neglect art_neg = new Neglect(brd.getUid(), mem.getUid(), (String)body.get("title"), (String)body.get("content"));
     		art_neg.setBike_uid((Integer)body.get("bike_id"));
     		art_neg.setLat((double)body.get("lat"));
     		art_neg.setLon((double)body.get("lon"));
@@ -214,9 +214,10 @@ public class BoardArticleController {
     	if(res == CommonEnum.SUCCESS) {
     		hs.setAttribute("attachments", null);
     		jo.addProperty("result", "success");
-    	}
+    	}else {
     	
     	jo.addProperty("result", "failed");
+    	}
 		return jo.toString();
     }
     
@@ -229,9 +230,10 @@ public class BoardArticleController {
     	CommonEnum res = boardManager.writeBreakdown(art);
     	if(res == CommonEnum.SUCCESS) {
     		jo.addProperty("result", "success");
-    	}
+    	}else {
     	
     	jo.addProperty("result", "failed");
+    	}
 		return jo.toString();
     }
     @PostMapping("/rest/service/updateBreakdown")

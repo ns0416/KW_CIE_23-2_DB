@@ -108,8 +108,9 @@ public class PaymentLogManager {
 				return CommonEnum.SUCCESS;
     	}catch(Exception e) {
     		e.printStackTrace();
+    		throw new RuntimeException();
     	}
-    	return CommonEnum.FAILED;
+    	//return CommonEnum.FAILED;
 	}
 	public List<PaymentMethod> getPaymentMethod() {
 		// TODO Auto-generated method stub
@@ -130,9 +131,11 @@ public class PaymentLogManager {
 					return overdue_res;
 				}
 			}
+			return CommonEnum.FAILED;
 		}catch(Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException();
 		}
-		return CommonEnum.FAILED;
+		//return CommonEnum.FAILED;
 	}
 }

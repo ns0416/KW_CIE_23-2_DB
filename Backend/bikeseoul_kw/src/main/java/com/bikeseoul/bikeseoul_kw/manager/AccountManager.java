@@ -215,7 +215,8 @@ public class AccountManager {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return CommonEnum.UNKNOWN;
+			throw new RuntimeException();
+			//return CommonEnum.UNKNOWN;
 		}
 	}
 	public Member findID(Member mem) {

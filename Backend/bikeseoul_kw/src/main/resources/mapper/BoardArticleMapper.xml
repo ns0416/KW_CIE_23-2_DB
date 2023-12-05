@@ -106,18 +106,18 @@
 					break_type,
 					content
 				) VALUES (
-					#{member_uid},
-					#{bike_uid},
-					#{break_type},
+					#{user_uid},
+					#{board_uid},
+					#{breaktype},
 					#{content}
 				)
 		
 		]]>
-		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+		<selectKey resultType="Integer" keyProperty="uid" order="AFTER">
 			SELECT LAST_INSERT_ID() AS uid
 		</selectKey>
 	</insert>
-    <insert id="writeArticle" parameterType="com.bikeseoul.bikeseoul_kw.container.BoardArticle">
+    <insert id="writeArticle" parameterType="com.bikeseoul.bikeseoul_kw.container.BoardArticle" >
 		<![CDATA[
 			INSERT INTO board_article
 				(
@@ -133,7 +133,7 @@
 				)
 		
 		]]>
-		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+		<selectKey resultType="Integer" keyProperty="uid" order="AFTER">
 			SELECT LAST_INSERT_ID() AS uid
 		</selectKey>
 	</insert>
@@ -147,7 +147,7 @@
 					lon,
 					detail_address
 				) VALUES (
-					#{article_uid},
+					#{uid},
 					#{bike_uid},
 					#{lat},
 					#{lon},
@@ -155,26 +155,25 @@
 				)
 		
 		]]>
-		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+		<selectKey resultType="Integer" keyProperty="uid" order="AFTER">
 			SELECT LAST_INSERT_ID() AS uid
 		</selectKey>
 	</insert>
 	<insert id="writeAttachment" parameterType="com.bikeseoul.bikeseoul_kw.container.Attachment">
 		<![CDATA[
-			INSERT INTO attachements
+			INSERT INTO attachments
 				(
 					article_uid,
-					board_uid,
 					filename,
 					loc
 				) VALUES (
 					#{article_uid},
-					#{board_uid},
-					#{filename}
+					#{filename},
+					#{loc}
 				)
 		
 		]]>
-		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+		<selectKey resultType="Integer" keyProperty="uid" order="AFTER">
 			SELECT LAST_INSERT_ID() AS uid
 		</selectKey>
 	</insert>
@@ -192,7 +191,7 @@
 				)
 		
 		]]>
-		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
+		<selectKey resultType="Integer" keyProperty="uid" order="AFTER">
 			SELECT LAST_INSERT_ID() AS uid
 		</selectKey>
 	</insert>

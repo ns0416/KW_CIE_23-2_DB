@@ -79,8 +79,9 @@ public class ServiceManager {
 			throw new Exception();
 		}catch(Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException();
 		}
-		return CommonEnum.FAILED;
+		//return CommonEnum.FAILED;
 	}
 
 	public void sendMail(String sender_addr, String receiver_addr, String subject, String content) throws MessagingException {

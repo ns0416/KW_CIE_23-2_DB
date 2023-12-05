@@ -15,7 +15,7 @@ public class Breakdown extends BoardArticle{
 		this.breaktype = breaktype;
 	}
 	public Breakdown(int member_uid, int bike_uid, break_type breaktype, String content) {
-		super(0, 0, 0, null, content, null, null);
+		super(0, bike_uid, member_uid, null, content, null, null);
 		// TODO Auto-generated constructor stub
 		this.breaktype = breaktype;
 	}

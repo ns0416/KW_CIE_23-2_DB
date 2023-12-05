@@ -32,4 +32,7 @@ public class Attachment extends CommonData{
 	public String getLoc() {
 		return loc;
 	}
+	public void setArticle_uid(int article_uid) {
+		this.article_uid = article_uid;
+	}
 }

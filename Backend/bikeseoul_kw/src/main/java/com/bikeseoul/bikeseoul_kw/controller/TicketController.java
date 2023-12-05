@@ -2,6 +2,7 @@ package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.*;
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
+import com.bikeseoul.bikeseoul_kw.manager.RentManager;
 import com.bikeseoul.bikeseoul_kw.manager.ServiceManager;
 import com.bikeseoul.bikeseoul_kw.manager.TicketManager;
 import com.google.gson.JsonArray;
@@ -18,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,8 +35,13 @@ public class TicketController {
 	
 	@Autowired
 	private AccountManager am;
+	
+	@Autowired
 	private TicketManager ticketManager;
 
+	@Autowired
+	private RentManager rentManager;
+	
     DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
     DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
@@ -89,20 +98,30 @@ public class TicketController {
         }
         int member_uid = mem.getUid();
         JsonArray ja = new JsonArray();
-
+        Calendar cal = Calendar.getInstance();
         try {
             Pair<Ticket, Ticket_detail> activationTicket = ticketManager.getActivationTicket(member_uid);
             JsonObject item = new JsonObject();
-            item.addProperty("member_uid", activationTicket.getSecond().getMember_uid());
-            item.addProperty("ticket_id", activationTicket.getFirst().getTicket_id());
-            item.addProperty("cost", activationTicket.getFirst().getCost());
+            //item.addProperty("member_uid", activationTicket.getSecond().getMember_uid());
+            //item.addProperty("ticket_id", activationTicket.getFirst().getTicket_id());
+            //item.addProperty("cost", activationTicket.getFirst().getCost());
             item.addProperty("ticket_type", activationTicket.getFirst().getTicket_type().getValue());
             item.addProperty("hours", activationTicket.getFirst().getHours().getValue());
-            item.addProperty("ticket_created_date", activationTicket.getFirst().getTicket_created_date().format(dtf_kor));
-            item.addProperty("ticket_updated_date", activationTicket.getFirst().getTicket_updated_date().format(dtf_kor));
-            item.addProperty("ticket_detail_start_date", activationTicket.getSecond().getStart_date().format(dtf_kor));
-            item.addProperty("ticket_detail_create_date", activationTicket.getSecond().getCreated_date().format(dtf_kor));
-            item.addProperty("activation", activationTicket.getSecond().isActivation());
+            Rent rent = rentManager.getRentInfo(0, 0, activationTicket.getSecond().getUid());
+            LocalDateTime start = null;
+            if(rent == null) {
+            	start = activationTicket.getSecond().getCreated_date();
+            	item.addProperty("expired_date", start.plusYears(3).format(dtf_kor));
+            }else {
+            	start = rent.getStart_date();
+            	ticket_type days = activationTicket.getFirst().getTicket_type();
+            	item.addProperty("expired_date", start.plusDays(days.getValue()).format(dtf_kor));
+            }
+            //item.addProperty("ticket_created_date", activationTicket.getFirst().getTicket_created_date().format(dtf_kor));
+            //item.addProperty("ticket_updated_date", activationTicket.getFirst().getTicket_updated_date().format(dtf_kor));
+            //item.addProperty("ticket_detail_start_date", activationTicket.getSecond().getStart_date().format(dtf_kor));
+            //item.addProperty("ticket_detail_create_date", activationTicket.getSecond().getCreated_date().format(dtf_kor));
+            //item.addProperty("activation", activationTicket.getSecond().isActivation());
             ja.add(item);
             jo.addProperty("result", "success");
             jo.add("data", ja);

@@ -1,5 +1,6 @@
 package com.bikeseoul.bikeseoul_kw.container;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -41,6 +42,10 @@ public class BoardArticle extends CommonData{
         this.user_uid = user_uid;
         this.title = title;
         this.content = content;
+    }
+    public void setUid(int i) {
+    	//this.uid = i.intValue();
+    	this.uid = i;
     }
     
     public int getBoard_uid() {

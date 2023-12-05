@@ -6,8 +6,8 @@ import java.time.ZoneId;
 import java.util.TimeZone;
 
 public class CommonData {
-	private int uid;
-	private LocalDateTime created_date;
+	protected int uid;
+	protected LocalDateTime created_date;
 	
 	public CommonData(int uid, LocalDateTime created_date) {this.uid = uid; this.created_date= created_date;/*created_date != null ? created_date.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() : 0;*/}
 	

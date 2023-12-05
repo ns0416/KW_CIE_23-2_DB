@@ -63,7 +63,13 @@ public class BoardManager {
 		String file_dir = config.get("basic", "file_dir");
 		try {
 			CommonEnum art_res = writeArticle_only(art);
-			CommonEnum att_res = writeAttachment(art.getAttachments());
+			CommonEnum att_res = null;
+			if(art.getAttachments() != null) {
+				for(Attachment att : art.getAttachments()) {
+					att.setArticle_uid(art.getUid());
+				}
+				att_res = writeAttachment(art.getAttachments());
+			}
     		if(art.getAttachments() != null) {
         		for(Attachment att : art.getAttachments()) {
         			File file = new File(cache_dir+att.getLoc());
@@ -74,6 +80,8 @@ public class BoardManager {
         			if(!file.renameTo(file_mv))
         				throw new Exception();
         		}
+        	}else {
+        		att_res = CommonEnum.SUCCESS;
         	}
     		if(art instanceof Neglect && art_res == CommonEnum.SUCCESS) {
     			art_res = boardArticleService.writeNeglect((Neglect)art) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
@@ -93,8 +101,9 @@ public class BoardManager {
 						file_mv.delete();
 				}
 			}
-			return CommonEnum.FAILED;
-		}
+			throw new RuntimeException();
+			
+		}//return CommonEnum.FAILED;
 	}
 	public CommonEnum writeComment(Comment cmt) {
 		if(boardArticleService.writeComment(cmt)>0)
@@ -198,7 +207,8 @@ public class BoardManager {
         				return CommonEnum.FAILED;
 				}
 			}
-			return CommonEnum.FAILED;
+			throw new RuntimeException();
+			//return CommonEnum.FAILED;
 		}
 	}
 	public CommonEnum updateComment(Comment cmt) {
@@ -270,7 +280,8 @@ public class BoardManager {
         				return CommonEnum.FAILED;
 				}
 			}
-			return CommonEnum.FAILED;
+			throw new RuntimeException();
+			//return CommonEnum.FAILED;
 		}
 	}
 	public CommonEnum deleteBreakdown(int uid, int member_uid) {

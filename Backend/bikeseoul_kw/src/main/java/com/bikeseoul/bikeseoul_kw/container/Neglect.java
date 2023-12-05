@@ -15,6 +15,10 @@ public class Neglect extends BoardArticle{
 		this.lon = lon;
 		this.detail_address =detail_address;
 	}
+	public Neglect(int board_uid, int user_uid, String title, String content) {
+		super(0, board_uid, user_uid, title, content, null, null);
+		// TODO Auto-generated constructor stub
+	}
 public int getBike_uid() {
 	return bike_uid;
 }

@@ -54,8 +54,9 @@ public class CouponManager {
 			
 		}catch(Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException();
 		}
-		return CommonEnum.FAILED;
+		//return CommonEnum.FAILED;
 	}
 	
 }

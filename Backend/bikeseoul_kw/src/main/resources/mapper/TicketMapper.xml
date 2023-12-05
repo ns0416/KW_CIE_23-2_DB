@@ -14,8 +14,8 @@
 			t.updated_date AS ticket_updated_date,
 			tde.uid AS ticket_detail_uid,
 			tde.member_uid,
-			tde.start_date AS ticket_detail_start_date,
-			tde.activation AS ticket_detail_activation,
+			tde.start_date AS start_date,
+			tde.activation AS activation,
 			tde.created_date AS ticket_detail_created_date,
 			tde.expired_date AS ticket_detail_expired_date
         FROM
@@ -28,7 +28,7 @@
             t.member_uid = #{member_uid}
     </select>
 
-    <select id="getActivatedTicketList" resultType="HashMap">
+    <select id="getActivationTicket" resultType="HashMap">
         SELECT
 			t.ticket_id,
 			t.ticket_type,
@@ -39,9 +39,9 @@
 			t.updated_date AS ticket_updated_date,
 			td.uid AS ticket_detail_uid,
 			td.member_uid,
-			td.start_date AS ticket_detail_start_date,
-			td.activation AS ticket_detail_activation,
-			td.created_date AS ticket_detail_created_date,
+			td.start_date AS start_date,
+			td.activation AS activation,
+			td.created_date AS ticket_detail_created_date
         FROM
             ticket t
         LEFT JOIN
@@ -49,9 +49,9 @@
         ON
             t.ticket_id = td.ticket_uid
         WHERE
-            t.member_uid = #{member_uid}
+            td.member_uid = #{member_uid}
         AND
-            t.activation = 1
+            td.activation = 1
     </select>
     <select id="getTicketInfo" resultType="com.bikeseoul.bikeseoul_kw.container.Ticket">
         SELECT

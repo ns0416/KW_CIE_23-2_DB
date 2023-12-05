@@ -129,31 +129,32 @@
 		</selectKey>
 	</insert>
 	<insert id="registerMemberInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Member">
-		<![CDATA[
 			INSERT INTO member
 				(
+				<trim suffixOverrides=",">
 					id,
 					pw,
 					email,
 					phone,
 					sex,
 					age,
-					weight
+					<if test="weight gt 0">
+						weight
+					</if>
+				</trim>
 				) VALUES (
+				<trim suffixOverrides=",">
 					#{id},
 					#{pw},
 					#{email},
 					#{phone},
 					#{sex},
 					#{age},
-					#{weight}
+					<if test="weight gt 0">
+						#{weight}
+					</if>
+				</trim>
 				)
-		
-		]]>
-		
-		<selectKey resultType="hashMap" keyProperty="uid" order="AFTER">
-			SELECT LAST_INSERT_ID() AS uid
-		</selectKey>
 	</insert>
 	<select id="findID" resultType="com.bikeseoul.bikeseoul_kw.container.Member">
         SELECT

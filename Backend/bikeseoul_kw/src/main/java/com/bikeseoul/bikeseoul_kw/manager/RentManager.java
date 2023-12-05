@@ -63,8 +63,9 @@ public class RentManager {
 			return res2;
 		}catch(Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException();
 		}
-		return CommonEnum.FAILED;
+		//return CommonEnum.FAILED;
 	}
 	
 	public Rent getRentInfo(int rent_uid, Integer bike_uid, int ticket_detail_uid) {
@@ -84,8 +85,9 @@ public class RentManager {
 			return res2;
 		}catch(Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException();
 		}
-		return CommonEnum.FAILED;
+		//return CommonEnum.FAILED;
 	}
 	public double getDistance_arc(double sLat, double sLong, double dLat, double dLong){
 		final int radius=6371009;
