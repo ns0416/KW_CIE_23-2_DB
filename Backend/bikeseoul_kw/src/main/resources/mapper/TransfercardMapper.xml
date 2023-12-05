@@ -5,7 +5,7 @@
 <mapper namespace="com.bikeseoul.bikeseoul_kw.dao.TransfercardDao">
     <select id="getTransfercardList" resultType="com.bikeseoul.bikeseoul_kw.container.Transfercard">
         SELECT
-            uid, member_uid, card_number, card_type, updated_time, created_date
+            uid, member_uid, card_number, card_type, updated_date, created_date
         FROM
             transfer_card
         <if test="member_uid > 0">

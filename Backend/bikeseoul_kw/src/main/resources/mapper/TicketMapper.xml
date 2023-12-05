@@ -20,12 +20,12 @@
 			tde.expired_date AS ticket_detail_expired_date
         FROM
             ticket t
-        LEFT JOIN
+        JOIN
             ticket_detail_expired tde
         ON
             t.ticket_id = tde.ticket_uid
         WHERE
-            t.member_uid = #{member_uid}
+            tde.member_uid = #{member_uid}
     </select>
 
     <select id="getActivationTicket" resultType="HashMap">

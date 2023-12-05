@@ -53,6 +53,8 @@
             FAQ AS f
         JOIN
             FAQ_article AS a
+        ON
+            f.uid = a.faq_uid
         WHERE
             a.uid = #{uid}
     </select>

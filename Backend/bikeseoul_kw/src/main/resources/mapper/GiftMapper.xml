@@ -6,7 +6,7 @@
     <select id="getReceivedGiftList" resultType="HashMap">
         SELECT
             g.uid AS gift_id,
-            g.ticket_uid AS ticket_id,
+            g.ticket_uid,
             g.giver_uid,
             g.receiver_uid,
             g.ticket_detail_uid,
@@ -28,7 +28,7 @@
     <select id="getSentGiftList" resultType="HashMap">
         SELECT
             g.uid AS gift_id,
-            g.ticket_uid AS ticket_id,
+            g.ticket_uid,
             g.giver_uid,
             g.receiver_uid,
             g.ticket_detail_uid,

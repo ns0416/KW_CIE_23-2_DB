@@ -55,7 +55,7 @@ public class PaymentLogManager {
 		}
 		for (Map<String, Object> map : data) {
 			PaymentLog pl = new PaymentLog((Integer)map.get("uid"), (Integer)map.get("user_uid"), (Integer)map.get("method_uid"), (Integer)map.get("amount"), (Integer)map.get("ticket_detail_uid"), payment_status.valueOf((String)map.get("status_")), (LocalDateTime)map.get("log_created_date"), (LocalDateTime)map.get("log_updated_date"));
-			PaymentMethod pm = new PaymentMethod((Integer)map.get("method_uid"), (String)map.get("name"), (LocalDateTime)map.get("method_created_date"));
+			PaymentMethod pm = new PaymentMethod((Integer)map.get("method_uid"), (String)map.get("method_name"), (LocalDateTime)map.get("method_created_date"));
 			Pair<PaymentLog,PaymentMethod> pair = new Pair();
 			pair.set(pl, pm);
 			paymentLogList.add(pair);
@@ -71,7 +71,7 @@ public class PaymentLogManager {
 		}
 		for (Map<String, Object> map : data) {
 			PaymentLog pl = new PaymentLog((Integer)map.get("uid"), (Integer)map.get("user_uid"), (Integer)map.get("method_uid"), (Integer)map.get("amount"), (Integer)map.get("ticket_detail_uid"), payment_status.valueOf((String)map.get("status_")), (LocalDateTime)map.get("log_created_date"), (LocalDateTime)map.get("log_updated_date"));
-			PaymentMethod pm = new PaymentMethod((Integer)map.get("method_uid"), (String)map.get("name"), (LocalDateTime)map.get("method_created_date"));
+			PaymentMethod pm = new PaymentMethod((Integer)map.get("method_uid"), (String)map.get("method_name"), (LocalDateTime)map.get("method_created_date"));
 			Pair<PaymentLog,PaymentMethod> pair = new Pair();
 			pair.set(pl, pm);
 			paymentLogList.add(pair);
