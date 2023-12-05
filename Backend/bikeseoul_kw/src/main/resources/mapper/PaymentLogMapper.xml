@@ -15,21 +15,12 @@
             log.updated_date AS log_updated_date,
             method.method_name,
             method.created_date AS method_created_date,
-            g.gift_uid AS gift_uid
         FROM
-            payment_log log
+            payment_log AS log
         JOIN
-            payment_method method
+            payment_method AS method
         ON
             method.uid = log.method_uid
-        JOIN
-            ticket_detail d
-        ON
-            d.uid = log.ticket_detail_uid
-        LEFT JOIN
-        	payment_log_gift AS g
-        ON
-        	log.uid = g.log_uid
         WHERE
             log.user_uid = #{user_uid}
     </select>
@@ -52,14 +43,18 @@
             payment_method AS method
         ON
             method.uid = log.method_uid
-        JOIN
-            ticket_detail AS d
-        ON
-            d.uid = log.ticket_detail_uid
         WHERE
             log.user_uid = #{user_uid}
         AND
             log.status_ = 'refund'
+    </select>
+    <select id="getPaymentLogGiftUid" resultType="Integer">
+        SELECT
+            uid
+        FROM
+            ticket_gift
+        WHERE
+            ticket_uid = #{log_uid}
     </select>
     <select id="getPaymentMethodList" resultType="com.bikeseoul.bikeseoul_kw.container.PaymentMethod">
         SELECT

@@ -25,6 +25,11 @@ public class PaymentLogService implements PaymentLogDao {
     }
 
 	@Override
+	public int getPaymentLogGiftUid(int log_uid) {
+		return paymentLogDao.getPaymentLogGiftUid(log_uid);
+	}
+
+	@Override
 	public List<PaymentMethod> getPaymentMethodList() {
 		// TODO Auto-generated method stub
 		return paymentLogDao.getPaymentMethodList();

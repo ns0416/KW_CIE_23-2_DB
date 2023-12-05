@@ -58,6 +58,7 @@ public class PaymentLogController {
                 JsonObject item = new JsonObject();
                 Pair<Ticket, Ticket_detail> ticketPair = ticketManager.getTicketDetailInfo(pair.getFirst().getTicket_detail_uid());
                 Ticket ticket = ticketPair.getFirst();
+                int log_gift_uid = paymentLogManager.getPaymentLogGiftUid(pair.getFirst().getUid());
                 item.addProperty("uid", pair.getFirst().getUid());
                 item.addProperty("user_id", pair.getFirst().getUser_id());
                 item.addProperty("method_uid", pair.getFirst().getMethod_uid());
@@ -71,6 +72,7 @@ public class PaymentLogController {
                 item.addProperty("ticket_type", ticket.getTicket_type().toString());
                 item.addProperty("hours", ticket.getHours().toString());
                 item.addProperty("cost", ticket.getCost());
+                item.addProperty("log_gift_uid", log_gift_uid);
                 ja.add(item);
             }
             jo.addProperty("result", "success");
@@ -105,6 +107,7 @@ public class PaymentLogController {
                 JsonObject item = new JsonObject();
                 Pair<Ticket, Ticket_detail> ticketPair = ticketManager.getTicketDetailInfo(pair.getFirst().getTicket_detail_uid());
                 Ticket ticket = ticketPair.getFirst();
+                int log_gift_uid = paymentLogManager.getPaymentLogGiftUid(pair.getFirst().getUid());
                 item.addProperty("uid", pair.getFirst().getUid());
                 item.addProperty("user_id", pair.getFirst().getUser_id());
                 item.addProperty("method_uid", pair.getFirst().getMethod_uid());
@@ -118,6 +121,7 @@ public class PaymentLogController {
                 item.addProperty("ticket_type", ticket.getTicket_type().toString());
                 item.addProperty("hours", ticket.getHours().toString());
                 item.addProperty("cost", ticket.getCost());
+                item.addProperty("log_gift_uid", log_gift_uid);
                 ja.add(item);
             }
             jo.addProperty("result", "success");

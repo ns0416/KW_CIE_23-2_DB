@@ -30,14 +30,11 @@ public class TicketManager {
 	public List<Pair<Ticket, Ticket_detail>> getExpiredTicketList(int member_uid) {
 		List<Pair<Ticket, Ticket_detail>> expiredTicketList = null;
 		List<Map<String, Object>> data = ticketService.getExpiredTicketList(member_uid);
-		if (data == null || data.size() == 0) {
-			return null;
-		}
 		for (Map<String, Object> map : data) {
 			Ticket ticket = new Ticket((Integer)map.get("ticket_id"), ticket_type.valueOf((String)map.get("ticket_type")), hours.valueOf((String)map.get("hours")), (Integer)map.get("cost"), (Boolean)map.get("isvalid"), (LocalDateTime)map.get("ticket_created_date"), (LocalDateTime)map.get("ticket_updated_date"));
-			Ticket_detail td = new Ticket_detail((Integer)map.get("ticket_detail_uid"), (Integer)map.get("member_uid"),(LocalDateTime)map.get("start_date"), (Boolean)map.get("activation") == true ? 1 : 0,(LocalDateTime)map.get("ticket_detail_created_date"));
+			Ticket_detail tde = new Ticket_detail((Integer)map.get("ticket_detail_expired_uid"), (Integer)map.get("member_uid"), (Integer)map.get("ticket_id"), (LocalDateTime)map.get("start_date"), (LocalDateTime)map.get("ticket_detail_expired_date"), (LocalDateTime)map.get("ticket_detail_expired_created_date"));
 			Pair<Ticket, Ticket_detail> pair = new Pair();
-			pair.set(ticket, td);
+			pair.set(ticket, tde);
 			expiredTicketList.add(pair);
 		}
 		return expiredTicketList;

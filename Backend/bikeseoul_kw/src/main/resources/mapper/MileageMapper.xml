@@ -7,7 +7,7 @@
         SELECT
             m.uid m.member_uid, m.amount, m.created_date
         FROM
-            mileage as m
+            mileage AS m
         WHERE
             m.member_uid = #{member_uid}
     </select>

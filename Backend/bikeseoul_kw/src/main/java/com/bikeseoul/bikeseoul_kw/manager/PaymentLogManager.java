@@ -50,9 +50,6 @@ public class PaymentLogManager {
     public List<Pair<PaymentLog,PaymentMethod>> getPaymentLogList(int user_uid) {
 		List<Pair<PaymentLog,PaymentMethod>> paymentLogList = null;
 		List<Map<String, Object>> data = paymentLogService.getPaymentLogList(user_uid);
-		if (data == null || data.size() == 0) {
-			return null;
-		}
 		for (Map<String, Object> map : data) {
 			PaymentLog pl = new PaymentLog((Integer)map.get("uid"), (Integer)map.get("user_uid"), (Integer)map.get("method_uid"), (Integer)map.get("amount"), (Integer)map.get("ticket_detail_uid"), payment_status.valueOf((String)map.get("status_")), (LocalDateTime)map.get("log_created_date"), (LocalDateTime)map.get("log_updated_date"));
 			PaymentMethod pm = new PaymentMethod((Integer)map.get("method_uid"), (String)map.get("method_name"), (LocalDateTime)map.get("method_created_date"));
@@ -66,9 +63,6 @@ public class PaymentLogManager {
     public List<Pair<PaymentLog,PaymentMethod>> getRefundLogList(int user_uid) {
 		List<Pair<PaymentLog,PaymentMethod>> paymentLogList = null;
 		List<Map<String, Object>> data = paymentLogService.getRefundLogList(user_uid);
-		if (data == null || data.size() == 0) {
-			return null;
-		}
 		for (Map<String, Object> map : data) {
 			PaymentLog pl = new PaymentLog((Integer)map.get("uid"), (Integer)map.get("user_uid"), (Integer)map.get("method_uid"), (Integer)map.get("amount"), (Integer)map.get("ticket_detail_uid"), payment_status.valueOf((String)map.get("status_")), (LocalDateTime)map.get("log_created_date"), (LocalDateTime)map.get("log_updated_date"));
 			PaymentMethod pm = new PaymentMethod((Integer)map.get("method_uid"), (String)map.get("method_name"), (LocalDateTime)map.get("method_created_date"));
@@ -78,7 +72,10 @@ public class PaymentLogManager {
 		}
 		return paymentLogList;
     }
-    
+    public int getPaymentLogGiftUid(int log_uid) {
+		return paymentLogService.getPaymentLogGiftUid(log_uid);
+	}
+
     @Transactional
     public CommonEnum payment(User mem, Integer ticket_uid, Integer payment_method, String gift_email, boolean isOverdue) {
 		// TODO Auto-generated method stub

@@ -12,16 +12,15 @@
 			t.isvalid,
 			t.created_date AS ticket_created_date,
 			t.updated_date AS ticket_updated_date,
-			tde.uid AS ticket_detail_uid,
+			tde.uid AS ticket_detail_expired_uid,
 			tde.member_uid,
-			tde.start_date AS start_date,
-			tde.activation AS activation,
-			tde.created_date AS ticket_detail_created_date,
+			tde.start_date,
+			tde.created_date AS ticket_detail_expired_created_date,
 			tde.expired_date AS ticket_detail_expired_date
         FROM
-            ticket t
+            ticket AS t
         JOIN
-            ticket_detail_expired tde
+            ticket_detail_expired AS tde
         ON
             t.ticket_id = tde.ticket_uid
         WHERE
