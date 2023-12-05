@@ -10,6 +10,8 @@ const MapNaverDefault = (props) => {
   // 다중 marker 진행중
 
 
+
+
   var markers = [], infoWindows = [];
 
   var map = []
@@ -42,7 +44,7 @@ const MapNaverDefault = (props) => {
         }
       });
       var infoWindow = new naver.maps.InfoWindow({
-        content: '<div style="width:150px;text-align:center;padding:10px;">  <b>밍구리 사랑해!</b>.</div>'
+        content: '<div style="width:150px;text-align:center;padding:10px;">  <b>따릉이 테스트</b>.</div>'
     });
       markers.push(marker);
       infoWindows.push(infoWindow);
@@ -56,30 +58,31 @@ const MapNaverDefault = (props) => {
     for (var i=0, ii=markers.length; i<ii; i++) {
       naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
     }
-    
-      // console.log(currentLocation[0], currentLocation[1]);
-      // const location = new naver.maps.LatLng(37.619791, 127.060899);
-      // const mapOptions = {
-      //   center: location,
-      //   zoom: 17,
-      //   zoomControl: false,
-      // };
+
+    var arrayOfCoords = [  
+      new naver.maps.LatLng(37.36043630196386, 127.12293148040771),
+      new naver.maps.LatLng(37.36354029942161, 127.12310314178465),
+      new naver.maps.LatLng(37.365211629488016, 127.12456226348876),
+      new naver.maps.LatLng(37.37544345085402, 127.11224555969238)
+  ];
   
-      // const map = new naver.maps.Map(mapElement.current, mapOptions);
-      // new naver.maps.Marker({
-      //   position: location,
-      //   map,
-      //   title: 'Unary Spot!!',
-      //   icon: {
-      //       content: 
-      //       `
-      //       <div class="${style.jb_image}"><img src="${process.env.PUBLIC_URL}/img/icon_big1.png" alt=""></div>
-      //         <p class="${style.jb_image_text}">10</p>
-      //       `,
-      //       size: new naver.maps.Size(22, 35),
-      //       anchor: new naver.maps.Point(11, 35)
-      //   }
-      // });
+  // var arrayOfCoordsLiteral = [  
+  //     [127.12293148040771, 37.36043630196386],
+  //     [127.12310314178465, 37.36354029942161],
+  //     [127.12456226348876, 37.365211629488016],
+  //     [127.1122455596923, 37.37544345085402]
+  // ];
+  
+  
+  var polyline = new naver.maps.Polyline({  
+    path: arrayOfCoords,
+    map: map
+  });
+  
+  var path = polyline.getPath();
+  
+  path.pop();
+
 
   }, []);
 
