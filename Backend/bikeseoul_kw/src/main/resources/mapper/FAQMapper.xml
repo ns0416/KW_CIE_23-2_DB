@@ -8,7 +8,7 @@
         SELECT
         uid, faq_name, created_date
         FROM
-        faq
+        FAQ
         <if test="faq_name != null">
        	 WHERE
         	faq_name = #{faq_name}
@@ -18,9 +18,9 @@
         SELECT
             f.uid, a.uid as article_uid, f.faq_name, a.title, a.content, f.created_date, a.created_date as article_created_date
         FROM
-            faq as f
+            FAQ AS f
         JOIN
-            faq_article as a
+            FAQ_article AS a
         ON
             f.uid = a.faq_uid
         <trim prefix="WHERE" suffixOverrides=",">
@@ -37,9 +37,9 @@
         SELECT
             f.uid, a.uid as article_uid, f.faq_name, a.title, a.content, f.created_date, a.created_date as article_created_date
         FROM
-            faq as f
+            FAQ AS f
         JOIN
-            faq_article as a
+            FAQ_article AS a
         WHERE
             a.uid = #{uid}
     </select>
