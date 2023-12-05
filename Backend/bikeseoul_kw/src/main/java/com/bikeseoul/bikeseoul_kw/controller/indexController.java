@@ -27,7 +27,10 @@ public class indexController {
 	
 	@Autowired
 	private AccountManager am;
-	
+
+	@Autowired
+	private ConfigManager configManager;
+
 	DateTimeFormatter dtf_kor = DateTimeFormatter.ofPattern("YYYY년 MM월 dd일 HH:mm:ss");
 	DateTimeFormatter dtf_ymd = DateTimeFormatter.ofPattern("YYYY-MM-dd");
 	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
@@ -383,8 +386,13 @@ public class indexController {
 	@ResponseBody
 	public String information(@RequestParam("group_code") String group_code, @RequestParam("item_code") String item_code){
 		JsonObject jo = new JsonObject();
-		Config config = new ConfigManager().getConfig();
-		if(group_code == null || item_code == null || group_code == "sendmail"){
+		Config config = configManager.getConfig();
+		List<String> whitelist = new ArrayList<>();
+		whitelist.add("rule");
+		whitelist.add("payment_method");
+		whitelist.add("terms_and_policy");
+		whitelist.add("insurance_guide");
+		if(group_code == null || item_code == null || !whitelist.contains(group_code)){
 			jo.addProperty("result", "failed");
 			return jo.toString();
 		}
