@@ -55,7 +55,7 @@ public class FAQController {
     public String getFAQArticleList(@RequestParam(value = "faq_uid", required = false) int faq_uid, @RequestParam(value = "title", required = false) String title) {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
-        if(faq_uid == 0 && title == null) {
+        if(faq_uid == 0) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }

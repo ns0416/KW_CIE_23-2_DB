@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 public class FAQ extends CommonData{
     private String faq_name;
-
     private int article_uid;
     private String title, content;
     private LocalDateTime article_created_date;

@@ -13,7 +13,7 @@
             log.status_,
             log.created_date AS log_created_date,
             log.updated_date AS log_updated_date,
-            method.name,
+            method.method_name,
             method.created_date AS method_created_date,
             g.gift_uid AS gift_uid
         FROM
@@ -44,7 +44,7 @@
             log.status_,
             log.created_date AS log_created_date,
             log.updated_date AS log_updated_date,
-            method.name,
+            method.method_name,
             method.created_date AS method_created_date,
         FROM
             payment_log AS log

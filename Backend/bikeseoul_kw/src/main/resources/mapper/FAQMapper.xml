@@ -14,9 +14,16 @@
         	faq_name = #{faq_name}
         </if>
     </select>
+
     <select id="getFAQArticleList" resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">
         SELECT
-            f.uid, a.uid as article_uid, f.faq_name, a.title, a.content, f.created_date, a.created_date as article_created_date
+            f.uid as faq_uid,
+            a.uid as article_uid,
+            f.faq_name,
+            a.title,
+            a.content,
+            f.created_date as faq_created_date,
+            a.created_date as article_created_date
         FROM
             FAQ AS f
         JOIN
@@ -35,7 +42,13 @@
 
     <select id="getFAQArticle" resultType="com.bikeseoul.bikeseoul_kw.container.FAQ">
         SELECT
-            f.uid, a.uid as article_uid, f.faq_name, a.title, a.content, f.created_date, a.created_date as article_created_date
+            f.uid as faq_uid,
+            a.uid as article_uid,
+            f.faq_name,
+            a.title,
+            a.content,
+            f.created_date as faq_created_date,
+            a.created_date as article_created_date
         FROM
             FAQ AS f
         JOIN

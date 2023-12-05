@@ -21,7 +21,7 @@
         ON
             g.ticket_uid = t.ticket_id
         WHERE
-            receiver_id = #{receiver_id}
+            receiver_uid = #{receiver_uid}
 
     </select>
 
@@ -43,7 +43,7 @@
         ON
             g.ticket_uid = t.ticket_id
         WHERE
-            giver_id = #{giver_id}
+            giver_uid = #{giver_uid}
     </select>
     
 	<insert id="insertGiftInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Gift">

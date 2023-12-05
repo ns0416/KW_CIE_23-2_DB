@@ -47,8 +47,8 @@ public class Station extends CommonData{
         //this.favorite_created_date = favorite_created_date;
     }
 
-    public Station(int uid, String station_name, double lat, double lon, int size, boolean is_valid, station_type station_type, LocalDateTime created_date, int general_cnt, int sprout_cnt, int favorite_user_uid, LocalDateTime favorite_created_date) {
-        super(uid, created_date);
+    public Station(int uid, String station_name, double lat, double lon, int size, boolean is_valid, station_type station_type, int general_cnt, int sprout_cnt, int favorite_user_uid, LocalDateTime favorite_created_date) {
+        super(uid, null);
         this.station_name = station_name;
         this.lat = lat;
         this.lon = lon;

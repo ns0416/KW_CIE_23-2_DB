@@ -14,7 +14,7 @@
 
     <select id="getMileageSum" resultType="Integer">
         SELECT
-            SUM(amount)
+            SUM(amount) AS sum
         FROM
             mileage
         WHERE

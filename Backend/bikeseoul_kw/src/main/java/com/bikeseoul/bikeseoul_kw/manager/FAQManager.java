@@ -1,11 +1,15 @@
 package com.bikeseoul.bikeseoul_kw.manager;
 
+import com.bikeseoul.bikeseoul_kw.container.BoardArticle;
 import com.bikeseoul.bikeseoul_kw.container.FAQ;
+import com.bikeseoul.bikeseoul_kw.container.Pair;
 import com.bikeseoul.bikeseoul_kw.service.FAQService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class FAQManager {
@@ -18,7 +22,6 @@ public class FAQManager {
     public List<FAQ> getFAQArticleList(int faq_uid, String title) {
         return faqService.getFAQArticleList(faq_uid, title);
     }
-
     public FAQ getFAQArticle(int uid) {
         return faqService.getFAQArticle(uid);
     }
