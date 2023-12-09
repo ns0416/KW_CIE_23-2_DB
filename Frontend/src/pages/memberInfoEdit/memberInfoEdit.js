@@ -110,7 +110,7 @@ export default function MemberInfoEdit() {
 								<th>체중</th>
 								<td>
 									<div class={`${style.pay_input} ${style.w30}`}>
-										<input type="text" class={style.w100} id="memkg" name="userWeight" placeholder="65" maxlength="3" oninput="maxLengthCheck(this)" style={{width:"100%"}} value="60" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"/>
+										<input type="text" class={style.w100} id="memkg" name="userWeight" placeholder="65" maxLength="3" /*onInput={maxLengthCheck(this)}*/ style={{width:"100%"}} value="60" /*onKeyup={noSpaceForm(this)} onChange={noSpaceForm(this)}*//>
 									</div>
 									kg
 									<p>운동량 계산을 위해 필요한 정보입니다.<br/>미기재시 65kg으로 계산됩니다.</p>

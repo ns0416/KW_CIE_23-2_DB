@@ -1,8 +1,11 @@
 import style from './favoriteStation.module.css';
 import React from 'react';
+import {useOutletContext} from "react-router-dom";
+import Header from '../../header.js';
 
 
 export default function FavoriteStation() {
+	const Commons = useOutletContext();
 	return (
 		<>
 <div className={style.wrap} id="sub">
@@ -10,16 +13,7 @@ export default function FavoriteStation() {
     <div className={style.header_wrap}>
         <div className={style.header}>
         	<div className={style.top}>
-				<div className={style.m_sub_header_wrap}>
-					<div className={style.m_sub_header}>
-						<button className={style.back}></button>
-						<button className={style.close}></button>
-						<span id="title">즐겨찾는 대여소
-                        {/* <!-- 즐겨찾는 대여소 --> */}
-                         </span>
-					</div>
-					{/* <!-- //.m_sub_header --> */}
-				</div>
+				<Header title={"즐겨찾는 대여소"} />
 				{/* <!-- //.m_sub_header_wrap --> */}
 			
         		<div className={style.m_menu}>메뉴열기</div>
@@ -84,7 +78,7 @@ export default function FavoriteStation() {
 	<fieldset className={style.fld_sch}>
 		<legend className={style.screen_out}>검색어 입력폼</legend>
 		<div className={style.fa_box_search}>                    
-			<input type="search" id="searchValue" value="" name="searchValue" title="검색어 입력" placeholder="원하시는 지역이 어디신가요?" />
+			<input type="search" id="searchValue" defaultValue="" name="searchValue" title="검색어 입력" placeholder="원하시는 지역이 어디신가요?" />
 			<button onclick="searchStation(); return false;">
                 {/* <span className={style.noview}>검색</span> */}
                 </button>

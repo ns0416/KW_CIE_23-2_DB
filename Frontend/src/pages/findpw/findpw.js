@@ -85,7 +85,7 @@ export default function Findpw()
                         <form id="searchFrm">
                         <div className={style.id}>
                         <h2>아이디를 입력해주세요.</h2>
-            	            <input type="text" id="pwFindId" maxlength="20" name="pwFindId" placeholder="아이디" onChange={idHandler} />
+            	            <input type="text" id="pwFindId" maxLength="20" name="pwFindId" placeholder="아이디" onChange={idHandler} />
                         </div>
 
                         
@@ -107,7 +107,7 @@ export default function Findpw()
                         <form id="searchFrm">
                             <div className={style.id}>
                                 <h2>아이디를 입력해주세요.</h2>
-                	            <input type="text" id="pwFindId" maxlength="20" name="pwFindId" placeholder="아이디" onChange={idHandler} />
+                	            <input type="text" id="pwFindId" maxLength="20" name="pwFindId" placeholder="아이디" onChange={idHandler} />
                             </div>
                             <div className={style.id}>
                                 <h2>이메일을 입력해주세요.</h2>

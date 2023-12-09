@@ -7,8 +7,8 @@ import Header from '../header';
 import { useSelector, useDispatch } from 'react-redux';
 import { Login, Logout } from '../_redux_slice/loginslice';
 
-export default function Test() {
-    const isloggedin = useSelector((state) => state.logged.value)
+export default function Test(props) {
+    //const isloggedin = useSelector((state) => state.logged.value)
     const dispatch = useDispatch()
 
     // const [isloggedin, setisloggedin] = React.useState(false);
@@ -81,7 +81,7 @@ export default function Test() {
 
     return(
         <>
-        {isloggedin ? (
+        {props.userInfo == null ? (
             <>
             <h1>로그인 상태</h1>
             <button onClick={logouthandler}>로그아웃 하기</button>

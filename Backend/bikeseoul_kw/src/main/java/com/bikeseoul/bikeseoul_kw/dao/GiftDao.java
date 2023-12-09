@@ -12,4 +12,5 @@ public interface GiftDao {
 
     List<Map<String, Object>> getSentGiftList(int giver_uid);
     int insertGiftInfo(Gift gift);
+    Gift getGiftInfo(int uid);
 }

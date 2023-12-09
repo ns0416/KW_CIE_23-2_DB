@@ -6,7 +6,7 @@ import Header from '../../header.js';
 import axios from 'axios';
 
 export default function NeglectReportList() {
-	const isLoggedIn = useSelector((state) => state.logged.value);
+	//const isLoggedIn = useSelector((state) => state.logged.value);
 	const navigate = useNavigate();
 
     // const [brokenChecked, setbrkchk] = useState("");
@@ -72,7 +72,7 @@ export default function NeglectReportList() {
 
     return (
         <>
-<body id="app" scroll="yes" className={style.ie8m}>
+<div id="app" scroll="yes" className={style.ie8m}>
 <div className={style.wrap}>   
 	<Header title={"고장(장애)신고"}/>
 	<div className={style.container}>
@@ -84,7 +84,7 @@ export default function NeglectReportList() {
 							<th className={style.first}>자전거 번호</th>
 							<td className={style.first}>
 								SPB-<div className={`${style.pay_input} ${style.w30}`}>
-                                    <input type="number" className={style.w100} name="bike_uid" maxlength={5} style={{height:"25px",width:"80px"}} onInput={(e)=>{
+                                    <input type="number" className={style.w100} name="bike_uid" maxLength={5} style={{height:"25px",width:"80px"}} onInput={(e)=>{
 										if(e.target.value.length > e.target.maxLength)
 										{
 											e.target.value = e.target.value.slice(0, e.target.maxLength);
@@ -118,7 +118,7 @@ export default function NeglectReportList() {
 	</div>
 </div>
 
-</body>
+</div>
         </>
     );
 }

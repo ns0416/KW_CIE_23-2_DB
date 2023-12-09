@@ -30,7 +30,7 @@
             FAQ_article AS a
         ON
             f.uid = a.faq_uid
-        <trim prefix="WHERE" suffixOverrides=",">
+        <trim prefix="WHERE" suffixOverrides="AND">
         	<if test="faq_uid > 0">
         		f.uid = #{faq_uid} AND
         	</if>

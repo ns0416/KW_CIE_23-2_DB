@@ -45,6 +45,19 @@
         WHERE
             g.giver_uid = #{giver_uid}
     </select>
+    <select id="getGiftInfo" resultType="com.bikeseoul.bikeseoul_kw.container.Gift">
+        SELECT
+            uid,
+            ticket_uid,
+            giver_uid,
+            receiver_uid,
+            ticket_detail_uid,
+            created_date
+        FROM
+            ticket_gift
+        WHERE
+            uid = #{uid}
+    </select>
     
 	<insert id="insertGiftInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Gift">
 			INSERT INTO ticket_gift

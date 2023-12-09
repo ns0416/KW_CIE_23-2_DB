@@ -50,11 +50,11 @@
     </select>
     <select id="getPaymentLogGiftUid" resultType="Integer">
         SELECT
-            uid
+            gift_uid	
         FROM
-            ticket_gift
+            payment_log_gift
         WHERE
-            ticket_uid = #{log_uid}
+            log_uid = #{log_uid}
     </select>
     <select id="getPaymentMethodList" resultType="com.bikeseoul.bikeseoul_kw.container.PaymentMethod">
         SELECT

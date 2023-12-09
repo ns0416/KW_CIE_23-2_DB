@@ -30,7 +30,7 @@ export default function MoveErrReportPagetList() {
                         <th className={style.center}>신고날짜</th>
                     </tr>
                     <tr>
-                    		<td colspan="3" className={style.nodata}>내역없음</td>
+                    		<td Colspan="3" className={style.nodata}>내역없음</td>
                     </tr>
 					</tbody></table>
             </div>

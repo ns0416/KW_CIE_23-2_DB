@@ -52,11 +52,13 @@ public class FAQController {
 
     @GetMapping("/rest/getFAQArticleList")
     @ResponseBody
-    public String getFAQArticleList(@RequestParam(value = "faq_uid", required = false) int faq_uid, @RequestParam(value = "title", required = false) String title) {
+    public String getFAQArticleList(@RequestParam(value = "faq_uid", required = false) Integer faq_uid, @RequestParam(value = "title", required = false) String title) {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
         try{
             List<FAQ> faqList;
+            if(faq_uid == null)
+            	faq_uid =0;
             faqList = faqManager.getFAQArticleList(faq_uid, title);
             for(FAQ faq:faqList) {
                 JsonObject item = new JsonObject();

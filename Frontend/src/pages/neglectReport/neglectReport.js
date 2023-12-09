@@ -9,7 +9,7 @@ export default function NeglectReport() {
 
     return (
         <>
-<body scroll="yes" className={style.ie8m}>
+<div scroll="yes" className={style.ie8m}>
     {/* <div className={style.wrap" id="sub">   
 
     <!--웹 : 헤더추가--><div id="layer" className={style.layer-wrap" style={{display:none "> 
@@ -17,19 +17,7 @@ export default function NeglectReport() {
 	<div className={style.container}>
 		<div className={style.content}>
 			<div className={style.trouble}>
-			<div className={style.top}>
-				<div className={style.m_sub_header_wrap}>
-					<div className={style.m_sub_header}>
-						<button className={style.back}></button>
-						<button className={style.close}></button>
-						<span id="title">방치 신고</span>
-					</div>
-				</div>
-			
-				
-				
-				
-			</div>
+				<Header title={"방치 신고"}/>
 				<div className={style.my_box}>
 	            	<table>
 	            		<colgroup>
@@ -41,7 +29,7 @@ export default function NeglectReport() {
 								<th>자전거 번호</th>
 								<td>
 									SPB-<div className={style.pay_input} style={{width:"40%"}}>
-                                        <input type="number" id="bikeNo" name="" maxlength="5" style={{height:"25px", width: "100%"}} oninput="maxLengthCheck(this)"/></div>
+                                        <input type="number" id="bikeNo" name="" maxLength="5" style={{height:"25px", width: "100%"}} onInput="maxLengthCheck(this)"/></div>
 									<button className={style.id_check} id="bikeDupChk">중복확인</button>
 								</td>
 							</tr>
@@ -49,7 +37,7 @@ export default function NeglectReport() {
 								<th>방치 주소</th>
 								<td>
 									<div className={style.pay_input} style={{width:"100%",border:"none"}}>
-                                        <input type="text" readonly="readonly" id="address" name="address" maxlength="5" style={{height:"25px", width:"100%"}} placeholder="지도에서 위치 선택시 주소 자동입력"/>
+                                        <input type="text" readonly="readonly" id="address" name="address" maxLength="5" style={{height:"25px", width:"100%"}} placeholder="지도에서 위치 선택시 주소 자동입력"/>
                                         </div>
 								</td>
 							</tr>
@@ -70,7 +58,7 @@ export default function NeglectReport() {
 						</colgroup>
 						<tbody>
                             <tr>
-							<td id="maptd" style={{width: "270px", height: "382px"}} colspan="2">
+							<td id="maptd" style={{width: "270px", height: "382px"}} Colspan="2">
 								<div className={style.side_location} style={{}}>
 									<a className={style.location}>현재위치</a>
 								</div>
@@ -122,7 +110,7 @@ export default function NeglectReport() {
 					</div> 
 				</div>
 				<div className={style.my}>
-    				<div className={style.go}><a href="/app/err/getLeaveReportList.do">방치신고내역 보기</a></div>
+    				<div className={style.go}><Link to="/neglectReportList">방치신고내역 보기</Link></div>
     			</div>
 			</div>
 		</div>
@@ -132,7 +120,7 @@ export default function NeglectReport() {
     
 
 
-</body>
+</div>
         </>
     );
 }

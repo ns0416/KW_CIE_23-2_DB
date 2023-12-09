@@ -9,25 +9,10 @@ export default function MemberBikeRank() {
 
     return (
         <>
-<body scroll="yes" className={style.ie8m}>
+<div scroll="yes" className={style.ie8m}>
 	<div className={`${style.wrap} ${style.my}`} id="sub">
 	
-    <div className={style.header_wrap}>
-        <div className={style.header}>
-        	<div className={style.top}>
-				<div className={style.m_sub_header_wrap}>
-					<div className={style.m_sub_header}>
-						<button className={style.back}></button>
-						<button className={style.close}></button>
-						<span id="title">따릉이 이용 랭킹</span>
-					</div>
-				</div>
-				
-			</div>
-			<div className={style.logo}><a href="/main.do"><img src="/images/logo.png" alt="서울자전거 따릉이"/></a></div>
-            
-        </div>
-    </div>
+	<Header title={"따릉이 이용 랭킹"}/>
     <div className={style.container}>
 		{/* <style>
 	#member_note_profile dd {float: left}
@@ -1113,7 +1098,7 @@ export default function MemberBikeRank() {
     </div>
     
 
-</body>
+</div>
         </>
     );
 }

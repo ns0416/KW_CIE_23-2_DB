@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useOutletContext } from 'react-router-dom';
 import style from './myLeftPage.module.css';
 import Header from '../header.js';
 
@@ -8,13 +8,14 @@ import { useSelector,useDispatch } from "react-redux";
 import { Login, Logout } from '../_redux_slice/loginslice';
 import axios from "axios";
 
-export default function MyLeftPage() {
+function MyLeftPage() {
     // const [isLoggedIn, setisLoggedIn] = React.useState(true);
-    const [user_id, getuser_id] = React.useState('user_id123');
+    //const [user_id, getuser_id] = React.useState('user_id123');
+    const Commons = useOutletContext();
     const [valid_date, getvalid_date] = React.useState('');
     const [mileage, getmileage] = React.useState('0');
 
-    const isLoggedIn = useSelector((state) => state.logged.value)
+    //const isLoggedIn = useSelector((state) => state.logged.value)
     const dispatch = useDispatch();
     
     const navigate = useNavigate();
@@ -81,20 +82,6 @@ export default function MyLeftPage() {
     
     
 
-    function logout() {
-        // 로그아웃 처리
-        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/logout")
-        .then((res) => {
-            if(res.data.result== "success") {
-                dispatch(Logout());
-            }
-            else { //로그아웃 실패 출력
-                console.log(res.data);
-                console.log("logout result error!")
-            }
-        })
-        .catch((err) => console.log(err))
-    }
 
  
 
@@ -117,20 +104,7 @@ export default function MyLeftPage() {
 
     // 로그인 상태에서 페이지 최초 로딩 시 사용자 정보 받아오기
     React.useEffect(() =>{
-                
-        // id정보 받아오기
-        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getUserInfo")
-        .then((res) => {
-            if(res.data.logged== true) {
-                getuser_id(res.data.id);
-                dispatch(Login());
-            }
-            else { //로그인 상태가 아니면 로그아웃처리
-                //console.log("current state is log out state, execute logout")
-                dispatch(Logout());
-            }
-        })
-        .catch((err) => console.log(err))
+        console.log(Commons.isLoggedIn);
 
         // 마일리지 정보 받아오기
         axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getMileage")
@@ -161,7 +135,7 @@ export default function MyLeftPage() {
 
     return (
         <>
-        {isLoggedIn ?(
+        {Commons.isLoggedIn && Commons.userInfo != null ?(
         <div className={style.my_menu}>
             <div className={style.head}>
                 <button className={style.close} onClick={gohome}></button>
@@ -172,7 +146,7 @@ export default function MyLeftPage() {
                 </dd>
                 <dd className={style.user_title}>USER</dd>
                 <dd className={style.name}>
-                    <span>{user_id}</span>
+                    <span>{Commons.userInfo["id"]}</span>
                 </dd>
             </dl>
             
@@ -291,7 +265,7 @@ export default function MyLeftPage() {
                 </Link>
                     <div className={style.logout_n}>
 						<span className={style.pic}>
-							<Link to={"/myLeftPage"} onClick={logout}>
+							<Link to={"/main"} onClick={Commons.logout}>
 								로그아웃</Link>
 							<span className={style.tel}>
 								☎1599-0120</span>
@@ -360,4 +334,4 @@ export default function MyLeftPage() {
     );
 }
 
-// export default myLeftPage;
+export default MyLeftPage;

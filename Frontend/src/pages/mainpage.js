@@ -4,8 +4,9 @@ import style from './mainpage.module.css';
 import MapNaverDefault from '../components/mapNaverDefault';
 import { Container as MapDiv } from 'react-naver-maps';
 
-export default function Mainpage() {
-    const [isLoggedIn, setisLoggedIn] = React.useState(false);
+export default function Mainpage(props) {
+    //const [isLoggedIn, setisLoggedIn] = React.useState(false);
+	//const isLoggedIn = useSelector((state) => state.logged.value);
 	const [locations, setLocations] = useState();
 
 	useEffect(() => {
@@ -19,14 +20,14 @@ export default function Mainpage() {
 	{/* <input type="hidden" id="tabId"> */}
 
    
-	<div class={style.wrap}>
-    <div class={style.header_wrap}>
-        <div class={style.header}>
-        	<div class={style.top}>
-				<div class={style.m_sub_header_wrap}>
-					<div class={style.m_sub_header}>
-						<button class={style.back}></button>
-						<button class={style.close}></button>
+	<div className={style.wrap}>
+    <div className={style.header_wrap}>
+        <div className={style.header}>
+        	<div className={style.top}>
+				<div className={style.m_sub_header_wrap}>
+					<div className={style.m_sub_header}>
+						<Link to="/myLeftPage" className={style.m_menu}></Link>
+						<button className={style.m_global} onClick={(e)=>{alert("준비중입니다");}}></button>
 						<span id="title"></span>
 					</div>
 				</div>
@@ -35,31 +36,31 @@ export default function Mainpage() {
 				
 				
 			</div>
-			<div class={style.logo}><a href="/main.do"><img src="/images/logo.png" alt="서울자전거 따릉이" /></a></div>
+			<div className={style.logo}><a href="/"><img src="/img/logo.png" alt="서울자전거 따릉이" /></a></div>
 
             
         </div>
     </div>
-<div class={style.mask}>
-			<div class={style.maskwrap}>
-				<div class={style.mask_close}>닫기</div>
-				<div class={style.change_lang} id="changeLang">
+<div className={style.mask}>
+			<div className={style.maskwrap}>
+				<div className={style.mask_close}>닫기</div>
+				<div className={style.change_lang} id="changeLang">
 					<ul>
-						<li class={style.en}><a href="https://www.bikeseoul.com:457/main.do?lang=en">ENGLISH</a></li>
-						<li class={style.ch}><a href="https://www.bikeseoul.com:457/main.do?lang=zh">中國語</a></li>
-						<li class={style.ja}><a href="https://www.bikeseoul.com:457/main.do?lang=ja">日本語</a></li>
-						<li class={style.ko}><a href="https://www.bikeseoul.com">한국어</a></li>
+						<li className={style.en}><a href="https://www.bikeseoul.com:457/main.do?lang=en">ENGLISH</a></li>
+						<li className={style.ch}><a href="https://www.bikeseoul.com:457/main.do?lang=zh">中國語</a></li>
+						<li className={style.ja}><a href="https://www.bikeseoul.com:457/main.do?lang=ja">日本語</a></li>
+						<li className={style.ko}><a href="https://www.bikeseoul.com">한국어</a></li>
 				
 					</ul>
 				</div>
-				<div class={style.search_content}>
+				<div className={style.search_content}>
 					<form id="frm"></form>
 				 
-					<form class={style.search} id="search" role="search">
-						<fieldset class={style.fld_sch}>
-							<legend class={style.screen_out}>검색어 입력폼</legend>
-							<div class={style.box_search}>                    
-								<input type="text" id="searchValue" value="" name="searchValue" title="검색어 입력" placeholder="원하시는 지역이 어디신가요?" />
+					<form className={style.search} id="search" role="search">
+						<fieldset className={style.fld_sch}>
+							<legend className={style.screen_out}>검색어 입력폼</legend>
+							<div className={style.box_search}>                    
+								<input type="text" id="searchValue" defaultValue="" name="searchValue" title="검색어 입력" placeholder="원하시는 지역이 어디신가요?" />
 								<div id="search_data"></div>
 							</div>
 						</fieldset>
@@ -74,54 +75,53 @@ export default function Mainpage() {
 		
 	
 		
-		<div class={style.location_info} style={{display: "none"}}>
-			<div class={style.location_info_wrap}>
+		<div className={style.location_info} style={{display: "none"}}>
+			<div className={style.location_info_wrap}>
 				
-				<div class={`${style.mask_close} ${style.location_close}`}>
+				<div className={`${style.mask_close} ${style.location_close}`}>
 					창닫기                    
 				</div>
 				
 
-				<p class={style.location_name}>
+				<p className={style.location_name}>
 					<span id="location_id"></span>
 				</p>
 
-				<div class={style.location_box} id="location_02"> 
-					<div class={style.name}>일반 따릉이</div>
-					<div class={style.num} id="parkingQRBikeCnt"></div>
+				<div className={style.location_box} id="location_02"> 
+					<div className={style.name}>일반 따릉이</div>
+					<div className={style.num} id="parkingQRBikeCnt"></div>
 				</div>
 				
-				<div class={style.location_box} id="location_03"> 
-					<div class={style.name}>새싹 따릉이</div>
-					<div class={style.num} id="parkingELECBikeCnt"></div>
+				<div className={style.location_box} id="location_03"> 
+					<div className={style.name}>새싹 따릉이</div>
+					<div className={style.num} id="parkingELECBikeCnt"></div>
 				</div>
 			</div>
 			
 		</div>
-	 
+		<div style={{height:"60px", width:"100%", background:"white", position:"fixed", bottom:"0", zIndex:"999"}}>
+				<button type="submit" style={{margin:"auto", display:"block", lineHeight:"40px", marginTop:"7px", background:"#2D9D5D", borderRadius:"27.5px", width:"130px", border:"3px solid #2D7245", color:"white", fontSize:"15px", fontWeight:"bold"}}>대여하기</button>
+			</div>
 		
-		<div class={style.container} id="main">
-			<div class={style.map} id="mapDiv" style={{height: "844px", position: "relative", overflow: "hidden", background: "rgb(248, 249, 250)"}}>
-				<div class={style.side_area}>
-					<a class={`${style.search_bike} ${style.search_open}`}>검색하기</a>
-					<a class={style.refresh}>새로고침</a>
-					<a class={style.question}>이용안내</a>
+		<div className={style.container} id="main">
+			<div className={style.map} id="mapDiv" style={{height: "844px", position: "relative", overflow: "hidden", background: "rgb(248, 249, 250)"}}>
+				<div className={style.side_area}>
+					<a className={`${style.search_bike} ${style.search_open}`}>검색하기</a>
+					<a className={style.refresh}>새로고침</a>
+					<a className={style.question}>이용안내</a>
 				</div>
 				<MapDiv style={{ width: '100%', height: '100%' }}>
         	    	<MapNaverDefault locations={locations}/>
         		</MapDiv>
 			
-			<div class={style.main_image}>
-				<div class={style.content}>
+			<div className={style.main_image}>
+				<div className={style.content}>
 				</div>    
 			</div>
 			</div>	 
+			
 		</div>
 	</div>
-
-
-            <h3>this is main page</h3>
-            <Link to='/myLeftPage' state={{isLoggedIn: isLoggedIn}}>마이페이지</Link>
         </>
 
     );
