@@ -95,14 +95,26 @@ public class StationController {
 
     @GetMapping("/rest/getStationList")
     @ResponseBody
-    public String getStationList(@RequestParam("station_name") String station_name) {
+    public String getStationList(HttpServletRequest request, @RequestParam(value = "station_name", required = false) String station_name) {
         JsonObject jo = new JsonObject();
-        if(station_name == null) {
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        int level = mem.getLevel();
+        if(level != 9999 && station_name == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
         try {
-            List<Station> stationList = stationManager.getStationList(station_name);
+            List<Station> stationList;
+            if(level == 9999 && station_name == null){
+                stationList = stationManager.getStationList();
+            }else{
+                stationList = stationManager.getStationList(station_name);
+            }
             JsonArray ja = new JsonArray();
             for (Station station : stationList) {
                 JsonObject item = new JsonObject();

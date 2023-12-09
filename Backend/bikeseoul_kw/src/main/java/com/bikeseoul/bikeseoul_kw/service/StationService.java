@@ -24,6 +24,11 @@ public class StationService implements StationDao {
     }
 
     @Override
+    public List<Station> getStationList() {
+        return stationDao.getStationList();
+    }
+
+    @Override
     public List<Station> getStationList(String station_name) {
         return stationDao.getStationList(station_name);
     }

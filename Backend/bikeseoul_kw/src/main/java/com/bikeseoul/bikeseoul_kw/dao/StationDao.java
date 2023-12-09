@@ -12,9 +12,8 @@ public interface StationDao {
     Station getStationInfo(int station_uid);
 
     List<Station> getFavoriteStationList(int user_uid);
-
+    List<Station> getStationList();
     List<Station> getStationList(String station_name);
-
     int insertFavoriteStation(int station_uid, int user_uid);
     List<Station> getStationListNearby(double x1, double y1, double x2, double y2);
 }

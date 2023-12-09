@@ -56,8 +56,10 @@
             s.station_type='lent'
         AND
             b.status_ = 'ready'
+        <if test="station_name != null">
         AND
             s.station_name LIKE CONCAT('%', #{station_name}, '%')
+        </if>
         GROUP BY
             s.uid
     </select>
