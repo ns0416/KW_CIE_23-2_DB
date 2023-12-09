@@ -31,6 +31,24 @@
         		<if test="query_type == 'id'">
         			id LIKE CONCAT('%',#{query}, '%') AND
         		</if>
+				<if test="query_type == 'email'">
+					email LIKE CONCAT('%',#{query}, '%') AND
+				</if>
+				<if test="query_type == 'phone'">
+					phone LIKE CONCAT('%',#{query}, '%') AND
+				</if>
+				<if test="query_type == 'level'">
+					level = #{query} AND
+				</if>
+				<if test="query_type == 'sex'">
+					sex = #{query} AND
+				</if>
+				<if test="query_type == 'age'">
+					age = #{query} AND
+				</if>
+				<if test="query_type == 'weight'">
+					weight = #{query} AND
+				</if>
         	</if>
         </trim>
         <if test="p_start >= 0 and p_end >=0">
