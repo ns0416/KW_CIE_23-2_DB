@@ -99,9 +99,9 @@ export default function Joinpage2()
 		<div className={style.id}>
 			<p>휴대폰 번호</p>
             <label><input type="number" title='phone_number' maxLength="11" name="phone" placeholder="-를 제외하고 숫자만 입력" value={values.phone} onChange={ChangeHandler}/></label>
-            {/* <label><input title="휴대번호 첫번째 입력" name="userMob1" id="userMob1" type="number"  style={{width: "50px"}} class="vm center" maxlength="3" oninput="maxLengthCheck(this)"/></label> -  */}
-		    {/* <label><input title="휴대번호 두번째 입력" name="userMob2" id="userMob2" type="number"  style={{width: "50px"}} class="vm center" maxlength="4" oninput="maxLengthCheck(this)"/></label> -  */}
-		    {/* <label><input title="휴대번호 세번째 입력" name="userMob3" id="userMob3" type="number"  style={{width: "50px"}} class="vm center" maxlength="4" oninput="maxLengthCheck(this)"/></label> */}
+            {/* <label><input title="휴대번호 첫번째 입력" name="userMob1" id="userMob1" type="number"  style={{width: "50px"}} class="vm center" maxLength="3" onInput="maxLengthCheck(this)"/></label> -  */}
+		    {/* <label><input title="휴대번호 두번째 입력" name="userMob2" id="userMob2" type="number"  style={{width: "50px"}} class="vm center" maxLength="4" onInput="maxLengthCheck(this)"/></label> -  */}
+		    {/* <label><input title="휴대번호 세번째 입력" name="userMob3" id="userMob3" type="number"  style={{width: "50px"}} class="vm center" maxLength="4" onInput="maxLengthCheck(this)"/></label> */}
         </div>
 		 
 	   <div className={style.btn} id="join" onClick={Authorize}><a href="#">다음</a></div>

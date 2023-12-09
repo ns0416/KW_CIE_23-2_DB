@@ -227,10 +227,10 @@ export default function MoveMemberCardRegiView() {
 									<tr>
 										<th>카드번호</th>
 										<td>
-											<div class="pay_input w20"><input class="w100" title="카드번호 첫번째 4자리 입력" name="tNum" type="number" min="0" max="9" maxlength="4" oninput="memCard.maxLengthCheck(this)" id="cdnum2" onchange="" /></div>
-											<div class="pay_input w20"><input class="w100" title="카드번호 두번째 4자리 입력" name="tNum" type="number" min="0" max="9" maxlength="4" oninput="memCard.maxLengthCheck(this)" /></div>
-											<div class="pay_input w20"><input class="w100" title="카드번호 세번째 4자리 입력" name="tNum" type="number" min="0" max="9" maxlength="4" oninput="memCard.maxLengthCheck(this)" /></div>
-											<div class="pay_input w20"><input class="w100" title="카드번호 네번째 4자리 입력" name="tNum" type="number" min="0" max="9" maxlength="4" oninput="memCard.maxLengthCheck(this)" /></div>
+											<div class="pay_input w20"><input class="w100" title="카드번호 첫번째 4자리 입력" name="tNum" type="number" min="0" max="9" maxLength="4" onInput="memCard.maxLengthCheck(this)" id="cdnum2" onchange="" /></div>
+											<div class="pay_input w20"><input class="w100" title="카드번호 두번째 4자리 입력" name="tNum" type="number" min="0" max="9" maxLength="4" onInput="memCard.maxLengthCheck(this)" /></div>
+											<div class="pay_input w20"><input class="w100" title="카드번호 세번째 4자리 입력" name="tNum" type="number" min="0" max="9" maxLength="4" onInput="memCard.maxLengthCheck(this)" /></div>
+											<div class="pay_input w20"><input class="w100" title="카드번호 네번째 4자리 입력" name="tNum" type="number" min="0" max="9" maxLength="4" onInput="memCard.maxLengthCheck(this)" /></div>
 											<p>카드번호 16자리 입력</p> 
 										</td>
 									</tr>

@@ -38,8 +38,8 @@ export default function InfoCoupon() {
                     <thead>
                         <tr>
                             <th scope="col" style={{textAlign: "center", fontWeight: "bold", fontSize: "13px"}}>구분</th>
-                            <th colspan="3" style={{textAlign: "center", fontWeight: "bold", fontSize: "13px"}} scope="col">정기권(회원전용)</th>
-                            <th colspan="2" style={{textAlign: "center", fontWeight: "bold", fontSize: "13px"}} scope="col">일일권</th>
+                            <th Colspan="3" style={{textAlign: "center", fontWeight: "bold", fontSize: "13px"}} scope="col">정기권(회원전용)</th>
+                            <th Colspan="2" style={{textAlign: "center", fontWeight: "bold", fontSize: "13px"}} scope="col">일일권</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,18 +79,18 @@ export default function InfoCoupon() {
                         </tr>
                         <tr>
                             <td style={{textAlign: "center"}}>결제</td>
-                            <td colspan="5" scope="col">휴대폰,신용카드,PAYCO, 카카오페이, 제로페이, Discover Pass(외국인전용)</td>
+                            <td Colspan="5" scope="col">휴대폰,신용카드,PAYCO, 카카오페이, 제로페이, Discover Pass(외국인전용)</td>
                         </tr>
                         <tr name="add">
                             <td style={{textAlign:"center"}}>추가요금</td>
-                            <td colspan="5" scope="col">
+                            <td Colspan="5" scope="col">
                             · 1시간(2시간) 단위 반복 이용권을 1시간(2시간) 이내 대여소 미반납시 초과 5분당 200원씩 과금<br/>
                             · 자전거 대여 후 기본 대여 시간 초과 시 추가 요금 부과(추가 요금 미납시 재대여 불가)<br/>
                             </td>
                         </tr>
                         <tr>
                             <td style={{textAlign:"center"}}>이용시간</td>
-                            <td colspan="5">
+                            <td Colspan="5">
                             - [1시간권] 1시간 단위 반복 이용권<br/> 
                             - [2시간권] 2시간 단위 반복 이용권<br/>
                             </td>
@@ -157,8 +157,8 @@ export default function InfoCoupon() {
                     </colgroup>
                     <thead>
                         <tr>
-                            <th rowspan="2" colspan="2" scope="rowgroup">구분</th>
-                            <th colspan="2" scope="colgroup">사용시 </th>
+                            <th rowspan="2" Colspan="2" scope="rowgroup">구분</th>
+                            <th Colspan="2" scope="colgroup">사용시 </th>
                             <th rowspan="2" scope="rowgroup">미사용시</th>
                         </tr>
                         <tr>
@@ -186,11 +186,11 @@ export default function InfoCoupon() {
                             <td>이용개시일로부터  2일이내 일일권 이용요금 공제</td>
                         </tr>
                         <tr>
-                            <td colspan="2">일일권</td>
-                            <td colspan="2">환불 불가</td>
+                            <td Colspan="2">일일권</td>
+                            <td Colspan="2">환불 불가</td>
                         </tr>
                         <tr>
-                        	<td colspan="5">
+                        	<td Colspan="5">
                         		<font color="red">※ 이용권 사용한 경우(이용권 개시일 기준)<br/>
                         		1일권 : 환불불가 , 7일권 : 2일이내, 30일권 : 7일이내, 180일권 : 60일이내, 365일권은 150일이내 신청해야만 환불이 가능합니다.</font>
                         	</td>

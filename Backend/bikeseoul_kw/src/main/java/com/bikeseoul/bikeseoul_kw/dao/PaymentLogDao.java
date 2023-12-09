@@ -14,7 +14,7 @@ public interface PaymentLogDao {
     List<Map<String, Object>> getPaymentLogList(int user_uid);
 
     List<Map<String, Object>> getRefundLogList(int user_uid);
-    int getPaymentLogGiftUid(int log_uid);
+    Integer getPaymentLogGiftUid(int log_uid);
     List<PaymentMethod> getPaymentMethodList();
     PaymentMethod getPaymentMethodInfo(int uid);
     int insertPaymentLog(PaymentLog log);

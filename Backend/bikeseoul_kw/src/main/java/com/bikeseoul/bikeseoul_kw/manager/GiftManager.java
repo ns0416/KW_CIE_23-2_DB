@@ -39,4 +39,8 @@ public class GiftManager {
         }
         return sentGiftList;
     }
+	public Gift getGiftInfo(int log_gift_uid) {
+		// TODO Auto-generated method stub
+		return giftService.getGiftInfo(log_gift_uid);
+	}
 }

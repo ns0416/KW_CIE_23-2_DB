@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,8 +48,8 @@ public class PaymentLogManager {
     private RentService rentService;
     
     
-    public List<Pair<PaymentLog,PaymentMethod>> getPaymentLogList(int user_uid) {
-		List<Pair<PaymentLog,PaymentMethod>> paymentLogList = null;
+    public ArrayList<Pair<PaymentLog,PaymentMethod>> getPaymentLogList(int user_uid) {
+    	ArrayList<Pair<PaymentLog,PaymentMethod>> paymentLogList = new ArrayList();
 		List<Map<String, Object>> data = paymentLogService.getPaymentLogList(user_uid);
 		for (Map<String, Object> map : data) {
 			PaymentLog pl = new PaymentLog((Integer)map.get("uid"), (Integer)map.get("user_uid"), (Integer)map.get("method_uid"), (Integer)map.get("amount"), (Integer)map.get("ticket_detail_uid"), payment_status.valueOf((String)map.get("status_")), (LocalDateTime)map.get("log_created_date"), (LocalDateTime)map.get("log_updated_date"));
@@ -60,8 +61,8 @@ public class PaymentLogManager {
 		return paymentLogList;
     }
 
-    public List<Pair<PaymentLog,PaymentMethod>> getRefundLogList(int user_uid) {
-		List<Pair<PaymentLog,PaymentMethod>> paymentLogList = null;
+    public ArrayList<Pair<PaymentLog,PaymentMethod>> getRefundLogList(int user_uid) {
+    	ArrayList<Pair<PaymentLog,PaymentMethod>> paymentLogList = new ArrayList();
 		List<Map<String, Object>> data = paymentLogService.getRefundLogList(user_uid);
 		for (Map<String, Object> map : data) {
 			PaymentLog pl = new PaymentLog((Integer)map.get("uid"), (Integer)map.get("user_uid"), (Integer)map.get("method_uid"), (Integer)map.get("amount"), (Integer)map.get("ticket_detail_uid"), payment_status.valueOf((String)map.get("status_")), (LocalDateTime)map.get("log_created_date"), (LocalDateTime)map.get("log_updated_date"));
@@ -73,7 +74,9 @@ public class PaymentLogManager {
 		return paymentLogList;
     }
     public int getPaymentLogGiftUid(int log_uid) {
-		return paymentLogService.getPaymentLogGiftUid(log_uid);
+    	Integer val = paymentLogService.getPaymentLogGiftUid(log_uid);
+    	
+		return val == null ? 0 : val;
 	}
 
     @Transactional

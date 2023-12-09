@@ -17,6 +17,7 @@ import com.bikeseoul.bikeseoul_kw.service.PaymentLogService;
 import com.bikeseoul.bikeseoul_kw.service.TicketService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,8 +28,8 @@ public class TicketManager {
 	private TicketService ticketService;
 	@Autowired
 	private PaymentLogService paymentlogService;
-	public List<Pair<Ticket, Ticket_detail>> getExpiredTicketList(int member_uid) {
-		List<Pair<Ticket, Ticket_detail>> expiredTicketList = null;
+	public ArrayList<Pair<Ticket, Ticket_detail>> getExpiredTicketList(int member_uid) {
+		ArrayList<Pair<Ticket, Ticket_detail>> expiredTicketList = new ArrayList();
 		List<Map<String, Object>> data = ticketService.getExpiredTicketList(member_uid);
 		for (Map<String, Object> map : data) {
 			Ticket ticket = new Ticket((Integer)map.get("ticket_id"), ticket_type.valueOf((String)map.get("ticket_type")), hours.valueOf((String)map.get("hours")), (Integer)map.get("cost"), (Boolean)map.get("isvalid"), (LocalDateTime)map.get("ticket_created_date"), (LocalDateTime)map.get("ticket_updated_date"));
@@ -83,6 +84,10 @@ public class TicketManager {
 			e.printStackTrace();
 			throw new RuntimeException();
 		}
+	}
+	public Ticket getTicketInfo(int ticket_uid) {
+		// TODO Auto-generated method stub
+		return ticketService.getTicketInfo(ticket_uid);
 	}
 
 }

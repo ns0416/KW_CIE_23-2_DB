@@ -28,5 +28,11 @@ public class GiftService implements GiftDao {
 		// TODO Auto-generated method stub
 		return giftDao.insertGiftInfo(gift);
 	}
+
+	@Override
+	public Gift getGiftInfo(int uid) {
+		// TODO Auto-generated method stub
+		return giftDao.getGiftInfo(uid);
+	}
     
 }

@@ -14,7 +14,7 @@
             log.created_date AS log_created_date,
             log.updated_date AS log_updated_date,
             method.method_name,
-            method.created_date AS method_created_date,
+            method.created_date AS method_created_date
         FROM
             payment_log AS log
         JOIN
@@ -36,7 +36,7 @@
             log.created_date AS log_created_date,
             log.updated_date AS log_updated_date,
             method.method_name,
-            method.created_date AS method_created_date,
+            method.created_date AS method_created_date
         FROM
             payment_log AS log
         JOIN
@@ -50,11 +50,11 @@
     </select>
     <select id="getPaymentLogGiftUid" resultType="Integer">
         SELECT
-            uid
+            gift_uid	
         FROM
-            ticket_gift
+            payment_log_gift
         WHERE
-            ticket_uid = #{log_uid}
+            log_uid = #{log_uid}
     </select>
     <select id="getPaymentMethodList" resultType="com.bikeseoul.bikeseoul_kw.container.PaymentMethod">
         SELECT

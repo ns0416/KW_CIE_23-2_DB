@@ -56,7 +56,7 @@ export default function Joinpage()
 			<div className={style.inline_div}>
 				<p>이름</p>
 				<div class="w40" style={{margin: "20px 0 40px 0", display: "inline-block"}} >
-					<input type="text" id="userName" name="userName" maxlength="30" style={{borderBottom: "1px #222 solid", }}onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"/>
+					<input type="text" id="userName" name="userName" maxLength="30" style={{borderBottom: "1px #222 solid", }}onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"/>
 				</div>
 			</div>
 			<div className={style.inline_div}>
@@ -86,9 +86,9 @@ export default function Joinpage()
 
 		<div className={style.phone}>
 			<p>휴대폰 번호</p>
-            <label><input title="휴대번호 첫번째 입력" name="userMob1" id="userMob1" type="number"  style={{width: "50px"}} class="vm center" maxlength="3" oninput="maxLengthCheck(this)"/></label> - 
-		    <label><input title="휴대번호 두번째 입력" name="userMob2" id="userMob2" type="number"  style={{width: "50px"}} class="vm center" maxlength="4" oninput="maxLengthCheck(this)"/></label> - 
-		    <label><input title="휴대번호 세번째 입력" name="userMob3" id="userMob3" type="number"  style={{width: "50px"}} class="vm center" maxlength="4" oninput="maxLengthCheck(this)"/></label>
+            <label><input title="휴대번호 첫번째 입력" name="userMob1" id="userMob1" type="number"  style={{width: "50px"}} class="vm center" maxLength="3" onInput={maxLengthCheck(this)}/></label> - 
+		    <label><input title="휴대번호 두번째 입력" name="userMob2" id="userMob2" type="number"  style={{width: "50px"}} class="vm center" maxLength="4" onInput={maxLengthCheck(this)}/></label> - 
+		    <label><input title="휴대번호 세번째 입력" name="userMob3" id="userMob3" type="number"  style={{width: "50px"}} class="vm center" maxLength="4" onInput={maxLengthCheck(this)}/></label>
         </div>
 
 		<div className={style.phone}>
