@@ -13,6 +13,22 @@ public class Member extends User{
 		this.age = age;
 		this.weight = weight;
 	}
+	public Member(String pw, String email, String phone, String sex, int age, int weight,
+			boolean is_lost, boolean isvalid) {
+			super(0, null, pw, email, phone, 1, isvalid, is_lost, null);
+			// TODO Auto-generated constructor stub
+			this.sex = sex;
+			this.age = age;
+			this.weight = weight;
+		}
+	public Member(int uid, String pw, String email, String phone, String sex, int age, int weight,
+			boolean is_lost, boolean isvalid) {
+			super(uid, null, pw, email, phone, 1, isvalid, is_lost, null);
+			// TODO Auto-generated constructor stub
+			this.sex = sex;
+			this.age = age;
+			this.weight = weight;
+		}
 	public Member(int uid,String phone, int weight) {
 			super(uid, phone);
 			// TODO Auto-generated constructor stub

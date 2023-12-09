@@ -86,13 +86,13 @@ public class RentController {
                 total_rent_minutes += ChronoUnit.MINUTES.between(rent.getStart_date(), rent.getReturn_date());
                 JsonObject item = new JsonObject();
                 item.addProperty("uid", rent.getUid());
-                item.addProperty("member_uid", rent.getMember_uid());
+//                item.addProperty("member_uid", rent.getMember_uid());
                 item.addProperty("bike_uid", rent.getBike_uid());
                 item.addProperty("ticket_detail_uid", rent.getTicket_detail_uid());
                 item.addProperty("start_date", rent.getStart_date().format(dtf_kor));
                 item.addProperty("return_date", rent.getReturn_date().format(dtf_kor));
-                item.addProperty("rent_station", rent.getRent_station());
-                item.addProperty("return_station", rent.getReturn_station());
+                item.addProperty("rent_station_uid", rent.getRent_station());
+                item.addProperty("return_station_uid", rent.getReturn_station());
                 item.addProperty("last_position_lat", rent.getLast_position_lat());
                 item.addProperty("last_position_lon", rent.getLast_position_lon());
                 item.addProperty("distance", rent.getDistance());

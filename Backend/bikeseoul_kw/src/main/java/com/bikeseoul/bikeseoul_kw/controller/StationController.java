@@ -1,5 +1,6 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
+import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Station;
 import com.bikeseoul.bikeseoul_kw.container.station_type;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -35,7 +37,7 @@ public class StationController {
         try {
             Station station = stationManager.getStationInfo(station_id);
             JsonObject item = new JsonObject();
-            item.addProperty("station_id", station.getUid());
+            item.addProperty("station_uid", station.getUid());
             item.addProperty("station_name", station.getStation_name());
             item.addProperty("lat", station.getLat());
             item.addProperty("lon", station.getLon());
@@ -70,7 +72,7 @@ public class StationController {
             JsonArray ja = new JsonArray();
             for (Station station : stationList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("station_id", station.getUid());
+                item.addProperty("station_uid", station.getUid());
                 item.addProperty("station_name", station.getStation_name());
                 item.addProperty("lat", station.getLat());
                 item.addProperty("lon", station.getLon());
@@ -79,7 +81,7 @@ public class StationController {
                 item.addProperty("station_type", station.getStation_type().toString());
                 item.addProperty("general_cnt", station.getGeneral_cnt());
                 item.addProperty("sprout_cnt", station.getSprout_cnt());
-                item.addProperty("favorite_user_uid", station.getFavorite_user_uid());
+//                item.addProperty("favorite_user_uid", station.getFavorite_user_uid());
                 item.addProperty("favorite_created_date", station.getFavorite_created_date().format(dtf_kor));
                 ja.add(item);
             }
@@ -95,18 +97,30 @@ public class StationController {
 
     @GetMapping("/rest/getStationList")
     @ResponseBody
-    public String getStationList(@RequestParam("station_name") String station_name) {
+    public String getStationList(HttpServletRequest request, @RequestParam(value = "station_name", required = false) String station_name) {
         JsonObject jo = new JsonObject();
-        if(station_name == null) {
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        if(mem == null) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        int level = mem.getLevel();
+        if(level != 9999 && station_name == null) {
             jo.addProperty("result", "failed");
             return jo.toString();
         }
         try {
-            List<Station> stationList = stationManager.getStationList(station_name);
+            List<Station> stationList;
+            if(level == 9999 && station_name == null){
+                stationList = stationManager.getStationList();
+            }else{
+                stationList = stationManager.getStationList(station_name);
+            }
             JsonArray ja = new JsonArray();
             for (Station station : stationList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("station_id", station.getUid());
+                item.addProperty("station_uid", station.getUid());
                 item.addProperty("station_name", station.getStation_name());
                 item.addProperty("lat", station.getLat());
                 item.addProperty("lon", station.getLon());
@@ -143,7 +157,7 @@ public class StationController {
             JsonArray ja = new JsonArray();
             for (Station station : stationList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("station_id", station.getUid());
+                item.addProperty("station_uid", station.getUid());
                 item.addProperty("station_name", station.getStation_name());
                 item.addProperty("lat", station.getLat());
                 item.addProperty("lon", station.getLon());
@@ -188,4 +202,32 @@ public class StationController {
         }
         return jo.toString();
     }
+    
+   @PostMapping("/rest/admin/insertStation")
+   public String insertStation(HttpServletRequest request, @RequestParam HashMap<String, Object> body) {
+	   JsonObject jo = new JsonObject();
+       HttpSession hs = request.getSession();
+       Station station = new Station((String)body.get("station_name"), (Double)body.get("lat"), (Double)body.get("lon"), (Integer)body.get("size"), station_type.valueOf((String)body.get("station_type")));
+       CommonEnum res = stationManager.insertStation(station);
+       if(res == CommonEnum.SUCCESS)
+			jo.addProperty("result", "success");
+		else
+			jo.addProperty("result", "failed");
+		return jo.toString();
+   }
+   @PostMapping("/rest/admin/updateStation")
+	public String updateStationAdmin(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession();
+		JsonObject jo = new JsonObject();
+		Integer age = (Integer)body.get("age");
+		Integer weight = (Integer)body.get("weight");
+		
+	    Station station = new Station((String)body.get("station_name"), (Double)body.get("lat"), (Double)body.get("lon"), (Integer)body.get("size"), station_type.valueOf((String)body.get("station_type")), (Boolean)body.get("is_valid"));
+		CommonEnum res = stationManager.updateStation(station);
+		if(res == CommonEnum.SUCCESS)
+			jo.addProperty("result", "success");
+		else
+			jo.addProperty("result", "failed");
+		return jo.toString();
+	}
 }

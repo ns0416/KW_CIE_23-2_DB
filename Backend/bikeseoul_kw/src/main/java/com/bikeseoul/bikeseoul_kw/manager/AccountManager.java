@@ -122,7 +122,7 @@ public class AccountManager {
 		
 		return result;
 	}
-	
+
 	public int getUserCount(String type_, String value, boolean isAdmin) {
 		int type = 0;
 		if(type_ != null) {
@@ -267,9 +267,7 @@ public class AccountManager {
 		return false;
 	}
 
-	 
-
-	public List<? extends User> getMemberList(int page, int page_limit, String query_type, String query,boolean is_admin) {
+	public List<Member> getMemberList(int page, int page_limit, String query_type, String query,boolean is_admin) {
 		// TODO Auto-generated method stub
 		int p_start = page_limit*page;
 		return memberService.getMemberInfoList(p_start, page_limit, query_type, query);

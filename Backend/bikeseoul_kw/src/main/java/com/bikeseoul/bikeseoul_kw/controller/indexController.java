@@ -75,6 +75,59 @@ public class indexController {
 		}
 		return jo.toString();
 	}
+
+	@GetMapping("/rest/service/getUserInfoList")
+	public String getUserInfoList(HttpServletRequest request,
+								  @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+								  @RequestParam(value = "page_limit", required = false, defaultValue = "0") int page_limit,
+								  @RequestParam(value = "type", required = false) String type,
+								  @RequestParam(value = "value", required = false) String value)
+	{
+		JsonObject jo = new JsonObject();
+		HttpSession hs = request.getSession();
+		Member mem = (Member)hs.getAttribute("member");
+		if(mem == null) {
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+		int level = mem.getLevel();
+		if(level != 9999) {
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+		try{
+			List<Member> memberList;
+
+			if(page_limit == 0)
+				memberList = am.getMemberList(-1, -1, type, value, true);
+			else{
+				memberList = am.getMemberList(page, page_limit, type, value, true);
+			}
+			JsonArray ja = new JsonArray();
+
+			for(Member member : memberList) {
+				JsonObject item = new JsonObject();
+				item.addProperty("uid", member.getUid());
+				item.addProperty("id", member.getId());
+				item.addProperty("email", member.getEmail());
+				item.addProperty("phone", member.getPhone());
+				item.addProperty("level", member.getLevel());
+				item.addProperty("sex", member.getSex());
+				item.addProperty("age", member.getAge());
+				item.addProperty("weight", member.getWeight());
+				item.addProperty("is_lost", member.getIs_lost());
+				item.addProperty("is_valid", member.getIsvalid());
+				ja.add(item);
+			}
+			jo.addProperty("result", "success");
+			jo.add("data", ja);
+		}catch (Exception e){
+			e.printStackTrace();
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+		return jo.toString();
+	}
 	@GetMapping("/rest/logout")
 	public String Logout(HttpServletRequest request) {
 		HttpSession hs= request.getSession();
@@ -433,6 +486,36 @@ public class indexController {
 			e.printStackTrace();
 			jo.addProperty("result", "failed");
 		}
+		return jo.toString();
+	}
+	@PostMapping("/rest/admin/registerMember")
+	public String registerMemberAdmin(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession();
+		JsonObject jo = new JsonObject();
+		Integer age = (Integer)body.get("age");
+		Integer weight = (Integer)body.get("weight");
+		
+		Member mem = new Member((String)body.get("pw"), (String)body.get("email"), (String)body.get("phone"), (String)body.get("sex"), age == null ? 0 : age, weight == null ? 0 : weight, (Boolean)body.get("is_lost"), (Boolean)body.get("isvalid"));
+		CommonEnum res = am.registerUser(mem, mem.getPw());
+		if(res == CommonEnum.SUCCESS)
+			jo.addProperty("result", "success");
+		else
+			jo.addProperty("result", "failed");
+		return jo.toString();
+	}
+	@PostMapping("/rest/admin/updateMember")
+	public String updateMemberAdmin(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession();
+		JsonObject jo = new JsonObject();
+		Integer age = (Integer)body.get("age");
+		Integer weight = (Integer)body.get("weight");
+		
+		Member mem = new Member((Integer)body.get("uid"), (String)body.get("pw"), (String)body.get("email"), (String)body.get("phone"), (String)body.get("sex"), age == null ? 0 : age, weight == null ? 0 : weight, (Boolean)body.get("is_lost"), (Boolean)body.get("isvalid"));
+		CommonEnum res = am.updateUserInfo(mem);
+		if(res == CommonEnum.SUCCESS)
+			jo.addProperty("result", "success");
+		else
+			jo.addProperty("result", "failed");
 		return jo.toString();
 	}
 }

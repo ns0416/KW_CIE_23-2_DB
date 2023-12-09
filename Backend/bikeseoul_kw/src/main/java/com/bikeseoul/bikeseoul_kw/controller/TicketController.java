@@ -63,13 +63,12 @@ public class TicketController {
             List<Pair<Ticket, Ticket_detail>> expiredTicketList = ticketManager.getExpiredTicketList(member_uid);
             for(Pair<Ticket, Ticket_detail> pair : expiredTicketList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("member_uid", pair.getSecond().getMember_uid());
                 item.addProperty("ticket_id", pair.getFirst().getTicket_id());
                 item.addProperty("cost", pair.getFirst().getCost());
                 item.addProperty("ticket_type", pair.getFirst().getTicket_type().getValue());
                 item.addProperty("hours", pair.getFirst().getHours().getValue());
-                item.addProperty("ticket_created_date", pair.getFirst().getTicket_created_date().format(dtf_kor));
-                item.addProperty("ticket_updated_date", pair.getFirst().getTicket_updated_date().format(dtf_kor));
+//                item.addProperty("ticket_created_date", pair.getFirst().getTicket_created_date().format(dtf_kor));
+//                item.addProperty("ticket_updated_date", pair.getFirst().getTicket_updated_date().format(dtf_kor));
                 item.addProperty("ticket_detail_start_date", pair.getSecond().getStart_date().format(dtf_kor));
                 item.addProperty("ticket_detail_create_date", pair.getSecond().getCreated_date().format(dtf_kor));
                 item.addProperty("activation", pair.getSecond().isActivation());

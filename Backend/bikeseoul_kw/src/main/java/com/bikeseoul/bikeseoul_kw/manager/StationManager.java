@@ -1,5 +1,6 @@
 package com.bikeseoul.bikeseoul_kw.manager;
 
+import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Station;
 import com.bikeseoul.bikeseoul_kw.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ public class StationManager {
         return stationService.getFavoriteStationList(member_uid);
     }
 
+    public List<Station> getStationList() {
+        return stationService.getStationList();
+    }
+
     public List<Station> getStationList(String station_name) {
         return stationService.getStationList(station_name);
     }
@@ -32,5 +37,11 @@ public class StationManager {
     }
     public int insertFavoriteStation(int station_uid, int user_uid) {
         return stationService.insertFavoriteStation(station_uid, user_uid);
+    }
+    public CommonEnum insertStation(Station station) {
+    	return stationService.insertStation(station) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+    }
+    public CommonEnum updateStation(Station station) {
+    	return stationService.updateStation(station) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
     }
 }

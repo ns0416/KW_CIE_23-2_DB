@@ -77,7 +77,7 @@ public class PaymentLogController {
 		                item.addProperty("cost", ticket.getCost());
 	                }
 	                item.addProperty("uid", pair.getFirst().getUid());
-	                item.addProperty("user_id", pair.getFirst().getUser_id());
+	                item.addProperty("user_uid", pair.getFirst().getUser_id());
 	                item.addProperty("method_uid", pair.getFirst().getMethod_uid());
 	                item.addProperty("amount", pair.getFirst().getAmount());
 	                item.addProperty("ticket_detail_uid", pair.getFirst().getTicket_detail_uid());
@@ -128,7 +128,7 @@ public class PaymentLogController {
 	                Ticket ticket = ticketPair.getFirst();
 	                int log_gift_uid = paymentLogManager.getPaymentLogGiftUid(pair.getFirst().getUid());
 	                item.addProperty("uid", pair.getFirst().getUid());
-	                item.addProperty("user_id", pair.getFirst().getUser_id());
+	                item.addProperty("user_uid", pair.getFirst().getUser_id());
 	                item.addProperty("method_uid", pair.getFirst().getMethod_uid());
 	                item.addProperty("amount", pair.getFirst().getAmount());
 	                item.addProperty("ticket_detail_uid", pair.getFirst().getTicket_detail_uid());

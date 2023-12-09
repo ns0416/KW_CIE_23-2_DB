@@ -24,6 +24,11 @@ public class StationService implements StationDao {
     }
 
     @Override
+    public List<Station> getStationList() {
+        return stationDao.getStationList();
+    }
+
+    @Override
     public List<Station> getStationList(String station_name) {
         return stationDao.getStationList(station_name);
     }
@@ -37,5 +42,17 @@ public class StationService implements StationDao {
 	public List<Station> getStationListNearby(double x1, double y1, double x2, double y2) {
 		// TODO Auto-generated method stub
 		return stationDao.getStationListNearby(x1, y1, x2, y2);
+	}
+
+	@Override
+	public int updateStation(Station station) {
+		// TODO Auto-generated method stub
+		return stationDao.updateStation(station);
+	}
+
+	@Override
+	public int insertStation(Station station) {
+		// TODO Auto-generated method stub
+		return stationDao.insertStation(station);
 	}
 }

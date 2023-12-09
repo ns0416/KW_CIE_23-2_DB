@@ -45,7 +45,7 @@ public class MileageController {
             List<Mileage> mileageList = mileageManager.getMileageList(member_uid);
             for(Mileage mileage:mileageList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("member_uid", mileage.getMember_uid());
+//                item.addProperty("member_uid", mileage.getMember_uid());
                 item.addProperty("uid", mileage.getUid());
                 item.addProperty("amount", mileage.getAmount());
                 item.addProperty("created_date", mileage.getCreated_date().format(dtf_kor));
