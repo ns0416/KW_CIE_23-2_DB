@@ -33,6 +33,9 @@ import moveUseMenuInsurance from './pages/moveUseMenuInsurance/moveUseMenuInsura
 import moveUseMenuClauseInfo from './pages/moveUseMenuClauseInfo/moveUseMenuClauseInfo';
 import InfoCoupon from './pages/infoCoupon/infoCoupon';
 
+import Member from './pages/admin/member';
+import Station from './pages/admin/station';
+
 
 
 function App() {
@@ -72,6 +75,8 @@ function App() {
         <Route path="/noticeBoardView/:uid" Component={noticeBoardView} />
         <Route path="/moveUseMenuInsurance" Component={moveUseMenuInsurance} />
         <Route path="/moveUseMenuClauseInfo" Component={moveUseMenuClauseInfo} />
+        <Route path="/admin/member" Component={Member}/>
+        <Route path="/admin/station" Component={Station}/>
         
         
         
