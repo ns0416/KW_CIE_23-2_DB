@@ -3,12 +3,14 @@ import AdminNavbar from './AdminNavbar';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import {useState} from 'react';
+import { useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 
 
 function Station()
 {
+    const navigate = useNavigate();
     const [queryword, setqueryword] = useState('');
 
     function changehandler(e) {
@@ -17,6 +19,10 @@ function Station()
 
     function Search(e) {
         // axios 연동
+    }
+
+    function moveInsert() {
+        navigate('/admin/stationInsert');
     }
     return (
         <>
@@ -27,6 +33,7 @@ function Station()
             <span class="input-group-text" id="basic-addon1">대여소검색</span>
                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" value={queryword} onChange={changehandler}/>
                 <button type="button" class="btn btn-primary" onClick={Search}>검색</button>
+                <span style={{marginLeft: "10px"}}><Button onClick={moveInsert}>대여소 추가</Button></span>
             </div>
         </Container>
 

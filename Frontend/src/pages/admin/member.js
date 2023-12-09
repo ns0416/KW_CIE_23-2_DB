@@ -28,6 +28,7 @@ function Member()
             <span class="input-group-text" id="basic-addon1">회원검색</span>
                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" value={queryword} onChange={changehandler}/>
                 <button type="button" class="btn btn-primary" onClick={Search}>검색</button>
+                {/* <span style={{marginLeft: "10px"}}><Button>회원 추가</Button></span> */}
             </div>
         </Container>
 

@@ -35,6 +35,7 @@ import InfoCoupon from './pages/infoCoupon/infoCoupon';
 
 import Member from './pages/admin/member';
 import Station from './pages/admin/station';
+import StationInsert from './pages/admin/stationInsert';
 
 
 
@@ -77,6 +78,7 @@ function App() {
         <Route path="/moveUseMenuClauseInfo" Component={moveUseMenuClauseInfo} />
         <Route path="/admin/member" Component={Member}/>
         <Route path="/admin/station" Component={Station}/>
+        <Route path="/admin/stationInsert" Component={StationInsert}/>
         
         
         
