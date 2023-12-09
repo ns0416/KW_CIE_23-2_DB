@@ -87,7 +87,8 @@ function MyLeftPage() {
         axios.get("http://seoulbike-kw.namisnt.com:8082/rest/logout")
         .then((res) => {
             if(res.data.result== "success") {
-                dispatch(Logout());
+                //dispatch(Logout());
+                Commons.getUserInfo();
             }
             else { //로그아웃 실패 출력
                 console.log(res.data);
