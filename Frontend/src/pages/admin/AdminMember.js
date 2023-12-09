@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import {useState} from 'react';
 
 
-function Member()
+function AdminMember()
 {
     const [queryword, setqueryword] = useState('');
 
@@ -69,4 +69,4 @@ function Member()
 
 }
 
-export default Member;
+export default AdminMember;

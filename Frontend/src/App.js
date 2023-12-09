@@ -33,7 +33,10 @@ import MoveUseMenuInsurance from './pages/moveUseMenuInsurance/moveUseMenuInsura
 import MoveUseMenuClauseInfo from './pages/moveUseMenuClauseInfo/moveUseMenuClauseInfo';
 import InfoCoupon from './pages/infoCoupon/infoCoupon';
 import CommonMain from './pages/CommonMain';
-
+import AdminStation from './pages/admin/AdminStation';
+import AdminStationInsert from './pages/admin/AdminStationInsert';
+import AdminMember from './pages/admin/AdminMember';
+import AdminStationModify from './pages/admin/AdminStationModify';
 
 
 function App() {
@@ -75,6 +78,10 @@ function App() {
           <Route path="/noticeBoardView/:uid" exact element={<NoticeBoardView/>} />
           <Route path="/moveUseMenuInsurance" exact element={<MoveUseMenuInsurance/>} />
           <Route path="/moveUseMenuClauseInfo" exact element={<MoveUseMenuClauseInfo/>} />
+          <Route path="/admin/station" exact element={<AdminStation/>}/>
+          <Route path="/admin/stationInsert" exact element={<AdminStationInsert/>}/>
+          <Route path="/admin/member" exact element={<AdminMember/>}/>
+          <Route path="/admin/stationModify/:uid" exact element={<AdminStationModify/>}/>
         </Route>        
       </Routes>  
     </div>
