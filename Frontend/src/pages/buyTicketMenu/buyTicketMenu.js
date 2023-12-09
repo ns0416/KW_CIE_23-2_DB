@@ -1,10 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation,useOutletContext } from 'react-router-dom';
 import style from './buyTicketMenu.module.css';
 import Header from '../../header.js';
 
 export default function BuyTicketMenu() {
+    const Commons = useOutletContext();
     const [values, setvalues] = React.useState({
         Id: "",
         Pw: "",
@@ -49,7 +50,7 @@ export default function BuyTicketMenu() {
         }
         alert(JSON.stringify(values,null,2));
     }
-    const [isLoggedIn, setisLoggedIn] = React.useState(true);
+    //const [isLoggedIn, setisLoggedIn] = React.useState(true);
     const navigate = useNavigate();
 
     const gohome =() => {
@@ -59,30 +60,28 @@ export default function BuyTicketMenu() {
     //let {state} = useLocation();
     // const location = useLocation();
     // const {isLoggedIn} = location.state.isLoggedIn;
-    function logout() {
+    //function logout() {
         
         // location.setisLoggedIn(false);
         // setisLoggedIn(false);
-    }
+    //}
 
-    const [user_id, getuser_id] = React.useState('user_id123');
+    //const [user_id, getuser_id] = React.useState('user_id123');
     const [valid_date, getvalid_date] = React.useState('2024-11-13 00:00');
     const [mileage, getmileage] = React.useState('1000');
 
     return (
         <>
-        {isLoggedIn ?(
+        {Commons.isLoggedIn && Commons.userInfo != null ?(
         <div className={style.my_menu}>
-            <div className={style.head}>
-                <button className={style.close} onClick={gohome}></button>
-            </div>
+            <Header title={""} />
             <dl className={style.profile}>
                 <dd className={style.top_img}>
                     <img src='img/mypage_top_pic.png' />
                 </dd>
                 <dd className={style.user_title}>USER</dd>
                 <dd className={style.name}>
-                    <span>{user_id}</span>
+                    <span>{Commons.userInfo["id"]}</span>
                 </dd>
             </dl>
             
@@ -144,7 +143,7 @@ export default function BuyTicketMenu() {
                 </Link>
                     <div className={style.logout_n}>
 						<span className={style.pic}>
-							<Link to={"/myLeftPage"} onClick={logout}>
+							<Link to={"/myLeftPage"} onClick={Commons.logout}>
 								로그아웃</Link>
 							<span className={style.tel}>
 								☎1599-0120</span>

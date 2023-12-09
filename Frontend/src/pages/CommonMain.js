@@ -23,6 +23,22 @@ function CommonMain(){
         })
         .catch((err) => console.log(err))
     }
+    function logout() {
+        // 로그아웃 처리
+        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/logout")
+        .then((res) => {
+            if(res.data.result== "success") {
+                //dispatch(Logout());
+                getUserInfo();
+            }
+            else { //로그아웃 실패 출력
+                console.log(res.data);
+                console.log("logout result error!")
+            }
+        })
+        .catch((err) => console.log(err))
+    }
+
     useEffect(()=>{
         getUserInfo();
         if(userInfo != null)
@@ -31,7 +47,7 @@ function CommonMain(){
             setisLoggedIn(false);
     }, [isLoggedIn])
     return(
-        <Outlet context={{isLoggedIn:isLoggedIn, userInfo:userInfo, setUserInfo:setUserInfo, getUserInfo:getUserInfo}}/>
+        <Outlet context={{isLoggedIn:isLoggedIn, userInfo:userInfo, setUserInfo:setUserInfo, getUserInfo:getUserInfo, logout:logout}}/>
     )
 }
 export default CommonMain;

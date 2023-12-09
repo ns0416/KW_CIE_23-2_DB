@@ -9,7 +9,7 @@ export default function NeglectReport() {
 
     return (
         <>
-<body scroll="yes" className={style.ie8m}>
+<div scroll="yes" className={style.ie8m}>
     {/* <div className={style.wrap" id="sub">   
 
     <!--웹 : 헤더추가--><div id="layer" className={style.layer-wrap" style={{display:none "> 
@@ -17,19 +17,7 @@ export default function NeglectReport() {
 	<div className={style.container}>
 		<div className={style.content}>
 			<div className={style.trouble}>
-			<div className={style.top}>
-				<div className={style.m_sub_header_wrap}>
-					<div className={style.m_sub_header}>
-						<button className={style.back}></button>
-						<button className={style.close}></button>
-						<span id="title">방치 신고</span>
-					</div>
-				</div>
-			
-				
-				
-				
-			</div>
+				<Header title={"방치 신고"}/>
 				<div className={style.my_box}>
 	            	<table>
 	            		<colgroup>
@@ -122,7 +110,7 @@ export default function NeglectReport() {
 					</div> 
 				</div>
 				<div className={style.my}>
-    				<div className={style.go}><a href="/app/err/getLeaveReportList.do">방치신고내역 보기</a></div>
+    				<div className={style.go}><Link to="/neglectReportList">방치신고내역 보기</Link></div>
     			</div>
 			</div>
 		</div>
@@ -132,7 +120,7 @@ export default function NeglectReport() {
     
 
 
-</body>
+</div>
         </>
     );
 }

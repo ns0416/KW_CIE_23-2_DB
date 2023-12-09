@@ -1,30 +1,17 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation,useOutletContext } from 'react-router-dom';
 import style from './noticeBoardMenu.module.css';
 import Header from '../../header.js';
+/*
 import Adnheader from '../../adnheader.js';
-
 import { useSelector,useDispatch } from "react-redux";
 import { Login, Logout } from '../../_redux_slice/loginslice';
-import axios from "axios";
+import axios from "axios";*/
 
 export default function NoticeBoardMenu() {
-	const dispatch = useDispatch();
-	function logout() {
-        // 로그아웃 처리
-        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/logout")
-        .then((res) => {
-            if(res.data.result== "success") {
-                dispatch(Logout());
-            }
-            else { //로그아웃 실패 출력
-                console.log(res.data);
-                console.log("logout result error!")
-            }
-        })
-        .catch((err) => console.log(err))
-    }
+	//const dispatch = useDispatch();
+	const Commons = useOutletContext();
     return (
     <>
     <div className={`${style.wrap} ${style.myleft}`} id="sub">
@@ -115,7 +102,16 @@ export default function NoticeBoardMenu() {
 
 </div>
 			<div className={style.my_menu}>
-				<Adnheader />
+				<Header title={""}/>
+				<dl className={style.profile}>
+                	<dd className={style.top_img}>
+                	    <img src='img/mypage_top_pic.png' />
+                	</dd>
+                	<dd className={style.user_title}>USER</dd>
+                	<dd className={style.name}>
+                	    <span>{Commons.userInfo["id"]}</span>
+                	</dd>
+            	</dl>
 				<form name="leftForm" method="POST">
 					<input type="hidden" id="ostype" name="appOsType" value="web" /> 
 					<input type="hidden" id="usrDeviceId" name="usrDeviceId" /> 
@@ -150,7 +146,7 @@ export default function NoticeBoardMenu() {
 				
 				<div className={style.logout_n}>
 							<span className={style.pic}>
-							<Link to={"/"} onClick={logout}>
+							<Link to={"/"} onClick={Commons.logout}>
 								로그아웃</Link>
 								<span className={style.tel}>
 									☎1599-0120</span>

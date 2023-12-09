@@ -72,7 +72,7 @@ export default function NeglectReportList() {
 
     return (
         <>
-<body id="app" scroll="yes" className={style.ie8m}>
+<div id="app" scroll="yes" className={style.ie8m}>
 <div className={style.wrap}>   
 	<Header title={"고장(장애)신고"}/>
 	<div className={style.container}>
@@ -118,7 +118,7 @@ export default function NeglectReportList() {
 	</div>
 </div>
 
-</body>
+</div>
         </>
     );
 }

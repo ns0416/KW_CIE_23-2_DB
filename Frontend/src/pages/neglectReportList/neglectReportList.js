@@ -9,25 +9,11 @@ export default function NeglectReportList() {
 
     return (
         <>
-<body scroll="yes" className={style.ie8m}>
+<div scroll="yes" className={style.ie8m}>
 
 <div className={`${style.wrap} ${style.my}`} id="sub">
 
-    <div className={style.header_wrap}>
-        <div className={style.header}>
-        	<div className={style.top}>
-				<div className={style.m_sub_header_wrap}>
-					<div className={style.m_sub_header}>
-						<button className={style.back}></button>
-						<button className={style.close}></button>
-						<span id="title">방치신고 내역</span>
-					</div>
-				</div>
-		
-			</div>
-			<div className={style.logo}><a href="/main.do"><img src="/images/logo.png" alt="서울자전거 따릉이" /></a></div>
-        </div>
-    </div>
+    <Header title={"방치 신고"}/>
     <div className={style.content}>
         <div className={style.my}>
              <div className={style.top}>
@@ -68,7 +54,7 @@ export default function NeglectReportList() {
         </div>
 	</div>
 </div>
-</body>
+</div>
         </>
     );
 }
