@@ -38,4 +38,16 @@ public class StationService implements StationDao {
 		// TODO Auto-generated method stub
 		return stationDao.getStationListNearby(x1, y1, x2, y2);
 	}
+
+	@Override
+	public int updateStation(Station station) {
+		// TODO Auto-generated method stub
+		return stationDao.updateStation(station);
+	}
+
+	@Override
+	public int insertStation(Station station) {
+		// TODO Auto-generated method stub
+		return stationDao.insertStation(station);
+	}
 }

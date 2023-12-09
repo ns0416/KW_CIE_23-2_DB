@@ -435,4 +435,34 @@ public class indexController {
 		}
 		return jo.toString();
 	}
+	@PostMapping("/rest/admin/registerMember")
+	public String registerMemberAdmin(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession();
+		JsonObject jo = new JsonObject();
+		Integer age = (Integer)body.get("age");
+		Integer weight = (Integer)body.get("weight");
+		
+		Member mem = new Member((String)body.get("pw"), (String)body.get("email"), (String)body.get("phone"), (String)body.get("sex"), age == null ? 0 : age, weight == null ? 0 : weight, (Boolean)body.get("is_lost"), (Boolean)body.get("isvalid"));
+		CommonEnum res = am.registerUser(mem, mem.getPw());
+		if(res == CommonEnum.SUCCESS)
+			jo.addProperty("result", "success");
+		else
+			jo.addProperty("result", "failed");
+		return jo.toString();
+	}
+	@PostMapping("/rest/admin/updateMember")
+	public String updateMemberAdmin(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession();
+		JsonObject jo = new JsonObject();
+		Integer age = (Integer)body.get("age");
+		Integer weight = (Integer)body.get("weight");
+		
+		Member mem = new Member((Integer)body.get("uid"), (String)body.get("pw"), (String)body.get("email"), (String)body.get("phone"), (String)body.get("sex"), age == null ? 0 : age, weight == null ? 0 : weight, (Boolean)body.get("is_lost"), (Boolean)body.get("isvalid"));
+		CommonEnum res = am.updateUserInfo(mem);
+		if(res == CommonEnum.SUCCESS)
+			jo.addProperty("result", "success");
+		else
+			jo.addProperty("result", "failed");
+		return jo.toString();
+	}
 }

@@ -85,12 +85,27 @@
             s.uid
             ]]>
     </select>
-
+	<insert id="insertStation" parameterType="com.bikeseoul.bikeseoul_kw.container.Station">
+        INSERT INTO
+            station (station_name, lat, lon, size, station_type)
+        VALUES
+            (#{station_name}, #{lat}, #{lon}, #{size}, #{station_type})
+    </insert>
     <insert id="insertFavoriteStation" parameterType="com.bikeseoul.bikeseoul_kw.container.Station">
         INSERT INTO
             station_favorite (station_uid, user_uid)
         VALUES
             (#{station_uid}, #{user_uid})
     </insert>
-
+	<update id="updateStation" parameterType="com.bikeseoul.bikeseoul_kw.container.Station">
+		UPDATE
+			station
+		SET
+			size = #{size},
+			station_type = #{station_type},
+			is_valid = #{is_valid}
+		WHERE
+			uid = #{uid}
+	</update>
+	
 </mapper>

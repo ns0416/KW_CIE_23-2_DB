@@ -1,5 +1,6 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
+import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
 import com.bikeseoul.bikeseoul_kw.container.Member;
 import com.bikeseoul.bikeseoul_kw.container.Station;
 import com.bikeseoul.bikeseoul_kw.container.station_type;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -188,4 +190,32 @@ public class StationController {
         }
         return jo.toString();
     }
+    
+   @PostMapping("/rest/admin/insertStation")
+   public String insertStation(HttpServletRequest request, @RequestParam HashMap<String, Object> body) {
+	   JsonObject jo = new JsonObject();
+       HttpSession hs = request.getSession();
+       Station station = new Station((String)body.get("station_name"), (Double)body.get("lat"), (Double)body.get("lon"), (Integer)body.get("size"), station_type.valueOf((String)body.get("station_type")));
+       CommonEnum res = stationManager.insertStation(station);
+       if(res == CommonEnum.SUCCESS)
+			jo.addProperty("result", "success");
+		else
+			jo.addProperty("result", "failed");
+		return jo.toString();
+   }
+   @PostMapping("/rest/admin/updateStation")
+	public String updateStationAdmin(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		HttpSession hs = request.getSession();
+		JsonObject jo = new JsonObject();
+		Integer age = (Integer)body.get("age");
+		Integer weight = (Integer)body.get("weight");
+		
+	    Station station = new Station((String)body.get("station_name"), (Double)body.get("lat"), (Double)body.get("lon"), (Integer)body.get("size"), station_type.valueOf((String)body.get("station_type")), (Boolean)body.get("is_valid"));
+		CommonEnum res = stationManager.updateStation(station);
+		if(res == CommonEnum.SUCCESS)
+			jo.addProperty("result", "success");
+		else
+			jo.addProperty("result", "failed");
+		return jo.toString();
+	}
 }
