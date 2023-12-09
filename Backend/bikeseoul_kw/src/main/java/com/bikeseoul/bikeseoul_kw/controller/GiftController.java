@@ -53,7 +53,7 @@ public class GiftController {
             List<Pair<Ticket, Gift>> receivedGiftList = giftManager.getReceivedGiftList(receiver_uid);
             for(Pair<Ticket, Gift> pair:receivedGiftList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("gift_id", pair.getSecond().getUid());
+                item.addProperty("gift_uid", pair.getSecond().getUid());
                 item.addProperty("giver_uid", pair.getSecond().getGiver_uid());
                 item.addProperty("receiver_uid", pair.getSecond().getReceiver_uid());
                 item.addProperty("ticket_id", pair.getSecond().getTicket_uid());
@@ -90,7 +90,7 @@ public class GiftController {
             List<Pair<Ticket, Gift>> receivedGiftList = giftManager.getReceivedGiftList(giver_uid);
             for(Pair<Ticket, Gift> pair:receivedGiftList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("gift_id", pair.getSecond().getUid());
+                item.addProperty("gift_uid", pair.getSecond().getUid());
                 item.addProperty("giver_uid", pair.getSecond().getGiver_uid());
                 item.addProperty("receiver_uid", pair.getSecond().getReceiver_uid());
                 item.addProperty("ticket_id", pair.getSecond().getTicket_uid());

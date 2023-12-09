@@ -37,7 +37,7 @@ public class StationController {
         try {
             Station station = stationManager.getStationInfo(station_id);
             JsonObject item = new JsonObject();
-            item.addProperty("station_id", station.getUid());
+            item.addProperty("station_uid", station.getUid());
             item.addProperty("station_name", station.getStation_name());
             item.addProperty("lat", station.getLat());
             item.addProperty("lon", station.getLon());
@@ -72,7 +72,7 @@ public class StationController {
             JsonArray ja = new JsonArray();
             for (Station station : stationList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("station_id", station.getUid());
+                item.addProperty("station_uid", station.getUid());
                 item.addProperty("station_name", station.getStation_name());
                 item.addProperty("lat", station.getLat());
                 item.addProperty("lon", station.getLon());
@@ -81,7 +81,7 @@ public class StationController {
                 item.addProperty("station_type", station.getStation_type().toString());
                 item.addProperty("general_cnt", station.getGeneral_cnt());
                 item.addProperty("sprout_cnt", station.getSprout_cnt());
-                item.addProperty("favorite_user_uid", station.getFavorite_user_uid());
+//                item.addProperty("favorite_user_uid", station.getFavorite_user_uid());
                 item.addProperty("favorite_created_date", station.getFavorite_created_date().format(dtf_kor));
                 ja.add(item);
             }
@@ -120,7 +120,7 @@ public class StationController {
             JsonArray ja = new JsonArray();
             for (Station station : stationList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("station_id", station.getUid());
+                item.addProperty("station_uid", station.getUid());
                 item.addProperty("station_name", station.getStation_name());
                 item.addProperty("lat", station.getLat());
                 item.addProperty("lon", station.getLon());
@@ -157,7 +157,7 @@ public class StationController {
             JsonArray ja = new JsonArray();
             for (Station station : stationList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("station_id", station.getUid());
+                item.addProperty("station_uid", station.getUid());
                 item.addProperty("station_name", station.getStation_name());
                 item.addProperty("lat", station.getLat());
                 item.addProperty("lon", station.getLon());
