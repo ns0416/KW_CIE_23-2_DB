@@ -29,8 +29,8 @@ public class Station extends CommonData{
         this.size = size;
         this.station_type = station_type;
     }
-    public Station(String station_name, double lat, double lon, int size, station_type station_type, boolean is_valid) {
-        super(0, null);
+    public Station(int uid, String station_name, double lat, double lon, int size, station_type station_type, boolean is_valid) {
+        super(uid, null);
         this.station_name = station_name;
         this.lat = lat;
         this.lon = lon;

@@ -204,9 +204,8 @@ public class StationController {
     }
     
    @PostMapping("/rest/admin/insertStation")
-   public String insertStation(HttpServletRequest request, @RequestParam HashMap<String, Object> body) {
+   public String insertStation(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
 	   JsonObject jo = new JsonObject();
-       HttpSession hs = request.getSession();
        Station station = new Station((String)body.get("station_name"), (Double)body.get("lat"), (Double)body.get("lon"), (Integer)body.get("size"), station_type.valueOf((String)body.get("station_type")));
        CommonEnum res = stationManager.insertStation(station);
        if(res == CommonEnum.SUCCESS)
@@ -217,12 +216,8 @@ public class StationController {
    }
    @PostMapping("/rest/admin/updateStation")
 	public String updateStationAdmin(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
-		HttpSession hs = request.getSession();
 		JsonObject jo = new JsonObject();
-		Integer age = (Integer)body.get("age");
-		Integer weight = (Integer)body.get("weight");
-		
-	    Station station = new Station((String)body.get("station_name"), (Double)body.get("lat"), (Double)body.get("lon"), (Integer)body.get("size"), station_type.valueOf((String)body.get("station_type")), (Boolean)body.get("is_valid"));
+	    Station station = new Station((Integer)body.get("uid"),(String)body.get("station_name"), (Double)body.get("lat"), (Double)body.get("lon"), (Integer)body.get("size"), station_type.valueOf((String)body.get("station_type")), (Boolean)body.get("is_valid"));
 		CommonEnum res = stationManager.updateStation(station);
 		if(res == CommonEnum.SUCCESS)
 			jo.addProperty("result", "success");

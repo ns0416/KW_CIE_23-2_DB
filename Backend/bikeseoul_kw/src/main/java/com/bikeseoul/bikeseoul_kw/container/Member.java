@@ -13,9 +13,9 @@ public class Member extends User{
 		this.age = age;
 		this.weight = weight;
 	}
-	public Member(String pw, String email, String phone, String sex, int age, int weight,
+	public Member(String id, String pw, String email, String phone, String sex, int age, int weight,
 			boolean is_lost, boolean isvalid) {
-			super(0, null, pw, email, phone, 1, isvalid, is_lost, null);
+			super(0, id, pw, email, phone, 1, isvalid, is_lost, null);
 			// TODO Auto-generated constructor stub
 			this.sex = sex;
 			this.age = age;

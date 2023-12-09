@@ -97,7 +97,7 @@ public class ServiceManager {
 		//return CommonEnum.FAILED;
 	}
 	public JsonObject requestFindpath(double s_lon, double s_lat, double d_lon, double d_lat) {
-		String url = "http://127.0.0.1:5000/findpath";
+		String url = "http://ai_develop.namisnt.com:5000/findpath";
 		UriComponentsBuilder url_builder = UriComponentsBuilder.fromHttpUrl(url);
 		url_builder.queryParam("s_lon", s_lon);
 		url_builder.queryParam("s_lat", s_lat);

@@ -495,7 +495,7 @@ public class indexController {
 		Integer age = (Integer)body.get("age");
 		Integer weight = (Integer)body.get("weight");
 		
-		Member mem = new Member((String)body.get("pw"), (String)body.get("email"), (String)body.get("phone"), (String)body.get("sex"), age == null ? 0 : age, weight == null ? 0 : weight, (Boolean)body.get("is_lost"), (Boolean)body.get("isvalid"));
+		Member mem = new Member((String)body.get("id"),(String)body.get("pw"), (String)body.get("email"), (String)body.get("phone"), (String)body.get("sex"), age == null ? 0 : age, weight == null ? 0 : weight, (Boolean)body.get("is_lost"), (Boolean)body.get("isvalid"));
 		CommonEnum res = am.registerUser(mem, mem.getPw());
 		if(res == CommonEnum.SUCCESS)
 			jo.addProperty("result", "success");

@@ -103,6 +103,7 @@
 		UPDATE
 			station
 		SET
+			station_name = #{station_name},
 			size = #{size},
 			station_type = #{station_type},
 			is_valid = #{is_valid}

@@ -107,7 +107,7 @@
 			member
 		<trim prefix="SET" suffixOverrides=",">
 				<if test="pw != null">
-					pw = #{pw},
+					pw = SHA2(#{pw}, 256),
 				</if>
 				<if test="email != null">
 					email = #{email},
