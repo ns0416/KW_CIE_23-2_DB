@@ -6,10 +6,11 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import {useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function AdminStationModify() {
+    const navigate = useNavigate();
     const params  = useParams();
     const station_uid = params.uid;
     const [Station_info,setStationinfo] = useState({
@@ -20,8 +21,6 @@ function AdminStationModify() {
         size:"",
         is_valid:"",
         station_type:"",
-        general_cnt:"",
-        sprout_cnt:"",
     });
 
     useEffect(()=>{
@@ -32,7 +31,6 @@ function AdminStationModify() {
         axios.get('http://seoulbike-kw.namisnt.com:8082/rest/getStationInfo', {params: {station_id: station_uid},})
         .then((res) => {
             if(res.data.result== "success") {
-                console.log(res.data);
                 setStationinfo({...res.data.data,
                     [res.data.data.name]:res.data.data.value});
             }
@@ -42,34 +40,46 @@ function AdminStationModify() {
             }
         })
         .catch((err) => console.log(err))
+        
     }, []);
 
     function Submithandler(e){
         e.preventDefault();
         const form = e.currentTarget;
-        const Station_info = {
+        const Station_infonew = {
+            uid:Number(station_uid),
             station_name:form.station_name.value,
             lat:Number(form.lat.value),
             lon:Number(form.lon.value),
             size:Number(form.size.value),
-            is_valid:Number(form.is_valid.value),
+            is_valid:Boolean(form.is_valid.value),
             station_type:form.station_type.value,
-            general_cnt:Number(form.general_cnt.value),
-            sprout_cnt:Number(form.sprout_cnt.value),
         };
-        console.log(Station_info);
+        console.log(Station_infonew);
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/updateStation", Station_infonew)
+        .then((res) => {
+            if(res.data.result == "success") {
+                alert("대여소 수정 완료");
+                navigate('/admin/station');
+            }
+            else {
+                alert("대여소 수정 실패");
+            }
+        })
+        .catch((err) => console.log(err))
+
         
     }
     return(
         <>
         <AdminNavbar/>
         <Container>
-            <h3 style={{fontWeight: "bold", margin: "30px 0"}}>대여소 추가</h3>
+            <h3 style={{fontWeight: "bold", margin: "30px 0"}}>대여소 수정</h3>
             <div>
             <Form noValidate onSubmit={Submithandler}>
             <Form.Group className="mb-3" controlId="station_name">
                 <Form.Label><b>대여소 이름</b></Form.Label>
-                <Form.Control required type="text" defaultValue={Station_info.station_id} placeholder="대여소 명" />
+                <Form.Control required type="text" defaultValue={Station_info.station_name} placeholder="대여소 명" />
             </Form.Group>
             <Row>
                 <Col>
@@ -91,21 +101,13 @@ function AdminStationModify() {
             </Form.Group>
             <Form.Group controlId="is_valid">
                 <Form.Label><b>대여소 운영 여부</b>&nbsp;0: 비활성, 1:활성</Form.Label>
-                <Form.Control required type="number" defaultValue={Station_info.is_valid} min="0" max="1" />
+                <Form.Control required type="number" defaultValue={1} min="0" max="1" />
             </Form.Group>
             <Form.Group controlId="station_type">
                 <Form.Label><b>대여소 타입</b></Form.Label>
                 <Form.Control required type="text" defaultValue={Station_info.station_type} placeholder="대여소 타입" />
             </Form.Group>
-            <Form.Group controlId="general_cnt">
-                <Form.Label><b>일반자전거 수</b></Form.Label>
-                <Form.Control required type="number" defaultValue={Station_info.general_cnt} placeholder="일반자전거 수"/>
-            </Form.Group>
-            <Form.Group controlId="sprout_cnt">
-                <Form.Label><b>새싹자전거 수</b></Form.Label>
-                <Form.Control required type="number" defaultValue={Station_info.sprout_cnt} placeholder="새싹자전거 수"/>
-            </Form.Group>
-            <Button type="submit" style={{float: "right"}}>추가하기</Button>
+            <Button type="submit" style={{float: "right"}}>수정하기</Button>
             </Form>
             </div>
         </Container>

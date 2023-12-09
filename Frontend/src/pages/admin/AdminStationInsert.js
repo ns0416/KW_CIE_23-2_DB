@@ -6,10 +6,11 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import {useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function AdminStationInsert() {
+    const navigate = useNavigate();
     // const params  = useParams();
     // const station_uid = params.uid;
     // const [Station_info,setStationinfo] = useState({
@@ -52,13 +53,20 @@ function AdminStationInsert() {
             lat:Number(form.lat.value),
             lon:Number(form.lon.value),
             size:Number(form.size.value),
-            is_valid:Number(form.is_valid.value),
             station_type:form.station_type.value,
-            general_cnt:Number(form.general_cnt.value),
-            sprout_cnt:Number(form.sprout_cnt.value),
         };
         console.log(Station_info);
-        
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/insertStation", Station_info)
+            .then((res) => {
+                if(res.data.result == "success") {
+                    alert("대여소 추가 완료");
+                    navigate('/admin/station');
+                }
+                else {
+                    alert("대여소 추가 실패");
+                }
+            })
+            .catch((err) => console.log(err))
     }
     return(
         <>
@@ -89,21 +97,9 @@ function AdminStationInsert() {
                 <Form.Label><b>대여소 규모</b></Form.Label>
                 <Form.Control required type="number" placeholder="대여소 규모" />
             </Form.Group>
-            <Form.Group controlId="is_valid">
-                <Form.Label><b>대여소 운영 여부</b>&nbsp;0: 비활성, 1:활성</Form.Label>
-                <Form.Control required type="number" min="0" max="1" />
-            </Form.Group>
             <Form.Group controlId="station_type">
                 <Form.Label><b>대여소 타입</b></Form.Label>
                 <Form.Control required type="text" placeholder="대여소 타입" />
-            </Form.Group>
-            <Form.Group controlId="general_cnt">
-                <Form.Label><b>일반자전거 수</b></Form.Label>
-                <Form.Control required type="number" placeholder="일반자전거 수"/>
-            </Form.Group>
-            <Form.Group controlId="sprout_cnt">
-                <Form.Label><b>새싹자전거 수</b></Form.Label>
-                <Form.Control required type="number" placeholder="새싹자전거 수"/>
             </Form.Group>
             <Button type="submit" style={{float: "right"}}>추가하기</Button>
             </Form>

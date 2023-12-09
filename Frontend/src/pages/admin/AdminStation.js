@@ -24,7 +24,7 @@ function AdminStation()
 				//console.log(res.data.data);
 				setstations(res.data.data);
             }
-            else { //게시판 조회 실패
+            else { //대여소 조회 실패
                 //console.log(res.data);
                 console.log("get station error!")
             }
@@ -95,7 +95,7 @@ function AdminStation()
                                     <td>{a.size}</td>
                                     <td>{a.is_valid ? ("O"):("X")}</td>
                                     <td>{a.station_type}</td>
-                                    <td style={{textAlign:"center"}}><Link to='/'><Button variant="outline-primary">수정하기</Button>{' '}</Link><Button variant="outline-danger">삭제하기</Button>{' '}</td>								
+                                    <td style={{textAlign:"center"}}><Link to={{pathname: "/admin/stationModify/"+a.station_uid}}><Button variant="outline-primary">수정하기</Button>{' '}</Link></td>								
                                 </tr>
 							</>)
 						})}
