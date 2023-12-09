@@ -15,13 +15,13 @@
             t.ticket_type,
             t.hours
         FROM
-            ticket_gift as g
+            ticket_gift AS g
         JOIN
-            ticket as t
+            ticket AS t
         ON
             g.ticket_uid = t.ticket_id
         WHERE
-            receiver_uid = #{receiver_uid}
+            g.receiver_uid = #{receiver_uid}
 
     </select>
 
@@ -37,13 +37,13 @@
             t.ticket_type,
             t.hours
         FROM
-            ticket_gift as g
+            ticket_gift AS g
         JOIN
-            ticket as t
+            ticket AS t
         ON
             g.ticket_uid = t.ticket_id
         WHERE
-            giver_uid = #{giver_uid}
+            g.giver_uid = #{giver_uid}
     </select>
     <select id="getGiftInfo" resultType="com.bikeseoul.bikeseoul_kw.container.Gift">
         SELECT
