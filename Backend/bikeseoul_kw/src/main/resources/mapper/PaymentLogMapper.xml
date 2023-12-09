@@ -14,7 +14,7 @@
             log.created_date AS log_created_date,
             log.updated_date AS log_updated_date,
             method.method_name,
-            method.created_date AS method_created_date,
+            method.created_date AS method_created_date
         FROM
             payment_log AS log
         JOIN
@@ -36,7 +36,7 @@
             log.created_date AS log_created_date,
             log.updated_date AS log_updated_date,
             method.method_name,
-            method.created_date AS method_created_date,
+            method.created_date AS method_created_date
         FROM
             payment_log AS log
         JOIN

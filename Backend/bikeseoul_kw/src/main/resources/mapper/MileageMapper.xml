@@ -5,7 +5,7 @@
 <mapper namespace="com.bikeseoul.bikeseoul_kw.dao.MileageDao">
     <select id="getMileageList" resultType="com.bikeseoul.bikeseoul_kw.container.Mileage">
         SELECT
-            m.uid m.member_uid, m.amount, m.created_date
+            m.uid, m.member_uid, m.amount, m.created_date
         FROM
             mileage AS m
         WHERE
