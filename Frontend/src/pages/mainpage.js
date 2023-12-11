@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useOutletContext} from 'react-router-dom';
 import style from './mainpage.module.css';
 import MapNaverDefault from '../components/mapNaverDefault';
 import { Container as MapDiv } from 'react-naver-maps';
 
 export default function Mainpage(props) {
+	const Commons = useOutletContext();
     //const [isLoggedIn, setisLoggedIn] = React.useState(false);
 	//const isLoggedIn = useSelector((state) => state.logged.value);
 	const [locations, setLocations] = useState();
@@ -99,9 +100,14 @@ export default function Mainpage(props) {
 			</div>
 			
 		</div>
-		<div style={{height:"60px", width:"100%", background:"white", position:"fixed", bottom:"0", zIndex:"999"}}>
+		{Commons.isLoggedIn == true && Commons.userInfo != null ? 
+			<div style={{height:"60px", width:"100%", background:"white", position:"fixed", bottom:"0", zIndex:"999"}}>
 				<button type="submit" style={{margin:"auto", display:"block", lineHeight:"40px", marginTop:"7px", background:"#2D9D5D", borderRadius:"27.5px", width:"130px", border:"3px solid #2D7245", color:"white", fontSize:"15px", fontWeight:"bold"}}>대여하기</button>
 			</div>
+			:
+			""
+		}
+		
 		
 		<div className={style.container} id="main">
 			<div className={style.map} id="mapDiv" style={{height: "844px", position: "relative", overflow: "hidden", background: "rgb(248, 249, 250)"}}>

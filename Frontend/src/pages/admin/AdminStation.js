@@ -42,7 +42,7 @@ function AdminStation()
     }
 
     function moveInsert() {
-        navigate('/admin/stationInsert');
+        navigate('/admin/stationModify');
     }
     return (
         <>
@@ -86,8 +86,8 @@ function AdminStation()
                     <td style={{textAlign:"center"}}><Link to='/'><Button variant="outline-primary">수정하기</Button>{' '}</Link><Button variant="outline-danger">삭제하기</Button>{' '}</td> */}
                 </tr>
                 {stations.map(function(a,idx) {
-							return (<>
-								<tr>
+							return (
+								<tr key={idx}>
 									<td>{idx+1}</td>
 									<td>{a.station_name}</td>
                                     <td>{a.lat}</td>
@@ -95,9 +95,9 @@ function AdminStation()
                                     <td>{a.size}</td>
                                     <td>{a.is_valid ? ("O"):("X")}</td>
                                     <td>{a.station_type}</td>
-                                    <td style={{textAlign:"center"}}><Link to={{pathname: "/admin/stationModify/"+a.station_uid}}><Button variant="outline-primary">수정하기</Button>{' '}</Link></td>								
+                                    <td style={{textAlign:"center"}}><Link to={{pathname: "/admin/stationModify/"+a.station_uid}}><Button variant="outline-primary">수정하기</Button></Link></td>								
                                 </tr>
-							</>)
+							)
 						})}
             </tbody>
         </Table>

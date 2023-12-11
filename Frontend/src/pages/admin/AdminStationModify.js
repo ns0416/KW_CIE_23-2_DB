@@ -19,11 +19,64 @@ function AdminStationModify() {
         lat:"",
         lon:"",
         size:"",
-        is_valid:"",
+        is_valid:false,
         station_type:"",
     });
 
-    useEffect(()=>{
+    const onChangeHandler = (e) =>{
+        setStationinfo({...Station_info, [e.target.name] : e.target.value});
+    }
+    const onSwitchHandler = (e) =>{
+        setStationinfo({...Station_info, [e.target.name] : !Station_info[e.target.name]});
+    }
+
+    const insertStation = ()=>{
+        //const form = e.currentTarget;
+        const Station_info = {
+            station_name:Station_info.station_name,
+            lat:Number(Station_info.lat),
+            lon:Number(Station_info.lon),
+            size:Number(Station_info.size),
+            station_type:Station_info.station_type,
+        };
+        console.log(Station_info);
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/insertStation", Station_info)
+            .then((res) => {
+                if(res.data.result == "success") {
+                    alert("대여소 추가 완료");
+                    navigate('/admin/station');
+                }
+                else {
+                    alert("대여소 추가 실패");
+                }
+            })
+            .catch((err) => console.log(err))
+    }
+    const modifyStation = ()=>{
+        const Station_infonew = {
+            uid:Number(station_uid),
+            station_name:Station_info.station_name,
+            lat:Number(Station_info.lat),
+            lon:Number(Station_info.lon),
+            size:Number(Station_info.size),
+            is_valid:Boolean(Station_info.is_valid),
+            station_type:Station_info.station_type,
+        };
+        console.log(Station_infonew);
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/updateStation", Station_infonew)
+        .then((res) => {
+            if(res.data.result == "success") {
+                alert("대여소 수정 완료");
+                navigate('/admin/station');
+            }
+            else {
+                alert("대여소 수정 실패");
+            }
+        })
+        .catch((err) => console.log(err))
+
+    }
+    const getStationInfo = ()=>{
         if (station_uid === 0)
         {
             return;
@@ -40,72 +93,58 @@ function AdminStationModify() {
             }
         })
         .catch((err) => console.log(err))
+    }
+
+    useEffect(()=>{
+        getStationInfo();
         
     }, []);
 
     function Submithandler(e){
         e.preventDefault();
-        const form = e.currentTarget;
-        const Station_infonew = {
-            uid:Number(station_uid),
-            station_name:form.station_name.value,
-            lat:Number(form.lat.value),
-            lon:Number(form.lon.value),
-            size:Number(form.size.value),
-            is_valid:Boolean(form.is_valid.value),
-            station_type:form.station_type.value,
-        };
-        console.log(Station_infonew);
-        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/updateStation", Station_infonew)
-        .then((res) => {
-            if(res.data.result == "success") {
-                alert("대여소 수정 완료");
-                navigate('/admin/station');
-            }
-            else {
-                alert("대여소 수정 실패");
-            }
-        })
-        .catch((err) => console.log(err))
-
         
+        if (station_uid == 0){
+            modifyStation();
+        }else{
+            insertStation();
+        }
     }
     return(
         <>
         <AdminNavbar/>
         <Container>
-            <h3 style={{fontWeight: "bold", margin: "30px 0"}}>대여소 수정</h3>
+            <h3 style={{fontWeight: "bold", margin: "30px 0"}}>{station_uid != undefined && station_uid > 0 ? "대여소 수정" : "대여소 추가"}</h3>
             <div>
             <Form noValidate onSubmit={Submithandler}>
             <Form.Group className="mb-3" controlId="station_name">
                 <Form.Label><b>대여소 이름</b></Form.Label>
-                <Form.Control required type="text" defaultValue={Station_info.station_name} placeholder="대여소 명" />
+                <Form.Control required type="text" defaultValue={Station_info.station_name} name="station_name" onChange={onChangeHandler} placeholder="대여소 명" />
             </Form.Group>
             <Row>
                 <Col>
                     <Form.Group controlId="lat">
                         <Form.Label><b>위도</b></Form.Label>
-                        <Form.Control required type="number" defaultValue={Station_info.lat} placeholder="위도" />
+                        <Form.Control required type="number" defaultValue={Station_info.lat} name="lat" onChange={onChangeHandler}placeholder="위도" />
                     </Form.Group>
                 </Col>
                 <Col>
                     <Form.Group controlId="lon">
                         <Form.Label><b>경도</b></Form.Label>
-                        <Form.Control required type="number" defaultValue={Station_info.lon} placeholder="경도" />
+                        <Form.Control required type="number" defaultValue={Station_info.lon} name="lon" onChange={onChangeHandler} placeholder="경도" />
                     </Form.Group>
                 </Col>
             </Row>
             <Form.Group controlId="size">
                 <Form.Label><b>대여소 규모</b></Form.Label>
-                <Form.Control required type="number" defaultValue={Station_info.size} placeholder="대여소 규모" />
+                <Form.Control required type="number" defaultValue={Station_info.size} name="size" onChange={onChangeHandler} placeholder="대여소 규모" />
             </Form.Group>
             <Form.Group controlId="is_valid">
-                <Form.Label><b>대여소 운영 여부</b>&nbsp;0: 비활성, 1:활성</Form.Label>
-                <Form.Control required type="number" defaultValue={1} min="0" max="1" />
+                <Form.Label><b>대여소 운영 여부</b></Form.Label>
+                <Form.Check required type="switch" defaultValue={Station_info.is_valid} name="is_valid" onChange={onSwitchHandler}/>
             </Form.Group>
             <Form.Group controlId="station_type">
                 <Form.Label><b>대여소 타입</b></Form.Label>
-                <Form.Control required type="text" defaultValue={Station_info.station_type} placeholder="대여소 타입" />
+                <Form.Control required type="text" defaultValue={Station_info.station_type} name="station_type" onChange={onChangeHandler} placeholder="대여소 타입" />
             </Form.Group>
             <Button type="submit" style={{float: "right"}}>수정하기</Button>
             </Form>

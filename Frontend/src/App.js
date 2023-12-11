@@ -81,10 +81,10 @@ function App() {
           <Route path="/moveUseMenuInsurance" exact element={<MoveUseMenuInsurance/>} />
           <Route path="/moveUseMenuClauseInfo" exact element={<MoveUseMenuClauseInfo/>} />
           <Route path="/admin/station" exact element={<AdminStation/>}/>
-          <Route path="/admin/stationInsert" exact element={<AdminStationInsert/>}/>
           <Route path="/admin/stationModify/:uid" exact element={<AdminStationModify/>}/>
+          <Route path="/admin/stationModify" exact element={<AdminStationModify/>}/>
           <Route path="/admin/member" exact element={<AdminMember/>}/>
-          <Route path="/admin/memberInsert" exact element={<AdminMemberInsert/>}/>
+          <Route path="/admin/memberInsert/:uid" exact element={<AdminMemberInsert/>}/>
           
           
         </Route>        

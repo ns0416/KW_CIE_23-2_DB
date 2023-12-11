@@ -46,10 +46,10 @@ function AdminMember()
         <AdminNavbar/>
 
         <Container style={{marginTop:"30px", marginBottom: "30px"}}>
-            <div class="input-group">
-            <span class="input-group-text" id="basic-addon1">회원검색</span>
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" value={queryword} onChange={changehandler}/>
-                <button type="button" class="btn btn-primary" onClick={Search}>검색</button>
+            <div className="input-group">
+            <span className="input-group-text" id="basic-addon1">회원검색</span>
+                <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" value={queryword} onChange={changehandler}/>
+                <button type="button" className="btn btn-primary" onClick={Search}>검색</button>
                 <span style={{marginLeft: "10px"}}><Button onClick={moveInsert}>회원 추가</Button></span>
             </div>
         </Container>
@@ -86,8 +86,8 @@ function AdminMember()
                     <td style={{textAlign:"center"}}><Button variant="primary">수정하기</Button>{' '}</td>
                 </tr>
                 {members.map(function(a,idx) {
-							return (<>
-								<tr>
+							return (
+								<tr key={idx}>
 									<td>{idx+1}</td>
                                     <td>{a.id}</td>
                                     <td>{a.email}</td>
@@ -98,9 +98,9 @@ function AdminMember()
                                     <td>{a.weight}</td>
                                     <td>{a.is_lost ? ("O"):("X")}</td>
                                     <td>{a.is_valid ? ("O"):("X")}</td>
-                                    <td style={{textAlign:"center"}}><Link to={{pathname: "/admin/memberModify/"+a.station_uid}}><Button variant="outline-primary">수정하기</Button>{' '}</Link></td>								
+                                    <td style={{textAlign:"center"}}><Link to={{pathname: "/admin/memberModify/"+a.uid}}><Button variant="outline-primary">수정하기</Button>{' '}</Link></td>								
                                 </tr>
-							</>)
+							)
 						})}
             </tbody>
         </Table>
