@@ -26,8 +26,8 @@ public class StationManager {
         return stationService.getStationList();
     }
 
-    public List<Station> getStationList(String station_name) {
-        return stationService.getStationList(station_name);
+    public List<Station> getStationList(String station_name, boolean lent) {
+        return stationService.getStationList(station_name, lent);
     }
 
     public List<Station> getStationListNearby(double x, double y, double radius) {
@@ -43,5 +43,8 @@ public class StationManager {
     }
     public CommonEnum updateStation(Station station) {
     	return stationService.updateStation(station) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+    }
+    public CommonEnum deleteStation(int station_uid) {
+    	return stationService.deleteStation(station_uid) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
     }
 }

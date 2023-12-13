@@ -19,7 +19,7 @@ function AdminNavbar() {
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <button onClick={Commons.logout}>로그아웃</button>
+      <button className='ms-2' onClick={Commons.logout}>로그아웃</button>
     </Navbar>
   );
 }

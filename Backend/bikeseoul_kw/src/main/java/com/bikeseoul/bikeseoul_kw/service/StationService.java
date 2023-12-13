@@ -29,8 +29,8 @@ public class StationService implements StationDao {
     }
 
     @Override
-    public List<Station> getStationList(String station_name) {
-        return stationDao.getStationList(station_name);
+    public List<Station> getStationList(String station_name, boolean lent) {
+        return stationDao.getStationList(station_name, lent);
     }
 
     @Override
@@ -54,5 +54,11 @@ public class StationService implements StationDao {
 	public int insertStation(Station station) {
 		// TODO Auto-generated method stub
 		return stationDao.insertStation(station);
+	}
+
+	@Override
+	public int deleteStation(int uid) {
+		// TODO Auto-generated method stub
+		return stationDao.deleteStation(uid);
 	}
 }

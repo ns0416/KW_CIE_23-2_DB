@@ -97,7 +97,7 @@ public class StationController {
 
     @GetMapping("/rest/getStationList")
     @ResponseBody
-    public String getStationList(HttpServletRequest request, @RequestParam(value = "station_name", required = false) String station_name) {
+    public String getStationList(HttpServletRequest request, @RequestParam(value = "station_name", required = false) String station_name, @RequestParam(value = "lent", required = false) Integer lent) {
         JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
         Member mem = (Member)hs.getAttribute("member");
@@ -111,11 +111,13 @@ public class StationController {
             return jo.toString();
         }
         try {
+        	if(lent == null)
+        		lent = 0;
             List<Station> stationList;
-            if(level == 9999 && station_name == null){
-                stationList = stationManager.getStationList();
+            if(level == 9999){
+                stationList = stationManager.getStationList(station_name, lent == 0 ? false : true);
             }else{
-                stationList = stationManager.getStationList(station_name);
+                stationList = stationManager.getStationList(station_name, true);
             }
             JsonArray ja = new JsonArray();
             for (Station station : stationList) {
@@ -223,6 +225,21 @@ public class StationController {
 			jo.addProperty("result", "success");
 		else
 			jo.addProperty("result", "failed");
+		return jo.toString();
+	}
+   @PostMapping("/rest/admin/deleteStation")
+	public String deleteStationAdmin(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+		JsonObject jo = new JsonObject();
+		try {
+			CommonEnum res = stationManager.deleteStation((Integer)body.get("station_uid"));
+			if(res == CommonEnum.SUCCESS)
+				jo.addProperty("result", "success");
+			else
+				jo.addProperty("result", "failed");
+		}catch(Exception e) {
+			e.printStackTrace();
+			jo.addProperty("result", "failed");
+		}
 		return jo.toString();
 	}
 }

@@ -84,7 +84,8 @@ function App() {
           <Route path="/admin/stationModify/:uid" exact element={<AdminStationModify/>}/>
           <Route path="/admin/stationModify" exact element={<AdminStationModify/>}/>
           <Route path="/admin/member" exact element={<AdminMember/>}/>
-          <Route path="/admin/memberInsert/:uid" exact element={<AdminMemberInsert/>}/>
+          <Route path="/admin/memberInsert" exact element={<AdminMemberInsert/>}/>
+          <Route path="/admin/memberModify/:uid" exact element={<AdminMemberInsert/>}/>
           
           
         </Route>        
