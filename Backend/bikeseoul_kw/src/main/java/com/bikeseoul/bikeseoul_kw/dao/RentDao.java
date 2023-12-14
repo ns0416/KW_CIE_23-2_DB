@@ -21,6 +21,6 @@ public interface RentDao {
     int updateBikeInfo(Bike bike);
     List<Rent> getRentInfo(int rent_uid, int bike_uid, int ticket_detail_uid);
     int insertOverdue(Overdue overdue);
-    List<Breakdown> getBreakdownList(int uid);
-    List<Neglect> getNeglectList(int uid);
+    List<Breakdown> getBreakdownList(int member_uid);
+    List<Neglect> getNeglectList(int member_uid);
 }

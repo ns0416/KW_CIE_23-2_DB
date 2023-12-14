@@ -75,12 +75,12 @@ public class RentService implements RentDao {
 	}
 
 	@Override
-	public List<Breakdown> getBreakdownList(int uid) {
-		return rentDao.getBreakdownList(uid);
+	public List<Breakdown> getBreakdownList(int member_uid) {
+		return rentDao.getBreakdownList(member_uid);
 	}
 
 	@Override
-	public List<Neglect> getNeglectList(int uid) {
-		return rentDao.getNeglectList(uid);
+	public List<Neglect> getNeglectList(int member_uid) {
+		return rentDao.getNeglectList(member_uid);
 	}
 }

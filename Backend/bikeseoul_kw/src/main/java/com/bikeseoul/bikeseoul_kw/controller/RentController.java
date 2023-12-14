@@ -316,4 +316,62 @@ public class RentController {
         }
         return jo.toString();
     }
+
+    @GetMapping("/rest/service/getBreakdownList")
+    public String getUserBreakdownList(HttpServletRequest request) {
+    	JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        Member mem = (Member) hs.getAttribute("member");
+        int mem_id = mem.getUid();
+        JsonArray ja = new JsonArray();
+        try {
+            List<Breakdown> breakdownList = rentManager.getBreakdownList(mem_id);
+            for (Breakdown breakdown : breakdownList) {
+                JsonObject item = new JsonObject();
+                item.addProperty("uid", breakdown.getUid());
+                item.addProperty("member_uid", breakdown.getUser_uid());
+                item.addProperty("bike_uid", breakdown.getBike_uid());
+                item.addProperty("break_type", breakdown.getBreaktype().toString());
+                item.addProperty("content", breakdown.getContent());
+                item.addProperty("created_date", breakdown.getCreated_date().format(dtf_kor));
+                ja.add(item);
+            }
+            jo.addProperty("result", "success");
+            jo.add("data", ja);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        return jo.toString();
+    }
+
+    @GetMapping("/rest/service/getNeglectList")
+    public String getUserNeglectList(HttpServletRequest request) {
+    	JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        Member mem = (Member) hs.getAttribute("member");
+        int mem_id = mem.getUid();
+        JsonArray ja = new JsonArray();
+        try {
+            List<Neglect> neglectList = rentManager.getNeglectList(mem_id);
+            for (Neglect neglect : neglectList) {
+                JsonObject item = new JsonObject();
+                item.addProperty("article_uid", neglect.getUid());
+                item.addProperty("bike_uid", neglect.getBike_uid());
+                item.addProperty("lat", neglect.getLat());
+                item.addProperty("lon", neglect.getLon());
+                item.addProperty("detail_address", neglect.getDetail_address());
+                item.addProperty("created_date", neglect.getCreated_date().format(dtf_kor));
+                ja.add(item);
+            }
+            jo.addProperty("result", "success");
+            jo.add("data", ja);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        return jo.toString();
+    }
 }

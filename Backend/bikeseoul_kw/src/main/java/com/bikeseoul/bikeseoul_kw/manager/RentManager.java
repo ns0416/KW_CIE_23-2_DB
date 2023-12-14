@@ -153,13 +153,13 @@ public class RentManager {
 		return rentService.updateRent(rent)> 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
 	}
 
-	public List<Breakdown> getBreakdownList(int uid) {
+	public List<Breakdown> getBreakdownList(int member_uid) {
 		// TODO Auto-generated method stub
-		return rentService.getBreakdownList(uid);
+		return rentService.getBreakdownList(member_uid);
 	}
 
-	public List<Neglect> getNeglectList(int uid) {
+	public List<Neglect> getNeglectList(int member_uid) {
 		// TODO Auto-generated method stub
-		return rentService.getNeglectList(uid);
+		return rentService.getNeglectList(member_uid);
 	}
 }
