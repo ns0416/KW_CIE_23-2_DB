@@ -45,7 +45,7 @@
 	<insert id="insertRankingMonthly">
 		<![CDATA[
 			INSERT INTO
-				ranking_weekly (member_uid, distance)
+				ranking_monthly (member_uid, distance)
 				(
 					SELECT
 						m.uid,

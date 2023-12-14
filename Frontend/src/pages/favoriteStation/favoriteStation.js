@@ -1,11 +1,29 @@
 import style from './favoriteStation.module.css';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useOutletContext} from "react-router-dom";
 import Header from '../../header.js';
-
+import axios from 'axios';
 
 export default function FavoriteStation() {
 	const Commons = useOutletContext();
+	const [list, setList] = useState([]);
+    const getList = ()=>{
+        let param={};
+        axios.get("/rest/service/getFavoriteStationList", {params:param})
+        .then((res) => {
+            if(res.data.result== "success") {
+                //console.log(res.data);
+				//console.log(res.data.data);
+				setList(res.data.data)
+            }
+            else { //대여소 조회 실패
+                //console.log(res.data);
+                console.log("get station error!")
+            }
+        })
+        .catch((err) => console.log(err))
+    }
+	useEffect(()=>{getList();}, []);
 	return (
 		<>
 <div className={style.wrap} id="sub">
@@ -97,12 +115,18 @@ export default function FavoriteStation() {
 			<div style={{position: "fixed", bottom: "145px", top: "90px", width: "100%", overflow:"scroll"}}>
 				<h1>즐겨찾는 대여소</h1>
 				<ul>
-					<li>
-							<div className={style.place} style={{width:"200px", textOverflow: "ellipsis",  overflow: "hidden", whiteSpace: "nowrap"}}>
-								<strong><a href="">540. 군자역 7번출구 베스트샵 앞</a></strong></div>
-							<div className={style.bike}>일반 / 새싹<p>19 / 0</p></div>
-							<button className={style.sclose} onclick="delFavoriteFnc('993737')"><span>&nbsp;</span></button>
-						</li>
+					{
+						list.map(function(a, i){
+							return(
+								<li style={{height:"80px"}}>
+									<div className={style.place} style={{width:"200px", textOverflow: "ellipsis",  overflow: "hidden", whiteSpace: "nowrap"}}>
+										<strong><a href="">{a.station_uid}. {a.station_name}</a></strong></div>
+									<div className={style.bike}>일반 / 새싹<p>{a.general_cnt} / {a.sprout_cnt}</p></div>
+									<button className={style.sclose} onclick="delFavoriteFnc('993737')"><span>&nbsp;</span></button>
+								</li>
+							);
+						})
+					}
 					</ul>
 			</div>
 		</div>

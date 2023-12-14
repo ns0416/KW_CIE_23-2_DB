@@ -140,7 +140,7 @@ export default function Mainpage(props) {
 		
 	
 		{selectIndex > -1 && markers.length > selectIndex ? 
-		<div className={style.location_info}>
+		<div className={style.location_info} style={{position:"fixed"}}>
 			<div className={style.location_info_wrap}>
 				
 				<div className={`${style.mask_close} ${style.location_close}`} onClick={(e)=>{setSelectIndex(-1)}}>

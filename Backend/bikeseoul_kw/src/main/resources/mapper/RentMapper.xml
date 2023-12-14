@@ -108,6 +108,27 @@
 				s.station_name = #{station_name}
 		</if>
 	</select>
+	
+	<select id="getRentDayStatistics" resultType="com.bikeseoul.bikeseoul_kw.container.Rent">
+		SELECT
+			b.bike_id,
+			b.bike_type,
+			b.station_uid,
+			b.status_,
+			b.inspection_date,
+			b.release_date,
+			b.update_date
+		FROM
+			bike AS b
+		JOIN
+			station AS s
+		ON
+			b.station_uid = s.uid
+		<if test="station_name != null">
+			WHERE
+				s.station_name = #{station_name}
+		</if>
+	</select>
 
     <update id="updateBikeInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Bike">
 		UPDATE
