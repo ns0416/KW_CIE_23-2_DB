@@ -1,11 +1,30 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
 import style from './neglectReportList.module.css';
 import Header from '../../header.js';
+import axios from 'axios';
+
 
 export default function NeglectReportList() {
-
+    const [list, setList] = useState([]);
+    const getList = ()=>{
+        let param={};
+        axios.get("/rest/service/getNeglectList", {params:param})
+        .then((res) => {
+            if(res.data.result== "success") {
+                //console.log(res.data);
+				//console.log(res.data.data);
+				setList(res.data.data)
+            }
+            else { //대여소 조회 실패
+                //console.log(res.data);
+                console.log("get station error!")
+            }
+        })
+        .catch((err) => console.log(err))
+    }
+    useEffect(()=>{getList()},[])
 
     return (
         <>
@@ -37,9 +56,24 @@ export default function NeglectReportList() {
                         <th className={style.center}>신고내역</th>
                         <th className={style.center}>신고날짜</th>
                     </tr>
-                    <tr>
-                    		<td Colspan="3" className={style.nodata}>내역없음</td>
-                    	</tr>
+                    {list.length <= 0 ? 
+                        <tr>
+                        		<td Colspan="3" className={style.nodata}>내역없음</td>
+                        </tr>
+                        :
+                        list.map(function(a, i){
+                            return(
+                                <tr>
+                        		    <td className={style.center}>SPB-{a.bike_uid}</td>
+                                    <td className={style.center}>{a.lat}, {a.lon}</td>
+                                    <td className={style.center}>{a.detail_address}</td>
+                                    <td className={style.center}>{a.created_date}</td>
+                                </tr>
+                            );
+
+                        })
+                        
+                    }
 					</tbody></table>
             </div>
             <div className={style.paging}>

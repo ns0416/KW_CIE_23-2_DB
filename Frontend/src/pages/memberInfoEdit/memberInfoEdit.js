@@ -44,6 +44,7 @@ export default function MemberInfoEdit() {
         })
         .catch((err) => console.log(err))
     }
+	
 	const splitEmailAddr = ()=>{
 		let email = userinfo.email;
 		let email_sp = email.split("@");
@@ -106,9 +107,9 @@ export default function MemberInfoEdit() {
 										<span id="mobInfo">{userinfo.email}&nbsp;</span><br/>
 									</div>
 									<div>
-										<button type="button" id="mobNoUpdate" style={{marginTop: "5px"}}>
+										<button type="button" id="mobNoUpdate" onClick={(e)=>{navigate("/changeEmail")}} style={{marginTop: "5px"}}>
 											이메일주소 변경 </button>
-										<button type="button" id="mobLostReport">이메일 분실 신청 </button>
+										<button type="button" onClick={(e)=>{navigate("/setLost")}} id="mobLostReport">이메일 분실 신청 </button>
 									</div>
 								</td>
 							</tr>

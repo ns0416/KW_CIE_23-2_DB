@@ -1,12 +1,55 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
 import style from './neglectReport.module.css';
 import Header from '../../header.js';
 
 export default function NeglectReport() {
-
-
+	const [data, setData] = useState({bike_id:0, lat:0, lon:0, detail_address:"", attachment:[]});
+	const setUpdateMode = ()=>{
+		axios.get("/rest/service/setArticleUpdateMode", {params:{att_uid:0}})
+		.then((res) => {
+			if(res.data.result== "success") {
+				return;
+			}
+			else { //대여소 조회 실패
+				//console.log(res.data);
+				console.log("get station error!")
+			}
+		})
+		.catch((err) => console.log(err))
+	}
+	function report() {
+		var values = {
+			board_name:"neglect",
+			title:"",
+			content:"",
+			bike_id : data.bike_id,
+			lat : data.lat,
+			lon : data.lon,
+			detail_address : data.detail_address
+		}
+		if(values.break_type == "")
+		{
+			alert("고장부위를 선택해주세요");
+			return;
+		}
+		axios.post("http://seoulbike-kw.namisnt.com:8082/rest/service/writeArticle", values)
+		.then((res)=>{
+			if(res.data.result === "success"){
+				alert("신고완료 되었습니다. 감사합니다.");
+				window.history.back();
+			}
+			else{
+				alert("신고 실패");
+				console.log(res.data);
+			}
+		})
+		.catch((err)=>console.log(err))
+	}
+	useEffect(()=>{
+		setUpdateMode();
+	}, [])
     return (
         <>
 <div scroll="yes" className={style.ie8m}>
