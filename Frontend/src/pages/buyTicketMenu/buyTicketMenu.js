@@ -90,7 +90,7 @@ export default function BuyTicketMenu() {
                     <p className={style.sub_m_title}>이용권 구매</p>
                 </div>
                 <ul className={style.tabs}>
-                <a href="/app/ticket/member/getSeasonTicketPayInfo.do" class="yesresult">
+                <a href="/app/ticket/member/getSeasonTicketPayInfo.do" className="yesresult">
                     <li>
                         <div className={style.mcon}>
                             <div className={style.sub_menu_icon}> 
@@ -100,9 +100,9 @@ export default function BuyTicketMenu() {
                         </div>
                     </li>
                 </a>
-                <a href="/app/ticket/member/getDayTicketPayInfo.do" class="yesresult">
+                <a href="/app/ticket/member/getDayTicketPayInfo.do" className="yesresult">
                     <li>
-                        <div class="mcon">
+                        <div className="mcon">
                             <div className={style.sub_menu_icon}> 
                                 <img src="img/ticket_icon_02.png" alt="" />
                             </div>
@@ -110,9 +110,9 @@ export default function BuyTicketMenu() {
                         </div>
                     </li>
                 </a>
-                <a href="/app/ticket/member/getSeasonTicketGiftInfo.do" class="yesresult" id="ticket_monGift_as-is">
+                <a href="/app/ticket/member/getSeasonTicketGiftInfo.do" className="yesresult" id="ticket_monGift_as-is">
                     <li>
-                        <div class="mcon">
+                        <div className="mcon">
                             <div className={style.sub_menu_icon}> 
                                 <img src="img/ticket_icon_03.png" alt="" />
                             </div>
@@ -121,9 +121,9 @@ export default function BuyTicketMenu() {
                         </div>
                     </li>
                 </a>
-                <a href="/app/ticket/member/getDayTicketGiftInfo.do" class="yesresult" id="ticket_dayGift_as-is">
+                <a href="/app/ticket/member/getDayTicketGiftInfo.do" className="yesresult" id="ticket_dayGift_as-is">
                     <li>
-                        <div class="mcon">
+                        <div className="mcon">
                             <div className={style.sub_menu_icon}> 
                                 <img src="img/ticket_icon_04.png" alt="" />
                             </div>
@@ -174,7 +174,7 @@ export default function BuyTicketMenu() {
                             </div>
                             <div className={style.login_auto}>
                                 <input type="checkbox" name="loginchk" id="loginCheck" />
-                                <label htmlFor="loginCheck" id="logchktext"><span></span>로그인 상태 유지</label>
+                                <label htmlhtmlFor="loginCheck" id="logchktext"><span></span>로그인 상태 유지</label>
                             </div>
                             {/* <div className={style.login_btns} id="loginBtn"><a href="#">로그인하기</a></div> */}
                             <div className={style.login_btns} id="loginBtn"><button type='submit'>로그인하기</button></div>

@@ -120,7 +120,7 @@ export default function MyLeftPage() {
 								</div>
 							</li>
 						</a>
-						<a href="/app/mybike/memberInfo/memberInfoEdit.do" className={style.yesresult}>
+						<a href="/memberInfoEdit" className={style.yesresult}>
 							<li>
 								<div className={style.mcon}>
 									<div className={style.sub_menu_icon}> 
@@ -191,7 +191,7 @@ export default function MyLeftPage() {
                             </div>
                             <div className={style.login_auto}>
                                 <input type="checkbox" name="loginchk" id="loginCheck" />
-                                <label htmlFor="loginCheck" id="logchktext"><span></span>로그인 상태 유지</label>
+                                <label htmlhtmlFor="loginCheck" id="logchktext"><span></span>로그인 상태 유지</label>
                             </div>
                             {/* <div className={style.login_btns} id="loginBtn"><a href="#">로그인하기</a></div> */}
                             <div className={style.login_btns} id="loginBtn"><button type='submit'>로그인하기</button></div>

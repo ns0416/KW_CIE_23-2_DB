@@ -55,13 +55,13 @@ export default function Joinpage()
 		<div className={style.phoneb}>
 			<div className={style.inline_div}>
 				<p>이름</p>
-				<div class="w40" style={{margin: "20px 0 40px 0", display: "inline-block"}} >
+				<div className="w40" style={{margin: "20px 0 40px 0", display: "inline-block"}} >
 					<input type="text" id="userName" name="userName" maxLength="30" style={{borderBottom: "1px #222 solid", }}onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"/>
 				</div>
 			</div>
 			<div className={style.inline_div}>
 				<p>생년</p>
-				<div class="w40" style={{margin: "20px 0 40px 0", display: "inline-block"}} >
+				<div className="w40" style={{margin: "20px 0 40px 0", display: "inline-block"}} >
 				{/* style={{float: "right"}} */}
 					<select id="birthYear" name="birthYear">
 					{/* style={{display: "block"}} */}
@@ -73,9 +73,9 @@ export default function Joinpage()
 			</div>
 			<div className={style.inline_div}>
 				<p>성별</p>
-					{/* <div class="radio_box" style="float:right;"> */}
-						<span class="radiobox"><input type="radio" name="mmgender" id="male" value="male" /><label for="male"><span></span> 남</label></span>
-						<span class="radiobox ml10"><input type="radio" name="mmgender" id="female" value="female" /><label for="female"><span></span> 여</label></span>
+					{/* <div className="radio_box" style="float:right;"> */}
+						<span className="radiobox"><input type="radio" name="mmgender" id="male" value="male" /><label htmlFor="male"><span></span> 남</label></span>
+						<span className="radiobox ml10"><input type="radio" name="mmgender" id="female" value="female" /><label htmlFor="female"><span></span> 여</label></span>
 					{/* </div> */}
 			</div>
 		</div>
@@ -86,9 +86,9 @@ export default function Joinpage()
 
 		<div className={style.phone}>
 			<p>휴대폰 번호</p>
-            <label><input title="휴대번호 첫번째 입력" name="userMob1" id="userMob1" type="number"  style={{width: "50px"}} class="vm center" maxLength="3" onInput={maxLengthCheck(this)}/></label> - 
-		    <label><input title="휴대번호 두번째 입력" name="userMob2" id="userMob2" type="number"  style={{width: "50px"}} class="vm center" maxLength="4" onInput={maxLengthCheck(this)}/></label> - 
-		    <label><input title="휴대번호 세번째 입력" name="userMob3" id="userMob3" type="number"  style={{width: "50px"}} class="vm center" maxLength="4" onInput={maxLengthCheck(this)}/></label>
+            <label><input title="휴대번호 첫번째 입력" name="userMob1" id="userMob1" type="number"  style={{width: "50px"}} className="vm center" maxLength="3" onInput={maxLengthCheck(this)}/></label> - 
+		    <label><input title="휴대번호 두번째 입력" name="userMob2" id="userMob2" type="number"  style={{width: "50px"}} className="vm center" maxLength="4" onInput={maxLengthCheck(this)}/></label> - 
+		    <label><input title="휴대번호 세번째 입력" name="userMob3" id="userMob3" type="number"  style={{width: "50px"}} className="vm center" maxLength="4" onInput={maxLengthCheck(this)}/></label>
         </div>
 
 		<div className={style.phone}>
@@ -117,7 +117,7 @@ export default function Joinpage()
 				</select>
 			</div>
 		</div>
-		<div className={style.check}><input type="checkbox" name="emailDenyYn" id="emailDenyYn" /><label htmlFor="emailDenyYn"><span></span>이메일 수신거부</label></div>
+		<div className={style.check}><input type="checkbox" name="emailDenyYn" id="emailDenyYn" /><label htmlhtmlFor="emailDenyYn"><span></span>이메일 수신거부</label></div>
 		
 		<p className={style.info}>단, 회원의 서비스 이용과 관련한 권리 및 의무 등에 관한 사항에 대해 변경될 경우 통지 <br />의무사항에 따라 수신 동의 여부와 무관하게 메일이 발송될 수 있음을 참고해 주시기 바랍니다.</p>
 		 

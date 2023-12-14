@@ -34,9 +34,9 @@ export default function Infopage()
                             </div>
                             <div className={[style.bike_list, style.r_tabs_panel, style.r_tabs_state_defaul].join(' ')}>
                 	            <ul className={style.tabs}>
-                                    <li class="tab-link current" id="taba" data-tab="tab-a">티머니</li>
-                                    <li class="tab-link" id="tabb" data-tab="tab-b">후불교통카드</li>
-                                    <li class="tab-link" id="tabc" data-tab="tab-c">환승마일리지 사용법​</li>
+                                    <li className="tab-link current" id="taba" data-tab="tab-a">티머니</li>
+                                    <li className="tab-link" id="tabb" data-tab="tab-b">후불교통카드</li>
+                                    <li className="tab-link" id="tabc" data-tab="tab-c">환승마일리지 사용법​</li>
                   	            </ul>
                  
                   	            <div id="tab-a" className={[style.tab_content, style.current].join(' ')}>
@@ -59,7 +59,7 @@ export default function Infopage()
                                     </div>	     
                                 </div>
                     
-                  	            <div id="tab-b" class="tab-content">
+                  	            <div id="tab-b" className="tab-content">
                                 	<div id="gallery2" className={style.gallery}>
                                         <div className={style.mainHolder}>
                                             <ul className={style.main}>
@@ -76,7 +76,7 @@ export default function Infopage()
                                     </div>
                                 </div>
                     
-                  	            <div id="tab-c" class="tab-content">
+                  	            <div id="tab-c" className="tab-content">
                                 	<div id="gallery3" className={style.gallery}>
                                         <div className={style.mainHolder}>
                                             <ul className={style.main}>
@@ -97,11 +97,11 @@ export default function Infopage()
                 
                             <div className={style.bike_list} id="tab-2">
                             	<ul className={style.tabs}>
-                                    <li class="tab-link current" id="taba" data-tab="tab-d">이용권</li>	
-                                    <li class="tab-link" id="tabb" data-tab="tab-e">추가요금</li>			
+                                    <li className="tab-link current" id="taba" data-tab="tab-d">이용권</li>	
+                                    <li className="tab-link" id="tabb" data-tab="tab-e">추가요금</li>			
                               	</ul>
 
-                              	<div id="tab-d" class="tab-content current">
+                              	<div id="tab-d" className="tab-content current">
                                 	<div id="gallery4" className={style.gallery}>
                                         <div className={style.mainHolder}>
                                             <ul className={style.main}>
@@ -118,7 +118,7 @@ export default function Infopage()
                                     </div>	     
                                 </div>
 
-                              	<div id="tab-e" class="tab-content">
+                              	<div id="tab-e" className="tab-content">
                                 	<div id="gallery5" className={style.gallery}>
                                         <div className={style.mainHolder}>
                                             <ul className={style.main}>
@@ -141,11 +141,11 @@ export default function Infopage()
                 
                             <div className={style.bike_list} id="tab-5">
                             	<ul className={style.tabs}>
-                                    <li class="tab-link current" id="tabf" data-tab="tab-h">비회원</li>	
-                                    <li class="tab-link" id="tabg" data-tab="tab-i">외국관광객​</li>
+                                    <li className="tab-link current" id="tabf" data-tab="tab-h">비회원</li>	
+                                    <li className="tab-link" id="tabg" data-tab="tab-i">외국관광객​</li>
                               	</ul>
 
-                              	<div id="tab-h" class="tab-content current">
+                              	<div id="tab-h" className="tab-content current">
                                 	<div id="gallery7" className={style.gallery}>
                                         <div className={style.mainHolder}>
                                             <ul className={style.main}>
@@ -163,7 +163,7 @@ export default function Infopage()
                                     </div>
                                 </div>
 
-                              	<div id="tab-i" class="tab-content">
+                              	<div id="tab-i" className="tab-content">
                                 	<div id="gallery8" className={style.gallery}>
                                         <div className={style.mainHolder}>
                                             <ul className={style.main}>
@@ -185,10 +185,10 @@ export default function Infopage()
                 
                             <div className={style.bike_list} id="tab-7">
                             	<ul className={style.tabs}>
-                                    <li class="tab-link current" id="tabh" data-tab="tab-j">결제하기​</li>
-                                    <li class="tab-link" id="tabi" data-tab="tab-k">제로페이 관련 결제사</li>
+                                    <li className="tab-link current" id="tabh" data-tab="tab-j">결제하기​</li>
+                                    <li className="tab-link" id="tabi" data-tab="tab-k">제로페이 관련 결제사</li>
                               	</ul>
-                            	<div id="tab-j" class="tab-content current">
+                            	<div id="tab-j" className="tab-content current">
                               		<div id="gallery10" className={style.gallery}>
 	                                    <div className={style.mainHolder}>
 	                                        <ul className={style.main}>
@@ -204,7 +204,7 @@ export default function Infopage()
 	                                    </div>
 	                                </div>
                               	</div>
-                              	<div id="tab-k" class="tab-content">
+                              	<div id="tab-k" className="tab-content">
                               		<div id="gallery12" className={style.gallery}>
 	                                    <div className={style.mainHolder}>
 	                                    	<p className={style.guide_title}>제로페이 시스템 점검 : 매일 23:50 ~ 00:15 이용에 차질이 없도록 참고하시기 바랍니다.​</p>

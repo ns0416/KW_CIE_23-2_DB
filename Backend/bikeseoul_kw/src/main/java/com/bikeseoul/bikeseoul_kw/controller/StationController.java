@@ -143,8 +143,7 @@ public class StationController {
         return jo.toString();
     }
     
-    @GetMapping("/rest/service/getStationListNearby")
-    @ResponseBody
+    @GetMapping("/rest/getStationListNearby")
     public String getStationListNearby(@RequestParam String x, @RequestParam String y, @RequestParam String radius) {
         JsonObject jo = new JsonObject();
         if(x == null || y == null || radius == null) {

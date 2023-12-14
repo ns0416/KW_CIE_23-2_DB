@@ -702,7 +702,7 @@
 // 								icon: {
 // 									//url		: sURL,
 // 				    				// title 	:  data.realtimeList[i].stationName    				
-// 									content : '<div class="jb-wrap"><div class="jb-image"><img src="'+sURL+'"><div class="jb-text"><p>'+totalCnt+'</p></div></div></div>'
+// 									content : '<div className="jb-wrap"><div className="jb-image"><img src="'+sURL+'"><div className="jb-text"><p>'+totalCnt+'</p></div></div></div>'
 // 								}
 // 							};
 // 						}
@@ -713,7 +713,7 @@
 // 							icon: {
 // 								//url		: sURL,
 // 			    				// title 	:  data.realtimeList[i].stationName    				
-// 								content : '<div class="jb-wrap"><div class="jb-image"><img src="'+sURL+'"><div class="jb-text"><p>'+totalCnt+'</p></div></div></div>'
+// 								content : '<div className="jb-wrap"><div className="jb-image"><img src="'+sURL+'"><div className="jb-text"><p>'+totalCnt+'</p></div></div></div>'
 // 							}
 // 						};
 // 					}else if(tabId == "yg"){
@@ -723,7 +723,7 @@
 // 							icon: {
 // 								//url		: sURL,
 // 			    				// title 	:  data.realtimeList[i].stationName    				
-// 								content : '<div class="jb-wrap"><div class="jb-image"><img src="'+sURL+'"><div class="jb-text"><p>'+totalCnt+'</p></div></div></div>'
+// 								content : '<div className="jb-wrap"><div className="jb-image"><img src="'+sURL+'"><div className="jb-text"><p>'+totalCnt+'</p></div></div></div>'
 // 							}
 // 						};
 // 					}else{
@@ -733,7 +733,7 @@
 // 							icon: {
 // 								//url		: sURL,
 // 			    				// title 	:  data.realtimeList[i].stationName    				
-// 								content : '<div class="jb-wrap"><div class="jb-image"><img src="'+sURL+'"><div class="jb-text"><p>'+totalCnt+'</p></div></div></div>'
+// 								content : '<div className="jb-wrap"><div className="jb-image"><img src="'+sURL+'"><div className="jb-text"><p>'+totalCnt+'</p></div></div></div>'
 // 							}
 // 						};
 // 					}

@@ -74,8 +74,8 @@ function AdminStationModify() {
             }
         })
         .catch((err) => console.log(err))
-
     }
+    
     const getStationInfo = ()=>{
         if (station_uid === 0)
         {

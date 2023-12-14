@@ -113,11 +113,11 @@ export default function FavoriteStation() {
 		<ul> 
 			<li> 
 				<input type="radio" name="mainType" id="main_text" value="text" />
-				<label for="main_text" id="label_text"><span></span>즐겨찾기 화면을 메인으로 설정하기</label> 
+				<label htmlFor="main_text" id="label_text"><span></span>즐겨찾기 화면을 메인으로 설정하기</label> 
 			</li>
 			<li>  
 				<input type="radio" name="mainType" id="main_map" value="map" />
-				<label for="main_map" id="label_map"><span></span>지도화면을 메인으로 설정하기</label>
+				<label htmlFor="main_map" id="label_map"><span></span>지도화면을 메인으로 설정하기</label>
 			</li>
 		</ul>
 	</div>

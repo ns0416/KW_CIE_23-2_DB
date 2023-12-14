@@ -92,11 +92,11 @@ export default function Joinpage3()
                     <div className={style.radio_box} style={{float:"right"}}>
                         <span className={style.radiobox}>
                             <input type='radio' name="sex" id='male' value="M" onChange={ChangeHandler}/>
-                            <label htmlFor='male'><span></span> 남 </label>
+                            <label htmlhtmlFor='male'><span></span> 남 </label>
                         </span>
                         <span className={style.radiobox}>
                             <input type='radio' name="sex" id='female' value="F" onChange={ChangeHandler}/>
-                            <label htmlFor='female'><span></span> 여 </label>
+                            <label htmlhtmlFor='female'><span></span> 여 </label>
                         </span>
                     </div>
                 </div>
