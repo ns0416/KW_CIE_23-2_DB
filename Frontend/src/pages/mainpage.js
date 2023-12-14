@@ -4,6 +4,7 @@ import style from './mainpage.module.css';
 import MapNaverDefault from '../components/mapNaverDefault';
 import { Container as MapDiv } from 'react-naver-maps';
 import axios from 'axios';
+import Loading from '../components/Loading';
 
 export default function Mainpage(props) {
 	const Commons = useOutletContext();
@@ -12,6 +13,10 @@ export default function Mainpage(props) {
 	const [markers, setMarkers] = useState([]);
 	const [selectIndex, setSelectIndex] = useState(-1);
 	const [currentlocations, setCurrentLocations] = useState([37.619799199999974,127.05843630000007, 100]); //lat lon radius
+	const [startPosision, setStartPosition] = useState(null);
+	const [destPosision, setDestPosition] = useState(null);
+	const [pathFinder, setPathFinder] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const getStationNearby = ()=>{
 		axios.get("/rest/getStationListNearby", {params:{x:currentlocations[0], y:currentlocations[1], radius:currentlocations[2]}})
 		.then((res) => {
@@ -27,10 +32,30 @@ export default function Mainpage(props) {
 		})
 		.catch((err) => console.log(err))
 	}
+	const getPath = ()=>{
+		axios.get("/rest/service/findPath", {params:{s_lat:startPosision[0], s_lon:startPosision[1], d_lat:destPosision[0], d_lon:destPosision[1]}})
+		.then((res) => {
+			if(res.data.result== "success") {
+				//console.log(res.data);
+				//console.log(res.data.data);
+				setPathFinder(res.data.data);
+				setLoading(false);
+			}
+			else { //대여소 조회 실패
+				//console.log(res.data);
+				console.log("get pathfinder error!")
+			}
+		})
+		.catch((err) => console.log(err))
+	}
 	/*useEffect(() => {
 		setLocations([[37.619791, 127.060899],[37.619761, 127.060899],[37.519790, 127.060899],[37.508860,127.100200]]);
 	}, []);
 	*/
+	useEffect(() => {
+		console.log(pathFinder);
+
+	}, [pathFinder]);
 	useEffect(() => {
 		getStationNearby();
 		console.log(currentlocations);
@@ -41,11 +66,25 @@ export default function Mainpage(props) {
 	useEffect(() => {
 		//console.log(markers);
 	}, [selectIndex]);
+	useEffect(() => {
+		//console.log(markers);
+		setSelectIndex(-1);
+		if(startPosision != null && destPosision != null){
+			if(startPosision[0] == destPosision[0] && startPosision[1] == destPosision[1]){
+				alert("출발 대여소와 도착 대여소가 같습니다!");
+				return;
+			}
+			setLoading(true);
+			getPath();
+		}
+		
+	}, [startPosision, destPosision]);
     return(
         <>
 	{/* <input type="hidden" id="tabId"> */}
 
-   
+	
+   {loading ? <Loading/> : ""}
 	<div className={style.wrap}>
     <div className={style.header_wrap}>
         <div className={style.header}>
@@ -122,6 +161,16 @@ export default function Mainpage(props) {
 					<div className={style.name}>새싹 따릉이</div>
 					<div className={style.num} id="parkingELECBikeCnt">{markers[selectIndex].sprout_cnt}</div>
 				</div>
+				{Commons.isLoggedIn == true && Commons.userInfo != null ? 
+				<>
+					<div style={{margin:"auto", textAlign:"center"}}>
+						<button type="button" onClick={(e)=>{setStartPosition([markers[selectIndex].lat,markers[selectIndex].lon])}} style={{margin:"auto", marginRight:"1rem", display:"inline-block", lineHeight:"30px", marginTop:"1rem", background:"#2D9D5D", borderRadius:"27.5px", width:"100px", border:"3px solid #2D7245", color:"white", fontSize:"15px", fontWeight:"bold"}}>출발</button>
+						<button type="button" onClick={(e)=>{setDestPosition([markers[selectIndex].lat,markers[selectIndex].lon])}}style={{margin:"auto", marginLeft:"1rem", display:"inline-block", lineHeight:"30px", marginTop:"1rem", background:"#2D9D5D", borderRadius:"27.5px", width:"100px", border:"3px solid #2D7245", color:"white", fontSize:"15px", fontWeight:"bold"}}>도착</button>
+					</div>
+				</>
+				:
+				""
+				}
 			</div>
 			
 		</div>
@@ -145,7 +194,7 @@ export default function Mainpage(props) {
 					<a className={style.question}>이용안내</a>
 				</div>
 				<MapDiv style={{ width: '100%', height: '100%' }}>
-        	    	<MapNaverDefault curLocation={currentlocations} locations={markers} setCurrentLocations={setCurrentLocations} setSelectIndex={setSelectIndex}/>
+        	    	<MapNaverDefault curLocation={currentlocations} locations={markers} setCurrentLocations={setCurrentLocations} setSelectIndex={setSelectIndex} pathFinder={pathFinder}/>
         		</MapDiv>
 			
 			<div className={style.main_image}>

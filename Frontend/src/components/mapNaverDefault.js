@@ -11,7 +11,7 @@ const MapNaverDefault = (props) => {
     zoomControl: false,
   };
   // 다중 marker 진행중
-  var markers = [], infoWindows = [];
+  var markers = [], infoWindows = [], paths=[], path=null;
   const [map,setMap] = useState(null);
     
   useEffect(() => {
@@ -35,6 +35,8 @@ const MapNaverDefault = (props) => {
         for (var i=0; i<markers.length; i++) {
           hideMarker(map, markers[i]);
         }
+      if(path != null)
+        hideMarker(map, path);
       props.setCurrentLocations([coor.x, coor.y, radius]);
     });
     //markers = [];
@@ -66,8 +68,20 @@ const MapNaverDefault = (props) => {
     for (var i=0; i<markers.length; i++) {
       naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
     }
-    updateMarkers(map, markers);
     
+    
+    if(props.pathFinder != null){
+      props.pathFinder.path.forEach(path => {
+        paths.push(new naver.maps.LatLng(path[1], path[0]));
+      });
+      console.log(paths);
+      path = new naver.maps.Polyline({  
+        path: paths,
+        map: map,
+        strokeWeight: 6
+      });
+    }
+    updateMarkers(map, markers);
       // console.log(currentLocation[0], currentLocation[1]);
       // const location = new naver.maps.LatLng(37.619791, 127.060899);
       // const mapOptions = {
@@ -92,7 +106,7 @@ const MapNaverDefault = (props) => {
       //   }
       // });
 
-  }, [map, props.locations]);
+  }, [map, props.locations, props.pathFinder]);
 
   function updateMarkers(map, markers) {
 
