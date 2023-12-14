@@ -89,7 +89,7 @@ function AdminBike()
                                     <td>{a.inspection_date}</td>
                                     <td>{a.release_date}</td>
                                     <td>{a.updated_date}</td>
-                                    <td style={{textAlign:"center"}}><Link to='/'><Button variant="outline-primary">수정하기</Button></Link><Button variant="outline-danger">삭제하기</Button></td>
+                                    <td style={{textAlign:"center"}}><Link to='/'><Button variant="outline-primary">수정하기</Button></Link></td>
                                 </tr>
                             );
                         })
