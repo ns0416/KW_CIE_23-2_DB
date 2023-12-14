@@ -13,7 +13,7 @@ export default function NoticeBoard() {
         	<div className={style.top}>
 				<div className={style.m_sub_header_wrap}>
 					<div className={style.m_sub_header}>
-						<button className={style.back}></button>
+						<a href="javascript:window.history.back();"><button className={style.back}></button></a>
 						<button className={style.close}></button>
 						<span id="title">보험안내</span>
 					</div>

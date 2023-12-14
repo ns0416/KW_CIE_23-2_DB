@@ -22,6 +22,7 @@
 		</if>
         ORDER BY
             uid DESC
+		Limit 0, 1000
     </select>
 
     <select id="getBoardArticle" resultType="com.bikeseoul.bikeseoul_kw.container.BoardArticle">

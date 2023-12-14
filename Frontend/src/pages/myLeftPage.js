@@ -165,7 +165,7 @@ function MyLeftPage() {
 			    	<dl className={style.my_info}>
 			    		<dd className={style.pic}><img src="img/mypage_icon_03.png" /></dd>
 			    		<dd className={style.result}>
-                            <Link to='/'>환승카드 관리 &gt;</Link>
+                            <Link to='/moveMemberCardRegiView'>환승카드 관리 &gt;</Link>
 			    			{/* <a href="/app/mybike/moveMemberCardRegiView.do?card=Trans" className={style.yesresult}>
 			    				환승카드 관리&nbsp;&gt;
 			    			</a> */}
