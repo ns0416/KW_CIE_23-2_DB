@@ -77,7 +77,7 @@ public class BoardArticleService implements BoardArticleDao {
 
 	@Override
 	public String getBoardName(int board_uid) {
-		return null;
+		return boardArticleDao.getBoardName(board_uid);
 	}
 
 	@Override
