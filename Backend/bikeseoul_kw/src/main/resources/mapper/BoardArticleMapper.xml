@@ -283,7 +283,7 @@
 				board_article
 			WHERE
 				uid = #{uid} AND
-				member_uid = #{member_uid}
+				user_uid = #{member_uid}
 		]]>
 	</delete>
 	<delete id="deleteBreakdown" parameterType="Integer" >

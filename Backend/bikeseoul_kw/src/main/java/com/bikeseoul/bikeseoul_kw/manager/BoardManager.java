@@ -260,7 +260,7 @@ public class BoardManager {
 		String file_dir = config.get("basic", "file_dir");
 		String temp_dir = config.get("basic", "temp_dir");
 		try {
-			CommonEnum art_res = boardArticleService.deleteArticle(art.getUid()) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+			CommonEnum art_res = boardArticleService.deleteArticle(art.getUid(), art.getUser_uid()) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
     		CommonEnum del_res = CommonEnum.SUCCESS;
     		if(art.getAttachments() != null) {
     			for(Attachment att : art.getAttachments()) {

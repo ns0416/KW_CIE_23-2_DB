@@ -23,7 +23,7 @@ function AdminBike()
     const Search = ()=>{
         let param = {}
         if(queryword != ''){
-            param['query'] = queryword;
+            param['station_name'] = queryword;
         }
         axios.get("http://seoulbike-kw.namisnt.com:8082/rest/admin/getBikeList", {params:param})
         .then((res) => {

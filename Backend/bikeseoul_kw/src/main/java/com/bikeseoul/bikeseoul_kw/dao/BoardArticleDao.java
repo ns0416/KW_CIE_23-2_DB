@@ -34,7 +34,7 @@ public interface BoardArticleDao {
     int writeBreakdown(Breakdown bd);
     int updateBreakdown(Breakdown bd);
     int deleteBreakdown(int uid, int member_uid);
-    int deleteArticle(int uid);
+    int deleteArticle(int uid, int member_uid);
     int writeNeglect(Neglect ngt);
     int updateNeglect(Neglect ngt);
     int deleteNeglect(int uid);

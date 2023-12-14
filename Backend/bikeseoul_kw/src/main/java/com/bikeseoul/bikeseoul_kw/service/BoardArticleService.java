@@ -129,9 +129,9 @@ public class BoardArticleService implements BoardArticleDao {
 	}
 
 	@Override
-	public int deleteArticle(int uid) {
+	public int deleteArticle(int uid, int member_uid) {
 		// TODO Auto-generated method stub
-		return boardArticleDao.deleteArticle(uid);
+		return boardArticleDao.deleteArticle(uid, member_uid);
 	}
 
 	@Override
