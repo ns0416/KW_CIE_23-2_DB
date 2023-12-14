@@ -42,7 +42,7 @@ export default function NeglectReportList() {
 	            <input type="hidden" name="currentPageNo" value="1"/>
 	        </form>
             <div className={style.payment_box}>
-            	<p className={style.caption}>Total : <span> 0</span>건</p>
+            	<p className={style.caption}>Total : <span> {list.length}</span>건</p>
             	<table>
                 	<colgroup>
                         <col width="20%"/>

@@ -1,5 +1,5 @@
 .header {
-    width:1030px; 
+    /*width:1030px;*/ 
     margin:0 auto; 
     overflow:hidden; 
     text-align:left; 
@@ -69,7 +69,7 @@
   
   .container {display:block;}
 
-  .content {width:1030px; margin:0 auto; position:relative; min-height:500px}
+  .content {/*width:1030px;*/ margin:0 auto; position:relative; min-height:500px}
 
   .join .phone {
     position: relative;
