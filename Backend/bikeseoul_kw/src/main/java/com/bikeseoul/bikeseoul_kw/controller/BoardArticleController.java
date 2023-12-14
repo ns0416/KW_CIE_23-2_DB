@@ -89,7 +89,9 @@ public class BoardArticleController {
             BoardArticle boardArticle = boardManager.getBoardArticle(uid_);
 			List<Attachment> atts = boardManager.getAttachments(uid_);
 			List<Comment> cmts = boardManager.getComments(uid_);
+			String board_name = boardManager.getBoardName(boardArticle.getBoard_uid());
             JsonObject item = new JsonObject();
+			item.addProperty("board_name", board_name);
             item.addProperty("uid", boardArticle.getUid());
             item.addProperty("board_uid", boardArticle.getBoard_uid());
             item.addProperty("user_uid", boardArticle.getUser_uid());

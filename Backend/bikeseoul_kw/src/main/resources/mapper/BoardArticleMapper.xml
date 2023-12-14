@@ -83,6 +83,14 @@
     	WHERE
     		uid = #{cmt_uid}
     </select>
+	<select id="getBoardName" resultType="String">
+		SELECT
+			board_name
+		FROM
+			board
+		WHERE
+			uid = #{board_uid}
+	</select>
     <select id="getBoardInfo" resultType="com.bikeseoul.bikeseoul_kw.container.Board">
     	SELECT
     		uid,
