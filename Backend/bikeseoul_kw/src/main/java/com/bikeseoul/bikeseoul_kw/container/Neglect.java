@@ -23,6 +23,14 @@ public class Neglect extends BoardArticle{
 		super(uid, board_uid, user_uid, title, content, null, null);
 		// TODO Auto-generated constructor stub
 	}
+	public Neglect(int uid, int bike_uid, double lat, double lon, String detail_address, LocalDateTime created_date) {
+		super(uid, 0, 0, null, null, created_date, null);
+		// TODO Auto-generated constructor stub
+		this.bike_uid = bike_uid;
+		this.lat = lat;
+		this.lon = lon;
+		this.detail_address =detail_address;
+	}
 public int getBike_uid() {
 	return bike_uid;
 }

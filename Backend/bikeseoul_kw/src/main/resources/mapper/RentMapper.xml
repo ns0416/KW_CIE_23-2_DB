@@ -220,17 +220,21 @@
 	</select>
 	<select id="getNeglectList" resultType="com.bikeseoul.bikeseoul_kw.container.Neglect">
 		SELECT
-			uid,
-			bike_uid,
-			lat,
-			lon,
-			detail_address,
-			created_date
+			n.article_uid,
+			n.bike_uid,
+			n.lat,
+			n.lon,
+			n.detail_address,
+			n.created_date
 		FROM
-			neglect
+			neglect as n
+		JOIN
+			board_article as b
+		ON
+			n.article_uid = b.uid
 		<if test="member_uid > 0">
 			WHERE
-				member_uid = #{member_uid}
+				b.user_uid = #{member_uid}
 		</if>
 	</select>
 </mapper>
