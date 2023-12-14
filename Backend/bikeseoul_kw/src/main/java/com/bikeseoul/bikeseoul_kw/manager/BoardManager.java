@@ -5,24 +5,15 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import com.bikeseoul.bikeseoul_kw.container.*;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.mail.javamail.JavaMailSender;
 //import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bikeseoul.bikeseoul_kw.container.Attachment;
-import com.bikeseoul.bikeseoul_kw.container.Board;
-import com.bikeseoul.bikeseoul_kw.container.BoardArticle;
-import com.bikeseoul.bikeseoul_kw.container.Breakdown;
-import com.bikeseoul.bikeseoul_kw.container.Comment;
-import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
-import com.bikeseoul.bikeseoul_kw.container.Config;
-import com.bikeseoul.bikeseoul_kw.container.Coupon;
-import com.bikeseoul.bikeseoul_kw.container.Neglect;
-import com.bikeseoul.bikeseoul_kw.container.Ticket;
-import com.bikeseoul.bikeseoul_kw.container.Transfercard;
 import com.bikeseoul.bikeseoul_kw.service.BoardArticleService;
 import com.bikeseoul.bikeseoul_kw.service.CouponService;
 import com.bikeseoul.bikeseoul_kw.service.MileageService;
@@ -42,8 +33,18 @@ public class BoardManager {
 	public Board getBoardInfo(String board_name, int uid) {
 		return boardArticleService.getBoardInfo(board_name, uid);
 	}
-	public List<Board> getBoardList(String query) {
-		return boardArticleService.getBoardList(query);
+	public List<Pair<BoardArticle,Pair<String, String>>> getBoardArticleList(int board_uid) {
+		List<Pair<BoardArticle,Pair<String, String>>> boardList = new ArrayList<>();
+		List<Map<String, Object>> boardArticleListMap = boardArticleService.getBoardArticleList(board_uid);
+		for(Map<String, Object> item : boardArticleListMap) {
+			BoardArticle article = new BoardArticle((int)item.get("uid"), (int)item.get("board_uid"), (int)item.get("user_uid"), (String)item.get("title"), (String)item.get("content"), (LocalDateTime)item.get("created_date"), (LocalDateTime)item.get("updated_date"));
+			Pair<String, String> id_pair = new Pair();
+			id_pair.set((String)item.get("board_name"), (String)item.get("id"));
+			Pair<BoardArticle,Pair<String, String>> pair = new Pair();
+			pair.set(article, id_pair);
+			boardList.add(pair);
+		}
+		return boardList;
 	}
 	private CommonEnum writeArticle_only(BoardArticle art) throws Exception {
 		if(boardArticleService.writeArticle(art) > 0)
@@ -122,8 +123,8 @@ public class BoardManager {
 	public BoardArticle getBoardArticle(int uid) {
 		return boardArticleService.getBoardArticle(uid);
 	}
-	public List<BoardArticle> getBoardArticleList(int board_uid) {
-		return boardArticleService.getBoardArticleList(board_uid);
+	public List<Board> getBoardList(String query) {
+		return boardArticleService.getBoardList(query);
 	}
 	public CommonEnum deleteAttachment(Attachment att) {
 		// TODO Auto-generated method stub

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardArticleService implements BoardArticleDao {
@@ -19,7 +20,7 @@ public class BoardArticleService implements BoardArticleDao {
     private BoardArticleDao boardArticleDao;
 
     @Override
-    public List<BoardArticle> getBoardArticleList(int board_uid) {
+    public List<Map<String, Object>> getBoardArticleList(int board_uid) {
         return boardArticleDao.getBoardArticleList(board_uid);
     }
 
