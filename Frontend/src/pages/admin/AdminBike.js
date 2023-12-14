@@ -43,7 +43,7 @@ function AdminBike()
         setqueryword(e.target.value);
     }
     function moveInsert() {
-        navigate('/admin/bikeModify');
+        navigate('/admin/bikeInsert');
     }
     return (
         <>
@@ -89,7 +89,7 @@ function AdminBike()
                                     <td>{a.inspection_date}</td>
                                     <td>{a.release_date}</td>
                                     <td>{a.updated_date}</td>
-                                    <td style={{textAlign:"center"}}><Link to='/'><Button variant="outline-primary">수정하기</Button></Link></td>
+                                    <td style={{textAlign:"center"}}><Link to={'/admin/bikeModify/'+a.bike_id}><Button variant="outline-primary">수정하기</Button></Link></td>
                                 </tr>
                             );
                         })

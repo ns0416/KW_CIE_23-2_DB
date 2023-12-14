@@ -157,7 +157,7 @@
 	</update>
 	<insert id="insertBike" parameterType="com.bikeseoul.bikeseoul_kw.container.Bike">
 		<![CDATA[
-			INSERT INTO rent
+			INSERT INTO bike
 				(
 					bike_type,
 					station_uid,

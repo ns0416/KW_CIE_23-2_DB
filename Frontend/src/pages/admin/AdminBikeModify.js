@@ -12,22 +12,24 @@ import axios from 'axios';
 function AdminBikeModify() {
     const navigate = useNavigate();
     const params  = useParams();
-    const board_name = params.uid;
+    const bike_id = params.uid;
     const [bikeInfo,setBikeinfo] = useState({
+        bike_type:"general",
+        bike_status:"ready"
     });
 
     const onChangeHandler = (e) =>{
-        setBoardinfo({...boardInfo, [e.target.name] : e.target.value});
+        setBikeinfo({...bikeInfo, [e.target.name] : e.target.value});
     }
 
     const insertBike = ()=>{
         //const form = e.currentTarget;
-        let board_infonew = {
-            board_name:boardInfo.board_name,
-            read_level:Number(boardInfo.read_level),
-            write_level:Number(boardInfo.write_level)
+        let bike_infonew = {
+            bike_type:bikeInfo.bike_type,
+            station_uid:Number(bikeInfo.station_uid),
+            bike_status:bikeInfo.bike_status
         };
-        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/insertBike", board_infonew)
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/insertBike", bike_infonew)
             .then((res) => {
                 if(res.data.result == "success") {
                     alert("따릉이 추가 완료");
@@ -41,10 +43,10 @@ function AdminBikeModify() {
     }
     const modifyBike = ()=>{
         let bike_infonew = {
-            bike_id:boardInfo.uid,
-            board_name:boardInfo.board_name,
-            read_level:Number(boardInfo.read_level),
-            write_level:Number(boardInfo.write_level)
+            bike_uid:bikeInfo.uid,
+            bike_type:bikeInfo.bike_type,
+            station_uid:Number(bikeInfo.station_uid),
+            bike_status:bikeInfo.bike_status
         };
         axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/updateBike", bike_infonew)
         .then((res) => {
@@ -60,11 +62,11 @@ function AdminBikeModify() {
     }
     
     const getBikeInfo = ()=>{
-        if (!board_name)
+        if (bike_id <=0)
         {
             return;
         }
-        axios.get('http://seoulbike-kw.namisnt.com:8082/rest/admin/getBikeInfo', {params: {query: board_name},})
+        axios.get('http://seoulbike-kw.namisnt.com:8082/rest/admin/getBikeList', {params: {bike_id : bike_id},})
         .then((res) => {
             if(res.data.result== "success") {
                 setBikeinfo(res.data.data);
@@ -78,7 +80,7 @@ function AdminBikeModify() {
     }
 
     const deleteBikeInfo = ()=>{
-        if (!board_name || boardInfo.uid < 1)
+        if (!bike_id || bikeInfo.uid < 1)
         {
             return;
         }
@@ -100,12 +102,12 @@ function AdminBikeModify() {
     }, [params]);
 
     useEffect(()=>{
-        console.log(boardInfo)
+        console.log(bikeInfo)
     }, []);
     function Submithandler(e){
         e.preventDefault();
         
-        if (board_name){
+        if (bikeInfo>0){
             modifyBike();
         }else{
             insertBike();
@@ -115,7 +117,7 @@ function AdminBikeModify() {
         <>
         <AdminNavbar/>
         <Container>
-            <h3 style={{fontWeight: "bold", margin: "30px 0"}}>{!board_name || boardInfo.uid < 1 ? "게시판 수정" : "게시판 추가"}</h3>
+            <h3 style={{fontWeight: "bold", margin: "30px 0"}}>{!bike_id || bikeInfo.uid < 1 ? "게시판 수정" : "게시판 추가"}</h3>
             <div>
             <Form noValidate onSubmit={Submithandler}>
             <Form.Group className="mb-3" controlId="bike_id">
@@ -135,7 +137,7 @@ function AdminBikeModify() {
                 <Col>
                     <Form.Group controlId="lon">
                         <Form.Label><b>자전거 상태</b></Form.Label>
-                        <Form.Select name="status_" value={bikeInfo.status_} onChange={onChangeHandler}>
+                        <Form.Select name="bike_status" value={bikeInfo.bike_status} onChange={onChangeHandler}>
                             <option value="ready">대기</option>
                             <option value="rent">대여중</option>
                             <option value="inspection">정비중</option>
@@ -144,6 +146,10 @@ function AdminBikeModify() {
                     </Form.Group>
                 </Col>
             </Row>
+            <Form.Group className="mb-3" controlId="station_uid">
+                <Form.Label><b>최근 주차된 대여소UID</b></Form.Label>
+                <Form.Control required type="text" defaultValue={bikeInfo.station_uid} name="station_uid"  onChange={onChangeHandler} placeholder="자전거 대여소"/>
+            </Form.Group>
             <Form.Group className="mb-3" controlId="inspection_date">
                 <Form.Label><b>최근 정비일자</b></Form.Label>
                 <Form.Control required type="text" defaultValue={bikeInfo.inspection_date} name="inspection_date" placeholder="최근정비일자" readOnly/>
@@ -154,12 +160,12 @@ function AdminBikeModify() {
             </Form.Group>
             <Container className="mt-5">
                 {
-                board_name ? 
-                <Button variant="danger" onClick={(e)=>{deleteBoardInfo()}} style={{float: "left"}}>삭제하기</Button>
+                bikeInfo>0 ? 
+                <Button variant="danger" onClick={(e)=>{deleteBikeInfo()}} style={{float: "left"}}>삭제하기</Button>
                 :
                 ""
                 }
-                <Button type="submit" style={{float: "right"}}>{board_name ? '수정하기' : '추가하기'}</Button>
+                <Button type="submit" style={{float: "right"}}>{bikeInfo>0 ? '수정하기' : '추가하기'}</Button>
             </Container>
             </Form>
             </div>
