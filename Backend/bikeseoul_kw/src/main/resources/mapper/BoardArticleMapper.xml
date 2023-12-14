@@ -8,8 +8,10 @@
             uid, board_uid, user_uid, title, content, created_date, updated_date
         FROM
             board_article
-        WHERE
-            board_uid = #{board_uid}
+		<if test="board_uid > 0">
+			WHERE
+				board_uid = #{board_uid}
+		</if>
         ORDER BY
             uid DESC
     </select>
@@ -90,6 +92,17 @@
     			board_name = #{board_name}
     		</if>
     </select>
+	<select id="getBoardList" resultType="com.bikeseoul.bikeseoul_kw.container.Board">
+		SELECT
+			uid,
+			board_name,
+			read_level,
+			write_level,
+			created_date,
+			updated_date
+		FROM
+			board
+	</select>
     <insert id="writeBreakdown" parameterType="com.bikeseoul.bikeseoul_kw.container.Breakdown">
 		<![CDATA[
 			INSERT INTO breakdown

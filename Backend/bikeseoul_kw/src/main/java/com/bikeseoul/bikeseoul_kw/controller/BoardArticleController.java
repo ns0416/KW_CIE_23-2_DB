@@ -57,15 +57,9 @@ public class BoardArticleController {
     
     @GetMapping("/rest/getBoardArticleList")
     @ResponseBody
-    public String getBoardArticleList(@RequestParam("board_uid") int board_uid) {
+    public String getBoardArticleList(@RequestParam(value = "board_uid") int board_uid) {
         JsonObject jo = new JsonObject();
-        if (board_uid == 0) {
-            jo.addProperty("result", "failed");
-            return jo.toString();
-        }
-
         JsonArray ja = new JsonArray();
-
         try {
             List<BoardArticle> boardArticleList = boardManager.getBoardArticleList(board_uid);
             for (BoardArticle boardArticle : boardArticleList) {
@@ -441,4 +435,71 @@ public class BoardArticleController {
     	jo.addProperty("result", "failed");
 		return jo.toString();
     }
+
+	@GetMapping("/rest/admin/getBoardArticleList")
+	@ResponseBody
+	public String getBoardArticleList(HttpServletRequest request) {
+		JsonObject jo = new JsonObject();
+		HttpSession hs = request.getSession();
+		Member mem = (Member)hs.getAttribute("member");
+		int level = mem.getLevel();
+		if(level != 9999) {
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+		JsonArray ja = new JsonArray();
+		try {
+			List<BoardArticle> boardArticleList = boardManager.getBoardArticleList(0);
+			for (BoardArticle boardArticle : boardArticleList) {
+				JsonObject item = new JsonObject();
+				item.addProperty("uid", boardArticle.getUid());
+				item.addProperty("board_uid", boardArticle.getBoard_uid());
+				item.addProperty("user_uid", boardArticle.getUser_uid());
+				item.addProperty("title", boardArticle.getTitle());
+				item.addProperty("content", boardArticle.getContent());
+				item.addProperty("created_date", boardArticle.getCreated_date().format(dtf_kor));
+				item.addProperty("updated_date", boardArticle.getUpdated_date().format(dtf_kor));
+				ja.add(item);
+			}
+			jo.addProperty("result", "success");
+			jo.add("data", ja);
+			return jo.toString();
+		} catch (Exception e) {
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+	}
+
+	@GetMapping("/rest/admin/getBoardList")
+	public String getBoardList(HttpServletRequest request) {
+		JsonObject jo = new JsonObject();
+		HttpSession hs = request.getSession();
+		Member mem = (Member)hs.getAttribute("member");
+		int level = mem.getLevel();
+		if(level != 9999) {
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+		JsonArray ja = new JsonArray();
+		try {
+			List<Board> boards = boardManager.getBoardList();
+			for(Board board : boards) {
+				JsonObject item = new JsonObject();
+				item.addProperty("uid", board.getUid());
+				item.addProperty("board_name", board.getBoard_name());
+				item.addProperty("read_level", board.getRead_level());
+				item.addProperty("write_level", board.getWrite_level());
+				item.addProperty("created_date", board.getCreated_date().format(dtf_kor));
+				item.addProperty("updated_date", board.getUpdated_date().format(dtf_kor));
+				ja.add(item);
+			}
+			jo.addProperty("result", "success");
+			jo.add("data", ja);
+			return jo.toString();
+		}catch(Exception e) {
+			e.printStackTrace();
+			jo.addProperty("result", "failed");
+			return jo.toString();
+		}
+	}
 }

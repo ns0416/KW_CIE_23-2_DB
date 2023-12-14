@@ -42,6 +42,9 @@ public class BoardManager {
 	public Board getBoardInfo(String board_name, int uid) {
 		return boardArticleService.getBoardInfo(board_name, uid);
 	}
+	public List<Board> getBoardList() {
+		return boardArticleService.getBoardList();
+	}
 	private CommonEnum writeArticle_only(BoardArticle art) throws Exception {
 		if(boardArticleService.writeArticle(art) > 0)
 			return CommonEnum.SUCCESS;

@@ -35,6 +35,11 @@ public class BoardArticleService implements BoardArticleDao {
 	}
 
 	@Override
+	public List<Board> getBoardList() {
+		return boardArticleDao.getBoardList();
+	}
+
+	@Override
 	public int writeArticle(BoardArticle art) {
 		// TODO Auto-generated method stub
 		return boardArticleDao.writeArticle(art);
