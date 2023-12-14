@@ -139,7 +139,7 @@ function AdminArticleModify() {
         <>
         <AdminNavbar/>
         <Container>
-            <h3 style={{fontWeight: "bold", margin: "30px 0"}}>{uid ? "게시글 수정" : "게시글 작성"}</h3>
+            <h3 style={{fontWeight: "bold", margin: "30px 0"}}>{(ArticleInfo.board_name != undefined && ArticleInfo.board_name > 0) && uid ? "게시글 수정" : "게시글 작성"}</h3>
             <div>
             <Form noValidate onSubmit={Submithandler}>
             <Form.Group className="mb-3" controlId="station_name">
