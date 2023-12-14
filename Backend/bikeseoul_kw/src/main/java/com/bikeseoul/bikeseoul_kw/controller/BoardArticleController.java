@@ -1,16 +1,6 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
-import com.bikeseoul.bikeseoul_kw.container.Attachment;
-import com.bikeseoul.bikeseoul_kw.container.Board;
-import com.bikeseoul.bikeseoul_kw.container.BoardArticle;
-import com.bikeseoul.bikeseoul_kw.container.Breakdown;
-import com.bikeseoul.bikeseoul_kw.container.Comment;
-import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
-import com.bikeseoul.bikeseoul_kw.container.Config;
-import com.bikeseoul.bikeseoul_kw.container.Member;
-import com.bikeseoul.bikeseoul_kw.container.Neglect;
-import com.bikeseoul.bikeseoul_kw.container.PaymentLog;
-import com.bikeseoul.bikeseoul_kw.container.break_type;
+import com.bikeseoul.bikeseoul_kw.container.*;
 import com.bikeseoul.bikeseoul_kw.manager.BoardManager;
 import com.bikeseoul.bikeseoul_kw.manager.ConfigManager;
 import com.google.gson.JsonArray;
@@ -61,16 +51,18 @@ public class BoardArticleController {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
         try {
-            List<BoardArticle> boardArticleList = boardManager.getBoardArticleList(board_uid);
-            for (BoardArticle boardArticle : boardArticleList) {
-                JsonObject item = new JsonObject();
-                item.addProperty("uid", boardArticle.getUid());
-                item.addProperty("board_uid", boardArticle.getBoard_uid());
-                item.addProperty("user_uid", boardArticle.getUser_uid());
-                item.addProperty("title", boardArticle.getTitle());
-                item.addProperty("content", boardArticle.getContent());
-                item.addProperty("created_date", boardArticle.getCreated_date().format(dtf_kor));
-                item.addProperty("updated_date", boardArticle.getUpdated_date().format(dtf_kor));
+			List<Pair<BoardArticle,Pair<String, String>>> boardArticleList = boardManager.getBoardArticleList(0);
+			for (Pair<BoardArticle, Pair<String, String>> articlePair : boardArticleList) {
+				JsonObject item = new JsonObject();
+				item.addProperty("uid", articlePair.getFirst().getUid());
+				item.addProperty("board_uid", articlePair.getFirst().getBoard_uid());
+				item.addProperty("user_uid", articlePair.getFirst().getUser_uid());
+				item.addProperty("title", articlePair.getFirst().getTitle());
+				item.addProperty("content", articlePair.getFirst().getContent());
+				item.addProperty("created_date", articlePair.getFirst().getCreated_date().format(dtf_kor));
+				item.addProperty("updated_date", articlePair.getFirst().getUpdated_date().format(dtf_kor));
+				item.addProperty("board_name", articlePair.getSecond().getFirst());
+				item.addProperty("id", articlePair.getSecond().getSecond());
                 ja.add(item);
             }
             jo.addProperty("result", "success");
@@ -449,16 +441,18 @@ public class BoardArticleController {
 		}
 		JsonArray ja = new JsonArray();
 		try {
-			List<BoardArticle> boardArticleList = boardManager.getBoardArticleList(0);
-			for (BoardArticle boardArticle : boardArticleList) {
+			List<Pair<BoardArticle,Pair<String, String>>> boardArticleList = boardManager.getBoardArticleList(0);
+			for (Pair<BoardArticle, Pair<String, String>> articlePair : boardArticleList) {
 				JsonObject item = new JsonObject();
-				item.addProperty("uid", boardArticle.getUid());
-				item.addProperty("board_uid", boardArticle.getBoard_uid());
-				item.addProperty("user_uid", boardArticle.getUser_uid());
-				item.addProperty("title", boardArticle.getTitle());
-				item.addProperty("content", boardArticle.getContent());
-				item.addProperty("created_date", boardArticle.getCreated_date().format(dtf_kor));
-				item.addProperty("updated_date", boardArticle.getUpdated_date().format(dtf_kor));
+				item.addProperty("uid", articlePair.getFirst().getUid());
+				item.addProperty("board_uid", articlePair.getFirst().getBoard_uid());
+				item.addProperty("user_uid", articlePair.getFirst().getUser_uid());
+				item.addProperty("title", articlePair.getFirst().getTitle());
+				item.addProperty("content", articlePair.getFirst().getContent());
+				item.addProperty("created_date", articlePair.getFirst().getCreated_date().format(dtf_kor));
+				item.addProperty("updated_date", articlePair.getFirst().getUpdated_date().format(dtf_kor));
+				item.addProperty("board_name", articlePair.getSecond().getFirst());
+				item.addProperty("id", articlePair.getSecond().getSecond());
 				ja.add(item);
 			}
 			jo.addProperty("result", "success");

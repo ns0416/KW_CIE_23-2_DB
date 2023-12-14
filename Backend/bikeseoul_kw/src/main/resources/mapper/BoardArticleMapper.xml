@@ -3,14 +3,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bikeseoul.bikeseoul_kw.dao.BoardArticleDao">
-    <select id="getBoardArticleList" resultType="com.bikeseoul.bikeseoul_kw.container.BoardArticle">
+    <select id="getBoardArticleList" resultType="HashMap">
         SELECT
-            uid, board_uid, user_uid, title, content, created_date, updated_date
+            a.uid, a.board_uid, a.user_uid, a.title, a.content, a.created_date, a.updated_date, b.board_name, m.id
         FROM
-            board_article
+            board_article as a
+		JOIN
+			board as b
+		ON
+			a.board_uid = b.uid
+		JOIN
+			member as m
+		ON
+			a.user_uid = m.uid
 		<if test="board_uid > 0">
 			WHERE
-				board_uid = #{board_uid}
+				a.board_uid = #{board_uid}
 		</if>
         ORDER BY
             uid DESC
@@ -92,6 +100,7 @@
     			board_name = #{board_name}
     		</if>
     </select>
+
 	<select id="getBoardList" resultType="com.bikeseoul.bikeseoul_kw.container.Board">
 		SELECT
 			uid,
@@ -107,6 +116,7 @@
 				board_name=#{query}
 		</if>
 	</select>
+
     <insert id="writeBreakdown" parameterType="com.bikeseoul.bikeseoul_kw.container.Breakdown">
 		<![CDATA[
 			INSERT INTO breakdown
