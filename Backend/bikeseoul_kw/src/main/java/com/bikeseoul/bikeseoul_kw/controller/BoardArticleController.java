@@ -471,7 +471,7 @@ public class BoardArticleController {
 	}
 
 	@GetMapping("/rest/admin/getBoardList")
-	public String getBoardList(HttpServletRequest request, @RequestParam String query) {
+	public String getBoardList(HttpServletRequest request, @RequestParam(required=false) String query) {
 		JsonObject jo = new JsonObject();
 		HttpSession hs = request.getSession();
 		Member mem = (Member)hs.getAttribute("member");

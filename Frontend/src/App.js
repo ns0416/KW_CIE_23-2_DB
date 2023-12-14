@@ -39,6 +39,8 @@ import AdminMember from './pages/admin/AdminMember';
 import AdminMemberInsert from './pages/admin/AdminMemberInsert';
 import ChangeEmail1 from './pages/changeEmail/ChangeEmail1';
 import SetLost from './pages/setLost/SetLost';
+import AdminBoard from './pages/admin/AdminBoard';
+import AdminBike from './pages/admin/AdminBike';
 
 function App() {
   return (
@@ -87,6 +89,8 @@ function App() {
           <Route path="/admin/member" exact element={<AdminMember/>}/>
           <Route path="/admin/memberInsert" exact element={<AdminMemberInsert/>}/>
           <Route path="/admin/memberModify/:uid" exact element={<AdminMemberInsert/>}/>
+          <Route path="/admin/board" exact element={<AdminBoard/>}/>
+          <Route path="/admin/bike" exact element={<AdminBike/>}/>
           
           
         </Route>        

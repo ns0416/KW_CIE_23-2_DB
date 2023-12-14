@@ -16,6 +16,10 @@ function AdminNavbar() {
           <Nav className="me-auto">
             <Nav.Link href="/admin/member">회원관리</Nav.Link>
             <Nav.Link href="/admin/station">대여소관리</Nav.Link>
+            <Nav.Link href="/admin/bike">따릉이 시설관리</Nav.Link>
+            <Nav.Link href="/admin/board">게시판관리</Nav.Link>
+            <Nav.Link href="/admin/article">게시글조회/수정/삭제</Nav.Link>
+            <Nav.Link href="/admin/writeArticle">게시글작성</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

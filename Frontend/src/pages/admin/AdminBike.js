@@ -11,11 +11,11 @@ import axios from 'axios';
 
 
 
-function AdminBoard()
+function AdminBike()
 {
     const navigate = useNavigate();
     const [queryword, setqueryword] = useState('');
-    const [board, setBoard] = useState([]);
+    const [bikes, setBikes] = useState([]);
 	useEffect(() => { //전체 대여소 조회
 		Search();
 	}, [])
@@ -25,12 +25,12 @@ function AdminBoard()
         if(queryword != ''){
             param['query'] = queryword;
         }
-        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/admin/getBoardList", {params:param})
+        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/admin/getBikeList", {params:param})
         .then((res) => {
             if(res.data.result== "success") {
                 //console.log(res.data);
 				//console.log(res.data.data);
-				setBoard(res.data.data);
+				setBikes(res.data.data);
             }
             else { //대여소 조회 실패
                 //console.log(res.data);
@@ -51,7 +51,7 @@ function AdminBoard()
 
         <Container style={{marginTop:"30px", marginBottom: "30px"}}>
             <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">게시판 검색</InputGroup.Text>
+            <InputGroup.Text id="basic-addon1">따릉이 검색</InputGroup.Text>
                 <Form.Control
                   placeholder="search"
                   aria-label="Username"
@@ -68,24 +68,26 @@ function AdminBoard()
             <thead>
                 <tr>
                   <th>#</th>
-                  <th>게시판 이름</th>
-                  <th>읽기권한</th>
-                  <th>쓰기 권한</th>
-                  <th>생성일자</th>
+                  <th>자전거번호</th>
+                  <th>자전거타입</th>
+                  <th>상태</th>
+                  <th>최근정비일자</th>
+                  <th>출고일자</th>
                   <th>수정일자</th>
                   <th></th>
                 </tr>
             </thead>
             <tbody>
                     {
-                        board.map(function(a, i){
+                        bikes.map(function(a, i){
                             return(
                                 <tr key={i}>
                                     <td>{i+1}</td>
-                                    <td>{a.board_name}</td>
-                                    <td>{a.read_level}</td>
-                                    <td>{a.write_level}</td>
-                                    <td>{a.created_date}</td>
+                                    <td>{a.bike_id}</td>
+                                    <td>{a.bike_type}</td>
+                                    <td>{a.status}</td>
+                                    <td>{a.inspection_date}</td>
+                                    <td>{a.release_date}</td>
                                     <td>{a.updated_date}</td>
                                     <td style={{textAlign:"center"}}><Link to='/'><Button variant="outline-primary">수정하기</Button></Link><Button variant="outline-danger">삭제하기</Button></td>
                                 </tr>
@@ -99,4 +101,4 @@ function AdminBoard()
 
 }
 
-export default AdminBoard;
+export default AdminBike;
