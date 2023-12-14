@@ -1,8 +1,6 @@
 package com.bikeseoul.bikeseoul_kw.dao;
 
-import com.bikeseoul.bikeseoul_kw.container.Bike;
-import com.bikeseoul.bikeseoul_kw.container.Overdue;
-import com.bikeseoul.bikeseoul_kw.container.Rent;
+import com.bikeseoul.bikeseoul_kw.container.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDateTime;
@@ -19,7 +17,10 @@ public interface RentDao {
     int updateOverdue(Overdue overdue);
     int updateRent(Rent rent);
     Bike getBikeInfo(int uid);
+    List<Bike> getBikeList(int station_uid);
     int updateBikeInfo(Bike bike);
     List<Rent> getRentInfo(int rent_uid, int bike_uid, int ticket_detail_uid);
     int insertOverdue(Overdue overdue);
+    List<Breakdown> getBreakdownList(int uid);
+    List<Neglect> getNeglectList(int uid);
 }

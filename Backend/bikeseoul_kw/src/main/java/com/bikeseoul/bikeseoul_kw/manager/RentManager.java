@@ -1,14 +1,6 @@
 package com.bikeseoul.bikeseoul_kw.manager;
 
-import com.bikeseoul.bikeseoul_kw.container.Bike;
-import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
-import com.bikeseoul.bikeseoul_kw.container.Overdue;
-import com.bikeseoul.bikeseoul_kw.container.Pair;
-import com.bikeseoul.bikeseoul_kw.container.Rent;
-import com.bikeseoul.bikeseoul_kw.container.Ticket;
-import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
-import com.bikeseoul.bikeseoul_kw.container.bike_status;
-import com.bikeseoul.bikeseoul_kw.container.ticket_type;
+import com.bikeseoul.bikeseoul_kw.container.*;
 import com.bikeseoul.bikeseoul_kw.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -78,6 +70,10 @@ public class RentManager {
 	public List<Rent> getRentInfo(int rent_uid, Integer bike_uid, int ticket_detail_uid) {
 		// TODO Auto-generated method stub
 		return rentService.getRentInfo(rent_uid, bike_uid, ticket_detail_uid);
+	}
+	public List<Bike> getBikeList(int station_uid) {
+		// TODO Auto-generated method stub
+		return rentService.getBikeList(station_uid);
 	}
 	public LocalDateTime getExpiredDate(Pair<Ticket,Ticket_detail> activationTicket) {
 		List<Rent> rent = getRentInfo(0, 0, activationTicket.getSecond().getUid());
@@ -155,5 +151,15 @@ public class RentManager {
 	public CommonEnum updateRent(Rent rent) {
 		// TODO Auto-generated method stub
 		return rentService.updateRent(rent)> 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
+
+	public List<Breakdown> getBreakdownList(int uid) {
+		// TODO Auto-generated method stub
+		return rentService.getBreakdownList(uid);
+	}
+
+	public List<Neglect> getNeglectList(int uid) {
+		// TODO Auto-generated method stub
+		return rentService.getNeglectList(uid);
 	}
 }

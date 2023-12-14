@@ -1,8 +1,6 @@
 package com.bikeseoul.bikeseoul_kw.service;
 
-import com.bikeseoul.bikeseoul_kw.container.Bike;
-import com.bikeseoul.bikeseoul_kw.container.Overdue;
-import com.bikeseoul.bikeseoul_kw.container.Rent;
+import com.bikeseoul.bikeseoul_kw.container.*;
 import com.bikeseoul.bikeseoul_kw.dao.RentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +52,11 @@ public class RentService implements RentDao {
 	}
 
 	@Override
+	public List<Bike> getBikeList(int station_uid) {
+		return rentDao.getBikeList(station_uid);
+	}
+
+	@Override
 	public int updateBikeInfo(Bike bike) {
 		// TODO Auto-generated method stub
 		return rentDao.updateBikeInfo(bike);
@@ -69,5 +72,15 @@ public class RentService implements RentDao {
 	public int insertOverdue(Overdue overdue) {
 		// TODO Auto-generated method stub
 		return rentDao.insertOverdue(overdue);
+	}
+
+	@Override
+	public List<Breakdown> getBreakdownList(int uid) {
+		return rentDao.getBreakdownList(uid);
+	}
+
+	@Override
+	public List<Neglect> getNeglectList(int uid) {
+		return rentDao.getNeglectList(uid);
 	}
 }

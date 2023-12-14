@@ -1,15 +1,6 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
-import com.bikeseoul.bikeseoul_kw.container.Bike;
-import com.bikeseoul.bikeseoul_kw.container.CommonEnum;
-import com.bikeseoul.bikeseoul_kw.container.Member;
-import com.bikeseoul.bikeseoul_kw.container.Overdue;
-import com.bikeseoul.bikeseoul_kw.container.Pair;
-import com.bikeseoul.bikeseoul_kw.container.Rent;
-import com.bikeseoul.bikeseoul_kw.container.Station;
-import com.bikeseoul.bikeseoul_kw.container.Ticket;
-import com.bikeseoul.bikeseoul_kw.container.Ticket_detail;
-import com.bikeseoul.bikeseoul_kw.container.User;
+import com.bikeseoul.bikeseoul_kw.container.*;
 import com.bikeseoul.bikeseoul_kw.manager.AccountManager;
 import com.bikeseoul.bikeseoul_kw.manager.PaymentLogManager;
 import com.bikeseoul.bikeseoul_kw.manager.RentManager;
@@ -223,6 +214,106 @@ public class RentController {
         	jo.addProperty("result", "success");
         else
         	jo.addProperty("result", "failed");
+        return jo.toString();
+    }
+
+    @GetMapping("/rest/admin/getBikeList")
+    public String getBikeList(HttpServletRequest request){
+        JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        int level = mem.getLevel();
+        if(level != 9999) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        JsonArray ja = new JsonArray();
+        try {
+            List<Bike> bikeList = rentManager.getBikeList(0);
+            for (Bike bike : bikeList) {
+                JsonObject item = new JsonObject();
+                item.addProperty("bike_id", bike.getBike_id());
+                item.addProperty("bike_type", bike.getBike_type().toString());
+                item.addProperty("station_uid", bike.getStation_uid());
+                item.addProperty("status", bike.getStatus_().toString());
+                item.addProperty("inspection_date", bike.getInspection_date().format(dtf_kor));
+                item.addProperty("release_date", bike.getRelease_date().format(dtf_kor));
+                item.addProperty("updated_date", bike.getUpdated_date().format(dtf_kor));
+                ja.add(item);
+            }
+            jo.addProperty("result", "success");
+            jo.add("data", ja);
+        }catch (Exception e) {
+            e.printStackTrace();
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        return jo.toString();
+    }
+
+    @GetMapping("/rest/admin/getBreakdownList")
+    public String getBreakdownList(HttpServletRequest request) {
+        JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        Member mem = (Member) hs.getAttribute("member");
+        int level = mem.getLevel();
+        if (level != 9999) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        JsonArray ja = new JsonArray();
+        try {
+            List<Breakdown> breakdownList = rentManager.getBreakdownList(0);
+            for (Breakdown breakdown : breakdownList) {
+                JsonObject item = new JsonObject();
+                item.addProperty("uid", breakdown.getUid());
+                item.addProperty("member_uid", breakdown.getUser_uid());
+                item.addProperty("bike_uid", breakdown.getBike_uid());
+                item.addProperty("break_type", breakdown.getBreaktype().toString());
+                item.addProperty("content", breakdown.getContent());
+                item.addProperty("created_date", breakdown.getCreated_date().format(dtf_kor));
+                ja.add(item);
+            }
+            jo.addProperty("result", "success");
+            jo.add("data", ja);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        return jo.toString();
+    }
+
+    @GetMapping("/rest/admin/getNeglectList")
+    public String getNeglectList(HttpServletRequest request) {
+    	JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        Member mem = (Member) hs.getAttribute("member");
+        int level = mem.getLevel();
+        if (level != 9999) {
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        JsonArray ja = new JsonArray();
+        try {
+            List<Neglect> neglectList = rentManager.getNeglectList(0);
+            for (Neglect neglect : neglectList) {
+                JsonObject item = new JsonObject();
+                item.addProperty("article_uid", neglect.getUid());
+                item.addProperty("bike_uid", neglect.getBike_uid());
+                item.addProperty("lat", neglect.getLat());
+                item.addProperty("lon", neglect.getLon());
+                item.addProperty("detail_address", neglect.getDetail_address());
+                item.addProperty("created_date", neglect.getCreated_date().format(dtf_kor));
+                ja.add(item);
+            }
+            jo.addProperty("result", "success");
+            jo.add("data", ja);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
         return jo.toString();
     }
 }

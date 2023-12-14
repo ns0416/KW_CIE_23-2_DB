@@ -87,6 +87,24 @@
         WHERE
         	bike_id = #{uid}
     </select>
+
+	<select id="getBikeList" resultType="com.bikeseoul.bikeseoul_kw.container.Bike">
+		SELECT
+			bike_id,
+			bike_type,
+			station_uid,
+			status_,
+			inspection_date,
+			release_date,
+			update_date
+		FROM
+			bike
+		<if test="station_uid > 0">
+			WHERE
+				station_uid = #{station_uid}
+		</if>
+	</select>
+
     <update id="updateBikeInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Bike">
 		UPDATE
 			bike
@@ -180,5 +198,35 @@
 		WHERE
 			uid = #{uid}
 	</update>
+	<select id="getBreakdownList" resultType="com.bikeseoul.bikeseoul_kw.container.Breakdown">
+		SELECT
+			uid,
+			member_uid,
+			bike_uid,
+			break_type,
+			content,
+			created_date
+		FROM
+			breakdown
+		<if test="member_uid > 0">
+			WHERE
+				member_uid = #{member_uid}
+		</if>
+	</select>
+	<select id="getNeglectList" resultType="com.bikeseoul.bikeseoul_kw.container.Neglect">
+		SELECT
+			uid,
+			bike_uid,
+			lat,
+			lon,
+			detail_address,
+			created_date
+		FROM
+			neglect
+		<if test="member_uid > 0">
+			WHERE
+				member_uid = #{member_uid}
+		</if>
+	</select>
 </mapper>
 
