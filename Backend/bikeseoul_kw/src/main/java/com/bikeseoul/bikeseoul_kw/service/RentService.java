@@ -83,4 +83,16 @@ public class RentService implements RentDao {
 	public List<Neglect> getNeglectList(int member_uid) {
 		return rentDao.getNeglectList(member_uid);
 	}
+
+	@Override
+	public int insertBike(Bike bike) {
+		// TODO Auto-generated method stub
+		return rentDao.insertBike(bike);
+	}
+
+	@Override
+	public int deleteBike(int bike_id) {
+		// TODO Auto-generated method stub
+		return rentDao.deleteBike(bike_id);
+	}
 }

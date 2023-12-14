@@ -104,7 +104,7 @@
 			board
 		<if test="query != null">
 			WHERE
-				board_name=#{query}
+				board_name LIKE CONCAT("%", #{query}, "%")
 		</if>
 	</select>
     <insert id="writeBreakdown" parameterType="com.bikeseoul.bikeseoul_kw.container.Breakdown">
@@ -205,6 +205,43 @@
 			SELECT LAST_INSERT_ID() AS uid
 		</selectKey>
 	</insert>
+	<insert id="insertBoard" parameterType="com.bikeseoul.bikeseoul_kw.container.Board" >
+		<![CDATA[
+			INSERT INTO board
+				(
+					board_name,
+					read_level,
+					write_level
+				) VALUES (
+					#{board_name},
+					#{read_level},
+					#{write_level}
+				)
+		
+		]]>
+		<selectKey resultType="Integer" keyProperty="uid" order="AFTER">
+			SELECT LAST_INSERT_ID() AS uid
+		</selectKey>
+	</insert>
+	<update id="updateBoard" parameterType="com.bikeseoul.bikeseoul_kw.container.Board">
+		UPDATE
+			board
+		SET
+			board_name = #{board_name},
+			read_level = #{read_level},
+			write_level = #{write_level},
+			updated_date = NOW()
+		WHERE
+			uid = #{uid}
+	</update>
+	<delete id="deleteBoard" parameterType="Integer" >
+		<![CDATA[
+			DELETE FROM
+				board
+			WHERE
+				uid = #{uid}
+		]]>
+	</delete>
 	<delete id="deleteAttachment" parameterType="Integer" >
 		<![CDATA[
 			DELETE FROM

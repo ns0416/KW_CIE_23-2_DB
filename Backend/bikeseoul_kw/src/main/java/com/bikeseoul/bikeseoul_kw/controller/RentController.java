@@ -374,4 +374,41 @@ public class RentController {
         }
         return jo.toString();
     }
+    @PostMapping("/rest/admin/insertBike")
+    public String insertBike(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+ 	   JsonObject jo = new JsonObject();
+        Bike bike = new Bike(bike_type.valueOf((String)body.get("bike_type")), (Integer)body.get("station_uid"), bike_status.valueOf((String)body.get("bike_status")), null);
+        CommonEnum res = rentManager.insertBike(bike);
+        if(res == CommonEnum.SUCCESS)
+ 			jo.addProperty("result", "success");
+ 		else
+ 			jo.addProperty("result", "failed");
+ 		return jo.toString();
+    }
+    @PostMapping("/rest/admin/updateBike")
+ 	public String updateBike(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+ 		JsonObject jo = new JsonObject();
+ 		Bike bike = new Bike(bike_type.valueOf((String)body.get("bike_type")), (Integer)body.get("station_uid"), bike_status.valueOf((String)body.get("bike_status")), (String)body.get("inspection"));
+ 		CommonEnum res = rentManager.updateBike(bike);
+ 		if(res == CommonEnum.SUCCESS)
+ 			jo.addProperty("result", "success");
+ 		else
+ 			jo.addProperty("result", "failed");
+ 		return jo.toString();
+ 	}
+    @PostMapping("/rest/admin/deleteBike")
+ 	public String deleteBike(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+ 		JsonObject jo = new JsonObject();
+ 		try {
+ 			CommonEnum res = rentManager.deleteBike((Integer)body.get("bike_uid"));
+ 			if(res == CommonEnum.SUCCESS)
+ 				jo.addProperty("result", "success");
+ 			else
+ 				jo.addProperty("result", "failed");
+ 		}catch(Exception e) {
+ 			e.printStackTrace();
+ 			jo.addProperty("result", "failed");
+ 		}
+ 		return jo.toString();
+ 	}
 }

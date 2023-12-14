@@ -43,7 +43,7 @@ function AdminBoard()
         setqueryword(e.target.value);
     }
     function moveInsert() {
-        navigate('/admin/stationModify');
+        navigate('/admin/boardInsert');
     }
     return (
         <>
@@ -60,7 +60,7 @@ function AdminBoard()
                   onChange={changehandler}
                 />
                 <Button onClick={Search}>검색</Button>
-                <span style={{marginLeft: "10px"}}><Button onClick={moveInsert}>대여소 추가</Button></span>
+                <span style={{marginLeft: "10px"}}><Button onClick={moveInsert}>게시판 추가</Button></span>
             </InputGroup>
         </Container>
 
@@ -87,7 +87,7 @@ function AdminBoard()
                                     <td>{a.write_level}</td>
                                     <td>{a.created_date}</td>
                                     <td>{a.updated_date}</td>
-                                    <td style={{textAlign:"center"}}><Link to='/'><Button variant="outline-primary">수정하기</Button></Link><Button variant="outline-danger">삭제하기</Button></td>
+                                    <td style={{textAlign:"center"}}><Link to={'/admin/boardModify/'+a.board_name}><Button variant="outline-primary">수정하기</Button></Link></td>
                                 </tr>
                             );
                         })

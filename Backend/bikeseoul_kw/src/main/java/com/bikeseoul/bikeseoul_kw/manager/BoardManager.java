@@ -301,4 +301,16 @@ public class BoardManager {
 		// TODO Auto-generated method stub
 		return boardArticleService.deleteBreakdown(uid, member_uid) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
 	}
+	public CommonEnum insertBoard(Board board) {
+		// TODO Auto-generated method stub
+		return boardArticleService.insertBoard(board) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
+	public CommonEnum updateBoard(Board board) {
+		// TODO Auto-generated method stub
+		return boardArticleService.updateBoard(board) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
+	public CommonEnum deleteBoard(int uid) {
+		// TODO Auto-generated method stub
+		return boardArticleService.deleteBoard(uid) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
 }

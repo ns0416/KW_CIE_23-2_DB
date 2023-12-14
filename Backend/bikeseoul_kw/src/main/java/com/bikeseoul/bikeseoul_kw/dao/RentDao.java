@@ -16,6 +16,7 @@ public interface RentDao {
     int insertRentInfo(Rent rent);
     int updateOverdue(Overdue overdue);
     int updateRent(Rent rent);
+    int insertBike(Bike bike);
     Bike getBikeInfo(int uid);
     List<Bike> getBikeList(String station_name);
     int updateBikeInfo(Bike bike);
@@ -23,4 +24,5 @@ public interface RentDao {
     int insertOverdue(Overdue overdue);
     List<Breakdown> getBreakdownList(int member_uid);
     List<Neglect> getNeglectList(int member_uid);
+    int deleteBike(int bike_id);
 }

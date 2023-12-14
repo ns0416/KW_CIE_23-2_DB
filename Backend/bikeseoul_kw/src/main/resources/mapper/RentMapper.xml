@@ -134,6 +134,22 @@
 		WHERE
 			bike_id = #{bike_id}
 	</update>
+	<insert id="insertBike" parameterType="com.bikeseoul.bikeseoul_kw.container.Bike">
+		<![CDATA[
+			INSERT INTO rent
+				(
+					bike_type,
+					station_uid,
+					status_
+				) VALUES (
+					#{bike_type},
+					#{station_uid},
+					#{status_}
+				)
+		
+		]]>
+	
+	</insert>
     <insert id="insertRentInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Rent">
 		<![CDATA[
 			INSERT INTO rent
@@ -170,6 +186,7 @@
 		]]>
 	
 	</insert>
+	
     <update id="updateOverdue" parameterType="com.bikeseoul.bikeseoul_kw.container.Overdue">
 		UPDATE
 			overdue
@@ -237,5 +254,13 @@
 				b.user_uid = #{member_uid}
 		</if>
 	</select>
+	<delete id="deleteBike" parameterType="Integer" >
+		<![CDATA[
+			DELETE FROM
+				bike
+			WHERE
+				bike_id = #{bike_id}
+		]]>
+	</delete>
 </mapper>
 

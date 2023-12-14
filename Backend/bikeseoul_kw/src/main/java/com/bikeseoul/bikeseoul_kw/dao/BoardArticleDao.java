@@ -35,4 +35,7 @@ public interface BoardArticleDao {
     int writeNeglect(Neglect ngt);
     int updateNeglect(Neglect ngt);
     int deleteNeglect(int uid);
+    int insertBoard(Board brd);
+    int updateBoard(Board brd);
+    int deleteBoard(int uid);
 }
