@@ -8,70 +8,69 @@ import Form from 'react-bootstrap/Form';
 import {useEffect, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { get } from 'jquery';
 
-function AdminBoardModify() {
+function AdminArticleModify() {
     const navigate = useNavigate();
     const params  = useParams();
-    const board_name = params.uid;
-    const [boardInfo,setBoardinfo] = useState({
-        uid:0,
+    const uid = params.uid;
+    const [ArticleInfo,setArticleInfo] = useState({
+        art_uid:0,
         board_name:"",
-        read_level:0,
-        write_level:0
+        art_title:"",
+        art_content:"",
     });
 
     const onChangeHandler = (e) =>{
-        setBoardinfo({...boardInfo, [e.target.name] : e.target.value});
+        setArticleInfo({...ArticleInfo, [e.target.name] : e.target.value});
     }
 
-    const insertBoard = ()=>{
+    const insertArticle = ()=>{
         //const form = e.currentTarget;
-        let board_infonew = {
-            board_name:boardInfo.board_name,
-            read_level:Number(boardInfo.read_level),
-            write_level:Number(boardInfo.write_level)
+        let article_infonew = {
+            board_name:ArticleInfo.board_name,
+            art_title:ArticleInfo.art_title,
+            art_content:ArticleInfo.art_content,
         };
-        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/insertBoard", board_infonew)
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/service/writeArticle", article_infonew)
             .then((res) => {
                 if(res.data.result == "success") {
-                    alert("게시판 추가 완료");
-                    navigate('/admin/board');
+                    alert("게시글 추가 완료");
+                    navigate('/admin/article');
                 }
                 else {
-                    alert("게시판 추가 실패");
+                    alert("게시글 추가 실패");
                 }
             })
             .catch((err) => console.log(err))
     }
-    const modifyBoard = ()=>{
-        let board_infonew = {
-            board_uid:boardInfo.uid,
-            board_name:boardInfo.board_name,
-            read_level:Number(boardInfo.read_level),
-            write_level:Number(boardInfo.write_level)
+    const modifyArticle = ()=>{
+        let article_infonew = {
+            art_uid:ArticleInfo.art_uid,
+            art_title:ArticleInfo.art_title,
+            art_content:ArticleInfo.art_content,
         };
-        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/updateBoard", board_infonew)
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/service/updateArticle", article_infonew)
         .then((res) => {
             if(res.data.result == "success") {
-                alert("게시판 수정 완료");
-                navigate('/admin/board');
+                alert("게시글 수정 완료");
+                navigate('/admin/article');
             }
             else {
-                alert("게시판 수정 실패");
+                alert("게시글 수정 실패");
             }
         })
         .catch((err) => console.log(err))
     }
-    
-    const getBoardInfo = ()=>{
-        if (!board_name)
+    const getArticleInfo = ()=>{
+        if (uid < 1)
         {
             return;
         }
-        axios.get('http://seoulbike-kw.namisnt.com:8082/rest/admin/getBoardList', {params: {query: board_name},})
+        axios.get('http://seoulbike-kw.namisnt.com:8082/rest/admin/getBoardArticleList')
         .then((res) => {
             if(res.data.result== "success") {
-                setBoardinfo(res.data.data[0]);
+                setArticleInfo(res.data.data[0]);
             }
             else { //대여소 조회 실패
                 console.log(res.data);
@@ -81,73 +80,73 @@ function AdminBoardModify() {
         .catch((err) => console.log(err))
     }
 
-    const deleteBoardInfo = ()=>{
-        if (!board_name || boardInfo.uid < 1)
+    const deleteArticleInfo = ()=>{
+        if (uid < 1)
         {
             return;
         }
-        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/deleteBoard", {board_uid : Number(boardInfo.uid)})
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/service/deleteArticle", {art_uid : Number(ArticleInfo.art_uid)})
         .then((res) => {
             if(res.data.result== "success") {
                 alert("삭제 성공")
                 window.history.back();
             }
             else { //대여소 조회 실패
-                alert("삭제에 실패하였습니다. 게시판과 관련된 정보가 있습니다.")
+                alert("삭제에 실패하였습니다. 게시글과 관련된 정보가 있습니다.")
             }
         })
         .catch((err) => console.log(err))
     }
 
     useEffect(()=>{
-        getBoardInfo();
-    }, [params]);
+        getArticleInfo();
+    }, []);
 
     useEffect(()=>{
-        console.log(boardInfo)
+        console.log(ArticleInfo);
     }, []);
     function Submithandler(e){
         e.preventDefault();
         
-        if (board_name){
-            modifyBoard();
+        if (uid > 0){
+            modifyArticle();
         }else{
-            insertBoard();
+            insertArticle();
         }
     }
     return(
         <>
         <AdminNavbar/>
         <Container>
-            <h3 style={{fontWeight: "bold", margin: "30px 0"}}>{!board_name || boardInfo.uid < 1 ? "게시판 수정" : "게시판 추가"}</h3>
+            <h3 style={{fontWeight: "bold", margin: "30px 0"}}>{uid ? "게시글 수정" : "게시글 작성"}</h3>
             <div>
             <Form noValidate onSubmit={Submithandler}>
             <Form.Group className="mb-3" controlId="station_name">
                 <Form.Label><b>게시판 이름</b></Form.Label>
-                <Form.Control required type="text" defaultValue={boardInfo.board_name} name="board_name" onChange={onChangeHandler} placeholder="게시판 이름" />
+                <Form.Control required type="text" defaultValue={ArticleInfo.board_name} name="board_name" onChange={onChangeHandler} placeholder="게시글 이름" />
             </Form.Group>
             <Row>
                 <Col>
                     <Form.Group controlId="lat">
-                        <Form.Label><b>읽기권한</b></Form.Label>
-                        <Form.Control required type="number" value={boardInfo.read_level} name="read_level" onChange={onChangeHandler}placeholder="읽기권한" />
+                        <Form.Label><b>게시글 제목</b></Form.Label>
+                        <Form.Control required type="number" value={ArticleInfo.art_title} name="art_title" onChange={onChangeHandler}placeholder="게시글 제목" />
                     </Form.Group>
                 </Col>
                 <Col>
                     <Form.Group controlId="lon">
-                        <Form.Label><b>쓰기권한</b></Form.Label>
-                        <Form.Control required type="number" value={boardInfo.write_level} name="write_level" onChange={onChangeHandler} placeholder="쓰기권한" />
+                        <Form.Label><b>게시글 내용</b></Form.Label>
+                        <Form.Control required type="number" value={ArticleInfo.art_content} name="art_content" onChange={onChangeHandler} placeholder="게시글 내용" />
                     </Form.Group>
                 </Col>
             </Row>
             <Container className="mt-5">
                 {
-                board_name ? 
-                <Button variant="danger" onClick={(e)=>{deleteBoardInfo()}} style={{float: "left"}}>삭제하기</Button>
+                uid ? 
+                <Button variant="danger" onClick={(e)=>{deleteArticleInfo()}} style={{float: "left"}}>삭제하기</Button>
                 :
                 ""
                 }
-                <Button type="submit" style={{float: "right"}}>{board_name ? '수정하기' : '추가하기'}</Button>
+                <Button type="submit" style={{float: "right"}}>{uid ? '수정하기' : '추가하기'}</Button>
             </Container>
             </Form>
             </div>
@@ -156,4 +155,4 @@ function AdminBoardModify() {
     );
 }
 
-export default AdminBoardModify;
+export default AdminArticleModify;

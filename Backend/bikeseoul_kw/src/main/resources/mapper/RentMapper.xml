@@ -107,6 +107,7 @@
 			WHERE
 				s.station_name = #{station_name}
 		</if>
+		Limit 0, 1000
 	</select>
 
     <update id="updateBikeInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Bike">
@@ -233,6 +234,7 @@
 			WHERE
 				member_uid = #{member_uid}
 		</if>
+		Limit 0, 1000
 	</select>
 	<select id="getNeglectList" resultType="com.bikeseoul.bikeseoul_kw.container.Neglect">
 		SELECT
@@ -252,6 +254,7 @@
 			WHERE
 				b.user_uid = #{member_uid}
 		</if>
+		Limit 0, 1000
 	</select>
 	<delete id="deleteBike" parameterType="Integer" >
 		<![CDATA[
