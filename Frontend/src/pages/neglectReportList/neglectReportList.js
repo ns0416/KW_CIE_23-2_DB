@@ -83,7 +83,7 @@ export default function NeglectReportList() {
 	            	<span className={style.on}><a href="#"><strong>1</strong></a></span></div>
 	        </div>
             <div className={style.btn_pay}>
-            	<a id="regist" href="/app/err/moveBikeParkingLocation.do">신고하기</a>
+            	<a id="regist" href="/neglectReport">신고하기</a>
             </div>
         </div>
 	</div>
