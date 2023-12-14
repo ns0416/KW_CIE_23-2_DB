@@ -398,16 +398,16 @@ public class AccountManager {
 				"<body>\r\n" + 
 				"	\r\n" + 
 				"	<div id = \"content\">\r\n" + 
-				"			<div id=\"login_section\" class=\" border-top border-bottom bg-light shadow\">\r\n" + 
+				"			<div id=\"login_section\" className=\" border-top border-bottom bg-light shadow\">\r\n" + 
 				"				<form method=\"post\" action=\"login_func.do\" name=\"loginform\">\r\n" + 
-				"					<div class=\"title middle\">이메일 인증번호 발송</div>\r\n" + 
+				"					<div className=\"title middle\">이메일 인증번호 발송</div>\r\n" + 
 				"					<div>\r\n" + 
 				"						<span>인증번호 요청에 따른 인증메일입니다.</span><br><br>\r\n" + 
 				"						<span>아래 인증번호를 인증번호 란에 입력해주세요.</span>\r\n" + 
 				"							</div>\r\n" + 
-				" 				 <div class=\"loginbt mt-4 container px-0\">\r\n" + 
-				" 				 	<div class=\"row\">\r\n" + 
-				" 				 		<div class=\"col-md-5 text-center\">\r\n" + 
+				" 				 <div className=\"loginbt mt-4 container px-0\">\r\n" + 
+				" 				 	<div className=\"row\">\r\n" + 
+				" 				 		<div className=\"col-md-5 text-center\">\r\n" + 
 				"  							<span>"+key+"</span>\r\n" + 
 				"  						</div>\r\n" + 
 				"\r\n" + 
@@ -458,17 +458,17 @@ public class AccountManager {
 				"<body>\r\n" + 
 				"	\r\n" + 
 				"	<div id = \"content\">\r\n" + 
-				"			<div id=\"login_section\" class=\" border-top border-bottom bg-light shadow\">\r\n" + 
+				"			<div id=\"login_section\" className=\" border-top border-bottom bg-light shadow\">\r\n" + 
 				"				<form method=\"post\" action=\"login_func.do\" name=\"loginform\">\r\n" + 
-				"					<div class=\"title middle\">비밀번호 재설정 인증 메일</div>\r\n" + 
+				"					<div className=\"title middle\">비밀번호 재설정 인증 메일</div>\r\n" + 
 				"					<div>\r\n" + 
 				"						<span>비밀번호 재설정기능 요청에 따른 재설정 인증메일입니다.</span><br><br>\r\n" + 
 				"						<span>아래 버튼을 클릭하여 비밀번호를 재설정해주세요.</span>\r\n" + 
 				"							</div>\r\n" + 
-				" 				 <div class=\"loginbt mt-4 container px-0\">\r\n" + 
-				" 				 	<div class=\"row\">\r\n" + 
-				" 				 		<div class=\"col-md-5 text-center\">\r\n" + 
-				"  							<a href='"+link+"'><button type=\"button\" id=\"loginbt\" class=\"btn btn-primary w-md-auto w-100\">비밀번호 재설정</button></a>\r\n" + 
+				" 				 <div className=\"loginbt mt-4 container px-0\">\r\n" + 
+				" 				 	<div className=\"row\">\r\n" + 
+				" 				 		<div className=\"col-md-5 text-center\">\r\n" + 
+				"  							<a href='"+link+"'><button type=\"button\" id=\"loginbt\" className=\"btn btn-primary w-md-auto w-100\">비밀번호 재설정</button></a>\r\n" + 
 				"  						</div>\r\n" + 
 				"\r\n" + 
 				"  					</div>\r\n" + 

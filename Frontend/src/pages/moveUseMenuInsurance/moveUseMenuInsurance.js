@@ -7,34 +7,34 @@ import Header from '../../header.js';
 export default function NoticeBoard() {
     return (
     <>
-<div class={style.wrap} id="sub">   
-    <div class={style.header_wrap}>
-        <div class={style.header}>
-        	<div class={style.top}>
-				<div class={style.m_sub_header_wrap}>
-					<div class={style.m_sub_header}>
-						<button class={style.back}></button>
-						<button class={style.close}></button>
+<div className={style.wrap} id="sub">   
+    <div className={style.header_wrap}>
+        <div className={style.header}>
+        	<div className={style.top}>
+				<div className={style.m_sub_header_wrap}>
+					<div className={style.m_sub_header}>
+						<button className={style.back}></button>
+						<button className={style.close}></button>
 						<span id="title">보험안내</span>
 					</div>
 				</div>
 			</div>
-			<div class={style.logo}><a href="/main.do"><img src="/images/logo.png" alt="서울자전거 따릉이"/></a></div>
+			<div className={style.logo}><a href="/main.do"><img src="/images/logo.png" alt="서울자전거 따릉이"/></a></div>
         </div>
     </div>
-    <div class={style.container}>
-		<div class={style.content}>
-			<div class={style.business}>
-				<div class={style.top}>
+    <div className={style.container}>
+		<div className={style.content}>
+			<div className={style.business}>
+				<div className={style.top}>
 					<h3>보험안내</h3>
 				</div>
-				<div class={style.agreement}>
-					<p class={style.stitle2}>1. 공공자전거 종합보험 안내</p>
-					<ul class={style.usagr}>
+				<div className={style.agreement}>
+					<p className={style.stitle2}>1. 공공자전거 종합보험 안내</p>
+					<ul className={style.usagr}>
 						<li> 서울형 공공자전거의 이용자가 자전거를 대여하여 사용하는 중에 발생한 사고에 대비하여 2022년 01월 01일로 (주)DB손해보험, 한화손해보험(주), (주)KB손해보험, (주)삼성화재해상보험, 현대해상화재보험(주) 공동 보험계약을 체결함으로 아래와 같이 보장내용 및 청구방법을 안내드립니다.</li>
 					</ul>
 					<br/>
-					<table class={`${style.psboard3} ${style.mt10}`}>
+					<table className={`${style.psboard3} ${style.mt10}`}>
 						<caption>
 							<details>
 								<summary>개인정보</summary>
@@ -61,8 +61,8 @@ export default function NoticeBoard() {
 						</tbody>
 					</table>
 					<br/>
-					<p class={style.stitle3}>ㅁ 보험 보장내용</p>
-					<table class={`${style.psboard3} ${style.mt10}`}>
+					<p className={style.stitle3}>ㅁ 보험 보장내용</p>
+					<table className={`${style.psboard3} ${style.mt10}`}>
 						<caption>
 							<details>
 								<summary>개인정보</summary>
@@ -114,27 +114,27 @@ export default function NoticeBoard() {
 						</tbody>
 					</table>
 					<br/>  
-					<p class={style.stitle3}>ㅁ 공공자전거 종합보험 접수 및 처리절차</p>
-					<ul class={style.usagr}>
+					<p className={style.stitle3}>ㅁ 공공자전거 종합보험 접수 및 처리절차</p>
+					<ul className={style.usagr}>
 						<li> 접수 : DB손해보험(Tel : 02-1899-7751) <br/>※ 서울시에서 사고 접수시 사고자 및 보험사에 안내</li>
 						<li> 처리 : 보험사에서 접수일로부터 7일이내 처리후 개별통보</li>
 						<li> 보험금 지급사유별 첨부서류</li>
 					</ul>
 					<br/>
-					<p class={`${style.usagr} ${style.mb10}`}>
+					<p className={`${style.usagr} ${style.mb10}`}>
 						1. 공통서류 : 보험금청구서(사고장소 반드시 기재), 주민등록등(초)본, 신분증사본, 통장사본, 초진진료차트, 공공자전거 대여사실 확인서 또는 이용대장  <br/>※ 미성년자(만19세미만)는 부모님중 한분의 신분증, 통장사본 제출</p>
-					<p class={`${style.usagr} ${style.mb10}`}>
+					<p className={`${style.usagr} ${style.mb10}`}>
 						2. 사망 - 사망진단서(또는 사체검안서), 가족관계등록부, 가족관계증명서, 대표자 위임장 및 법정상속인의 인감증명서(상속인이 다수인 경우 각각의 인감날인 및 인감증명서 필요), 기타 가족관계에 따라 혼인/입양/친양자 관계증명서, 교통사고사실확인원(차대자전거 사고시)</p>
-					<p class={`${style.usagr} ${style.mb10}`}>
+					<p className={`${style.usagr} ${style.mb10}`}>
 						3. 후유장해 - 입원 또는 치료병원에서 발급한 후유장해진단서, 운동장해인 경우에는 AMA방식의 장해진단서(장애인복지법상의 장해진단서는 해당되지 않음), 최초 및 최종필름 (X-ray 혹은 MRI 혹은 CT), 교통사고사실확인원(차대자전거 사고시)</p>
-					<p class={`${style.usagr} ${style.mb10}`}>
+					<p className={`${style.usagr} ${style.mb10}`}>
 						4.  배상책임 - 손해배상금 및 그밖의 비용을 지급하였음을 증명하는 서류, 보험사가 요구하는 기타서류</p>
-					<p class={`${style.usagr} ${style.mb10} ${style.tc}`}>
+					<p className={`${style.usagr} ${style.mb10} ${style.tc}`}>
 						(DB손해보험(☏1899-7751, 콜센터)에 접수후 안내)</p>
 					<br/>
 					
-					<p class={style.stitle2}>2. 영조물 배상공제 안내</p>
-					<table class={`${style.psboard3} ${style.mt10}`}>
+					<p className={style.stitle2}>2. 영조물 배상공제 안내</p>
+					<table className={`${style.psboard3} ${style.mt10}`}>
 						<caption>
 							<details>
 								<summary>개인정보</summary>
@@ -167,15 +167,15 @@ export default function NoticeBoard() {
 						</tbody>
 					</table>
 					<br/>
-					<p class={style.stitle3}>ㅁ 영조물 손해배상 보험 접수 및 처리 안내</p>
-					<ul class={style.usagr}>
+					<p className={style.stitle3}>ㅁ 영조물 손해배상 보험 접수 및 처리 안내</p>
+					<ul className={style.usagr}>
 						<li>접수 : 공공자전거 사고 당사자 → 서울시설공단(Tel : 02-1599-0120)  → 한국지방재정공제회 <br/>※ 붙임 : 영조물 사고접수 양식에 따라 접수</li>
 						<li>처리 : 한국지방재정공제회의 위임을 받은 손해보험사에서 배상금 지급 개별통지</li>
 					</ul>
 					<br/>
-					<p class={`${style.stitle2} ${style.tc}`}>※ 공공자전거 결함, 관리상 하자의 입증책임은 이용자 본인에게 있으므로, 사고 발생 당시 반드시 증빙자료를 수집하여 영조물 손해배상 보험 접수 시 첨부하여 주시기 바랍니다.<br/>※ 증빙자료 : 사고 직후 촬영한 자전거 사진 또는 동영상, 인적·물적 피해를 증명할 수 있는 사진 등</p>
+					<p className={`${style.stitle2} ${style.tc}`}>※ 공공자전거 결함, 관리상 하자의 입증책임은 이용자 본인에게 있으므로, 사고 발생 당시 반드시 증빙자료를 수집하여 영조물 손해배상 보험 접수 시 첨부하여 주시기 바랍니다.<br/>※ 증빙자료 : 사고 직후 촬영한 자전거 사진 또는 동영상, 인적·물적 피해를 증명할 수 있는 사진 등</p>
 				</div>   
-				<p class={`${style.tc} ${style.mt40}`} id="pdfDiv" align="center">
+				<p className={`${style.tc} ${style.mt40}`} id="pdfDiv" align="center">
 					</p>
 			</div>
 		</div>

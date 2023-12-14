@@ -13,12 +13,17 @@ function AdminMember()
     const navigate = useNavigate();
     const [queryword, setqueryword] = useState('');
     const [members, setmembers] = useState([]);
-    useEffect(() => { //전체 회원 조회
-		axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getUserInfoList")
+    const Search = ()=>{
+        let param = {}
+        if(queryword != ''){
+            param['type'] = 'id'
+            param['value'] = queryword;
+        }
+        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getUserInfoList", {params:param})
         .then((res) => {
             if(res.data.result== "success") {
                 //console.log(res.data);
-				console.log(res.data.data);
+				//console.log(res.data.data);
 				setmembers(res.data.data);
             }
             else { //대여소 조회 실패
@@ -27,14 +32,13 @@ function AdminMember()
             }
         })
         .catch((err) => console.log(err))
+    }
+    useEffect(() => { //전체 회원 조회
+        Search();
 	}, [])
 
     function changehandler(e) {
         setqueryword(e.target.value);
-    }
-
-    function Search(e) {
-        // axios 연동
     }
 
     function moveInsert() {
@@ -72,19 +76,6 @@ function AdminMember()
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>0</td>
-                    <td>example</td>
-                    <td>example@example.com</td>
-                    <td>01012345678</td>
-                    <td>99999</td>
-                    <td>M</td>
-                    <td>20</td>
-                    <td>50</td>
-                    <td>X</td>
-                    <td>O</td>
-                    <td style={{textAlign:"center"}}><Button variant="primary">수정하기</Button>{' '}</td>
-                </tr>
                 {members.map(function(a,idx) {
 							return (
 								<tr key={idx}>
@@ -98,7 +89,7 @@ function AdminMember()
                                     <td>{a.weight}</td>
                                     <td>{a.is_lost ? ("O"):("X")}</td>
                                     <td>{a.is_valid ? ("O"):("X")}</td>
-                                    <td style={{textAlign:"center"}}><Link to={{pathname: "/admin/memberModify/"+a.uid}}><Button variant="outline-primary">수정하기</Button>{' '}</Link></td>								
+                                    <td style={{textAlign:"center"}}>{ a.is_valid == false ? "" : <Link to={{pathname: "/admin/memberModify/"+a.id}}><Button variant="outline-primary">수정하기</Button>{' '}</Link>}</td>								
                                 </tr>
 							)
 						})}

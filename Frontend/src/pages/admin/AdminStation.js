@@ -17,7 +17,15 @@ function AdminStation()
     const [queryword, setqueryword] = useState('');
     const [stations, setstations] = useState([]);
 	useEffect(() => { //전체 대여소 조회
-		axios.get("http://seoulbike-kw.namisnt.com:8082/rest/getStationList")
+		Search();
+	}, [])
+
+    const Search = ()=>{
+        let param = {}
+        if(queryword != ''){
+            param['station_name'] = queryword;
+        }
+        axios.get("http://seoulbike-kw.namisnt.com:8082/rest/getStationList", {params:param})
         .then((res) => {
             if(res.data.result== "success") {
                 //console.log(res.data);
@@ -30,17 +38,10 @@ function AdminStation()
             }
         })
         .catch((err) => console.log(err))
-	}, [])
-
-
+    }
     function changehandler(e) {
         setqueryword(e.target.value);
     }
-
-    function Search(e) {
-        // axios 연동
-    }
-
     function moveInsert() {
         navigate('/admin/stationModify');
     }
@@ -55,6 +56,8 @@ function AdminStation()
                   placeholder="search"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
+                  value={queryword}
+                  onChange={changehandler}
                 />
                 <Button onClick={Search}>검색</Button>
                 <span style={{marginLeft: "10px"}}><Button onClick={moveInsert}>대여소 추가</Button></span>

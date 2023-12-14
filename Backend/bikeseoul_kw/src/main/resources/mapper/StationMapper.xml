@@ -8,14 +8,13 @@
             uid, station_name, lat, lon, size, is_valid, station_type, COUNT(case when b.bike_type='general' then 1 end) AS general_cnt, COUNT(case when b.bike_type='sprout' then 1 end) AS sprout_cnt
         FROM
             station AS s
-        JOIN
+        LEFT JOIN
             bike AS b
         ON
-            b.station_uid = s.uid
+            b.station_uid = s.uid AND
+            b.status_ = 'ready'
         WHERE
             s.uid = #{station_uid}
-        AND
-            b.status_ = 'ready'
         GROUP BY
             s.uid
     </select>
@@ -48,18 +47,20 @@
             uid, station_name, lat, lon, size, is_valid, station_type, COUNT(case when b.bike_type='general' then 1 end) AS general_cnt, COUNT(case when b.bike_type='sprout' then 1 end) AS sprout_cnt
         FROM
             station AS s
-        JOIN
+        LEFT JOIN
             bike AS b
         ON
             b.station_uid = s.uid
-        WHERE
-            s.station_type='lent'
-        AND
-            b.status_ = 'ready'
-        <if test="station_name != null">
-        AND
-            s.station_name LIKE CONCAT('%', #{station_name}, '%')
-        </if>
+        <trim prefix="WHERE" suffixOverrides="AND|OR">
+        	<if test="lent == true">
+	        	    s.station_type='lent'
+        		AND
+	            	b.status_ = 'ready' AND
+	        </if>
+        	<if test="station_name != null">        	
+            	s.station_name LIKE CONCAT('%', #{station_name}, '%')
+        	</if>
+        </trim>
         GROUP BY
             s.uid
     </select>
@@ -70,14 +71,13 @@
             uid, station_name, lat, lon, size, is_valid, station_type, COUNT(case when b.bike_type='general' then 1 end) AS general_cnt, COUNT(case when b.bike_type='sprout' then 1 end) AS sprout_cnt
         FROM
             station AS s
-        JOIN
+        LEFT JOIN
             bike AS b
         ON
-            b.station_uid = s.uid
+            b.station_uid = s.uid AND
+            b.status_ = 'ready'
         WHERE
             s.station_type='lent'
-        AND
-            b.status_ = 'ready'
         AND
             s.lat > #{y1} AND
             s.lat < #{y2} AND
@@ -110,5 +110,13 @@
 		WHERE
 			uid = #{uid}
 	</update>
+	<delete id="deleteStation" parameterType="Integer" >
+		<![CDATA[
+			DELETE FROM
+				station
+			WHERE
+				uid = #{uid}
+		]]>
+	</delete>
 	
 </mapper>

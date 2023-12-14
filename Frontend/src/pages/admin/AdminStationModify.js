@@ -20,7 +20,7 @@ function AdminStationModify() {
         lon:"",
         size:"",
         is_valid:false,
-        station_type:"",
+        station_type:"lent",
     });
 
     const onChangeHandler = (e) =>{
@@ -32,7 +32,7 @@ function AdminStationModify() {
 
     const insertStation = ()=>{
         //const form = e.currentTarget;
-        const Station_info = {
+        let Station_infonew = {
             station_name:Station_info.station_name,
             lat:Number(Station_info.lat),
             lon:Number(Station_info.lon),
@@ -40,7 +40,7 @@ function AdminStationModify() {
             station_type:Station_info.station_type,
         };
         console.log(Station_info);
-        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/insertStation", Station_info)
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/insertStation", Station_infonew)
             .then((res) => {
                 if(res.data.result == "success") {
                     alert("대여소 추가 완료");
@@ -53,7 +53,7 @@ function AdminStationModify() {
             .catch((err) => console.log(err))
     }
     const modifyStation = ()=>{
-        const Station_infonew = {
+        let Station_infonew = {
             uid:Number(station_uid),
             station_name:Station_info.station_name,
             lat:Number(Station_info.lat),
@@ -74,8 +74,8 @@ function AdminStationModify() {
             }
         })
         .catch((err) => console.log(err))
-
     }
+    
     const getStationInfo = ()=>{
         if (station_uid === 0)
         {
@@ -84,8 +84,7 @@ function AdminStationModify() {
         axios.get('http://seoulbike-kw.namisnt.com:8082/rest/getStationInfo', {params: {station_id: station_uid},})
         .then((res) => {
             if(res.data.result== "success") {
-                setStationinfo({...res.data.data,
-                    [res.data.data.name]:res.data.data.value});
+                setStationinfo(res.data.data);
             }
             else { //대여소 조회 실패
                 console.log(res.data);
@@ -95,15 +94,35 @@ function AdminStationModify() {
         .catch((err) => console.log(err))
     }
 
+    const deleteStationInfo = ()=>{
+        if (station_uid === 0)
+        {
+            return;
+        }
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/deleteStation", {station_uid : Number(station_uid)})
+        .then((res) => {
+            if(res.data.result== "success") {
+                alert("삭제 성공")
+                window.history.back();
+            }
+            else { //대여소 조회 실패
+                alert("삭제에 실패하였습니다. 대여소와 관련된 정보가 있습니다.")
+            }
+        })
+        .catch((err) => console.log(err))
+    }
+
     useEffect(()=>{
         getStationInfo();
-        
-    }, []);
+    }, [params]);
 
+    useEffect(()=>{
+        console.log(Station_info)
+    }, []);
     function Submithandler(e){
         e.preventDefault();
         
-        if (station_uid == 0){
+        if (station_uid > 0){
             modifyStation();
         }else{
             insertStation();
@@ -140,13 +159,19 @@ function AdminStationModify() {
             </Form.Group>
             <Form.Group controlId="is_valid">
                 <Form.Label><b>대여소 운영 여부</b></Form.Label>
-                <Form.Check required type="switch" defaultValue={Station_info.is_valid} name="is_valid" onChange={onSwitchHandler}/>
+                <Form.Check required type="switch" checked={Station_info.is_valid} name="is_valid" onChange={onSwitchHandler}/>
             </Form.Group>
             <Form.Group controlId="station_type">
                 <Form.Label><b>대여소 타입</b></Form.Label>
-                <Form.Control required type="text" defaultValue={Station_info.station_type} name="station_type" onChange={onChangeHandler} placeholder="대여소 타입" />
+                <Form.Select name="station_type" value={Station_info.station_type} onChange={onChangeHandler}>
+                    <option value="lent">대여소</option>
+                    <option value="inspection">정비소</option>
+                </Form.Select>
             </Form.Group>
-            <Button type="submit" style={{float: "right"}}>수정하기</Button>
+            <Container className="mt-5">
+                <Button variant="danger" onClick={(e)=>{deleteStationInfo()}} style={{float: "left"}}>삭제하기</Button>
+                <Button type="submit" style={{float: "right"}}>{station_uid > 0 ? '수정하기' : '추가하기'}</Button>
+            </Container>
             </Form>
             </div>
         </Container>

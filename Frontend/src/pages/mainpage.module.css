@@ -1933,7 +1933,7 @@
            right:20px;  
            cursor: pointer;
            text-indent: -9999px;
-           /* background: url(../../public/img/close_02.png) 0 0 no-repeat; */
+           background: url(../../public/img/close_02.png) 0 0 no-repeat;
            -webkit-background-size: contain;
            background-size: contain;
         }

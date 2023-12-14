@@ -220,13 +220,13 @@ export default function GetDayTicketPayInfo() {
 	            <div className={`${style.pay_box} ${style.ml20i} ${style.line}`}>
     <div style={{lineHeight: "200%"}}>
 		<p>결제<span style={{color: "red",display: "none",fontSize:"12px",fontWeight:"bold"}} id="zeroPayGuide"></span></p>
-		<div className={`${style.radio} ${style.w30}`} id="zeropayRadio"><input type="radio" id="radio5" name="radioPayMethod" value="BIM_012" onclick="radioChk(5)"/><label for="radio5"><span></span><strong style={{fontSize: "14px"}}><font color="red">제로페이</font></strong></label></div>
-		<div className={`${style.radio} ${style.w30}`} ><input type="radio" id="radio2" name="radioPayMethod" value="SC0010" onclick="radioChk(2)"/><label for="radio2"><span></span>신용/체크카드</label></div>
-		<div className={`${style.radio} ${style.w30}`} ><input type="radio" id="radio3" name="radioPayMethod" onclick="radioChk(3)" value="BIM_007"/><label for="radio3"><span></span><img src="/images/payco.png" alt="payco" style={{height:"13px"}}/></label></div>
-		<div className={`${style.radio} ${style.w30}`} ><input type="radio" id="radio4" name="radioPayMethod" onclick="radioChk(4)" value="BIM_010"/><label for="radio4"><span></span><img src="/images/ico_kakaopay.gif" alt="kakaopay" style={{marginTop:"-3px", verticalAligh:"top"}}/></label></div>
+		<div className={`${style.radio} ${style.w30}`} id="zeropayRadio"><input type="radio" id="radio5" name="radioPayMethod" value="BIM_012" onclick="radioChk(5)"/><label htmlFor="radio5"><span></span><strong style={{fontSize: "14px"}}><font color="red">제로페이</font></strong></label></div>
+		<div className={`${style.radio} ${style.w30}`} ><input type="radio" id="radio2" name="radioPayMethod" value="SC0010" onclick="radioChk(2)"/><label htmlFor="radio2"><span></span>신용/체크카드</label></div>
+		<div className={`${style.radio} ${style.w30}`} ><input type="radio" id="radio3" name="radioPayMethod" onclick="radioChk(3)" value="BIM_007"/><label htmlFor="radio3"><span></span><img src="/images/payco.png" alt="payco" style={{height:"13px"}}/></label></div>
+		<div className={`${style.radio} ${style.w30}`} ><input type="radio" id="radio4" name="radioPayMethod" onclick="radioChk(4)" value="BIM_010"/><label htmlFor="radio4"><span></span><img src="/images/ico_kakaopay.gif" alt="kakaopay" style={{marginTop:"-3px", verticalAligh:"top"}}/></label></div>
 		{/* <!-- 네이버 페이 일시 중단 --> */}
-		{/* <!-- <div className={style.radio w30" id="naverpayRadio"  style="display: none"><input type="radio" id="radio6" name="radioPayMethod" onclick='radioChk(6)' value="BIM_015" /><label for="radio6"><span></span><img src="/images/ico_naverpay.png" alt="naverpay" style="height:20px"></label></div> --> */}
-		<div className={style.radio}><input type="radio" id="radio1" name="radioPayMethod" value="SC0060" onclick="radioChk(1)" /><label for="radio1"><span></span>휴대폰결제</label></div>
+		{/* <!-- <div className={style.radio w30" id="naverpayRadio"  style="display: none"><input type="radio" id="radio6" name="radioPayMethod" onclick='radioChk(6)' value="BIM_015" /><label htmlFor="radio6"><span></span><img src="/images/ico_naverpay.png" alt="naverpay" style="height:20px"></label></div> --> */}
+		<div className={style.radio}><input type="radio" id="radio1" name="radioPayMethod" value="SC0060" onclick="radioChk(1)" /><label htmlFor="radio1"><span></span>휴대폰결제</label></div>
 	</div>
 	{/* <!--payco--> */}
 	<div id="paycoInfo" className={style.payco_box} style={{display: "none"}}>
@@ -289,9 +289,9 @@ export default function GetDayTicketPayInfo() {
 				</ul>
 			
 
-            <div className={style.check}><input type="checkbox" id="agree" name="agree" value="General"/><label for="agree"><span></span>&nbsp;&nbsp;&nbsp;추가요금자동결제,환불규정, <a href="/app/use/moveUseMenuClauseInfo.do">이용약관</a>에 동의하며 결제를 진행합니다.<a href="/info/infoCoupon.do">이용권 사용안내</a></label></div>
+            <div className={style.check}><input type="checkbox" id="agree" name="agree" value="General"/><label htmlFor="agree"><span></span>&nbsp;&nbsp;&nbsp;추가요금자동결제,환불규정, <a href="/app/use/moveUseMenuClauseInfo.do">이용약관</a>에 동의하며 결제를 진행합니다.<a href="/info/infoCoupon.do">이용권 사용안내</a></label></div>
             
-            <div className={style.check2} style={{letterSpacing:"-1px",lineHeight: "normal",textAlign: "left",margin: "0 15px",marginBottom: "20px"}}><input type="checkbox" id="agree2" name="agree2" value="General" /><label for="agree2"><span></span>&nbsp;&nbsp;&nbsp;만 13세 미만의 미성년자가 서비스를 이용하는 경우, 사고 발생 시 보험 적용을 받을 수 없는 등의 불이익을 받으실 수 있습니다. (만 15세 미만의 경우 상법 제732조에 의거하여 사망 보험 적용 불가)</label></div>
+            <div className={style.check2} style={{letterSpacing:"-1px",lineHeight: "normal",textAlign: "left",margin: "0 15px",marginBottom: "20px"}}><input type="checkbox" id="agree2" name="agree2" value="General" /><label htmlFor="agree2"><span></span>&nbsp;&nbsp;&nbsp;만 13세 미만의 미성년자가 서비스를 이용하는 경우, 사고 발생 시 보험 적용을 받을 수 없는 등의 불이익을 받으실 수 있습니다. (만 15세 미만의 경우 상법 제732조에 의거하여 사망 보험 적용 불가)</label></div>
              
             <div className={style.btn}><a href="javascript:dayTicket.doPay();">결제하기</a></div>
         </div>

@@ -81,7 +81,7 @@ export default function NoticeBoardView(props) {
             <dd>
             	<p><br/></p>
                 {/* <p style="text-align: center;">
-                    <img src="https://bikeseoul.com/upload/daum/notice/notice_img_202311101427042.jpg" class="txc-image" style="clear:none;float:none;"/>
+                    <img src="https://bikeseoul.com/upload/daum/notice/notice_img_202311101427042.jpg" className="txc-image" style="clear:none;float:none;"/>
                 </p> */}
                 <p id="content">
                     {articles[cur]["content"]}
@@ -90,7 +90,7 @@ export default function NoticeBoardView(props) {
             <dd className={style.file}>
 				<span>첨부파일</span>
 				<span>
-					{/* <a href="#" class="last" id="7752,/upload/daum/notice/notice_img_202311101427042.jpg">자전거 주행 에티켓(평일용).jpg</a> */}
+					{/* <a href="#" className="last" id="7752,/upload/daum/notice/notice_img_202311101427042.jpg">자전거 주행 에티켓(평일용).jpg</a> */}
                 </span>
 			</dd>
 		</dl>
