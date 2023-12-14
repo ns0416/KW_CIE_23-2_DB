@@ -39,7 +39,7 @@ public class Member extends User{
 		// TODO Auto-generated constructor stub
 	}
 	public Member(int uid,boolean is_lost) {
-		super(uid, null, null, null, null,0,false, is_lost, null);
+		super(uid, null, null, null, null,0,true, is_lost, null);
 		// TODO Auto-generated constructor stub
 	}
 	public Member(int uid,String email, boolean is_valid) {

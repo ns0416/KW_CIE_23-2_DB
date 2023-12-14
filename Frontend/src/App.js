@@ -34,12 +34,11 @@ import MoveUseMenuClauseInfo from './pages/moveUseMenuClauseInfo/moveUseMenuClau
 import InfoCoupon from './pages/infoCoupon/infoCoupon';
 import CommonMain from './pages/CommonMain';
 import AdminStation from './pages/admin/AdminStation';
-import AdminStationInsert from './pages/admin/AdminStationInsert';
 import AdminStationModify from './pages/admin/AdminStationModify';
 import AdminMember from './pages/admin/AdminMember';
 import AdminMemberInsert from './pages/admin/AdminMemberInsert';
-
-
+import ChangeEmail1 from './pages/changeEmail/ChangeEmail1';
+import SetLost from './pages/setLost/SetLost';
 
 function App() {
   return (
@@ -58,9 +57,11 @@ function App() {
           <Route path="/findpw2" exact element={<Findpw2/>} />
           <Route path="/infopage" exact element={<Infopage/>} />
           <Route path="/infoCoupon" exact element={<InfoCoupon/>} />
+          <Route path="/setLost" exact element={<SetLost/>} />
           <Route path="/test" exact element={<Test/>} />
           <Route path="/moveMemberCardRegiView" exact element={<MoveMemberCardRegiView/>} />
           <Route path="/favoriteStation" exact element={<FavoriteStation/>} />
+          <Route path="/changeEmail" exact element={<ChangeEmail1/>} />
           <Route path="/buyTicketMenu" exact element={<BuyTicketMenu/>} />
           <Route path="/getDayTicketPayInfo" exact element={<GetDayTicketPayInfo/>} />
           <Route path="/memberInfoMenu" exact element={<MemberInfoMenu/>} />
