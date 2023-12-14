@@ -218,7 +218,7 @@ public class RentController {
     }
 
     @GetMapping("/rest/admin/getBikeList")
-    public String getBikeList(HttpServletRequest request, @RequestParam String station_name){
+    public String getBikeList(HttpServletRequest request){
         JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
         Member mem = (Member)hs.getAttribute("member");
@@ -229,7 +229,7 @@ public class RentController {
         }
         JsonArray ja = new JsonArray();
         try {
-            List<Bike> bikeList = rentManager.getBikeList(station_name);
+            List<Bike> bikeList = rentManager.getBikeList(null);
             for (Bike bike : bikeList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("bike_id", bike.getBike_id());
@@ -310,6 +310,36 @@ public class RentController {
             jo.addProperty("result", "success");
             jo.add("data", ja);
         } catch (Exception e) {
+            e.printStackTrace();
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        return jo.toString();
+    }
+
+    @GetMapping("/rest/service/getBikeList")
+    public String getUserBikeList(HttpServletRequest request, @RequestParam(value = "station_name") String station_name) {
+        JsonObject jo = new JsonObject();
+        HttpSession hs = request.getSession();
+        Member mem = (Member)hs.getAttribute("member");
+        int level = mem.getLevel();
+        JsonArray ja = new JsonArray();
+        try {
+            List<Bike> bikeList = rentManager.getBikeList(station_name);
+            for (Bike bike : bikeList) {
+                JsonObject item = new JsonObject();
+                item.addProperty("bike_id", bike.getBike_id());
+                item.addProperty("bike_type", bike.getBike_type().toString());
+                item.addProperty("station_uid", bike.getStation_uid());
+                item.addProperty("status", bike.getStatus_().toString());
+                item.addProperty("inspection_date", bike.getInspection_date().format(dtf_kor));
+                item.addProperty("release_date", bike.getRelease_date().format(dtf_kor));
+                item.addProperty("updated_date", bike.getUpdated_date().format(dtf_kor));
+                ja.add(item);
+            }
+            jo.addProperty("result", "success");
+            jo.add("data", ja);
+        }catch (Exception e) {
             e.printStackTrace();
             jo.addProperty("result", "failed");
             return jo.toString();
