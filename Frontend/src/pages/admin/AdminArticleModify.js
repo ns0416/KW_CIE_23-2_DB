@@ -13,14 +13,31 @@ import { get } from 'jquery';
 function AdminArticleModify() {
     const navigate = useNavigate();
     const params  = useParams();
+    const [updateSet, setUpdateSet] = useState(false);
     const uid = params.uid;
     const [ArticleInfo,setArticleInfo] = useState({
-        art_uid:0,
+        art_uid:uid,
         board_name:"",
-        art_title:"",
-        art_content:"",
+        title:"",
+        content:"",
     });
 
+    const setUpdateMode = ()=>{
+		axios.get("/rest/service/setArticleUpdateMode", {params:{att_uid:uid}})
+		.then((res) => {
+			if(res.data.result== "success") {
+				setUpdateSet(true);
+				return;
+			}
+			else { //대여소 조회 실패
+				//console.log(res.data);
+				console.log("get Article error!")
+			}
+		})
+		.catch((err) => console.log(err))
+	}
+
+    
     const onChangeHandler = (e) =>{
         setArticleInfo({...ArticleInfo, [e.target.name] : e.target.value});
     }
@@ -29,8 +46,8 @@ function AdminArticleModify() {
         //const form = e.currentTarget;
         let article_infonew = {
             board_name:ArticleInfo.board_name,
-            art_title:ArticleInfo.art_title,
-            art_content:ArticleInfo.art_content,
+            title:ArticleInfo.title,
+            content:ArticleInfo.content,
         };
         axios.post("http://seoulbike-kw.namisnt.com:8082/rest/service/writeArticle", article_infonew)
             .then((res) => {
@@ -46,9 +63,9 @@ function AdminArticleModify() {
     }
     const modifyArticle = ()=>{
         let article_infonew = {
-            art_uid:ArticleInfo.art_uid,
-            art_title:ArticleInfo.art_title,
-            art_content:ArticleInfo.art_content,
+            art_uid:uid,
+            title:ArticleInfo.title,
+            content:ArticleInfo.content,
         };
         axios.post("http://seoulbike-kw.namisnt.com:8082/rest/service/updateArticle", article_infonew)
         .then((res) => {
@@ -85,7 +102,7 @@ function AdminArticleModify() {
         {
             return;
         }
-        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/service/deleteArticle", {art_uid : Number(ArticleInfo.art_uid)})
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/service/deleteArticle", {art_uid : Number(uid)})
         .then((res) => {
             if(res.data.result== "success") {
                 alert("삭제 성공")
@@ -100,11 +117,15 @@ function AdminArticleModify() {
 
     useEffect(()=>{
         getArticleInfo();
-    }, []);
+    }, [params]);
 
     useEffect(()=>{
         console.log(ArticleInfo);
     }, []);
+    useEffect(()=>{
+		if(updateSet == false)
+			setUpdateMode();
+	}, [])
     function Submithandler(e){
         e.preventDefault();
         
@@ -129,13 +150,13 @@ function AdminArticleModify() {
                 <Col>
                     <Form.Group controlId="lat">
                         <Form.Label><b>게시글 제목</b></Form.Label>
-                        <Form.Control required type="number" value={ArticleInfo.art_title} name="art_title" onChange={onChangeHandler}placeholder="게시글 제목" />
+                        <Form.Control required type="text" value={ArticleInfo.title} name="title" onChange={onChangeHandler}placeholder="게시글 제목" />
                     </Form.Group>
                 </Col>
                 <Col>
                     <Form.Group controlId="lon">
                         <Form.Label><b>게시글 내용</b></Form.Label>
-                        <Form.Control required type="number" value={ArticleInfo.art_content} name="art_content" onChange={onChangeHandler} placeholder="게시글 내용" />
+                        <Form.Control required type="text" value={ArticleInfo.content} name="content" onChange={onChangeHandler} placeholder="게시글 내용" />
                     </Form.Group>
                 </Col>
             </Row>
