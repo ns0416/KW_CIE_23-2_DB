@@ -100,7 +100,7 @@ export default function BuyTicketMenu() {
                         </div>
                     </li>
                 </a>
-                <a href="/app/ticket/member/getDayTicketPayInfo.do" className="yesresult">
+                <a href="/getDayTicketPayInfo" className="yesresult">
                     <li>
                         <div className="mcon">
                             <div className={style.sub_menu_icon}> 

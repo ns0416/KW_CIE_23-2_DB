@@ -125,11 +125,11 @@ export default function NoticeBoardMenu() {
 				
 					<ul className={style.help}>
 						<a href="/noticeBoard"><li>공지사항</li></a>
-						<a href="#"><li>보험안내</li></a>
-						<a href="#"><li>안전수칙</li></a>
-						<a href="#"><li>문의/FAQ</li></a>
+						<a href="/moveUseMenuInsurance"><li>보험안내</li></a>
+						{/* <a href="#"><li>안전수칙</li></a> */}
+						<a href="/opinionBoardList"><li>문의/FAQ</li></a>
 						{/* <a href="#"><li>대여소 설치건의</li></a>  */}
-						<a href="#"><li>이용약관</li></a>
+						<a href="/moveUseMenuClauseInfo"><li>이용약관</li></a>
 						{/* <a href="/customer/notice/noticeList.do"><li>공지사항</li></a>
 						<a href="/app/use/moveUseMenuInsurance.do"><li>보험안내</li></a>
 						<a href="/customer/faq/faqList.do"><li>안전수칙</li></a>
