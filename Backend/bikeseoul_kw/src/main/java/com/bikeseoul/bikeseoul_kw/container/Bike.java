@@ -26,6 +26,13 @@ public class Bike {
         this.status_ = status_;
         this.station_uid = station_uid;
     }
+    public Bike(bike_type bike_type, int station_uid, bike_status status_, String inspection_date) {
+    	this.bike_type = bike_type;
+        this.station_uid = station_uid;
+        this.status_ = status_;
+        if(inspection_date != null)
+        	this.inspection_date = LocalDateTime.now();
+    }
     public int getBike_id() {
         return bike_id;
     }

@@ -146,4 +146,22 @@ public class BoardArticleService implements BoardArticleDao {
 		// TODO Auto-generated method stub
 		return boardArticleDao.deleteNeglect(uid);
 	}
+
+	@Override
+	public int insertBoard(Board brd) {
+		// TODO Auto-generated method stub
+		return boardArticleDao.insertBoard(brd);
+	}
+
+	@Override
+	public int updateBoard(Board brd) {
+		// TODO Auto-generated method stub
+		return boardArticleDao.updateBoard(brd);
+	}
+
+	@Override
+	public int deleteBoard(int uid) {
+		// TODO Auto-generated method stub
+		return boardArticleDao.deleteBoard(uid);
+	}
 }

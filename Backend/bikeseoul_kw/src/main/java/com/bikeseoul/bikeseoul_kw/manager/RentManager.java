@@ -162,4 +162,16 @@ public class RentManager {
 		// TODO Auto-generated method stub
 		return rentService.getNeglectList(member_uid);
 	}
+	public CommonEnum insertBike(Bike bike) {
+		// TODO Auto-generated method stub
+		return rentService.insertBike(bike)> 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
+	public CommonEnum updateBike(Bike bike) {
+		// TODO Auto-generated method stub
+		return rentService.updateBikeInfo(bike)> 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
+	public CommonEnum deleteBike(Integer bike_id) {
+		// TODO Auto-generated method stub
+		return rentService.deleteBike(bike_id)> 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
 }

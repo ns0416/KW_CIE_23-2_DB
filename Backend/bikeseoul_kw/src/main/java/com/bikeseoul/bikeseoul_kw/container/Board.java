@@ -14,6 +14,18 @@ public class Board extends CommonData{
         this.write_level = write_level;
         this.updated_date = updated_date;
     }
+    public Board(int uid, String board_name, int read_level, int write_level) {
+        super(uid, null);
+        this.board_name = board_name;
+        this.read_level = read_level;
+        this.write_level = write_level;
+    }
+    public Board(String board_name, int read_level, int write_level) {
+        super(0, null);
+        this.board_name = board_name;
+        this.read_level = read_level;
+        this.write_level = write_level;
+    }
 
     public String getBoard_name() {
         return board_name;

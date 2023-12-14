@@ -1,6 +1,7 @@
 package com.bikeseoul.bikeseoul_kw.controller;
 
 import com.bikeseoul.bikeseoul_kw.container.*;
+
 import com.bikeseoul.bikeseoul_kw.manager.BoardManager;
 import com.bikeseoul.bikeseoul_kw.manager.ConfigManager;
 import com.google.gson.JsonArray;
@@ -496,4 +497,46 @@ public class BoardArticleController {
 			return jo.toString();
 		}
 	}
+	@PostMapping("/rest/admin/insertBoard")
+    public String insertBike(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+ 	   JsonObject jo = new JsonObject();
+        Board board = new Board((String)body.get("board_name"), (Integer)body.get("read_level"), (Integer)body.get("write_level"));
+        CommonEnum res = boardManager.insertBoard(board);
+        if(res == CommonEnum.SUCCESS)
+ 			jo.addProperty("result", "success");
+ 		else
+ 			jo.addProperty("result", "failed");
+ 		return jo.toString();
+    }
+    @PostMapping("/rest/admin/updateBoard")
+ 	public String updateBike(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+ 		JsonObject jo = new JsonObject();
+ 		Board board = new Board( (Integer)body.get("board_uid"), (String)body.get("board_name"), (Integer)body.get("read_level"), (Integer)body.get("write_level"));
+ 		CommonEnum res = boardManager.updateBoard(board);
+ 		if(res == CommonEnum.SUCCESS)
+ 			jo.addProperty("result", "success");
+ 		else
+ 			jo.addProperty("result", "failed");
+ 		return jo.toString();
+ 	}
+    @PostMapping("/rest/admin/deleteBoard")
+ 	public String deleteBike(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
+ 		JsonObject jo = new JsonObject();
+ 		try {
+ 			int uid = (Integer)body.get("board_uid");
+ 			if(uid < 5) {
+ 				jo.addProperty("result", "failed");
+ 		 		return jo.toString();
+ 			}
+ 			CommonEnum res = boardManager.deleteBoard(uid);
+ 			if(res == CommonEnum.SUCCESS)
+ 				jo.addProperty("result", "success");
+ 			else
+ 				jo.addProperty("result", "failed");
+ 		}catch(Exception e) {
+ 			e.printStackTrace();
+ 			jo.addProperty("result", "failed");
+ 		}
+ 		return jo.toString();
+ 	}
 }

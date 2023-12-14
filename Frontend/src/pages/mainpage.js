@@ -12,7 +12,7 @@ export default function Mainpage(props) {
 	//const isLoggedIn = useSelector((state) => state.logged.value);
 	const [markers, setMarkers] = useState([]);
 	const [selectIndex, setSelectIndex] = useState(-1);
-	const [currentlocations, setCurrentLocations] = useState([37.619799199999974,127.05843630000007, 100]); //lat lon radius
+	const [currentlocations, setCurrentLocations] = useState([37.619799199999974,127.05843630000007, 0.0001]); //lat lon radius
 	const [startPosision, setStartPosition] = useState(null);
 	const [destPosision, setDestPosition] = useState(null);
 	const [pathFinder, setPathFinder] = useState(null);
