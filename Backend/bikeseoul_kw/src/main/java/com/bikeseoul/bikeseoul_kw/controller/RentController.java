@@ -218,7 +218,7 @@ public class RentController {
     }
 
     @GetMapping("/rest/admin/getBikeList")
-    public String getBikeList(HttpServletRequest request, @RequestParam String station_name){
+    public String getBikeList(HttpServletRequest request, @RequestParam(required=false) String station_name){
         JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
         Member mem = (Member)hs.getAttribute("member");
