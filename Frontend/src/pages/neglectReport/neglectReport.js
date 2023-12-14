@@ -1,15 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
 import style from './neglectReport.module.css';
 import Header from '../../header.js';
+import axios from 'axios';
+import MapNaverDefaultNeglect from '../../components/mapNaverDefault_neglect.js';
+import { Container as MapDiv } from 'react-naver-maps';
 
 export default function NeglectReport() {
-	const [data, setData] = useState({bike_id:0, lat:0, lon:0, detail_address:"", attachment:[]});
+	const [data, setData] = useState({bike_id:0, lat:0, lon:0, detail_address:""});
+	const [updateSet, setUpdateSet] = useState(false);
+	const [curLocation, setCurLocation] = useState([37.619799199999974,127.05843630000007]);
 	const setUpdateMode = ()=>{
 		axios.get("/rest/service/setArticleUpdateMode", {params:{att_uid:0}})
 		.then((res) => {
 			if(res.data.result== "success") {
+				setUpdateSet(true);
 				return;
 			}
 			else { //대여소 조회 실패
@@ -19,19 +25,47 @@ export default function NeglectReport() {
 		})
 		.catch((err) => console.log(err))
 	}
+	const onChangeHandler = (e)=>{
+		setData({...data, [e.target.name]: e.target.value});
+	}
+	const onFileChangeHandler = (e)=>{
+    	//fd.append("file", event.target.files)
+		uploadAttachment(e.target.files);
+	}
+	function uploadAttachment(files) {
+		const formData = new FormData();
+		formData.append("file", files[0])
+		axios.post("http://seoulbike-kw.namisnt.com:8082/rest/service/uploadAttachment", formData)
+		.then((res)=>{
+			if(res.data.result === "success"){
+				alert("첨부파일 업로드 성공");
+			}
+			else{
+				alert("첨부파일 업로드 실패");
+				console.log(res.data);
+				document.getElementById("upload").value="";
+			}
+		})
+		.catch((err)=>console.log(err))
+	}
 	function report() {
 		var values = {
 			board_name:"neglect",
 			title:"",
 			content:"",
-			bike_id : data.bike_id,
-			lat : data.lat,
-			lon : data.lon,
+			bike_id : Number(data.bike_id),
+			lat : curLocation[0],
+			lon : curLocation[1],
 			detail_address : data.detail_address
 		}
-		if(values.break_type == "")
+		if(data.bike_id <=0 )
 		{
-			alert("고장부위를 선택해주세요");
+			alert("올바른 자전거 번호를 입력해주세요");
+			return;
+		}
+		if(data.detail_address == "")
+		{
+			alert("상세주소를 입력해주세요");
 			return;
 		}
 		axios.post("http://seoulbike-kw.namisnt.com:8082/rest/service/writeArticle", values)
@@ -47,8 +81,20 @@ export default function NeglectReport() {
 		})
 		.catch((err)=>console.log(err))
 	}
+	const getGPSLoc = ()=>{
+		navigator.geolocation.getCurrentPosition(
+			(position) => {
+				setCurLocation([position.coords.latitude,position.coords.longitude]);
+			},
+			(error) => console.log(error)
+		  );
+	}
+	useEffect(() => {
+		getGPSLoc();
+	  }, []);
 	useEffect(()=>{
-		setUpdateMode();
+		if(updateSet == false)
+			setUpdateMode();
 	}, [])
     return (
         <>
@@ -72,7 +118,7 @@ export default function NeglectReport() {
 								<th>자전거 번호</th>
 								<td>
 									SPB-<div className={style.pay_input} style={{width:"40%"}}>
-                                        <input type="number" id="bikeNo" name="" maxLength="5" style={{height:"25px", width: "100%"}} onInput="maxLengthCheck(this)"/></div>
+                                        <input type="number" id="bikeNo" name="bike_id" maxLength="5" style={{height:"25px", width: "100%"}} onChange={onChangeHandler}/></div>
 									<button className={style.id_check} id="bikeDupChk">중복확인</button>
 								</td>
 							</tr>
@@ -80,7 +126,7 @@ export default function NeglectReport() {
 								<th>방치 주소</th>
 								<td>
 									<div className={style.pay_input} style={{width:"100%",border:"none"}}>
-                                        <input type="text" readonly="readonly" id="address" name="address" maxLength="5" style={{height:"25px", width:"100%"}} placeholder="지도에서 위치 선택시 주소 자동입력"/>
+                                        <input type="text" id="address" name="address" maxLength="5" style={{height:"25px", width:"100%"}} value={curLocation[0] + ", "+curLocation[1]} placeholder="지도에서 위치 선택시 주소 자동입력" readOnly/>
                                         </div>
 								</td>
 							</tr>
@@ -88,7 +134,7 @@ export default function NeglectReport() {
 							<th>상세 주소</th>
 							<td>
 								<div>
-									<textarea id="addr_detail" style={{width:"100%", height:"50px"}} placeholder="예시) 청계천 박물관 옆 거리"></textarea>
+									<textarea id="addr_detail" style={{width:"100%", height:"50px"}} name="detail_address" defaultValue={data.detail_address}  onChange={onChangeHandler} placeholder="예시) 청계천 박물관 옆 거리"></textarea>
 								</div>
 							</td>
 						</tr>
@@ -101,45 +147,23 @@ export default function NeglectReport() {
 						</colgroup>
 						<tbody>
                             <tr>
-							<td id="maptd" style={{width: "270px", height: "382px"}} Colspan="2">
-								<div className={style.side_location} style={{}}>
-									<a className={style.location}>현재위치</a>
-								</div>
-                                {/* 맵 */}
-								 </td>
-						</tr>
-						<form id="frm" name="frm" enctype="multipart/form-data" method="POST"></form>
-							<input type="hidden" name="equipmentId"/>
-							<input type="hidden" name="voucherSeq" value=""/>
-							<input type="hidden" name="rendClsCd" value=""/>
-							<input type="hidden" name="usrSeq" value=""/>
-							<input type="hidden" name="adminId" value="" />
-							<input type="hidden" name="enfrcReturnStationId" value=""/>
-							<input type="hidden" name="deviceCnncCd" value=""/>
-							<input type="hidden" name="enfrcReturnCd" value=""/>
-							<input type="hidden" name="photoYn" value=""/>
-							<input type="hidden" name="emrgncyYn" value=""/>
-							<input type="hidden" name="parkingLocation" value=""/>
-							<input type="hidden" name="parkingLocationYn" value=""/>
-							<input type="hidden" name="latitude" id="latitude" value=""/>
-							<input type="hidden" name="longitude" id="longitude" value=""/>
-							<input type="hidden" name="parkingLocationReason" value="4"/>
-							<input type="hidden" name="parkingLocationDesc" value=""/>
-							<input type="hidden" name="rentBikeId" value=""/>
-							<input type="hidden" name="addr" id="addr" value=""/>
-							<input type="hidden" name="enfrcGubunCd" value="1"/>
-							<input type="hidden" name="enfrcReturnHistSeq" value=""/>
-							<input type="hidden" name="dupChkResult"/>
-						
-						<form id="fileFrm" name="fileFrm" enctype="multipart/form-data" method="POST"></form>
+								<td id="maptd" style={{width: "270px", height: "380px", paddingBottom:"50px"}} colSpan="2">
+									<div className={style.side_location} style={{}}>
+										<a className={style.location}>현재위치</a>
+									</div>
+                        	        <MapDiv style={{ width: '100%', height: '100%' }}>
+        	    						<MapNaverDefaultNeglect curLocation={curLocation} setCurLocation={setCurLocation}/>
+        							</MapDiv>
+									 </td>
+							</tr>
 							<tr>
 								<th>
 									사진 첨부<br />
-									<a style={{fontWeight: "normal", textDecoration:"underline", fontSize: "12px"}} value="" href="javascript:l_fadeIn()">(예시보기)</a>
+									<a style={{fontWeight: "normal", textDecoration:"underline", fontSize: "12px"}} value="">(예시보기)</a>
 								</th>
 								<td>
 									<div className="upload-wrapper" style={{width: "100%"}}>
-										<input type="file" accept="image/*" id="upload" name="enfrcFile" className="image-upload" style={{width:"100%"}} />
+										<input type="file" accept="image/*" id="upload" name="enfrcFile" className="image-upload" style={{width:"100%"}} onChange={onFileChangeHandler} />
 									</div>
 									<input type="hidden" name="enfrcFileNoList" value="0"/>
 									<input type="hidden" name="enfrcFileStateList" value="I"/>
@@ -149,7 +173,7 @@ export default function NeglectReport() {
 					</tbody>
                     </table>		
 					<div className={style.register}>
-						<a id="reportBtn" className={style.btn}>등록</a>
+						<a id="reportBtn" onClick={(e)=>{report();}} className={style.btn}>등록</a>
 					</div> 
 				</div>
 				<div className={style.my}>

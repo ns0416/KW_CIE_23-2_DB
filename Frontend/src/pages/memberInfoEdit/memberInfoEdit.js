@@ -126,7 +126,7 @@ export default function MemberInfoEdit() {
 								<th>부모<br/>휴대전화번호<img src="/img/ic_needs.gif" alt=""/></th>
 								<td>
 									<span id="mobInfo">&nbsp;</span><br/>
-									<button type="button" onclick="guardianCertify();" style={{marginTop: "5px"}}>
+									<button type="button" /*onclick="guardianCertify();"*/ style={{marginTop: "5px"}}>
 										휴대 전화번호 변경 </button>
 								</td>
 							</tr>

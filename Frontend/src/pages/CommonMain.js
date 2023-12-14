@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {Outlet, useNavigate} from "react-router-dom"
+
 function CommonMain(){
     const navigate = useNavigate();
     const [isLoggedIn, setisLoggedIn] = useState(false);
