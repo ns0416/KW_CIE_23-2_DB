@@ -169,7 +169,11 @@ function AdminStationModify() {
                 </Form.Select>
             </Form.Group>
             <Container className="mt-5">
-                <Button variant="danger" onClick={(e)=>{deleteStationInfo()}} style={{float: "left"}}>삭제하기</Button>
+                {station_uid != undefined && station_uid > 0 ?
+                    <Button variant="danger" onClick={(e)=>{deleteStationInfo()}} style={{float: "left"}}>삭제하기</Button>
+                    :
+                    ""
+                }
                 <Button type="submit" style={{float: "right"}}>{station_uid > 0 ? '수정하기' : '추가하기'}</Button>
             </Container>
             </Form>
