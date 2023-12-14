@@ -13,11 +13,7 @@ function AdminBikeModify() {
     const navigate = useNavigate();
     const params  = useParams();
     const board_name = params.uid;
-    const [boardInfo,setBoardinfo] = useState({
-        uid:0,
-        board_name:"",
-        read_level:0,
-        write_level:0
+    const [bikeInfo,setBikeinfo] = useState({
     });
 
     const onChangeHandler = (e) =>{
@@ -44,13 +40,13 @@ function AdminBikeModify() {
             .catch((err) => console.log(err))
     }
     const modifyBike = ()=>{
-        let board_infonew = {
-            board_uid:boardInfo.uid,
+        let bike_infonew = {
+            bike_id:boardInfo.uid,
             board_name:boardInfo.board_name,
             read_level:Number(boardInfo.read_level),
             write_level:Number(boardInfo.write_level)
         };
-        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/updateBike", board_infonew)
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/updateBike", bike_infonew)
         .then((res) => {
             if(res.data.result == "success") {
                 alert("따릉이 수정 완료");
@@ -68,10 +64,10 @@ function AdminBikeModify() {
         {
             return;
         }
-        axios.get('http://seoulbike-kw.namisnt.com:8082/rest/admin/getBikeList', {params: {query: board_name},})
+        axios.get('http://seoulbike-kw.namisnt.com:8082/rest/admin/getBikeInfo', {params: {query: board_name},})
         .then((res) => {
             if(res.data.result== "success") {
-                setBoardinfo(res.data.data[0]);
+                setBikeinfo(res.data.data);
             }
             else { //대여소 조회 실패
                 console.log(res.data);
@@ -86,7 +82,7 @@ function AdminBikeModify() {
         {
             return;
         }
-        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/deleteBike", {board_uid : Number(boardInfo.uid)})
+        axios.post("http://seoulbike-kw.namisnt.com:8082/rest/admin/deleteBike", {board_uid : Number(bikeInfo.uid)})
         .then((res) => {
             if(res.data.result== "success") {
                 alert("삭제 성공")
@@ -122,24 +118,40 @@ function AdminBikeModify() {
             <h3 style={{fontWeight: "bold", margin: "30px 0"}}>{!board_name || boardInfo.uid < 1 ? "게시판 수정" : "게시판 추가"}</h3>
             <div>
             <Form noValidate onSubmit={Submithandler}>
-            <Form.Group className="mb-3" controlId="station_name">
-                <Form.Label><b>게시판 이름</b></Form.Label>
-                <Form.Control required type="text" defaultValue={boardInfo.board_name} name="board_name" onChange={onChangeHandler} placeholder="게시판 이름" />
+            <Form.Group className="mb-3" controlId="bike_id">
+                <Form.Label><b>자전거 ID</b></Form.Label>
+                <Form.Control required type="text" defaultValue={bikeInfo.bike_id} name="bike_id" placeholder="자전거 아이디" readOnly/>
             </Form.Group>
             <Row>
                 <Col>
                     <Form.Group controlId="lat">
-                        <Form.Label><b>읽기권한</b></Form.Label>
-                        <Form.Control required type="number" value={boardInfo.read_level} name="read_level" onChange={onChangeHandler}placeholder="읽기권한" />
+                        <Form.Label><b>자전거 종류</b></Form.Label>
+                        <Form.Select name="bike_type" value={bikeInfo.bike_type} onChange={onChangeHandler}>
+                            <option value="general">일반자전거</option>
+                            <option value="sprout">새싹자전거</option>
+                        </Form.Select>
                     </Form.Group>
                 </Col>
                 <Col>
                     <Form.Group controlId="lon">
-                        <Form.Label><b>쓰기권한</b></Form.Label>
-                        <Form.Control required type="number" value={boardInfo.write_level} name="write_level" onChange={onChangeHandler} placeholder="쓰기권한" />
+                        <Form.Label><b>자전거 상태</b></Form.Label>
+                        <Form.Select name="status_" value={bikeInfo.status_} onChange={onChangeHandler}>
+                            <option value="ready">대기</option>
+                            <option value="rent">대여중</option>
+                            <option value="inspection">정비중</option>
+                            <option value="lost">분실</option>
+                        </Form.Select>
                     </Form.Group>
                 </Col>
             </Row>
+            <Form.Group className="mb-3" controlId="inspection_date">
+                <Form.Label><b>최근 정비일자</b></Form.Label>
+                <Form.Control required type="text" defaultValue={bikeInfo.inspection_date} name="inspection_date" placeholder="최근정비일자" readOnly/>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="release_date">
+                <Form.Label><b>출고일자</b></Form.Label>
+                <Form.Control required type="text" defaultValue={bikeInfo.release_date} name="release_date" placeholder="출고일자" readOnly/>
+            </Form.Group>
             <Container className="mt-5">
                 {
                 board_name ? 

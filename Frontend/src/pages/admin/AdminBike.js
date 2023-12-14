@@ -43,7 +43,7 @@ function AdminBike()
         setqueryword(e.target.value);
     }
     function moveInsert() {
-        navigate('/admin/stationModify');
+        navigate('/admin/bikeModify');
     }
     return (
         <>
@@ -60,7 +60,7 @@ function AdminBike()
                   onChange={changehandler}
                 />
                 <Button onClick={Search}>검색</Button>
-                <span style={{marginLeft: "10px"}}><Button onClick={moveInsert}>대여소 추가</Button></span>
+                <span style={{marginLeft: "10px"}}><Button onClick={moveInsert}>따릉이 추가</Button></span>
             </InputGroup>
         </Container>
 

@@ -33,6 +33,14 @@ public class Bike {
         if(inspection_date != null)
         	this.inspection_date = LocalDateTime.now();
     }
+    public Bike(int bike_id,bike_type bike_type, int station_uid, bike_status status_, String inspection_date) {
+    	this.bike_id = bike_id;
+    	this.bike_type = bike_type;
+        this.station_uid = station_uid;
+        this.status_ = status_;
+        if(inspection_date != null)
+        	this.inspection_date = LocalDateTime.now();
+    }
     public int getBike_id() {
         return bike_id;
     }

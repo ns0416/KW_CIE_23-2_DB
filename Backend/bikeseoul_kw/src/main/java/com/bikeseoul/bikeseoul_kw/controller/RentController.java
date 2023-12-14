@@ -441,7 +441,7 @@ public class RentController {
     @PostMapping("/rest/admin/updateBike")
  	public String updateBike(HttpServletRequest request, @RequestBody HashMap<String, Object> body) {
  		JsonObject jo = new JsonObject();
- 		Bike bike = new Bike(bike_type.valueOf((String)body.get("bike_type")), (Integer)body.get("station_uid"), bike_status.valueOf((String)body.get("bike_status")), (String)body.get("inspection"));
+ 		Bike bike = new Bike((Integer)body.get("bike_uid"), bike_type.valueOf((String)body.get("bike_type")), (Integer)body.get("station_uid"), bike_status.valueOf((String)body.get("bike_status")), (String)body.get("inspection"));
  		CommonEnum res = rentManager.updateBike(bike);
  		if(res == CommonEnum.SUCCESS)
  			jo.addProperty("result", "success");

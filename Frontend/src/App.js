@@ -44,6 +44,7 @@ import AdminBike from './pages/admin/AdminBike';
 import AdminBoardModify from './pages/admin/AdminBoardModify';
 import AdminArticleModify from './pages/admin/AdminArticleModify';
 import AdminArticle from './pages/admin/AdminArticle';
+import AdminBikeModify from './pages/admin/AdminBikeModify';
 
 function App() {
   return (
@@ -96,6 +97,8 @@ function App() {
           <Route path="/admin/boardInsert" exact element={<AdminBoardModify/>}/>
           <Route path="/admin/boardModify/:uid" exact element={<AdminBoardModify/>}/>
           <Route path="/admin/bike" exact element={<AdminBike/>}/>
+          <Route path="/admin/bikeInsert" exact element={<AdminBikeModify/>}/>
+          <Route path="/admin/bikeModify/:uid" exact element={<AdminBikeModify/>}/>
           <Route path="/admin/writeArticle" exact element={<AdminArticleModify/>}/>
           <Route path="/admin/article" exact element={<AdminArticle/>}/>
           <Route path="/admin/articeModify/:uid" exact element={<AdminArticleModify/>}/>
