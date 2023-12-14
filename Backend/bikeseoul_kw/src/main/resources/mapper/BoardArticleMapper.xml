@@ -102,6 +102,10 @@
 			updated_date
 		FROM
 			board
+		<if test="query != null">
+			WHERE
+				board_name=#{query}
+		</if>
 	</select>
     <insert id="writeBreakdown" parameterType="com.bikeseoul.bikeseoul_kw.container.Breakdown">
 		<![CDATA[

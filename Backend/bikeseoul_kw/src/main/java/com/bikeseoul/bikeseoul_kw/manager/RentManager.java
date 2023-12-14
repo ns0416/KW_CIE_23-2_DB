@@ -71,9 +71,9 @@ public class RentManager {
 		// TODO Auto-generated method stub
 		return rentService.getRentInfo(rent_uid, bike_uid, ticket_detail_uid);
 	}
-	public List<Bike> getBikeList(int station_uid) {
+	public List<Bike> getBikeList(String station_name) {
 		// TODO Auto-generated method stub
-		return rentService.getBikeList(station_uid);
+		return rentService.getBikeList(station_name);
 	}
 	public LocalDateTime getExpiredDate(Pair<Ticket,Ticket_detail> activationTicket) {
 		List<Rent> rent = getRentInfo(0, 0, activationTicket.getSecond().getUid());

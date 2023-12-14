@@ -471,7 +471,7 @@ public class BoardArticleController {
 	}
 
 	@GetMapping("/rest/admin/getBoardList")
-	public String getBoardList(HttpServletRequest request) {
+	public String getBoardList(HttpServletRequest request, @RequestParam String query) {
 		JsonObject jo = new JsonObject();
 		HttpSession hs = request.getSession();
 		Member mem = (Member)hs.getAttribute("member");
@@ -482,7 +482,7 @@ public class BoardArticleController {
 		}
 		JsonArray ja = new JsonArray();
 		try {
-			List<Board> boards = boardManager.getBoardList();
+			List<Board> boards = boardManager.getBoardList(query);
 			for(Board board : boards) {
 				JsonObject item = new JsonObject();
 				item.addProperty("uid", board.getUid());

@@ -90,19 +90,24 @@
 
 	<select id="getBikeList" resultType="com.bikeseoul.bikeseoul_kw.container.Bike">
 		SELECT
-			bike_id,
-			bike_type,
-			station_uid,
-			status_,
-			inspection_date,
-			release_date,
-			update_date
+			b.bike_id,
+			b.bike_type,
+			b.station_uid,
+			b.status_,
+			b.inspection_date,
+			b.release_date,
+			b.update_date
 		FROM
-			bike
-		<if test="station_uid > 0">
+			bike AS b
+		JOIN
+			station AS s
+		ON
+			station_uid.uid = s.uid
+		<if test="station_name != null">
 			WHERE
-				station_uid = #{station_uid}
+				s.station_name = #{station_name}
 		</if>
+		LIMIT 0, 10000
 	</select>
 
     <update id="updateBikeInfo" parameterType="com.bikeseoul.bikeseoul_kw.container.Bike">

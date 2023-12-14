@@ -35,8 +35,8 @@ public class BoardArticleService implements BoardArticleDao {
 	}
 
 	@Override
-	public List<Board> getBoardList() {
-		return boardArticleDao.getBoardList();
+	public List<Board> getBoardList(String query) {
+		return boardArticleDao.getBoardList(query);
 	}
 
 	@Override

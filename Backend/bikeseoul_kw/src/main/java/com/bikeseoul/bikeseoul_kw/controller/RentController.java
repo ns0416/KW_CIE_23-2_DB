@@ -218,7 +218,7 @@ public class RentController {
     }
 
     @GetMapping("/rest/admin/getBikeList")
-    public String getBikeList(HttpServletRequest request){
+    public String getBikeList(HttpServletRequest request, @RequestParam String station_name){
         JsonObject jo = new JsonObject();
         HttpSession hs = request.getSession();
         Member mem = (Member)hs.getAttribute("member");
@@ -229,7 +229,7 @@ public class RentController {
         }
         JsonArray ja = new JsonArray();
         try {
-            List<Bike> bikeList = rentManager.getBikeList(0);
+            List<Bike> bikeList = rentManager.getBikeList(station_name);
             for (Bike bike : bikeList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("bike_id", bike.getBike_id());

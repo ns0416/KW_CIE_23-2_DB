@@ -16,7 +16,7 @@ public interface BoardArticleDao {
     List<BoardArticle> getBoardArticleList(int board_uid);
     BoardArticle getBoardArticle(int uid);
     Board getBoardInfo(String board_name, int uid);
-    List<Board> getBoardList();
+    List<Board> getBoardList(String query);
     int writeArticle(BoardArticle art);
     int writeAttachment(Attachment att);
     int writeComment(Comment cmt);

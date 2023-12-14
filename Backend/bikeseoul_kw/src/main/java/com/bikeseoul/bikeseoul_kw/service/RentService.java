@@ -52,8 +52,8 @@ public class RentService implements RentDao {
 	}
 
 	@Override
-	public List<Bike> getBikeList(int station_uid) {
-		return rentDao.getBikeList(station_uid);
+	public List<Bike> getBikeList(String station_name) {
+		return rentDao.getBikeList(station_name);
 	}
 
 	@Override
