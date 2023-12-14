@@ -76,6 +76,11 @@ public class BoardArticleService implements BoardArticleDao {
 	}
 
 	@Override
+	public String getBoardName(int board_uid) {
+		return null;
+	}
+
+	@Override
 	public Attachment getAttachment(int article_uid, int att_uid) {
 		// TODO Auto-generated method stub
 		return boardArticleDao.getAttachment(article_uid, att_uid);

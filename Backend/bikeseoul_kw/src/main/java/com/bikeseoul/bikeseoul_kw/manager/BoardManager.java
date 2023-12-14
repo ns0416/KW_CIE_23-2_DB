@@ -241,6 +241,10 @@ public class BoardManager {
 		// TODO Auto-generated method stub
 		return boardArticleService.getComment(cmt_uid);
 	}
+	public String getBoardName(int board_uid) {
+		// TODO Auto-generated method stub
+		return boardArticleService.getBoardName(board_uid);
+	}
 	public CommonEnum writeBreakdown(Breakdown art) {
 		// TODO Auto-generated method stub
 		return boardArticleService.writeBreakdown(art) > 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;

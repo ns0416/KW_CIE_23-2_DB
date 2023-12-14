@@ -84,10 +84,10 @@ function AdminArticleModify() {
         {
             return;
         }
-        axios.get('http://seoulbike-kw.namisnt.com:8082/rest/admin/getBoardArticleList')
+        axios.get('http://seoulbike-kw.namisnt.com:8082/rest/getBoardArticle', {params:{uid : Number(uid)}})
         .then((res) => {
             if(res.data.result== "success") {
-                setArticleInfo(res.data.data[0]);
+                setArticleInfo(res.article);
             }
             else { //대여소 조회 실패
                 console.log(res.data);
