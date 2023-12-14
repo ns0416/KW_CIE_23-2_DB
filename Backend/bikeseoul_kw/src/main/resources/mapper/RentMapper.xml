@@ -107,6 +107,8 @@
 			WHERE
 				s.station_name = #{station_name}
 		</if>
+		ORDER BY
+			b.bike_id DESC
 		Limit 0, 1000
 	</select>
 	
