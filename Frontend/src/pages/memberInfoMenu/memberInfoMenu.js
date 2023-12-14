@@ -90,33 +90,13 @@ export default function MyLeftPage() {
                     <p className={style.sub_m_title}>회원정보 관리</p>
                 </div>
                 <ul className={style.tabs}>
-						<a href="/app/mybike/moveMemberCardRegiView.do" className={style.yesresult}>
+						<a href="/moveMemberCardRegiView" className={style.yesresult}>
 							<li>
                                 <div className={style.mcon}>
                                     <div className={style.sub_menu_icon}> 
 										<img src="img/member_icon_01.png" alt="" />
 									</div>
 									환승카드 관리
-								</div>
-							</li>
-						</a>
-						<a href="/app/mybike/memberOpinion/memberOpinionList.do" className={style.yesresult}>
-							<li>
-								<div className={style.mcon}>
-									<div className={style.sub_menu_icon}> 
-										<img src="img/member_icon_04.png" alt="" />
-									</div>     
-									상담내역
-								</div>
-							</li>
-						</a>
-						<a href="/customer/opinionBoard/opinionBoardList.do" className={style.yesresult}>
-							<li>
-								<div className={style.mcon}>
-									<div className={style.sub_menu_icon}> 
-										<img src="img/member_icon_05.png" alt="" />
-									</div>     
-									시민의견등록
 								</div>
 							</li>
 						</a>
@@ -130,16 +110,7 @@ export default function MyLeftPage() {
 								</div>
 							</li>
 						</a>
-						<a href="/app/mybike/setSnsLoginInfo.do" className={style.yesresult}>
-							<li>
-								<div className={style.mcon}>
-									<div className={style.sub_menu_icon}> 
-										<img src="img/member_icon_07.png" alt="" />
-									</div>     
-									sns 로그인 연동 설정</div>
-							</li>
-						</a>
-						<a href="/app/mybike/memberInfo/memberSecede.do" className={style.yesresult}>
+						<a href="/memberDelete" className={style.yesresult}>
 							<li>
 								<div className={style.mcon}>
 									<div className={style.sub_menu_icon}> 

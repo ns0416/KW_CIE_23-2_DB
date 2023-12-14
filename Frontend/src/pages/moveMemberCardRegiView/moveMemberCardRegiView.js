@@ -14,7 +14,7 @@ export default function MoveMemberCardRegiView() {
         	<div className="top">
 				<div className="m_sub_header_wrap">
 					<div className="m_sub_header">
-						<button className="back"></button>
+					<a href="javascript:window.history.back();"><button className="back"></button></a>
 						<button className="close"></button>
 						<span id="title" style={{fontFamily: 'notokr-regular',
 							color: "#333",
