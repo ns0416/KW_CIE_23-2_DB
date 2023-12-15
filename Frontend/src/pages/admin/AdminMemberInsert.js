@@ -195,7 +195,11 @@ function AdminMemberInsert() {
                 <Form.Control type="number" placeholder="탈퇴여부" />
             </Form.Group> */}
             <Container className="mt-5">
-                <Button variant="danger" onClick={(e)=>{setMemberinfo({...Memberinfo, is_valid:false});}} style={{float: "left"}}>탈퇴처리</Button>
+                {user_uid != undefined && user_uid != null ?
+                    <Button variant="danger" onClick={(e)=>{setMemberinfo({...Memberinfo, is_valid:false});}} style={{float: "left"}}>탈퇴처리</Button>
+                    :
+                    ""
+                }
                 <Button type="submit" style={{float: "right"}}>{user_uid != undefined && user_uid != null ? "수정하기" : "추가하기"}</Button>
             </Container>
             </Form>
