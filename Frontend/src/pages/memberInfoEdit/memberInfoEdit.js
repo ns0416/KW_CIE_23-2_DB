@@ -13,13 +13,12 @@ export default function MemberInfoEdit() {
 	const  email_list = useState(['직접입력', 'daum.net', 'empal.com', 'gmail.com', 'hanmail.net', 'hotmail.com', 'naver.com', 'nate.com', 'yahoo.co.kr']);
 
 	const getUserInfo = ()=>{
-		axios.get("/rest/service/getUserInfoList")
+		axios.get("/rest/service/getUserInfo", {params:{detail:1}})
 		.then((res) => {
-			if(res.data.result== "success") {
+			if(res.data.logged== true) {
 				//console.log(res.data);
 				//console.log(res.data.data);
-				if(res.data.data.length > 0)
-					setUserInfo(res.data.data[0]);
+				setUserInfo(res.data.data);
 			}
 			else { //대여소 조회 실패
 				//console.log(res.data);

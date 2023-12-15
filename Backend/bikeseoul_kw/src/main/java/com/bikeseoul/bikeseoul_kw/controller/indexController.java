@@ -63,12 +63,27 @@ public class indexController {
 	}
 	
 	@GetMapping("/rest/service/getUserInfo")
-	public String getUserInfo(HttpServletRequest request) {
+	public String getUserInfo(HttpServletRequest request, @RequestParam(required=false) String detail) {
 		Member mem = (Member)am.checkLogged(request, false);
 		JsonObject jo = new JsonObject();
 		if(mem == null) {
 			jo.addProperty("logged", false);
 		}else {
+			if(detail != null) {
+				Member member = (Member) am.getUserInfo(mem.getUid(), false);
+				JsonObject item = new JsonObject();
+				item.addProperty("uid", member.getUid());
+				item.addProperty("id", member.getId());
+				item.addProperty("email", member.getEmail());
+				item.addProperty("phone", member.getPhone());
+				item.addProperty("level", member.getLevel());
+				item.addProperty("sex", member.getSex());
+				item.addProperty("age", member.getAge());
+				item.addProperty("weight", member.getWeight());
+				item.addProperty("is_lost", member.getIs_lost());
+				item.addProperty("is_valid", member.getIsvalid());
+				jo.add("data", item);
+			}
 			jo.addProperty("logged", true);
 			jo.addProperty("id", mem.getId());
 			jo.addProperty("phone", mem.getPhone());
