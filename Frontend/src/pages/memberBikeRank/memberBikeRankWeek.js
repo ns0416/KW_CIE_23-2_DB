@@ -1,22 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation,useOutletContext } from 'react-router-dom';
 import style from './memberBikeRank.module.css';
 import Header from '../../header.js';
 import axios from 'axios';
 
 export default function MemberBikeRankWeek() {
 	const [weekrank, setweekrank] = useState([]);
+	const [userrank, setuserrank] = useState();
+	const [userdist, setuserdist] = useState();
+	const Commons = useOutletContext();
 	useEffect(()=>{
 		axios.get("http://seoulbike-kw.namisnt.com:8082/rest/getWeeklyRankingList")
 		.then((res=>{
 			if(res.data.result === "success") {
-				console.log(res.data.data);
+				//console.log(res.data.data);
 				setweekrank(res.data.data);
 			}
 			else {
-				console.log(res.data);
+				//console.log(res.data);
 				console.log("get week rank error");
+			}
+		}))
+		.catch((err)=>console.log(err))
+
+		axios.get("http://seoulbike-kw.namisnt.com:8082/rest/service/getWeeklyRanking")
+		.then((res=>{
+			if(res.data.result === "success") {
+				//console.log(res.data);
+				setuserrank(res.data.data.rank);
+				setuserdist(res.data.data.distance);
+			}
+			else {
+				//console.log(res.data);
+				console.log("get my rank error");
 			}
 		}))
 		.catch((err)=>console.log(err))
@@ -43,9 +60,9 @@ export default function MemberBikeRankWeek() {
 	                <table>
 	                	<tbody>
 							<tr>
-	                			<td>95264 등</td>
-								<td>vlvksbdof12</td>
-								<td>4 km</td>
+	                			<td>{userrank} 등</td>
+								<td>{Commons.userInfo["id"]}</td>
+								<td>{userdist} km</td>
 							</tr>
 	                	</tbody>
 					</table>
@@ -63,7 +80,7 @@ export default function MemberBikeRankWeek() {
 	                        <th className={style.first} style={{textAlign: "center"}}>아이디</th>
 	                        <th className={style.first} style={{textAlign: "center"}}>이용거리</th>
 	                    </tr>
-	                    <tr>
+	                    {/* <tr>
 								<td><img src="../../../public/img/ic_medal_1.svg" alt=""/></td>
 									<td>rhee***</td>
 								<td>291 km</td>
@@ -82,14 +99,14 @@ export default function MemberBikeRankWeek() {
 								<td>4</td>
 									<td>ansimon4***</td>
 								<td>255 km</td>
-						</tr>
+						</tr> */}
 						{weekrank.map(function(a,idx) {
 							if(a.rank == 1)
 							{
 								return (
 									<>
 									<tr>
-										<td><img src="../../../public/img/ic_medal_1.svg" alt=""/></td>
+										<td><img src="img/ic_medal_1.svg" alt=""/></td>
 										<td>{a.member_id}</td>
 										<td>{a.distance} km</td>
 									</tr>
@@ -101,7 +118,7 @@ export default function MemberBikeRankWeek() {
 								return (
 									<>
 									<tr>
-										<td><img src="../../../public/img/ic_medal_2.svg" alt=""/></td>
+										<td><img src="img/ic_medal_2.svg" alt=""/></td>
 										<td>{a.member_id}</td>
 										<td>{a.distance} km</td>
 									</tr>
@@ -113,7 +130,7 @@ export default function MemberBikeRankWeek() {
 								return (
 									<>
 									<tr>
-										<td><img src="../../../public/img/ic_medal_3.svg" alt=""/></td>
+										<td><img src="img/ic_medal_3.svg" alt=""/></td>
 										<td>{a.member_id}</td>
 										<td>{a.distance} km</td>
 									</tr>
