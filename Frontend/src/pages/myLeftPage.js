@@ -244,7 +244,7 @@ function MyLeftPage() {
                     </Link>
                     </li>
                     <li>
-                        <Link className={style.link} to={'/memberBikeRank'}>
+                        <Link className={style.link} to={'/memberBikeRankWeek'}>
                         <div className={style.mcon}>
                             <div className={style.sub_menu_icon}>
                                 <img src="img/main_icon_08.png"></img>

@@ -22,7 +22,8 @@ import NeglectReport from './pages/neglectReport/neglectReport';
 import NeglectReportList from './pages/neglectReportList/neglectReportList';
 import MoveErrReportPage from './pages/moveErrReportPage/moveErrReportPage';
 import MoveErrReportPagetList from './pages/moveErrReportPageList/moveErrReportPagetList';
-import MemberBikeRank from './pages/memberBikeRank/memberBikeRank';
+import MemberBikeRankWeek from './pages/memberBikeRank/memberBikeRankWeek';
+import MemberBikeRankMonth from './pages/memberBikeRank/memberBikeRankMonth';
 import OpinionBoardList from './pages/opinionBoardList/opinionBoardList';
 import MemberInfoEdit from './pages/memberInfoEdit/memberInfoEdit';
 import PasswordChange from './pages/passwordChange/passwordChange';
@@ -78,7 +79,8 @@ function App() {
           <Route path="/neglectReportList" exact element={<NeglectReportList />} />
           <Route path="/moveErrReportPage" exact element={<MoveErrReportPage />} />
           <Route path="/moveErrReportPagetList" exact element={<MoveErrReportPagetList />} />
-          <Route path="/memberBikeRank" exact element={<MemberBikeRank/>} />
+          <Route path="/memberBikeRankWeek" exact element={<MemberBikeRankWeek/>} />
+          <Route path="/memberBikeRankMonth" exact element={<MemberBikeRankMonth/>} />
           <Route path="/opinionBoardList" exact element={<OpinionBoardList/>} />
           <Route path="/memberInfoEdit" exact element={<MemberInfoEdit/>} />
           <Route path="/passwordChange" exact element={<PasswordChange/>} />
