@@ -31,9 +31,9 @@ function AdminStatistics()
 				//console.log(res.data.data);
                 let data = res.data.data;
                 let result = [];
-                result.push(["station_name", "COUNT"]);
+                result.push(["station_name", "대여횟수"]);
                 for(var i=0; i<data.length; i++){
-                    result.push(data[i]);
+                    result.push([data[i].station_name, data[i].cnt]);
                 }
 				setRent(result);
             }
@@ -48,9 +48,13 @@ function AdminStatistics()
         axios.get("http://seoulbike-kw.namisnt.com:8082/rest/admin/getReturnStationStatistics", {params:{}})
         .then((res) => {
             if(res.data.result== "success") {
-                //console.log(res.data);
-				//console.log(res.data.data);
-				setReturn(res.data.data);
+                let data = res.data.data;
+                let result = [];
+                result.push(["station_name", "대여횟수"]);
+                for(var i=0; i<data.length; i++){
+                    result.push([data[i].station_name, data[i].cnt]);
+                }
+				setReturn(result);
             }
             else { //대여소 조회 실패
                 //console.log(res.data);
@@ -62,20 +66,36 @@ function AdminStatistics()
     return (
         <>
         <AdminNavbar/>
+        <Container>
+            <Container style={{marginTop:"30px", marginBottom: "30px"}}>
+                <Chart 
+                    chartType="BarChart"
+                    data={rent}
+                    options={{
+                        title:"대여가 많은 대여소 순위",
+                        colors: ["#2D9D5D"],
+                        titleTextStyle:{fontSize:24},  
+                        height:500
 
-        <Container style={{marginTop:"30px", marginBottom: "30px"}}>
-            <Chart 
-                chartType="BarChart"
-                data={rent}
-                options={{
-                    title:"대여가 많은 대여소 순위",
-                    colors: ["#2D9D5D"],
-                    titleTextStyle:{fontSize:24}
+                        }
                     }
-                }
-            />
-        </Container>
+                />
+            </Container>
+            <Container style={{marginTop:"30px", marginBottom: "30px"}}>
+                <Chart 
+                    chartType="BarChart"
+                    data={return_}
+                    options={{
+                        title:"반납이 많은 대여소 순위",
+                        colors: ["#2D9D5D"],
+                        titleTextStyle:{fontSize:24},  
+                        height:500
 
+                        }
+                    }
+                />
+            </Container>
+        </Container>
         </>
     )
 
