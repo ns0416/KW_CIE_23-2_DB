@@ -102,7 +102,7 @@ export default function BuyTicketMenu() {
                 </a>
                 <a href="/getDayTicketPayInfo" className="yesresult">
                     <li>
-                        <div className="mcon">
+                        <div className={style.mcon}>
                             <div className={style.sub_menu_icon}> 
                                 <img src="img/ticket_icon_02.png" alt="" />
                             </div>
@@ -112,7 +112,7 @@ export default function BuyTicketMenu() {
                 </a>
                 <a href="/app/ticket/member/getSeasonTicketGiftInfo.do" className="yesresult" id="ticket_monGift_as-is">
                     <li>
-                        <div className="mcon">
+                        <div className={style.mcon}>
                             <div className={style.sub_menu_icon}> 
                                 <img src="img/ticket_icon_03.png" alt="" />
                             </div>
@@ -123,7 +123,7 @@ export default function BuyTicketMenu() {
                 </a>
                 <a href="/app/ticket/member/getDayTicketGiftInfo.do" className="yesresult" id="ticket_dayGift_as-is">
                     <li>
-                        <div className="mcon">
+                        <div className={style.mcon}>
                             <div className={style.sub_menu_icon}> 
                                 <img src="img/ticket_icon_04.png" alt="" />
                             </div>
