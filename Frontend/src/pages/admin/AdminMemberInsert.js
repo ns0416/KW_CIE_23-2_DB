@@ -32,7 +32,7 @@ function AdminMemberInsert() {
     }
     const Search = ()=>{
         let param = {}
-        if (user_uid==null || user_uid == undefined){
+        if (user_uid!=null && user_uid != undefined){
             param['type'] = 'id'
             param['value'] = user_uid;
         }
@@ -41,7 +41,7 @@ function AdminMemberInsert() {
             if(res.data.result== "success") {
                 //console.log(res.data);
 				//console.log(res.data.data);
-                if(res.data.data.length > 1){
+                if(res.data.data.length > 0){
                     setMemberinfo(res.data.data[0]);
                 }
             }
