@@ -45,6 +45,7 @@ import AdminBoardModify from './pages/admin/AdminBoardModify';
 import AdminArticleModify from './pages/admin/AdminArticleModify';
 import AdminArticle from './pages/admin/AdminArticle';
 import AdminBikeModify from './pages/admin/AdminBikeModify';
+import AdminStatistics from './pages/admin/AdminStatistics';
 
 function App() {
   return (
@@ -102,7 +103,7 @@ function App() {
           <Route path="/admin/writeArticle" exact element={<AdminArticleModify/>}/>
           <Route path="/admin/article" exact element={<AdminArticle/>}/>
           <Route path="/admin/articeModify/:uid" exact element={<AdminArticleModify/>}/>
-          
+          <Route path="/admin/statistics" exact element={<AdminStatistics/>}/>
         </Route>        
       </Routes>  
     </div>

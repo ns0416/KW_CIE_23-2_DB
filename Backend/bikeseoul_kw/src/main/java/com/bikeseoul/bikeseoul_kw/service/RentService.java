@@ -52,7 +52,7 @@ public class RentService implements RentDao {
 	}
 
 	@Override
-	public List<Bike> getBikeList(String station_name) {
+	public List<Map<String, Object>> getBikeList(String station_name) {
 		return rentDao.getBikeList(station_name);
 	}
 
@@ -94,5 +94,17 @@ public class RentService implements RentDao {
 	public int deleteBike(int bike_id) {
 		// TODO Auto-generated method stub
 		return rentDao.deleteBike(bike_id);
+	}
+
+	@Override
+	public List<Map<String, Object>> getRentStationStatistics() {
+		// TODO Auto-generated method stub
+		return rentDao.getRentStationStatistics();
+	}
+
+	@Override
+	public List<Map<String, Object>> getReturnStationStatistics() {
+		// TODO Auto-generated method stub
+		return rentDao.getReturnStationStatistics();
 	}
 }

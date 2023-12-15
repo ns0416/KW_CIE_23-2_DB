@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class RentController {
@@ -252,16 +253,17 @@ public class RentController {
         }
         JsonArray ja = new JsonArray();
         try {
-            List<Bike> bikeList = rentManager.getBikeList(station_name);
-            for (Bike bike : bikeList) {
+        	List<Pair<Bike, String>> bikeList = rentManager.getBikeList(station_name);
+            for (Pair<Bike, String> bike : bikeList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("bike_id", bike.getBike_id());
-                item.addProperty("bike_type", bike.getBike_type().toString());
-                item.addProperty("station_uid", bike.getStation_uid());
-                item.addProperty("status", bike.getStatus_().toString());
-                item.addProperty("inspection_date", bike.getInspection_date().format(dtf_kor));
-                item.addProperty("release_date", bike.getRelease_date().format(dtf_kor));
-                item.addProperty("updated_date", bike.getUpdated_date().format(dtf_kor));
+                item.addProperty("bike_id", bike.getFirst().getBike_id());
+                item.addProperty("bike_type", bike.getFirst().getBike_type().toString());
+                item.addProperty("station_uid", bike.getFirst().getStation_uid());
+                item.addProperty("status", bike.getFirst().getStatus_().toString());
+                item.addProperty("inspection_date", bike.getFirst().getInspection_date().format(dtf_kor));
+                item.addProperty("release_date", bike.getFirst().getRelease_date().format(dtf_kor));
+                item.addProperty("updated_date", bike.getFirst().getUpdated_date().format(dtf_kor));
+                item.addProperty("station_name", bike.getSecond());
                 ja.add(item);
             }
             jo.addProperty("result", "success");
@@ -348,16 +350,17 @@ public class RentController {
         int level = mem.getLevel();
         JsonArray ja = new JsonArray();
         try {
-            List<Bike> bikeList = rentManager.getBikeList(station_name);
-            for (Bike bike : bikeList) {
+            List<Pair<Bike, String>> bikeList = rentManager.getBikeList(station_name);
+            for (Pair<Bike, String> bike : bikeList) {
                 JsonObject item = new JsonObject();
-                item.addProperty("bike_id", bike.getBike_id());
-                item.addProperty("bike_type", bike.getBike_type().toString());
-                item.addProperty("station_uid", bike.getStation_uid());
-                item.addProperty("status", bike.getStatus_().toString());
-                item.addProperty("inspection_date", bike.getInspection_date().format(dtf_kor));
-                item.addProperty("release_date", bike.getRelease_date().format(dtf_kor));
-                item.addProperty("updated_date", bike.getUpdated_date().format(dtf_kor));
+                item.addProperty("bike_id", bike.getFirst().getBike_id());
+                item.addProperty("bike_type", bike.getFirst().getBike_type().toString());
+                item.addProperty("station_uid", bike.getFirst().getStation_uid());
+                item.addProperty("status", bike.getFirst().getStatus_().toString());
+                item.addProperty("inspection_date", bike.getFirst().getInspection_date().format(dtf_kor));
+                item.addProperty("release_date", bike.getFirst().getRelease_date().format(dtf_kor));
+                item.addProperty("updated_date", bike.getFirst().getUpdated_date().format(dtf_kor));
+                item.addProperty("station_name", bike.getSecond());
                 ja.add(item);
             }
             jo.addProperty("result", "success");
@@ -464,4 +467,48 @@ public class RentController {
  		}
  		return jo.toString();
  	}
+    @GetMapping("/rest/admin/getRentStationStatistics")
+    public String getRentStationStatistics() {
+    	JsonObject jo = new JsonObject();
+        JsonArray ja = new JsonArray();
+        try {
+            List<Map<String, Object>> statistics = rentManager.getRentStationStatistics();
+            for (Map<String, Object> item : statistics) {
+                JsonObject jo_item = new JsonObject();
+                jo_item.addProperty("cnt", (Long)item.get("cnt"));
+                jo_item.addProperty("station_name", (String)item.get("station_name"));
+                jo_item.addProperty("station_uid", (Integer)item.get("station_uid"));
+                ja.add(jo_item);
+            }
+            jo.addProperty("result", "success");
+            jo.add("data", ja);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        return jo.toString();
+    }
+    @GetMapping("/rest/admin/getReturnStationStatistics")
+    public String getReturnStationStatistics() {
+    	JsonObject jo = new JsonObject();
+        JsonArray ja = new JsonArray();
+        try {
+            List<Map<String, Object>> statistics = rentManager.getReturnStationStatistics();
+            for (Map<String, Object> item : statistics) {
+                JsonObject jo_item = new JsonObject();
+                jo_item.addProperty("cnt", (Long)item.get("cnt"));
+                jo_item.addProperty("station_name", (String)item.get("station_name"));
+                jo_item.addProperty("station_uid", (Integer)item.get("station_uid"));
+                ja.add(jo_item);
+            }
+            jo.addProperty("result", "success");
+            jo.add("data", ja);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jo.addProperty("result", "failed");
+            return jo.toString();
+        }
+        return jo.toString();
+    }
 }

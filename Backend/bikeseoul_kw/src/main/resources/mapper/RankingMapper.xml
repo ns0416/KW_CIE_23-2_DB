@@ -5,18 +5,26 @@
 <mapper namespace="com.bikeseoul.bikeseoul_kw.dao.RankingDao">
     <select id="getWeeklyRankingList" resultType="com.bikeseoul.bikeseoul_kw.container.Ranking">
         SELECT
-            member_uid, distance, created_date
+            r.member_uid AS uid, m.id AS member_id, distance, r.created_date AS created_date
         FROM
-            ranking_weekly
+            ranking_weekly AS r
+        JOIN
+        	member AS m
+        ON
+        	r.member_uid = m.uid
         ORDER BY
             distance DESC
     </select>
 
     <select id="getMonthlyRankingList" resultType="com.bikeseoul.bikeseoul_kw.container.Ranking">
-        SELECT
-            member_uid, distance, created_date
+       SELECT
+            r.member_uid AS uid, m.id AS member_id, distance, r.created_date AS created_date
         FROM
-            ranking_monthly
+            ranking_monthly AS r
+        JOIN
+        	member AS m
+        ON
+        	r.member_uid = m.uid
         ORDER BY
             distance DESC
     </select>

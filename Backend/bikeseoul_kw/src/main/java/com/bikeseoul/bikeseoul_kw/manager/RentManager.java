@@ -71,9 +71,19 @@ public class RentManager {
 		// TODO Auto-generated method stub
 		return rentService.getRentInfo(rent_uid, bike_uid, ticket_detail_uid);
 	}
-	public List<Bike> getBikeList(String station_name) {
-		// TODO Auto-generated method stub
-		return rentService.getBikeList(station_name);
+	public List<Pair<Bike, String>> getBikeList(String station_name) {
+		// TODO Auto-generated method stub]
+		List<Pair<Bike, String>> result = new ArrayList();
+		List<Map<String, Object>> data =rentService.getBikeList(station_name);
+		if(data == null)
+			return null;
+		for(Map<String, Object> item : data) {
+			Bike b = new Bike((Integer)item.get("bike_id"), bike_type.valueOf((String)item.get("bike_type")), (Integer)item.get("station_uid"), bike_status.valueOf((String)item.get("status_")), (LocalDateTime)item.get("inspection_date"), (LocalDateTime)item.get("release_date"), (LocalDateTime)item.get("update_date"));
+			Pair<Bike, String> it = new Pair();
+			it.set(b, (String)item.get("station_name"));
+			result.add(it);
+		}
+		return result;
 	}
 	public LocalDateTime getExpiredDate(Pair<Ticket,Ticket_detail> activationTicket) {
 		List<Rent> rent = getRentInfo(0, 0, activationTicket.getSecond().getUid());
@@ -173,5 +183,13 @@ public class RentManager {
 	public CommonEnum deleteBike(Integer bike_id) {
 		// TODO Auto-generated method stub
 		return rentService.deleteBike(bike_id)> 0 ? CommonEnum.SUCCESS : CommonEnum.FAILED;
+	}
+	public List<Map<String, Object>> getRentStationStatistics() {
+		// TODO Auto-generated method stub
+		return rentService.getRentStationStatistics();
+	}
+	public List<Map<String, Object>> getReturnStationStatistics() {
+		// TODO Auto-generated method stub
+		return rentService.getReturnStationStatistics();
 	}
 }

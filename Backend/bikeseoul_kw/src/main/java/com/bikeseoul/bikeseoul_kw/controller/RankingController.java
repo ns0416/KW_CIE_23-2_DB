@@ -35,6 +35,7 @@ public class RankingController {
             for(Ranking ranking:rankingList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("member_uid", ranking.getUid());
+                item.addProperty("member_id", ranking.getMember_id());
                 item.addProperty("rank", ranking.getRank());
                 item.addProperty("distance", ranking.getDistance());
                 item.addProperty("created_date", ranking.getCreated_date().format(dtf_kor));
@@ -61,6 +62,7 @@ public class RankingController {
             for(Ranking ranking:rankingList) {
                 JsonObject item = new JsonObject();
                 item.addProperty("member_uid", ranking.getUid());
+                item.addProperty("member_id", ranking.getMember_id());
                 item.addProperty("rank", ranking.getRank());
                 item.addProperty("distance", ranking.getDistance());
                 item.addProperty("created_date", ranking.getCreated_date().format(dtf_kor));

@@ -71,6 +71,7 @@ function AdminBike()
                   <th>자전거번호</th>
                   <th>자전거타입</th>
                   <th>상태</th>
+                  <th>최근반납대여소</th>
                   <th>최근정비일자</th>
                   <th>출고일자</th>
                   <th>수정일자</th>
@@ -86,6 +87,7 @@ function AdminBike()
                                     <td>{a.bike_id}</td>
                                     <td>{a.bike_type}</td>
                                     <td>{a.status}</td>
+                                    <td>{a.station_name}</td>
                                     <td>{a.inspection_date}</td>
                                     <td>{a.release_date}</td>
                                     <td>{a.updated_date}</td>

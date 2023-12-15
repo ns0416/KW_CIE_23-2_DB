@@ -18,11 +18,13 @@ public interface RentDao {
     int updateRent(Rent rent);
     int insertBike(Bike bike);
     Bike getBikeInfo(int uid);
-    List<Bike> getBikeList(String station_name);
+    List<Map<String, Object>> getBikeList(String station_name);
     int updateBikeInfo(Bike bike);
     List<Rent> getRentInfo(int rent_uid, int bike_uid, int ticket_detail_uid);
     int insertOverdue(Overdue overdue);
     List<Breakdown> getBreakdownList(int member_uid);
     List<Neglect> getNeglectList(int member_uid);
     int deleteBike(int bike_id);
+    List<Map<String, Object>> getRentStationStatistics();
+    List<Map<String, Object>> getReturnStationStatistics();
 }
