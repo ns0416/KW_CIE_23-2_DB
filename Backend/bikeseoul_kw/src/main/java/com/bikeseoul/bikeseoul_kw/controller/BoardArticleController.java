@@ -52,7 +52,7 @@ public class BoardArticleController {
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();
         try {
-			List<Pair<BoardArticle,Pair<String, String>>> boardArticleList = boardManager.getBoardArticleList(0);
+			List<Pair<BoardArticle,Pair<String, String>>> boardArticleList = boardManager.getBoardArticleList(board_uid);
 			for (Pair<BoardArticle, Pair<String, String>> articlePair : boardArticleList) {
 				JsonObject item = new JsonObject();
 				item.addProperty("uid", articlePair.getFirst().getUid());

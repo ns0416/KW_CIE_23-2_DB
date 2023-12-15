@@ -1,10 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 import { useNavigate, useLocation } from 'react-router-dom';
 import style from './memberDelete.module.css';
 import Header from '../../header.js';
+import axios from 'axios';
 
 export default function MemberDelete() {
+    const [leaveReason, setLeaveReason] = useState([]);
+    const [select, setSelect] = useState(-1);
+    const navigate = useNavigate();
+    const onChangeHandler = (e)=>{
+        setSelect(e.target.value);
+    }
+    const setLeave = ()=>{
+        if(select < 0){
+            alert("탈퇴 사유를 선택해주세요");
+            return;
+        }
+        axios.get('http://seoulbike-kw.namisnt.com:8082/rest/service/leaveUser', {params:{lr_uid:select}})
+        .then((res) => {
+            if(res.data.result== "success") {
+                alert("탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.")
+                navigate("/");
+            }
+            else { //대여소 조회 실패
+                console.log(res.data);
+                console.log("get leave reason error!")
+            }
+        })
+        .catch((err) => console.log(err))
+    }
+    const getLeaveReaon = ()=>{
+        axios.get('http://seoulbike-kw.namisnt.com:8082/rest/service/getLeaveReasons')
+        .then((res) => {
+            if(res.data.result== "success") {
+                setLeaveReason(res.data.data);
+            }
+            else { //대여소 조회 실패
+                console.log(res.data);
+                console.log("get leave reason error!")
+            }
+        })
+        .catch((err) => console.log(err))
+    }
+    useEffect(()=>{
+        getLeaveReaon();
+    }, [])
     return (
         <>
 <div className={`${style.wrap} ${style.my}`} id="sub">
@@ -40,11 +81,15 @@ export default function MemberDelete() {
             </div>
             
             <div className={style.out_box}>
-            	<p className={style.remains}>회원님께서는<em>2024.05.23</em><span className={style.pwblock}>일까지 이용권 사용기간이 남아 있습니다.</span><br/><br/></p>
-				<select id="leaveReasonCd" name="leaveReasonCd" style={{display:"block"}}>
-					<option value="">선택</option><option id="comm_OUT_002" value="OUT_002">서비스 불만족</option><option id="comm_OUT_003" value="OUT_003">요금정책 불만</option><option id="comm_OUT_004" value="OUT_004">기타</option><option id="comm_OUT_005" value="OUT_005">개인정보</option>
+				<select id="leaveReasonCd" name="leaveReasonCd" style={{display:"block"}} onChange={onChangeHandler}>
+                    <option value="-1">선택</option>
+                    {leaveReason.map(function(a, i){
+                        return(
+                        <option key={i} value={a.uid}>{a.msg}</option>
+                        )
+                    })}
 				</select>
-                <div className={style.btn}><a href="#" id="confirm">회원탈퇴</a></div>
+                <div className={style.btn}><a href="#" id="confirm" onClick={(e)=>{setLeave()}}>회원탈퇴</a></div>
             </div>
 			    <form id="frm">
 				</form>
