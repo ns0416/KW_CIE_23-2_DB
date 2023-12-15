@@ -407,6 +407,7 @@ public class indexController {
 			if(res != CommonEnum.SUCCESS)
 				throw new Exception();
 			jo.addProperty("result", "success");
+			hs.invalidate();
 		}catch(Exception e) {
 			e.printStackTrace();
 			jo.addProperty("result", "failed");
