@@ -118,7 +118,7 @@ function AdminBikeModify() {
         <>
         <AdminNavbar/>
         <Container>
-            <h3 style={{fontWeight: "bold", margin: "30px 0"}}>{!bike_id || bikeInfo.bike_id < 1 ? "게시판 수정" : "게시판 추가"}</h3>
+            <h3 style={{fontWeight: "bold", margin: "30px 0"}}>{!bike_id || bikeInfo.bike_id < 1 ? "따릉이 추가" : "따릉이 수정"}</h3>
             <div>
             <Form noValidate onSubmit={Submithandler}>
             <Form.Group className="mb-3" controlId="bike_id">
